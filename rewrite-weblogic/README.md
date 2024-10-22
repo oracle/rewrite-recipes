@@ -13,8 +13,8 @@ migrating your [WebLogic](https://www.oracle.com/java/weblogic/) applications to
 
 The following tools are required to build and execute this project:
 
-- Java (version 8 or higher)
-- Maven
+- JDK (version 1.8 or higher)
+- Maven (version 3.2+)
 
 ### Execution
 

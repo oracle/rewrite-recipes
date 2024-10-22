@@ -16,8 +16,8 @@ Before getting started, select which recipe you would like to use. Each recipe h
 
 The following tools are required to build and execute this project:
 
-- Java
-- Maven (or gradle)
+- JDK (version 1.8 or higher)
+- Maven (version 3.2+)
 - Your code
 
 #### Get your code

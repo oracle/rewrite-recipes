@@ -1,5 +1,7 @@
 # OpenReWrite Recipes
 
+Note > *** This is a pre-release project, some of the information and commands may change in a near future ***
+
 This project implements OpenRewrite recipes on Oracle products.
 
 Each folder of this project contains a group recipe that can container multiple composite recipes. Each composite recipe is a set of recipes that can be used to migrate a specific version of a product.

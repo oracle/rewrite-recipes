@@ -1,6 +1,7 @@
 # OpenReWrite Recipes
 
-Note > *** This is a pre-release project, some of the information and commands may change in a near future ***
+> [!NOTE]  
+> This is a pre-release project, some of the information and commands may change in a near future
 
 This project implements OpenRewrite recipes on Oracle products.
 

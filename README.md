@@ -1,9 +1,9 @@
-# OpenReWrite Recipes
+# OpenRewrite Recipes
 
-> [!NOTE]  
-> This is a pre-release project, some of the information and commands may change in a near future
+> [!WARNING]
+> This is a ***pre-release project***, some of the information and commands may change in a near future
 
-This project implements OpenRewrite recipes on Oracle products.
+This project implements [OpenRewrite](https://docs.openrewrite.org) recipes on Oracle products.
 
 Each folder of this project contains a group recipe that can container multiple composite recipes. Each composite recipe is a set of recipes that can be used to migrate a specific version of a product.
 
@@ -25,7 +25,10 @@ The following tools are required to build and execute this project:
 
 #### Get your code
 
-Clone your project to your local machine. Note that the run command will make changes to your code, always make sure you have a backup of your code.
+Clone your project to your local machine. 
+
+> [!IMPORTANT]  
+> Note that the run command will make changes to your code, always make sure you have a backup of your code. When using git, create a branch and use git diff to see the differences.
 
 #### Run the recipe
 

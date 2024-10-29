@@ -13,32 +13,12 @@ Example: `rewrite-weblogic` is a group recipe that contains composite recipes li
 
 Before getting started, select which recipe you would like to use. Each recipe has its own README file that explains how to use it.
 
-### Getting started with [Rewrite WebLogic](rewrite-weblogic/README.md)
+| Recipe | Description |
+| --- | --- |
+| [`rewrite-weblogic`](rewrite-weblogic/README.md) | Migrate your WebLogic applications to the latest version of WebLogic and Java with OpenRewrite. Automatically. |
 
-#### Prerequisites
-
-The following tools are required to build and execute this project:
-
-- JDK (version 1.8 or higher)
-- Maven (version 3.2+)
-- Your code
-
-#### Get your code
-
-Clone your project to your local machine. 
-
-> [!IMPORTANT]  
-> Note that the run command will make changes to your code, always make sure you have a backup of your code. When using git, create a branch and use git diff to see the differences.
-
-#### Run the recipe
-
-To run the recipe, execute the following command:
-
-```shell
-mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-  -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-weblogic:LATEST \
-  -Drewrite.activeRecipes=com.oracle.weblogic.upgradeTo1411
-```
+> [!TIP]
+> Click on the recipe name to get more details of an specific recipe (e.g.: `rewrite-weblogic`) and how to use it
 
 ## Get Help
 

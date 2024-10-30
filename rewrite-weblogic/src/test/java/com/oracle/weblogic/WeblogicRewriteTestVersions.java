@@ -8,13 +8,11 @@
 package com.oracle.weblogic;
 
 import org.openrewrite.InMemoryExecutionContext;
-import org.openrewrite.maven.MavenDownloadingException;
 
 public final class WeblogicRewriteTestVersions {
     private static final String WLS_1411_VERSION;
     private static final String WLS_1412_VERSION;
     private static final String WLS_1511_VERSION;
-
 
     static {
         WLS_1411_VERSION = resolveVersion("14.1.1", "14.1.1-0-0");
@@ -35,11 +33,8 @@ public final class WeblogicRewriteTestVersions {
     }
 
     private static String resolveVersion(String versionPattern, String currentVersion) {
-        try {
-            return WeblogicVersionHelper.getNewerVersion(versionPattern, currentVersion, new InMemoryExecutionContext()).orElse(currentVersion);
-        } catch (MavenDownloadingException e) {
-            throw new IllegalStateException("Failed to resolve latest Weblogic %s version".formatted(versionPattern), e);
-        }
+        return WeblogicVersionHelper.getNewerVersion(versionPattern, currentVersion, new InMemoryExecutionContext())
+                .orElse(currentVersion);
     }
 
     private WeblogicRewriteTestVersions() {

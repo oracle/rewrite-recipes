@@ -8,40 +8,30 @@
 package com.oracle.weblogic;
 
 import org.openrewrite.ExecutionContext;
-import org.openrewrite.maven.MavenDownloadingException;
-import org.openrewrite.maven.internal.MavenPomDownloader;
-import org.openrewrite.maven.tree.GroupArtifact;
-import org.openrewrite.maven.tree.MavenMetadata;
-import org.openrewrite.maven.tree.MavenRepository;
 import org.openrewrite.semver.LatestRelease;
 import org.openrewrite.semver.Semver;
 import org.openrewrite.semver.VersionComparator;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
-
-import static java.util.Collections.*;
-import static org.openrewrite.Tree.randomId;
 
 public final class WeblogicVersionHelper {
 
-    private static final String GROUP_ID = "com.oracle.weblogic";
-    private static final String ARTIFACT_ID = "weblogic";
     private static final LatestRelease LATEST_RELEASE = new LatestRelease(null);
 
-    public static final MavenRepository GRADLE_PLUGIN_REPO = new MavenRepository("gradle-plugins", "https://plugins.gradle.org/m2/", "true", "false", true, null, null, true);
+    // Local supported versions list of Weblogic
+    public static final List<String> LOCAL_VERSIONS = List.of(
+            "14.1.1-0-0", "14.1.2-0-0", "15.1.1-0-0"
+    );
 
-
-    public static Optional<String> getNewerVersion(String versionPattern, String currentVersion, ExecutionContext ctx) throws MavenDownloadingException {
+    public static Optional<String> getNewerVersion(String versionPattern, String currentVersion, ExecutionContext ctx) {
         VersionComparator versionComparator = Semver.validate(versionPattern, null).getValue();
         assert versionComparator != null;
 
-        MavenMetadata mavenMetadata = new MavenPomDownloader(emptyMap(), ctx)
-                .downloadMetadata(new GroupArtifact(GROUP_ID, ARTIFACT_ID), null, emptyList());
-
         Collection<String> availableVersions = new ArrayList<>();
-        for (String v : mavenMetadata.getVersioning().getVersions()) {
+        for (String v : LOCAL_VERSIONS) {
             if (versionComparator.isValid(null, v)) {
                 availableVersions.add(v);
             }

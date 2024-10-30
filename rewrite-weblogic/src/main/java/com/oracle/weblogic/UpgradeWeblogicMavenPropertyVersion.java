@@ -7,16 +7,19 @@
  */
 package com.oracle.weblogic;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 import org.openrewrite.*;
 import org.openrewrite.marker.Markup;
 import org.openrewrite.maven.ChangePropertyValue;
-import org.openrewrite.maven.MavenDownloadingException;
 import org.openrewrite.maven.MavenIsoVisitor;
 import org.openrewrite.maven.tree.MavenResolutionResult;
 import org.openrewrite.semver.Semver;
 import org.openrewrite.xml.tree.Xml;
+
+import java.util.Optional;
 
 @Value
 @EqualsAndHashCode(callSuper = false)
@@ -24,12 +27,18 @@ public class UpgradeWeblogicMavenPropertyVersion extends Recipe {
     @Option(displayName = "New version",
             description = "An exact version number, or node-style semver selector used to select the version number.",
             example = "14.1.2-0-0")
+
     String newVersion;
 
+    @JsonCreator
+    public UpgradeWeblogicMavenPropertyVersion(@JsonProperty("newVersion") String newVersion) {
+        this.newVersion = newVersion;
+    }
+
+    @SuppressWarnings("unchecked")
     @Override
     public Validated validate() {
         Validated validated = super.validate();
-        //noinspection ConstantConditions
         if (newVersion != null) {
             validated = validated.and(Semver.validate(newVersion, null));
         }
@@ -43,7 +52,7 @@ public class UpgradeWeblogicMavenPropertyVersion extends Recipe {
 
     @Override
     public String getDescription() {
-        return "Set the maven weblogic.version property according to a node-style semver selector or to a specific version number.";
+        return "Set the Maven weblogic.version property according to a node-style semver selector or to a specific version number.";
     }
 
     @Override
@@ -54,11 +63,17 @@ public class UpgradeWeblogicMavenPropertyVersion extends Recipe {
                 Xml.Document d = super.visitDocument(document, ctx);
                 MavenResolutionResult model = getResolutionResult();
                 String currentVersion = model.getPom().getProperties().get("weblogic.version");
+
                 if (currentVersion != null && !currentVersion.isEmpty()) {
                     try {
-                        WeblogicVersionHelper.getNewerVersion(newVersion, currentVersion, ctx)
-                                .ifPresent(latestVersion -> doAfterVisit(new ChangePropertyValue("weblogic.version", latestVersion, false, true).getVisitor()));
-                    } catch (MavenDownloadingException e) {
+                        Optional<String> latestVersion = WeblogicVersionHelper.getNewerVersion(newVersion, currentVersion, ctx);
+                        if (latestVersion.isPresent()) {
+                            System.out.printf("Upgrading weblogic.version from %s to %s%n", currentVersion, latestVersion.get());
+                            doAfterVisit(new ChangePropertyValue("weblogic.version", latestVersion.get(), false, true).getVisitor());
+                        } else {
+                            System.out.printf("No newer version found for weblogic.version: %s%n", currentVersion);
+                        }
+                    } catch (Exception e) {
                         return Markup.warn(document, e);
                     }
                 }

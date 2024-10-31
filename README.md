@@ -22,10 +22,9 @@ Before getting started, select which recipe you would like to use. Each recipe h
 
 ## Get Help
 
-We have a closely monitored public Slack channel where you can contact us to ask questions about using WebLogic or give us feedback or suggestions about what features and improvements you would like to see.
-We would love to hear from you.
+We have a public Slack channel where you can get in touch with us to ask questions about using openrewrite recipes with WebLogic or give us feedback or suggestions about what features and improvements you would like to see. We would love to hear from you. 
 
-For an invitation to join our public channel, please visit this [site](https://weblogic-slack-inviter.herokuapp.com/). The invitation email will include details of how to access our Slack workspace.
+To join our channel, please visit this [site](https://join.slack.com/t/oracle-weblogic/shared_invite/zt-2tgq767tj-i4ip6suUiW2Cgykb~rMijg) to get an invitation. The invitation email will include details of how to access our Slack workspace. After you are logged in, please go to #wls-app-upgrade-openrewrite and say, "Hello!"
 
 ## Contributing
 

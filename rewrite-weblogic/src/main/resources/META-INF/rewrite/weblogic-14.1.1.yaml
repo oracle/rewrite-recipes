@@ -40,6 +40,9 @@ type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.upgradeTo1411
 displayName: Migrate to WebLogic 14.1.1
 description: This recipe will apply changes required for migrating to WebLogic 14.1.1
+tags:
+  - weblogic
+  - java
 recipeList:
   - org.openrewrite.java.migrate.UpgradeToJava17
   - org.openrewrite.maven.ChangePropertyValue:

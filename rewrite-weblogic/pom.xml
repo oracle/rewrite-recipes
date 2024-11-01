@@ -98,6 +98,7 @@
               <artifactId>rewrite-maven-plugin</artifactId>
               <version>5.42.2</version>
               <configuration>
+                  <activeRecipes>com.oracle.weblogic.RecipeBestPractices</activeRecipes>
                   <failOnDryRunResults>true</failOnDryRunResults>
               </configuration>
               <dependencies>

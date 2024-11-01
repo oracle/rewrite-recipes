@@ -1,0 +1,6 @@
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.RecipeBestPractices
+displayName: Apply best practices for WebLogic recipes
+description: A convenience recipe to apply best practices for OpenRewrite recipes directly from the command line or IntelliJ IDEA.
+recipeList:
+  - org.openrewrite.recipes.OpenRewriteBestPractices

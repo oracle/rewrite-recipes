@@ -60,6 +60,9 @@ buildNumber.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
+# IntelliJ IDEA
+.idea/
+
 ### Gradle ###
 .gradle
 **/build/

@@ -24,10 +24,10 @@ import java.util.Optional;
 @Value
 @EqualsAndHashCode(callSuper = false)
 public class UpgradeWeblogicMavenPropertyVersion extends Recipe {
+
     @Option(displayName = "New version",
             description = "An exact version number, or node-style semver selector used to select the version number.",
             example = "14.1.2-0-0")
-
     String newVersion;
 
     @JsonCreator

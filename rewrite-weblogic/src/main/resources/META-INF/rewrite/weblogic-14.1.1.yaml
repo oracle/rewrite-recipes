@@ -44,7 +44,7 @@ tags:
   - weblogic
   - java
 recipeList:
-  - org.openrewrite.java.migrate.UpgradeToJava17
+  - org.openrewrite.java.migrate.Java8toJava11
   - org.openrewrite.maven.ChangePropertyValue:
       key: weblogic.version
       newValue: 14.1.1-0-0

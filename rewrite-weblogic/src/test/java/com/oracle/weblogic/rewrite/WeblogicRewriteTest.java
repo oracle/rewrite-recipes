@@ -5,7 +5,7 @@
  * https://oss.oracle.com/licenses/upl.
  *
  */
-package com.oracle.weblogic;
+package com.oracle.weblogic.rewrite;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;

@@ -5,7 +5,7 @@
  * https://oss.oracle.com/licenses/upl.
  *
  */
-package com.oracle.weblogic;
+package com.oracle.weblogic.rewrite;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

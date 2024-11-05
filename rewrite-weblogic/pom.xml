@@ -3,9 +3,9 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.oracle.weblogic</groupId>
+  <groupId>com.oracle.weblogic.rewrite</groupId>
   <artifactId>rewrite-weblogic</artifactId>
-  <version>0.1.0</version>
+  <version>0.2.1</version>
 
   <name>rewrite-weblogic</name>
 
@@ -57,6 +57,11 @@
       </dependency>
       <dependency>
           <groupId>org.openrewrite</groupId>
+          <artifactId>rewrite-java-21</artifactId>
+          <scope>runtime</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.openrewrite</groupId>
           <artifactId>rewrite-maven</artifactId>
           <scope>compile</scope>
       </dependency>
@@ -98,7 +103,7 @@
               <artifactId>rewrite-maven-plugin</artifactId>
               <version>5.42.2</version>
               <configuration>
-                  <activeRecipes>com.oracle.weblogic.RecipeBestPractices</activeRecipes>
+                  <activeRecipes>com.oracle.weblogic.rewrite.RecipeBestPractices</activeRecipes>
                   <failOnDryRunResults>true</failOnDryRunResults>
               </configuration>
               <dependencies>

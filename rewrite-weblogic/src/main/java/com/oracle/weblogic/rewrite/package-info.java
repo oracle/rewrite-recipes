@@ -4,6 +4,6 @@
  */
 @NullMarked
 @NonNullFields
-package com.oracle.weblogic;
+package com.oracle.weblogic.rewrite;
 import org.jspecify.annotations.NullMarked;
 import org.openrewrite.internal.lang.NonNullFields;

@@ -5,11 +5,13 @@
  * https://oss.oracle.com/licenses/upl.
  *
  */
-package com.oracle.weblogic;
+package com.oracle.weblogic.rewrite;
 
 import org.junit.jupiter.api.Test;
 import org.openrewrite.DocumentExample;
 import org.openrewrite.test.RewriteTest;
+
+import com.oracle.weblogic.rewrite.UpgradeWeblogicMavenPropertyVersion;
 
 import static org.openrewrite.maven.Assertions.pomXml;
 

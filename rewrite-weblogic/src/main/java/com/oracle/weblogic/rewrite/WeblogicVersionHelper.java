@@ -5,7 +5,7 @@
  * https://oss.oracle.com/licenses/upl.
  *
  */
-package com.oracle.weblogic;
+package com.oracle.weblogic.rewrite;
 
 import org.openrewrite.ExecutionContext;
 import org.openrewrite.semver.LatestRelease;

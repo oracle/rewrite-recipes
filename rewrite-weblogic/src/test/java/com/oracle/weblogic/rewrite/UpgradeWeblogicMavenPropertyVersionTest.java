@@ -11,8 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.openrewrite.DocumentExample;
 import org.openrewrite.test.RewriteTest;
 
-import com.oracle.weblogic.rewrite.UpgradeWeblogicMavenPropertyVersion;
-
 import static org.openrewrite.maven.Assertions.pomXml;
 
 class UpgradeWeblogicMavenPropertyVersionTest implements RewriteTest {

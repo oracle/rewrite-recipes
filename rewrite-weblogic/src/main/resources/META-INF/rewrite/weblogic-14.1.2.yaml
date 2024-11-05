@@ -37,38 +37,31 @@
 # SOFTWARE.
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.upgradeTo1411
-displayName: Migrate to WebLogic 14.1.1
-description: This recipe will apply changes required for migrating to WebLogic 14.1.1
+name: com.oracle.weblogic.rewrite.upgradeToWeblogic1412Java21
+displayName: Migrate to WebLogic 14.1.2 and Java 21
+description: This recipe will apply changes required for migrating to WebLogic 14.1.2 and Java 21
 tags:
   - weblogic
   - java
 recipeList:
-  - org.openrewrite.java.migrate.Java8toJava11
-  - org.openrewrite.maven.ChangePropertyValue:
-      key: weblogic.version
-      newValue: 14.1.1-0-0
-  - org.openrewrite.maven.UpgradeParentVersion:
-      groupId: com.oracle.weblogic.archetype
-      artifactId: wls-common
-      newVersion: 14.1.1-0-0
-  - org.openrewrite.maven.UpgradePluginVersion:
-      groupId: com.oracle.weblogic
-      artifactId: org.glassfish.javax.json
-      newVersion: 14.1.1-0-0
-      trustParent: "True"
-  - org.openrewrite.maven.UpgradePluginVersion:
-      groupId: com.oracle.weblogic
-      artifactId: javax.javaee-api
-      newVersion: 14.1.1-0-0
-      trustParent: "True"
-  - org.openrewrite.maven.UpgradePluginVersion:
-      groupId: com.oracle.weblogic
-      artifactId: org.codehaus.jettison.jettison
-      newVersion: 14.1.1-0-0
-      trustParent: "True"
-  - org.openrewrite.maven.UpgradePluginVersion:
-      groupId: com.oracle.weblogic
-      artifactId: javax.javaee-api
-      newVersion: 14.1.1-0-0
-      trustParent: "True"
+  - org.openrewrite.java.migrate.UpgradeToJava21
+  - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1412
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.upgradeToWeblogic1412Java17
+displayName: Migrate to WebLogic 14.1.2 and Java 17
+description: This recipe will apply changes required for migrating to WebLogic 14.1.2 and Java 21
+tags:
+  - weblogic
+  - java
+recipeList:
+  - org.openrewrite.java.migrate.UpgradeToJava17
+  - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1412
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1412
+displayName: Update the WebLogic version to 14.1.2
+description: This recipe will update the WebLogic version to 14.1.2 for Maven build.
+recipeList:
+  - com.oracle.weblogic.rewrite.UpgradeWeblogicMavenPropertyVersion:
+      newVersion: 14.1.2-0-0

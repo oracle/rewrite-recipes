@@ -1,13 +1,10 @@
 # OpenRewrite Recipes
 
-> [!WARNING]
-> This is a ***pre-release project***. Some of the information and commands may change in the near future
-
 This project implements [OpenRewrite](https://docs.openrewrite.org) recipes on Oracle products.
 
 Each folder of this project contains a group recipe that can contain multiple composite recipes. Each composite recipe is a set of recipes that can be used to migrate a specific version of a product.
 
-Example: `rewrite-weblogic` is a group recipe that contains composite recipes, like the one used to migrate WebLogic 14.1.1 and Java 17. With each new version of WebLogic, a new composite recipe is added, like the migrate to WebLogic 14.1.2 and Java 21 and migrate to WebLogic 14.1.2 and Java 17.
+Example: `rewrite-weblogic` is a group recipe that contains composite recipes, like the one used to migrate WebLogic 14.1.2 and Java 21 and migrate to WebLogic 14.1.2 and Java 17 apps. With each new version of WebLogic, a new composite recipe is added, like the migrate to WebLogic 15.1.1.
 
 ## Getting Started
 
@@ -21,6 +18,8 @@ Before getting started, select which recipe you would like to use. Each recipe h
 > Click on the recipe name to get more details about a specific recipe (e.g., `rewrite-weblogic`) and how to use it
 
 ## Get Help
+
+For `rewrite-weblogic`:
 
 We have a public Slack channel where you can get in touch with us to ask questions about using openrewrite recipes with WebLogic or give us feedback or suggestions about what features and improvements you would like to see. We would love to hear from you. 
 

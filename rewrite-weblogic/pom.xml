@@ -5,7 +5,7 @@
 
   <groupId>com.oracle.weblogic.rewrite</groupId>
   <artifactId>rewrite-weblogic</artifactId>
-  <version>0.2.3</version>
+  <version>0.3.0</version>
 
   <name>rewrite-weblogic</name>
 
@@ -115,7 +115,7 @@
                   <dependency>
                       <groupId>org.openrewrite.recipe</groupId>
                       <artifactId>rewrite-recommendations</artifactId>
-                      <version>1.11.0</version>
+                      <version>1.12.0</version>
                   </dependency>
               </dependencies>
           </plugin>

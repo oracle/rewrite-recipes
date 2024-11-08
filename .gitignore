@@ -63,6 +63,9 @@ buildNumber.properties
 # IntelliJ IDEA
 .idea/
 
+# VS Code
+.vscode/
+
 ### Gradle ###
 .gradle
 **/build/

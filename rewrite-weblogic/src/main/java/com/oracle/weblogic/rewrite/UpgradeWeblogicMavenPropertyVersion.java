@@ -35,7 +35,7 @@ public class UpgradeWeblogicMavenPropertyVersion extends Recipe {
         this.newVersion = newVersion;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public Validated validate() {
         Validated validated = super.validate();

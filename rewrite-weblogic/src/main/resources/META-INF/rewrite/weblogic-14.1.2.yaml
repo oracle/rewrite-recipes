@@ -37,25 +37,13 @@
 # SOFTWARE.
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.UpgradeToWeblogic1412Java21
-displayName: Migrate to WebLogic 14.1.2 and Java 21
-description: This recipe will apply changes required for migrating to WebLogic 14.1.2 and Java 21
+name: com.oracle.weblogic.rewrite.UpgradeTo1412
+displayName: Migrate to WebLogic 14.1.2
+description: This recipe will apply changes required for migrating to WebLogic 14.1.2
 tags:
   - weblogic
   - java
 recipeList:
-  - org.openrewrite.java.migrate.UpgradeToJava21
-  - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1412
----
-type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.UpgradeToWeblogic1412Java17
-displayName: Migrate to WebLogic 14.1.2 and Java 17
-description: This recipe will apply changes required for migrating to WebLogic 14.1.2 and Java 21
-tags:
-  - weblogic
-  - java
-recipeList:
-  - org.openrewrite.java.migrate.UpgradeToJava17
   - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1412
 ---
 type: specs.openrewrite.org/v1beta/recipe

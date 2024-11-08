@@ -33,20 +33,25 @@ Clone your project to your local machine.
 
 ### Running using the maven cli
 
+#### Upgrading Apps to WebLogic 14.1.2 and Java 21
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-  -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-weblogic:LATEST \
-  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1411
+  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:0.3.0 \
+  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1412,org.openrewrite.java.migrate.UpgradeToJava21
 ```
 
-mvn -U org.openrewrite.maven:rewrite-maven-plugin:dryRunNoFork \
-  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1411
+#### Upgrading Apps to WebLogic 14.1.2 and Java 17
 
+```shell
+mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
+  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:0.3.0 \
+  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1412,org.openrewrite.java.migrate.UpgradeToJava17
+```
 
 ### Running using maven and adding `<plugin>` on the `pom.xml`
 
-- Add the plugin to your `pom.xml` and activate the desired recipe from the rewrite-weblogic group recipe. In this example, using the Upgrade to Weblogic 14.1.2
+- Add the plugin to your `pom.xml` and activate the desired recipe from the rewrite-weblogic group recipe. In this example, using the Upgrade to Weblogic 14.1.2 and Migrate to Java 21
 
     ```xml
         <plugin>
@@ -54,15 +59,22 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:dryRunNoFork \
             <artifactId>rewrite-maven-plugin</artifactId>
             <version>5.43.0</version>
             <configuration>
+                <exportDatatables>true</exportDatatables>
                 <activeRecipes>
                     <recipe>com.oracle.weblogic.rewrite.UpgradeTo1412</recipe>
+                    <recipe>org.openrewrite.java.migrate.UpgradeToJava21</recipe>
                 </activeRecipes>
             </configuration>
             <dependencies>
                 <dependency>
                     <groupId>com.oracle.weblogic.rewrite</groupId>
                     <artifactId>rewrite-weblogic</artifactId>
-                    <version>0.1.0</version>
+                    <version>0.3.0</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.openrewrite.recipe</groupId>
+                    <artifactId>rewrite-migrate-java</artifactId>
+                    <version>2.28.0</version>
                 </dependency>
             </dependencies>
         </plugin>
@@ -71,15 +83,15 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:dryRunNoFork \
 - Run the recipe
     `mvn rewrite:run`
 
-    > [!TIP]  
-    > If you just want to dry run the recipe without change the code, use `mvn rewrite:DryRun`. More details when using maven can be found [here](https://docs.openrewrite.org/reference/rewrite-maven-plugin)
+> [!TIP]  
+> If you just want to dry run the recipe without changing the code, use `mvn rewrite:DryRun`. More details when using maven can be found [here](https://docs.openrewrite.org/reference/rewrite-maven-plugin)
 
-    > [!TIP]  
-    > The goals `rewrite:run` and `rewrite:dryRun` are configured to fork Maven's life cycle and are a better choice when running recipes via a stand-alone goal (`mvn rewrite:run`) because this will trigger all the necessary life-cycle goals prior to running rewrite's plugin. However, when using rewrite within the context of an integration build (`mvn deploy rewrite:run`) it may be more efficient to use the non-forking variants, as these will not cause duplicate life cycle phases to be called.
+> [!TIP]  
+> The goals `rewrite:run` and `rewrite:dryRun` are configured to fork Maven's life cycle and are a better choice when running recipes via a stand-alone goal (`mvn rewrite:run`) because this will trigger all the necessary life-cycle goals before running rewrite's plugin. However, when using rewrite within the context of an integration build (`mvn deploy rewrite:run`) it may be more efficient to use the non-forking variants, as these will not cause duplicate life cycle phases to be called.
 
-- You can see the differences by using `git diff` or other diff viewer
+- If you are using `git` for your repository, you can see the differences by using `git diff` or other diff viewers. This option will show you the differences between your original and migrated code.
 
-## Developing, contributing and testing this recipe locally
+## Developing, contributing, and testing this recipe locally
 
 ### Prerequisites
 
@@ -113,5 +125,6 @@ mvn test
 | --- | --- | --- |
 | Migrate to WebLogic 14.1.2 and Java 21 | [com.oracle.weblogic.rewrite.UpgradeTo1412](resources/META-INF/rewrite/weblogic-14.1.2.yaml) <br/> com.oracle.weblogic.rewrite.UpgradeWeblogicMavenPropertyVersion <br/> [org.openrewrite.java.migrate.UpgradeToJava21](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) | - Applies changes required for migrating apps to WebLogic 14.1.2 <br/> - Upgrade WebLogic Version <br/> - Upgrade Java version to 21|
 | Migrate to WebLogic 14.1.2 and Java 17 | [com.oracle.weblogic.rewrite.UpgradeTo1412](resources/META-INF/rewrite/weblogic-14.1.2.yaml) <br/> com.oracle.weblogic.rewrite.UpgradeWeblogicMavenPropertyVersion <br/> [org.openrewrite.java.migrate.UpgradeToJava17](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava17) | - Applies changes required for migrating apps to WebLogic 14.1.2 <br/> - Upgrade WebLogic Version <br/> - Upgrade Java version to 17|
-| Migrate to WebLogic 14.1.1 and Java 11 | [com.oracle.weblogic.rewrite.UpgradeTo1411](resources/META-INF/rewrite/weblogic-14.1.1.yaml) <br/> [org.openrewrite.java.migrate.Java8toJava11](https://docs.openrewrite.org/recipes/java/migrate/java8tojava11) <br/> [org.openrewrite.maven.ChangePropertyValue](https://docs.openrewrite.org/recipes/maven/changepropertyvalue) <br/> [org.openrewrite.maven.UpgradeParentVersion](https://docs.openrewrite.org/recipes/maven/upgradeparentversion) | - Applies changes required for migrating apps to WebLogic 14.1.1 <br/> - Upgrade Java version to 11 <br/> - Change property to weblogic 14.1.1 <br/> - Upgrade WebLogic Version on parent|
+<!-- | Migrate to WebLogic 14.1.1 and Java 11 | [com.oracle.weblogic.rewrite.UpgradeTo1411](resources/META-INF/rewrite/weblogic-14.1.1.yaml) <br/> [org.openrewrite.java.migrate.Java8toJava11](https://docs.openrewrite.org/recipes/java/migrate/java8tojava11) <br/> [org.openrewrite.maven.ChangePropertyValue](https://docs.openrewrite.org/recipes/maven/changepropertyvalue) <br/> [org.openrewrite.maven.UpgradeParentVersion](https://docs.openrewrite.org/recipes/maven/upgradeparentversion) | - Applies changes required for migrating apps to WebLogic 14.1.1 <br/> - Upgrade Java version to 11 <br/> - Change property to weblogic 14.1.1 <br/> - Upgrade WebLogic Version on parent| -->
+
 

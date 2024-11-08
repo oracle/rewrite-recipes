@@ -5,7 +5,7 @@
 
   <groupId>com.oracle.weblogic.rewrite</groupId>
   <artifactId>rewrite-weblogic</artifactId>
-  <version>0.2.3</version>
+  <version>0.3.0</version>
 
   <name>rewrite-weblogic</name>
 

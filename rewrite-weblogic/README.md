@@ -10,6 +10,14 @@ Migrate your WebLogic applications to the latest version of WebLogic and Java wi
 This project implements a [Rewrite module](https://github.com/openrewrite/rewrite) that performs common tasks when
 migrating your [WebLogic](https://www.oracle.com/java/weblogic/) applications to a new version of WebLogic and Java.
 
+## Recipes
+
+| Composite Recipes | Recipes | Description |
+| --- | --- | --- |
+| Migrate to WebLogic 14.1.2 and Java 21 | [com.oracle.weblogic.rewrite.UpgradeTo1412](resources/META-INF/rewrite/weblogic-14.1.2.yaml) <br/> com.oracle.weblogic.rewrite.UpgradeWeblogicMavenPropertyVersion <br/> [org.openrewrite.java.migrate.UpgradeToJava21](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) | - Applies changes required for migrating applications to WebLogic 14.1.2 <br/> - Upgrades WebLogic version <br/> - Upgrades Java version to 21|
+| Migrate to WebLogic 14.1.2 and Java 17 | [com.oracle.weblogic.rewrite.UpgradeTo1412](resources/META-INF/rewrite/weblogic-14.1.2.yaml) <br/> com.oracle.weblogic.rewrite.UpgradeWeblogicMavenPropertyVersion <br/> [org.openrewrite.java.migrate.UpgradeToJava17](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava17) | - Applies changes required for migrating applications to WebLogic 14.1.2 <br/> - Upgrades WebLogic version <br/> - Upgrades Java version to 17|
+<!-- | Migrate to WebLogic 14.1.1 and Java 11 | [com.oracle.weblogic.rewrite.UpgradeTo1411](resources/META-INF/rewrite/weblogic-14.1.1.yaml) <br/> [org.openrewrite.java.migrate.Java8toJava11](https://docs.openrewrite.org/recipes/java/migrate/java8tojava11) <br/> [org.openrewrite.maven.ChangePropertyValue](https://docs.openrewrite.org/recipes/maven/changepropertyvalue) <br/> [org.openrewrite.maven.UpgradeParentVersion](https://docs.openrewrite.org/recipes/maven/upgradeparentversion) | - Applies changes required for migrating apps to WebLogic 14.1.1 <br/> - Upgrade Java version to 11 <br/> - Change property to weblogic 14.1.1 <br/> - Upgrade WebLogic Version on parent| -->
+
 ## How do I use it?
 
 You can call OpenRewrite on your code folder using the Maven or Gradle CLI or include it as a build plug-in in your `pom.xml` file.
@@ -118,11 +126,3 @@ mvn org.openrewrite.maven:rewrite-maven-plugin:run
 ```shell
 mvn test
 ```
-
-## Recipes
-
-| Composite Recipes | Recipes | Description |
-| --- | --- | --- |
-| Migrate to WebLogic 14.1.2 and Java 21 | [com.oracle.weblogic.rewrite.UpgradeTo1412](resources/META-INF/rewrite/weblogic-14.1.2.yaml) <br/> com.oracle.weblogic.rewrite.UpgradeWeblogicMavenPropertyVersion <br/> [org.openrewrite.java.migrate.UpgradeToJava21](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) | - Applies changes required for migrating applications to WebLogic 14.1.2 <br/> - Upgrade WebLogic version <br/> - Upgrade Java version to 21|
-| Migrate to WebLogic 14.1.2 and Java 17 | [com.oracle.weblogic.rewrite.UpgradeTo1412](resources/META-INF/rewrite/weblogic-14.1.2.yaml) <br/> com.oracle.weblogic.rewrite.UpgradeWeblogicMavenPropertyVersion <br/> [org.openrewrite.java.migrate.UpgradeToJava17](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava17) | - Applies changes required for migrating applications to WebLogic 14.1.2 <br/> - Upgrade WebLogic version <br/> - Upgrade Java version to 17|
-<!-- | Migrate to WebLogic 14.1.1 and Java 11 | [com.oracle.weblogic.rewrite.UpgradeTo1411](resources/META-INF/rewrite/weblogic-14.1.1.yaml) <br/> [org.openrewrite.java.migrate.Java8toJava11](https://docs.openrewrite.org/recipes/java/migrate/java8tojava11) <br/> [org.openrewrite.maven.ChangePropertyValue](https://docs.openrewrite.org/recipes/maven/changepropertyvalue) <br/> [org.openrewrite.maven.UpgradeParentVersion](https://docs.openrewrite.org/recipes/maven/upgradeparentversion) | - Applies changes required for migrating apps to WebLogic 14.1.1 <br/> - Upgrade Java version to 11 <br/> - Change property to weblogic 14.1.1 <br/> - Upgrade WebLogic Version on parent| -->

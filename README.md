@@ -1,6 +1,6 @@
 # OpenRewrite Recipes
 
-This project implements [OpenRewrite](https://docs.openrewrite.org) recipes on Oracle products.
+This project implements [OpenRewrite](https://docs.openrewrite.org) recipes for Oracle products.
 
 Each folder of this project contains a group recipe that can contain multiple composite recipes. Each composite recipe is a set of recipes that you can use to migrate to a specific version of a product.
 

@@ -1,4 +1,4 @@
-# Examples for Rewrite WebLogic
+# Examples for Rewrite-WebLogic
 
 Starting with Oracle WebLogic Server 14.1.2, Oracle provides OpenRewrite recipes to help you upgrade your applications to new WebLogic and Java versions. The example on this page is intended to demonstrate how to use the recipes to upgrade a sample application.
 

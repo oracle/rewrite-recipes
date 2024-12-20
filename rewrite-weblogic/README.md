@@ -1,8 +1,5 @@
 # Rewrite WebLogic
 
-> [!WARNING]
-> This is a ***pre-release project***. Some of the information and commands may change in the near future
-
 Migrate your WebLogic applications to the latest version of WebLogic and Java with OpenRewrite. Automatically.
 
 ## What is this?

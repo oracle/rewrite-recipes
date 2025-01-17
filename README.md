@@ -12,7 +12,7 @@ Before getting started, select the recipe you want to use. Each recipe has its o
 
 | Recipe | Description |
 | :--- | --- |
-| <code><span style="white-space: nowrap;">[rewrite-weblogic](rewrite-weblogic/README.md)</span></code> | Migrate your WebLogic applications to the latest version of WebLogic and Java with OpenRewrite. Automatically. |
+| <code><span style="white-space: nowrap;">[rewrite-weblogic](rewrite-weblogic/README.md)&nbsp;</span></code> | Migrate your WebLogic applications to the latest version of WebLogic and Java with OpenRewrite. Automatically. |
 
 > [!TIP]
 > Click on the recipe name to get more details about a specific recipe (for example, `rewrite-weblogic`) and how to use it

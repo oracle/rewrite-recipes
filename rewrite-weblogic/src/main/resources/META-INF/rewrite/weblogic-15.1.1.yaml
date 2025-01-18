@@ -46,6 +46,7 @@ tags:
 recipeList:
   - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1511
   - com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1412
+  - org.openrewrite.java.migrate.jakarta.JavaxMigrationToJakarta
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1511
@@ -54,3 +55,29 @@ description: This recipe will update the WebLogic version to 15.1.1 for Maven bu
 recipeList:
   - com.oracle.weblogic.rewrite.UpgradeWeblogicMavenPropertyVersion:
       newVersion: 15.1.1-0-0
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.JavaxEjbToJakartaEjb
+displayName: Migrate deprecated `javax.ejb` packages to `jakarta.ejb`
+description: Package relocation for rebranded Java EE to Jakarta EE.
+recipeList:
+  - org.openrewrite.maven.UpgradeDependencyVersion:
+      groupId: jakarta.ejb
+      artifactId: jakarta.ejb-api
+      newVersion: 4.x
+  - org.openrewrite.java.ChangePackage:
+      oldPackageName: javax.ejb
+      newPackageName: jakarta.ejb
+      recursive: true
+  - org.openrewrite.java.dependencies.ChangeDependency:
+      oldGroupId: javax.ejb
+      oldArtifactId: javax.ejb-api
+      newGroupId: jakarta.ejb
+      newArtifactId: jakarta.ejb-api
+      newVersion: 4.x
+  - org.openrewrite.java.dependencies.ChangeDependency:
+      oldGroupId: org.glassfish.main
+      oldArtifactId: javax.ejb
+      newGroupId: jakarta.ejb
+      newArtifactId: jakarta.ejb-api
+      newVersion: 4.x

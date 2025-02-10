@@ -46,7 +46,7 @@ tags:
 recipeList:
   - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1511
   - com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1412
-  - org.openrewrite.java.migrate.jakarta.JavaxMigrationToJakarta
+  - com.oracle.weblogic.rewrite.JakartaEE9_1
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1511

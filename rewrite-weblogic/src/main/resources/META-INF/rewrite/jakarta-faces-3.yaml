@@ -1,0 +1,544 @@
+#
+# Copyright 2025 the original author or authors.
+# <p>
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# <p>
+# https://www.apache.org/licenses/LICENSE-2.0
+# <p>
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.Faces2xMigrationToJakarta3x
+displayName: JSF 2.x to Jakarta Server Faces 3.x
+description: Jakarta EE 9 uses Faces 3.0 a major upgrade to Jakarta packages and XML namespaces.
+tags:
+  - jakarta
+  - jakartaee
+  - faces
+  - jsf
+recipeList:
+  - org.openrewrite.java.migrate.jakarta.JakartaFacesEcmaScript
+  - org.openrewrite.java.migrate.jakarta.RemovedUIComponentConstant
+  - com.oracle.weblogic.rewrite.jakarta.JakartaFaces3WebXml
+  - com.oracle.weblogic.rewrite.jakarta.JakartaFaces3Xhtml
+  - com.oracle.weblogic.rewrite.jakarta.JavaxFacesConfigXmlToJakartaFaces3ConfigXml
+  - com.oracle.weblogic.rewrite.jakarta.JavaxFacesTagLibraryXmlToJakartaFaces3TagLibraryXml
+  - com.oracle.weblogic.rewrite.jakarta.JavaxWebFragmentXmlToJakartaWebFragmentXml5
+  - com.oracle.weblogic.rewrite.jakarta.JavaxWebXmlToJakartaWebXml5
+  - org.openrewrite.java.migrate.jakarta.FacesJNDINamesChanged
+  - com.oracle.weblogic.rewrite.jakarta.RemovedJakartaFaces3ExpressionLanguageClasses
+  - com.oracle.weblogic.rewrite.jakarta.RemovedJakartaFaces3ResourceResolver
+  - com.oracle.weblogic.rewrite.jakarta.RemovedStateManagerMethods3
+  - com.oracle.weblogic.rewrite.jakarta.FacesManagedBeansRemoved3
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeFacesOpenSourceLibraries3
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.JakartaFacesWebXml
+displayName: Faces WebLogic web.xml migration for Jakarta EE 9.1
+description: Find and replace legacy JSF namespaces and javax references with Jakarta Faces values in web.xml.
+tags:
+  - faces
+  - jsf
+  - jakarta
+recipeList:
+  - org.openrewrite.text.FindAndReplace:
+      find: http://java.sun.com/jsf/html
+      replace: jakarta.faces.html
+      filePattern: **/web.xml
+  - org.openrewrite.text.FindAndReplace:
+      find: http://xmlns.jcp.org/jsf/html
+      replace: jakarta.faces.html
+      filePattern: **/web.xml
+  - org.openrewrite.text.FindAndReplace:
+      find: http://java.sun.com/jsf/facelets
+      replace: jakarta.faces.facelets
+      filePattern: **/web.xml
+  - org.openrewrite.text.FindAndReplace:
+      find: http://xmlns.jcp.org/jsf/facelets
+      replace: jakarta.faces.facelets
+      filePattern: **/web.xml
+  - org.openrewrite.text.FindAndReplace:
+      find: http://java.sun.com/jsf/core
+      replace: jakarta.faces.core
+      filePattern: **/web.xml
+  - org.openrewrite.text.FindAndReplace:
+      find: http://xmlns.jcp.org/jsf/core
+      replace: jakarta.faces.core
+      filePattern: **/web.xml
+  - org.openrewrite.text.FindAndReplace:
+      find: http://java.sun.com/jsp/jstl/core
+      replace: jakarta.tags.core
+      filePattern: **/web.xml
+  - org.openrewrite.text.FindAndReplace:
+      find: http://xmlns.jcp.org/jsp/jstl/core
+      replace: jakarta.tags.core
+      filePattern: **/web.xml
+  - org.openrewrite.text.FindAndReplace:
+      find: http://java.sun.com/jsf/composite
+      replace: jakarta.faces.composite
+      filePattern: **/web.xml
+  - org.openrewrite.text.FindAndReplace:
+      find: http://xmlns.jcp.org/jsf/composite
+      replace: jakarta.faces.composite
+      filePattern: **/web.xml
+  - org.openrewrite.text.FindAndReplace:
+      find: http://java.sun.com/jsf/passthrough
+      replace: jakarta.faces.passthrough
+      filePattern: **/web.xml
+  - org.openrewrite.text.FindAndReplace:
+      find: http://xmlns.jcp.org/jsf/passthrough
+      replace: jakarta.faces.passthrough
+      filePattern: **/web.xml
+  - org.openrewrite.text.FindAndReplace:
+      find: http://java.sun.com/jsp/jstl/functions
+      replace: jakarta.tags.functions
+      filePattern: **/web.xml
+  - org.openrewrite.text.FindAndReplace:
+      find: http://xmlns.jcp.org/jsp/jstl/functions
+      replace: jakarta.tags.functions
+      filePattern: **/web.xml
+  - org.openrewrite.text.FindAndReplace:
+      find: http://java.sun.com/jsf
+      replace: jakarta.faces
+      filePattern: **/web.xml
+  - org.openrewrite.text.FindAndReplace:
+      find: http://xmlns.jcp.org/jsf
+      replace: jakarta.faces
+      filePattern: **/web.xml
+  - org.openrewrite.text.FindAndReplace:
+      find: http://primefaces.org/ui/extensions
+      replace: primefaces.extensions
+      filePattern: **/web.xml
+  - org.openrewrite.text.FindAndReplace:
+      find: http://primefaces.org/ui
+      replace: primefaces
+      filePattern: **/web.xml
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: **/web.xml
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.JakartaFacesXhtml
+displayName: Faces XHTML migration for Jakarta EE 9
+description: Find and replace legacy JSF namespaces and javax references with Jakarta Faces values in XHTML files.
+tags:
+  - jakarta
+  - faces
+  - jsf
+recipeList:
+  - org.openrewrite.text.FindAndReplace:
+      find: "http://java.sun.com/jsf/html"
+      replace: "jakarta.faces.html"
+      filePattern: '**/*.xhtml'
+  - org.openrewrite.text.FindAndReplace:
+      find: "http://xmlns.jcp.org/jsf/html"
+      replace: "jakarta.faces.html"
+      filePattern: '**/*.xhtml'
+  - org.openrewrite.text.FindAndReplace:
+      find: "http://java.sun.com/jsf/facelets"
+      replace: "jakarta.faces.facelets"
+      filePattern: '**/*.xhtml'
+  - org.openrewrite.text.FindAndReplace:
+      find: "http://xmlns.jcp.org/jsf/facelets"
+      replace: "jakarta.faces.facelets"
+      filePattern: '**/*.xhtml'
+  - org.openrewrite.text.FindAndReplace:
+      find: "http://java.sun.com/jsf/core"
+      replace: "jakarta.faces.core"
+      filePattern: '**/*.xhtml'
+  - org.openrewrite.text.FindAndReplace:
+      find: "http://xmlns.jcp.org/jsf/core"
+      replace: "jakarta.faces.core"
+      filePattern: '**/*.xhtml'
+  - org.openrewrite.text.FindAndReplace:
+      find: "http://java.sun.com/jsp/jstl/core"
+      replace: "jakarta.tags.core"
+      filePattern: '**/*.xhtml'
+  - org.openrewrite.text.FindAndReplace:
+      find: "http://xmlns.jcp.org/jsp/jstl/core"
+      replace: "jakarta.tags.core"
+      filePattern: '**/*.xhtml'
+  - org.openrewrite.text.FindAndReplace:
+      find: "http://java.sun.com/jsf/composite"
+      replace: "jakarta.faces.composite"
+      filePattern: '**/*.xhtml'
+  - org.openrewrite.text.FindAndReplace:
+      find: "http://xmlns.jcp.org/jsf/composite"
+      replace: "jakarta.faces.composite"
+      filePattern: '**/*.xhtml'
+  - org.openrewrite.text.FindAndReplace:
+      find: "http://java.sun.com/jsf/passthrough"
+      replace: "jakarta.faces.passthrough"
+      filePattern: '**/*.xhtml'
+  - org.openrewrite.text.FindAndReplace:
+      find: "http://xmlns.jcp.org/jsf/passthrough"
+      replace: "jakarta.faces.passthrough"
+      filePattern: '**/*.xhtml'
+  - org.openrewrite.text.FindAndReplace:
+      find: "http://java.sun.com/jsp/jstl/functions"
+      replace: "jakarta.tags.functions"
+      filePattern: '**/*.xhtml'
+  - org.openrewrite.text.FindAndReplace:
+      find: "http://xmlns.jcp.org/jsp/jstl/functions"
+      replace: "jakarta.tags.functions"
+      filePattern: '**/*.xhtml'
+  - org.openrewrite.text.FindAndReplace:
+      find: "http://java.sun.com/jsf"
+      replace: "jakarta.faces"
+      filePattern: '**/*.xhtml'
+  - org.openrewrite.text.FindAndReplace:
+      find: "http://xmlns.jcp.org/jsf"
+      replace: "jakarta.faces"
+      filePattern: '**/*.xhtml'
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/*.xhtml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.JavaxFacesConfigXmlToJakartaFaces3ConfigXml
+displayName: Migrate xmlns entries in `faces-config.xml` files for Jakarta Server Faces 3
+description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
+tags:
+  - jakarta
+  - faces
+  - jsf
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: version
+      elementName: faces-config
+      newValue: 3.0
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: faces-config
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: faces-config
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: "javax."
+      replace: "jakarta."
+      filePattern: '**/faces-config.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.JavaxFacesTagLibraryXmlToJakartaFaces3TagLibraryXml
+displayName: Migrate xmlns entries in `taglib.xml` files for Jakarta Server Faces 3
+description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
+tags:
+  - jakarta
+  - faces
+  - jsf
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: version
+      elementName: facelet-taglib
+      newValue: 3.0
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: facelet-taglib
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: facelet-taglib
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facelettaglibrary_3_0.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/*taglib*.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.JavaxWebFragmentXmlToJakartaWebFragmentXml5
+displayName: Migrate xmlns entries in `web-fragment.xml` files for Jakarta Server Faces 3
+description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
+tags:
+  - jakarta
+  - faces
+  - jsf
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: version
+      elementName: web-fragment
+      newValue: 5.0
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: web-fragment
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: web-fragment
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-fragment_5_0.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: "javax."
+      replace: "jakarta."
+      filePattern: '**/web-fragment.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.JavaxWebXmlToJakartaWebXml5
+displayName: Migrate xmlns entries in `web.xml` files for Jakarta Server Faces 3
+description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
+tags:
+  - jakarta
+  - faces
+  - jsf
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: version
+      elementName: web-app
+      newValue: 5.0
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: web-app
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: web-app
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: "javax."
+      replace: "jakarta."
+      filePattern: '**/web.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.FacesJNDINamesChanged3
+displayName:   JNDI name `jsf/ClientSideSecretKey` has been renamed to `faces/ClientSideSecretKey`, and the `jsf/FlashSecretKey` JNDI name has been renamed to `faces/FlashSecretKey`.
+description: >
+  The `jsf/ClientSideSecretKey` JNDI name has been renamed to `faces/ClientSideSecretKey`, 
+  and the `jsf/FlashSecretKey` JNDI name has been renamed to `faces/FlashSecretKey`.  The JNDI keys that have been renamed are updated to allow use of the keys.
+recipeList:
+  - org.openrewrite.xml.ChangeTagValue:
+      elementName: //env-entry-name
+      oldValue: jsf/ClientSideSecretKey
+      newValue: faces/ClientSideSecretKey
+  - org.openrewrite.xml.ChangeTagValue:
+      elementName: //env-entry-name
+      oldValue: jsf/FlashSecretKey
+      newValue: faces/FlashSecretKey
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.RemovedJakartaFacesResourceResolver3
+displayName: Replace `ResourceResolver` with `ResourceHandler`
+description: >
+  The `ResourceResolver` class was removed in Jakarta Faces 3.0. 
+  The functionality provided by that class can be replaced by using the `jakarta.faces.application.ResourceHandler` class.
+recipeList:
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.faces.view.facelets.ResourceResolver
+      newFullyQualifiedTypeName: jakarta.faces.application.ResourceHandler
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: jakarta.faces.view.facelets.ResourceResolver
+      newFullyQualifiedTypeName: jakarta.faces.application.ResourceHandler
+      ignoreDefinition: true
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: org.openrewrite.java.migrate.jakarta.RemovedStateManagerMethods3
+displayName: Use `StateManagementStrategy`
+description: >
+  Methods that were removed from the `jakarta.faces.application.StateManager` and `javax.faces.application.StateManager` classes in Jakarta Faces 3.0 are replaced
+  by `jakarta.faces.view.StateManagementStrategy` or `javax.faces.view.StateManagementStrategy` based on JakartaEE9 migration in Faces 3.0
+recipeList:
+  - org.openrewrite.java.ChangeMethodName:
+      methodPattern: "*.faces.application.StateManager getComponentStateToSave(*.faces.context.FacesContext)"
+      newMethodName: saveView
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeMethodName:
+      methodPattern: "*.faces.application.StateManager getTreeStructureToSave(*.faces.context.FacesContext)"
+      newMethodName: saveView
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeMethodName:
+      methodPattern: "*.faces.application.StateManager restoreComponentState(*.faces.context.FacesContext,*.faces.component.UIViewRoot,String)"
+      newMethodName: restoreView
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeMethodName:
+      methodPattern: "*.faces.application.StateManager restoreTreeStructure(*.faces.context.FacesContext,String,String)"
+      newMethodName: restoreView
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeMethodName:
+      methodPattern: "*.faces.application.StateManager saveSerializedView(*.faces.context.FacesContext)"
+      newMethodName: saveView
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: jakarta.faces.application.StateManager
+      newFullyQualifiedTypeName: jakarta.faces.view.StateManagementStrategy
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.faces.application.StateManager
+      newFullyQualifiedTypeName: jakarta.faces.view.StateManagementStrategy
+      ignoreDefinition: true
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.RemovedJakartaFaces3ExpressionLanguageClasses
+displayName: Use `jakarta.el` instead of `jakarta.faces.el` and `javax.faces.el`
+description: >
+  Several classes were removed and replaced in Jakarta Server Faces 3.0.
+  The only Object definition not removed in the `jakarta.faces.el` package is the CompositeComponentExpressionHolder interface.
+recipeList:
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: jakarta.faces.el.MethodBinding
+      newFullyQualifiedTypeName: jakarta.el.MethodExpression
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: jakarta.faces.el.PropertyResolver
+      newFullyQualifiedTypeName: jakarta.el.ELResolver
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: jakarta.faces.el.ValueBinding
+      newFullyQualifiedTypeName: jakarta.el.ValueExpression
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: jakarta.faces.el.VariableResolver
+      newFullyQualifiedTypeName: jakarta.el.ELResolver
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: jakarta.faces.el.EvaluationException
+      newFullyQualifiedTypeName: jakarta.el.ELException
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: jakarta.faces.el.MethodNotFoundException
+      newFullyQualifiedTypeName: jakarta.el.MethodNotFoundException
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: jakarta.faces.el.PropertyNotFoundException
+      newFullyQualifiedTypeName: jakarta.el.PropertyNotFoundException
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: jakarta.faces.el.ReferenceSyntaxException
+      newFullyQualifiedTypeName: jakarta.el.ELException
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.faces.el.MethodBinding
+      newFullyQualifiedTypeName: jakarta.el.MethodExpression
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.faces.el.PropertyResolver
+      newFullyQualifiedTypeName: jakarta.el.ELResolver
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.faces.el.ValueBinding
+      newFullyQualifiedTypeName: jakarta.el.ValueExpression
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.faces.el.VariableResolver
+      newFullyQualifiedTypeName: jakarta.el.ELResolver
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.faces.el.EvaluationException
+      newFullyQualifiedTypeName: jakarta.el.ELException
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.faces.el.MethodNotFoundException
+      newFullyQualifiedTypeName: jakarta.el.MethodNotFoundException
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.faces.el.PropertyNotFoundException
+      newFullyQualifiedTypeName: jakarta.el.PropertyNotFoundException
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.faces.el.ReferenceSyntaxException
+      newFullyQualifiedTypeName: jakarta.el.ELException
+      ignoreDefinition: true
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.FacesManagedBeansRemoved3
+displayName: Substitute deprecated Faces Managed Beans
+description: >
+  This recipe substitutes Faces Managed Beans, which were deprecated in JavaServer Faces 2.3 and have been removed from Jakarta Faces 3.0.
+recipeList:
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.faces.bean.ApplicationScoped
+      newFullyQualifiedTypeName: jakarta.enterprise.context.ApplicationScoped
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: jakarta.faces.bean.ApplicationScoped
+      newFullyQualifiedTypeName: jakarta.enterprise.context.ApplicationScoped
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.faces.bean.ManagedProperty
+      newFullyQualifiedTypeName: jakarta.faces.annotation.ManagedProperty
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: jakarta.faces.bean.ManagedProperty
+      newFullyQualifiedTypeName: jakarta.faces.annotation.ManagedProperty
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.faces.bean.NoneScoped
+      newFullyQualifiedTypeName: jakarta.enterprise.context.Dependent
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: jakarta.faces.bean.NoneScoped
+      newFullyQualifiedTypeName: jakarta.enterprise.context.Dependent
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.faces.bean.RequestScoped
+      newFullyQualifiedTypeName: jakarta.enterprise.context.RequestScoped
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: jakarta.faces.bean.RequestScoped
+      newFullyQualifiedTypeName: jakarta.enterprise.context.RequestScoped
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.faces.bean.SessionScoped
+      newFullyQualifiedTypeName: jakarta.enterprise.context.SessionScoped
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: jakarta.faces.bean.SessionScoped
+      newFullyQualifiedTypeName: jakarta.enterprise.context.SessionScoped
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: javax.faces.bean.ViewScoped
+      newFullyQualifiedTypeName: jakarta.faces.view.ViewScoped
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: jakarta.faces.bean.ViewScoped
+      newFullyQualifiedTypeName: jakarta.faces.view.ViewScoped
+      ignoreDefinition: true
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.UpgradeFacesOpenSourceLibraries3
+displayName: Upgrade Faces open source libraries
+description: Upgrade PrimeFaces, OmniFaces, and MyFaces libraries to Jakarta EE9 versions.
+tags:
+  - jakarta
+  - faces
+  - jsf
+  - myfaces
+  - omnifaces
+  - primefaces
+recipeList:
+  - org.openrewrite.maven.ChangeDependencyClassifier:
+      groupId: org.primefaces
+      artifactId: primefaces
+      newClassifier: jakarta
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.primefaces
+      artifactId: primefaces
+      newVersion: 13.0.x
+  - org.openrewrite.maven.ChangeDependencyClassifier:
+      groupId: org.primefaces.extensions
+      artifactId: primefaces-extensions
+      newClassifier: jakarta
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.primefaces.extensions
+      artifactId: primefaces-extensions
+      newVersion: 13.0.x
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.omnifaces
+      artifactId: omnifaces
+      newVersion: 4.x
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.apache.myfaces.core
+      artifactId: myfaces-api
+      newVersion: 4.0.x
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.apache.myfaces.core
+      artifactId: myfaces-impl
+      newVersion: 4.0.x

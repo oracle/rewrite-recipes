@@ -54,3 +54,19 @@ description: This recipe will update the WebLogic version to 14.1.2 for Maven bu
 recipeList:
   - com.oracle.weblogic.rewrite.UpgradeWeblogicMavenPropertyVersion:
       newVersion: 14.1.2-0-0
+  - org.openrewrite.maven.ChangePropertyValue:
+      key: weblogic.version
+      newValue: 14.1.2-0-0
+  - org.openrewrite.maven.UpgradeParentVersion:
+      groupId: com.oracle.weblogic.archetype
+      artifactId: "*"
+      newVersion: 14.1.2-0-0
+  - org.openrewrite.maven.UpgradePluginVersion:
+      groupId: com.oracle.weblogic
+      artifactId: "*"
+      newVersion: 14.1.2-0-0
+      trustParent: "True"
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: com.oracle.weblogic
+      artifactId: "*"
+      newVersion: 14.1.2-0-0

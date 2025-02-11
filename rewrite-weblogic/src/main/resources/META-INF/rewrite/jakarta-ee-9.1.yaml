@@ -47,13 +47,15 @@ tags:
 recipeList:
   - org.openrewrite.java.migrate.jakarta.JavaxMigrationToJakarta
   - com.oracle.weblogic.rewrite.jakarta.Faces2xMigrationToJakarta3x
-  - com.oracle.weblogic.rewrite.jakarta.JavaxBeansXmlToJakartaBeans3Xml
+  - com.oracle.weblogic.rewrite.jakarta.JavaxBeansXmlToJakarta9BeansXml
+  - com.oracle.weblogic.rewrite.jakarta.JavaxApplicationXmlToJakarta9ApplicationXml
+  - com.oracle.weblogic.rewrite.jakarta.JavaxEjbJarXmlToJakarta9EjbJarXml
   - com.oracle.weblogic.rewrite.jakarta.RemovalsServletJakarta9
   - com.oracle.weblogic.rewrite.jakarta.JavaxToJakartaCdiExtensions
   - com.oracle.weblogic.rewrite.jakarta.UpdateJakartaPlatform9_1
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.jakarta.JavaxBeansXmlToJakartaBeans3Xml
+name: com.oracle.weblogic.rewrite.jakarta.JavaxBeansXmlToJakarta9BeansXml
 displayName: Migrate xmlns entries in `beans.xml` files for Beans 3.0.
 description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
 tags:
@@ -76,6 +78,62 @@ recipeList:
       attributeName: xsi:schemaLocation
       elementName: beans
       newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/beans_3_0.xsd
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.JavaxApplicationXmlToJakarta9ApplicationXml
+displayName: Migrate xmlns entries in `application.xml` files.
+description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
+tags:
+  - jakarta
+  - application
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/application.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: version
+      elementName: application
+      newValue: 9.0
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: application
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: application
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/application_9.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/ejb-jar.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.JavaxEjbJarXmlToJakarta9EjbJarXml
+displayName: Migrate xmlns entries in `ejb-jar.xml` files.
+description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
+tags:
+  - jakarta
+  - ejb
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/ejb-jar.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: ejb-jar
+      attributeName: version
+      newValue: 4.0
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: ejb-jar
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: ejb-jar
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/ejb-jar_4_0.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/ejb-jar.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.RemovalsServletJakarta9

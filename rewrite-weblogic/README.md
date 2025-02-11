@@ -7,11 +7,15 @@ Migrate your WebLogic applications to the latest version of WebLogic and Java wi
 This project implements a [Rewrite module](https://github.com/openrewrite/rewrite) that performs common tasks when
 migrating your [WebLogic](https://www.oracle.com/java/weblogic/) applications to a new version of WebLogic and Java.
 
+Elevate your WebLogic applications effortlessly! Upgrade to the latest version of WebLogic and ensure compatibility with supported Java and Jakarta EE, all thanks to OpenRewrite recipes.
+
+Experience automatic migration like never before! Migrate your WebLogic applications to the latest version of WebLogic and supported Java, Jakarta EE with OpenRewrite. Automatically.
+
 ## Recipes
 
 | Composite Recipes | Recipes | Description |
 | --- | --- | --- |
-| **BETA:** Migrate to WebLogic 15.1.1 Beta and Java 21 | [com.oracle.weblogic.rewrite.UpgradeTo1511](./src/main/resources/META-INF/rewrite/weblogic-15.1.1.yaml) <br/> [org.openrewrite.java.migrate.UpgradeToJava21](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) </br> [org.openrewrite.java.migrate.jakarta.JavaxMigrationToJakarta](https://docs.openrewrite.org/recipes/java/migrate/jakarta/javaxmigrationtojakarta) | - Applies changes required for migrating applications to WebLogic 15.1.1 and Jakarta 9.1 <br/> - Upgrades WebLogic Maven properties version <br/> - Upgrades Java version to 21|
+| **BETA:** Migrate to WebLogic 15.1.1 Beta and Java 21 | [com.oracle.weblogic.rewrite.UpgradeTo1511](./src/main/resources/META-INF/rewrite/weblogic-15.1.1.yaml) <br/> [org.openrewrite.java.migrate.UpgradeToJava21](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) </br> [com.oracle.weblogic.rewrite.JakartaEE9_1](./src/main/resources/META-INF/rewrite/jakarta-9.1.yaml) | - Applies changes required for migrating applications to WebLogic 15.1.1 and Jakarta 9.1 <br/> - Upgrades WebLogic Maven properties version <br/> - Upgrades Java version to 21|
 | Migrate to WebLogic 14.1.2 and Java 21 | [com.oracle.weblogic.rewrite.UpgradeTo1412](./src/main/resources/META-INF/rewrite/weblogic-14.1.2.yaml) <br/>  [org.openrewrite.java.migrate.UpgradeToJava21](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) | - Applies changes required for migrating applications to WebLogic 14.1.2 <br/> - Upgrades WebLogic Maven properties version  <br/> - Upgrades Java version to 21|
 | Migrate to WebLogic 14.1.2 and Java 17 | [com.oracle.weblogic.rewrite.UpgradeTo1412](./src/main/resources/META-INF/rewrite/weblogic-14.1.2.yaml) <br/> [org.openrewrite.java.migrate.UpgradeToJava17](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava17) | - Applies changes required for migrating applications to WebLogic 14.1.2 <br/> - Upgrades WebLogic Maven properties version  <br/> - Upgrades Java version to 17|
 <!-- | Migrate to WebLogic 14.1.1 and Java 11 | [com.oracle.weblogic.rewrite.UpgradeTo1411](resources/META-INF/rewrite/weblogic-14.1.1.yaml) <br/> [org.openrewrite.java.migrate.Java8toJava11](https://docs.openrewrite.org/recipes/java/migrate/java8tojava11) <br/> [org.openrewrite.maven.ChangePropertyValue](https://docs.openrewrite.org/recipes/maven/changepropertyvalue) <br/> [org.openrewrite.maven.UpgradeParentVersion](https://docs.openrewrite.org/recipes/maven/upgradeparentversion) | - Applies changes required for migrating apps to WebLogic 14.1.1 <br/> - Upgrade Java version to 11 <br/> - Change property to weblogic 14.1.1 <br/> - Upgrade WebLogic Version on parent| -->
@@ -43,7 +47,7 @@ Clone your project to your local machine.
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:0.4.0 \
+  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \
   -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1412,org.openrewrite.java.migrate.UpgradeToJava21
 ```
 
@@ -51,7 +55,7 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:0.4.0 \
+  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \
   -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1412,org.openrewrite.java.migrate.UpgradeToJava17
 ```
 
@@ -62,8 +66,17 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:0.4.0 \
-  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1511,org.openrewrite.java.migrate.UpgradeToJava21
+  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \
+  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1511,org.openrewrite.java.migrate.UpgradeToJava21,com.oracle.weblogic.rewrite.JakartaEE9_1 \
+  -Drewrite.exportDatatables=true
+```
+
+If your application is running with Spring Framework 5.x on WebLogic 12.x or 14.x, and want to migrate to Spring Framework 6.x, run this command as well:
+
+```shell
+mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
+  -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-spring:RELEASE \
+  -Drewrite.activeRecipes=org.openrewrite.java.spring.framework.UpgradeSpringFramework_6_1 -Drewrite.exportDatatables=true
 ```
 
 ### Running using Maven and adding `<plugin>` in the `pom.xml` file
@@ -86,7 +99,7 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
                 <dependency>
                     <groupId>com.oracle.weblogic.rewrite</groupId>
                     <artifactId>rewrite-weblogic</artifactId>
-                    <version>0.4.0</version>
+                    <version>0.4.2</version>
                 </dependency>
                 <dependency>
                     <groupId>org.openrewrite.recipe</groupId>
@@ -135,3 +148,10 @@ mvn org.openrewrite.maven:rewrite-maven-plugin:run
 ```shell
 mvn test
 ```
+
+## License
+
+Copyright (c) 2025 Oracle and/or its affiliates.
+
+Released under the Universal Permissive License v1.0 as shown at
+<https://oss.oracle.com/licenses/upl/>.

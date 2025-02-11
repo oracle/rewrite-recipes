@@ -5,9 +5,38 @@
 
   <groupId>com.oracle.weblogic.rewrite</groupId>
   <artifactId>rewrite-weblogic</artifactId>
-  <version>0.4.0</version>
+  <version>0.4.2</version>
 
   <name>rewrite-weblogic</name>
+  <description>Migrate your WebLogic applications to the latest version of WebLogic
+   and Java with OpenRewrite. Automatically.</description>
+  <url>https://github.com/oracle/rewrite-recipes/tree/main/rewrite-weblogic</url>
+  <inceptionYear>2025</inceptionYear>
+
+  <licenses>
+    <license>
+      <name>The Universal Permissive License (UPL), Version 1.0</name>
+      <url>http://www.oracle.com/technetwork/licenses/upl-license-2927578.html</url>
+      <distribution>repo</distribution>
+    </license>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>http://apache.org/licenses/LICENSE-2.0.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>oracle</id>
+      <name>Oracle</name>
+      <organizationUrl>https://www.oracle.com</organizationUrl>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:git@github.com:oracle/rewrite-recipes.git</connection>
+    <developerConnection>scm:git:ssh://github.com:oracle/rewrite-recipes.git</developerConnection>
+    <url>https://github.com/oracle/rewrite-recipes/tree/main/rewrite-weblogic</url>
+  </scm>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

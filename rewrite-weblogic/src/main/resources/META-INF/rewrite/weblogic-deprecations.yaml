@@ -1,0 +1,290 @@
+#
+# Copyright (c) 2024, Oracle and/or its affiliates.  All rights reserved.
+
+# Licensed under the Universal Permissive License v 1.0 as shown at
+# https://oss.oracle.com/licenses/upl.
+
+# Subject to the condition set forth below, permission is hereby granted to any
+# person obtaining a copy of this software, associated documentation and/or data
+# (collectively the "Software"), free of charge and under any and all copyright
+# rights in the Software, and any and all patent rights owned or freely
+# licensable by each licensor hereunder covering either (i) the unmodified
+# Software as contributed to or provided by such licensor, or (ii) the Larger
+# Works (as defined below), to deal in both
+
+# (a) the Software, and
+# (b) any piece of software and/or hardware listed in the lrgrwrks.txt file if
+# one is included with the Software (each a "Larger Work" to which the Software
+# is contributed by such licensors),
+
+# without restriction, including without limitation the rights to copy, create
+# derivative works of, display, perform, and distribute the Software and make,
+# use, sell, offer for sale, import, export, have made, and have sold the
+# Software and the Larger Work(s), and to sublicense the foregoing rights on
+# either these or other terms.
+
+# This license is subject to the following condition:
+# The above copyright notice and either this complete permission notice or at
+# a minimum a reference to the UPL must be included in all copies or
+# substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1412
+displayName: Check and Comment Out Deprecations on WebLogic version 14.1.2
+description: This recipe will check and comment out deprecations on WebLogic version 14.1.2.
+recipeList:
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: com.oracle.weblogic.lifecycle.Orchestrator
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: com.oracle.weblogic.lifecycle.core.LifecycleUtils
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.jdbc.extensions.DataSourceSwitchingCallback
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.jdbc.rowset.BaseRowSet
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.jdbc.rowset.CachedRow
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.jdbc.rowset.CachedRowSetImpl
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.jdbc.rowset.FilteredRowSetImpl
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.jdbc.rowset.JdbcRowSetFactory
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.jdbc.rowset.JdbcRowSetImpl
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.jdbc.rowset.JoinRowSetImpl
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.jdbc.rowset.NullUpdateException
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.jdbc.rowset.OptimisticConflictException
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.jdbc.rowset.RowNotFoundException
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.jdbc.rowset.RowSetFactory
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.jdbc.rowset.SQLComparator
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.jdbc.rowset.SQLPredicate
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.jdbc.rowset.SortedRowSet
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.jdbc.rowset.WLCachedRowSet
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.jdbc.rowset.WLRowSetInternal
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.jdbc.rowset.WLRowSetMetaData
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.jdbc.rowset.WebRowSetImpl
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.ForeignJMSConnectionFactoryMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.ForeignJMSDestinationMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.ForeignJMSServerMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.JDBCPropertyOverrideMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.JDBCSystemResourceOverrideMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.JMSConnectionFactoryMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.JMSDestCommonMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.JMSDestinationKeyMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.JMSDestinationMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.JMSDistributedDestinationMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.JMSDistributedDestinationMemberMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.JMSDistributedQueueMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.JMSDistributedQueueMemberMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.JMSDistributedTopicMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.JMSDistributedTopicMemberMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.JMSFileStoreMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.JMSInteropModuleMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.JMSJDBCStoreMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.JMSQueueMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.JMSStoreMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.JMSTemplateMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.JMSTopicMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.configuration.JMSVirtualDestinationMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.runtime.FairShareConstraintRuntimeMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.runtime.JDBCPartitionRuntimeMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.runtime.JDBCProxyDataSourceRuntimeMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.runtime.JTAPartitionRuntimeMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.runtime.KodoDataCacheRuntimeMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.runtime.KodoPersistenceUnitRuntimeMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.runtime.KodoQueryCacheRuntimeMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.runtime.KodoQueryCompilationCacheRuntimeMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.runtime.RecourseActionEventVBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.runtime.ResourceManagerRuntimeMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.runtime.ResourceRuntimeMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.runtime.ResourceRuntimeMBean$ResourceType
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.management.runtime.TriggerRuntimeMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.rmi.RMISecurityException
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.rmi.RMISecurityManager
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.security.providers.authentication.IPlanetAuthenticatorMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.security.providers.authentication.NovellAuthenticatorMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"
+
+  - org.openrewrite.yaml.CommentOutProperty:
+      propertyKey: weblogic.security.providers.authentication.OracleVirtualDirectoryAuthenticatorMBean
+      commentText: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2"

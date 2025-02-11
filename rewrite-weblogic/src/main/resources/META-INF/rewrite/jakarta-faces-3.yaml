@@ -32,7 +32,7 @@ recipeList:
   - com.oracle.weblogic.rewrite.jakarta.JavaxFacesTagLibraryXmlToJakartaFaces3TagLibraryXml
   - com.oracle.weblogic.rewrite.jakarta.JavaxWebFragmentXmlToJakartaWebFragmentXml5
   - com.oracle.weblogic.rewrite.jakarta.JavaxWebXmlToJakartaWebXml5
-  - org.openrewrite.java.migrate.jakarta.FacesJNDINamesChanged
+  - com.oracle.weblogic.rewrite.jakarta.FacesJNDINamesChanged3
   - com.oracle.weblogic.rewrite.jakarta.RemovedJakartaFaces3ExpressionLanguageClasses
   - com.oracle.weblogic.rewrite.jakarta.RemovedJakartaFaces3ResourceResolver
   - com.oracle.weblogic.rewrite.jakarta.RemovedStateManagerMethods3
@@ -40,7 +40,7 @@ recipeList:
   - com.oracle.weblogic.rewrite.jakarta.UpgradeFacesOpenSourceLibraries3
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.jakarta.JakartaFacesWebXml
+name: com.oracle.weblogic.rewrite.jakarta.JakartaFaces3WebXml
 displayName: Faces WebLogic web.xml migration for Jakarta EE 9.1
 description: Find and replace legacy JSF namespaces and javax references with Jakarta Faces values in web.xml.
 tags:
@@ -51,82 +51,82 @@ recipeList:
   - org.openrewrite.text.FindAndReplace:
       find: http://java.sun.com/jsf/html
       replace: jakarta.faces.html
-      filePattern: **/web.xml
+      filePattern: '**/web.xml'
   - org.openrewrite.text.FindAndReplace:
       find: http://xmlns.jcp.org/jsf/html
       replace: jakarta.faces.html
-      filePattern: **/web.xml
+      filePattern: '**/web.xml'
   - org.openrewrite.text.FindAndReplace:
       find: http://java.sun.com/jsf/facelets
       replace: jakarta.faces.facelets
-      filePattern: **/web.xml
+      filePattern: '**/web.xml'
   - org.openrewrite.text.FindAndReplace:
       find: http://xmlns.jcp.org/jsf/facelets
       replace: jakarta.faces.facelets
-      filePattern: **/web.xml
+      filePattern: '**/web.xml'
   - org.openrewrite.text.FindAndReplace:
       find: http://java.sun.com/jsf/core
       replace: jakarta.faces.core
-      filePattern: **/web.xml
+      filePattern: '**/web.xml'
   - org.openrewrite.text.FindAndReplace:
       find: http://xmlns.jcp.org/jsf/core
       replace: jakarta.faces.core
-      filePattern: **/web.xml
+      filePattern: '**/web.xml'
   - org.openrewrite.text.FindAndReplace:
       find: http://java.sun.com/jsp/jstl/core
       replace: jakarta.tags.core
-      filePattern: **/web.xml
+      filePattern: '**/web.xml'
   - org.openrewrite.text.FindAndReplace:
       find: http://xmlns.jcp.org/jsp/jstl/core
       replace: jakarta.tags.core
-      filePattern: **/web.xml
+      filePattern: '**/web.xml'
   - org.openrewrite.text.FindAndReplace:
       find: http://java.sun.com/jsf/composite
       replace: jakarta.faces.composite
-      filePattern: **/web.xml
+      filePattern: '**/web.xml'
   - org.openrewrite.text.FindAndReplace:
       find: http://xmlns.jcp.org/jsf/composite
       replace: jakarta.faces.composite
-      filePattern: **/web.xml
+      filePattern: '**/web.xml'
   - org.openrewrite.text.FindAndReplace:
       find: http://java.sun.com/jsf/passthrough
       replace: jakarta.faces.passthrough
-      filePattern: **/web.xml
+      filePattern: '**/web.xml'
   - org.openrewrite.text.FindAndReplace:
       find: http://xmlns.jcp.org/jsf/passthrough
       replace: jakarta.faces.passthrough
-      filePattern: **/web.xml
+      filePattern: '**/web.xml'
   - org.openrewrite.text.FindAndReplace:
       find: http://java.sun.com/jsp/jstl/functions
       replace: jakarta.tags.functions
-      filePattern: **/web.xml
+      filePattern: '**/web.xml'
   - org.openrewrite.text.FindAndReplace:
       find: http://xmlns.jcp.org/jsp/jstl/functions
       replace: jakarta.tags.functions
-      filePattern: **/web.xml
+      filePattern: '**/web.xml'
   - org.openrewrite.text.FindAndReplace:
       find: http://java.sun.com/jsf
       replace: jakarta.faces
-      filePattern: **/web.xml
+      filePattern: '**/web.xml'
   - org.openrewrite.text.FindAndReplace:
       find: http://xmlns.jcp.org/jsf
       replace: jakarta.faces
-      filePattern: **/web.xml
+      filePattern: '**/web.xml'
   - org.openrewrite.text.FindAndReplace:
       find: http://primefaces.org/ui/extensions
       replace: primefaces.extensions
-      filePattern: **/web.xml
+      filePattern: '**/web.xml'
   - org.openrewrite.text.FindAndReplace:
       find: http://primefaces.org/ui
       replace: primefaces
-      filePattern: **/web.xml
+      filePattern: '**/web.xml'
   - org.openrewrite.text.FindAndReplace:
       find: javax.
       replace: jakarta.
-      filePattern: **/web.xml
+      filePattern: '**/web.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.jakarta.JakartaFacesXhtml
+name: com.oracle.weblogic.rewrite.jakarta.JakartaFaces3Xhtml
 displayName: Faces XHTML migration for Jakarta EE 9
 description: Find and replace legacy JSF namespaces and javax references with Jakarta Faces values in XHTML files.
 tags:
@@ -324,7 +324,7 @@ recipeList:
       newValue: faces/FlashSecretKey
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.jakarta.RemovedJakartaFacesResourceResolver3
+name: com.oracle.weblogic.rewrite.jakarta.RemovedJakartaFaces3ResourceResolver
 displayName: Replace `ResourceResolver` with `ResourceHandler`
 description: >
   The `ResourceResolver` class was removed in Jakarta Faces 3.0. 
@@ -340,7 +340,7 @@ recipeList:
       ignoreDefinition: true
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: org.openrewrite.java.migrate.jakarta.RemovedStateManagerMethods3
+name: com.oracle.weblogic.rewrite.jakarta.RemovedStateManagerMethods3
 displayName: Use `StateManagementStrategy`
 description: >
   Methods that were removed from the `jakarta.faces.application.StateManager` and `javax.faces.application.StateManager` classes in Jakarta Faces 3.0 are replaced

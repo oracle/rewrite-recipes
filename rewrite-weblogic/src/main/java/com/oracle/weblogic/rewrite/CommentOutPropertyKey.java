@@ -15,6 +15,33 @@ import org.openrewrite.*;
 import org.openrewrite.properties.tree.Properties;
 import org.openrewrite.yaml.tree.Yaml;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+/**
+ * This class represents a recipe that comments out specified WebLogic properties, such as deprecated ones.
+ * It extends the Recipe class and provides functionality to add comments to specified
+ * WebLogic properties and comment out the property.
+ * 
+ * <p>Annotations:</p>
+ * <ul>
+ *   <li>@EqualsAndHashCode(callSuper = false): Generates equals and hashCode methods without calling superclass methods.</li>
+ *   <li>@Value: Lombok annotation to generate a value class with final fields, getters, and other utility methods.</li>
+ * </ul>
+ * 
+ * <p>Options:</p>
+ * <ul>
+ *   <li>propertyKey: The name of the property key to comment out. Example: "com.oracle.weblogic.lifecycle.Orchestrator".</li>
+ *   <li>comment: The comment to replace the property key. Example: "This property is deprecated and no longer applicable starting from WebLogic Server 14.1.2".</li>
+ * </ul>
+ * 
+ * <p>Methods:</p>
+ * <ul>
+ *   <li>getDisplayName(): Returns the display name of the recipe.</li>
+ *   <li>getDescription(): Returns the description of the recipe.</li>
+ *   <li>getVisitor(): Returns a TreeVisitor that applies the recipe to comment out the specified property key in properties and YAML files.</li>
+ * </ul>
+ */
+@JsonIgnoreProperties(ignoreUnknown = true)
 @EqualsAndHashCode(callSuper = false)
 @Value
 public class CommentOutPropertyKey extends Recipe {

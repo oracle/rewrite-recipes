@@ -51,6 +51,32 @@ These recipes will update the WebLogic version to 14.1.2 for the Maven build and
 ```
 2. Run `mvn rewrite:run` to run the recipe.
 
+#### Gradle
+
+1. Add the following to your `build.gradle` file:
+
+```
+plugins {
+    id("org.openrewrite.rewrite") version("7.1.4")
+}
+
+rewrite {
+    activeRecipe("com.oracle.weblogic.rewrite.UpgradeTo1411")
+    activeRecipe("org.openrewrite.java.migrate.Java8toJava11")
+    setExportDatatables(true)
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    rewrite("org.openrewrite.recipe:rewrite-migrate-java:3.2.0")
+}
+```
+2. Run `gradle rewriteRun` to run the recipe.
+
+
 #### Maven Command Line
 
 **NOTE**: You will need to have [Maven](https://maven.apache.org/download.cgi) installed on your machine before you can run the following command.

@@ -70,6 +70,7 @@ repositories {
 
 dependencies {
     rewrite("org.openrewrite.recipe:rewrite-migrate-java:3.2.0")
+    rewrite("com.oracle.weblogic.rewrite:rewrite-weblogic:+")
 }
 ```
 2. Run `gradle rewriteRun` to run the recipe.

@@ -37,8 +37,15 @@
 # SOFTWARE.
 ---
 type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1511
+displayName: Check and Comment Out Deprecations removed on WebLogic version 15.1.1
+description: This recipe will check and comment out deprecations on WebLogic version 15.1.1.
+recipeList:
+  - com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1412
+---
+type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1412
-displayName: Check and Comment Out Deprecations on WebLogic version 14.1.2
+displayName: Check and Comment Out Deprecations removed on WebLogic version 14.1.2
 description: This recipe will check and comment out deprecations on WebLogic version 14.1.2.
 recipeList:
   - org.openrewrite.yaml.CommentOutProperty:

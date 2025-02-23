@@ -5,7 +5,7 @@
 
   <groupId>com.oracle.weblogic.rewrite</groupId>
   <artifactId>rewrite-weblogic</artifactId>
-  <version>0.4.2</version>
+  <version>0.4.3</version>
 
   <name>rewrite-weblogic</name>
   <description>Migrate your WebLogic applications to the latest version of WebLogic

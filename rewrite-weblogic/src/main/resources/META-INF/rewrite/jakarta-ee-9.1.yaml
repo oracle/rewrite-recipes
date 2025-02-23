@@ -46,7 +46,7 @@ tags:
   - jakartaee
 recipeList:
   - org.openrewrite.java.migrate.jakarta.JavaxMigrationToJakarta
-  - com.oracle.weblogic.rewrite.jakarta.Faces2xMigrationToJakarta3x
+  - com.oracle.weblogic.rewrite.jakarta.Faces2xMigrationToJakartaFaces3x
   - com.oracle.weblogic.rewrite.jakarta.JavaxBeansXmlToJakarta9BeansXml
   - com.oracle.weblogic.rewrite.jakarta.JavaxApplicationXmlToJakarta9ApplicationXml
   - com.oracle.weblogic.rewrite.jakarta.JavaxEjbJarXmlToJakarta9EjbJarXml

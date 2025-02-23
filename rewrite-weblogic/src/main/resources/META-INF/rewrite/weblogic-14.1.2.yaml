@@ -46,6 +46,8 @@ tags:
 recipeList:
   - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1412
   - com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1412
+  - com.oracle.weblogic.rewrite.jakarta.FacesMigrationToJakartaFaces2x
+  # - com.oracle.weblogic.rewrite.WebLogic1412JavaXxmlBindMitigation
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1412
@@ -70,3 +72,25 @@ recipeList:
       groupId: com.oracle.weblogic
       artifactId: "*"
       newVersion: 14.1.2-0-0
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogic1412JavaXxmlBindMitigation
+displayName: Mitigation of Java XML Bind Deprecation in Java 11 vs WebLogic 14.1.2
+description: This recipe will mitigate the Javax XML Bind deprecation in Java 11 vs WebLogic 14.1.2
+tags:
+  - weblogic
+  - java
+  - javax
+recipeList:
+  - org.openrewrite.text.FindAndReplace:
+      find: "jakarta.xml.bind"
+      replace: "javax.xml.bind"
+      filePattern: '**/pom.xml'
+  - org.openrewrite.text.FindAndReplace:
+      find: "jakarta.inject"
+      replace: "javax.inject"
+      filePattern: '**/pom.xml'
+  - org.openrewrite.text.FindAndReplace:
+      find: "jakarta.annotation"
+      replace: "javax.annotation"
+      filePattern: '**/pom.xml'

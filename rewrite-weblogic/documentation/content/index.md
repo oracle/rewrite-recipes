@@ -11,12 +11,12 @@ Look here for detailed information about each of the following Rewrite WebLogic 
 
 | Composite Recipe | Description |
 | --- | --- |
-| [Migrate to WebLogic 15.1.1](Migrate to WebLogic 151100.md) | This recipe will update the WebLogic version to 15.1.1 for the Maven build, migrate `javax` packages to `jakarta`, and comment out deprecated and removed APIs. |
-| [Migrate to WebLogic 14.1.2](Migrate to WebLogic 141200.md) | This recipe will upgrade the WebLogic version to 14.1.2 for the Maven build, and comment out deprecated and removed APIs. |
-| [Migrate to WebLogic 14.1.1](Migrate to WebLogic 141100.md) | This recipe will update the WebLogic version to 14.1.2 for the Maven build and will apply changes commonly needed when upgrading to Java 11. |
-| [Migrate to Jakarta EE 9.1](Migrate to Jakarta EE 9_1.md) | This recipe will migrate `javax` packages to `jakarta` and update Jakarta EE platform dependencies to 9.1.0. |
-| [Migrate From JSF 2.x to Jakarta Server Faces 3.x](Jakarta Server Faces 3x.md) | This recipe will find and replace legacy JSF namespaces and `javax` references with Jakarta Server Faces values. |
-| [Identify and Comment Out Deprecations](Identify Deprecations.md) | This recipe will identify, and comment out deprecated and removed APIs. |
+| [Migrate to WebLogic 15.1.1](./recipes/migrate-to-weblogic-151100.md) | This recipe will update the WebLogic version to 15.1.1 for the Maven build, migrate `javax` packages to `jakarta`, and comment out deprecated and removed APIs. |
+| [Migrate to WebLogic 14.1.2](./recipes/migrate-to-weblogic-141200.md) | This recipe will upgrade the WebLogic version to 14.1.2 for the Maven build, and comment out deprecated and removed APIs. |
+| [Migrate to WebLogic 14.1.1](./recipes/migrate-to-weblogic-141100.md) | This recipe will update the WebLogic version to 14.1.2 for the Maven build and will apply changes commonly needed when upgrading to Java 11. |
+| [Migrate to Jakarta EE 9.1](./recipes/migrate-to-jakarta-EE-9_1.md) | This recipe will migrate `javax` packages to `jakarta` and update Jakarta EE platform dependencies to 9.1.0. |
+| [Migrate From JSF 2.x to Jakarta Server Faces 3.x](./recipes/jakarta-server-faces-3x.md) | This recipe will find and replace legacy JSF namespaces and `javax` references with Jakarta Server Faces values. |
+| [Identify and Comment Out Deprecations](./recipes/identify-deprecations.md) | This recipe will identify, and comment out deprecated and removed APIs. |
 
 
 ## Running Recipes
@@ -56,7 +56,7 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
 
 ### Run Using Maven and Adding `<plugin>` in the `pom.xml` File
 
-Add the plug-in to your `pom.xml` file and activate the desired recipe. The following example illustrates Upgrade to WebLogic 14.1.2 and Migrate to Java 21.
+Add the plug-in to your `pom.xml` file and activate the recipes. The following example illustrates the Upgrade to WebLogic 14.1.2 and Migrate to Java 21 recipes.
 ```
     <plugin>
         <groupId>org.openrewrite.maven</groupId>

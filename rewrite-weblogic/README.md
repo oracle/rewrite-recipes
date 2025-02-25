@@ -60,7 +60,7 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
   -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1412,org.openrewrite.java.migrate.UpgradeToJava17
 ```
 
-#### **WebLogic Server 15.1.1 Beta Recipes** 
+#### **WebLogic Server 15.1.1 Beta Recipes**
 
 > [!WARNING]  
 > Make sure you are using an approved WebLogic Server 15.1.1 beta installation before deploying the migrated app
@@ -84,7 +84,7 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
 ```
 
 ##### Spring Framework Upgrade
-If your application is running with Spring Framework 5.x on WebLogic 12.x or 14.x and want to migrate to Spring Framework 6.x, upgrade the application to WebLogic 15.1.1, and then run this command:
+If your application is running with Spring Framework 5.x on WebLogic 12.x or 14.x and you want to migrate to Spring Framework 6.x, upgrade the application to WebLogic 15.1.1, and then run this command:
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
@@ -140,7 +140,7 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
 
 The following tools are required to build and run this project:
 
-- JDK (version 1.8 or higher)
+- JDK (version 1.8 or later)
 - Maven (version 3.2+) or Gradle (version 4.0+ )
 - Your code
 

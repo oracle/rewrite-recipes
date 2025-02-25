@@ -61,16 +61,16 @@ recipeList:
       newValue: 14.1.2-0-0
   - org.openrewrite.maven.UpgradeParentVersion:
       groupId: com.oracle.weblogic.archetype
-      artifactId: "*"
+      artifactId: '*'
       newVersion: 14.1.2-0-0
   - org.openrewrite.maven.UpgradePluginVersion:
       groupId: com.oracle.weblogic
-      artifactId: "*"
+      artifactId: '*'
       newVersion: 14.1.2-0-0
       trustParent: "True"
   - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
       groupId: com.oracle.weblogic
-      artifactId: "*"
+      artifactId: '*'
       newVersion: 14.1.2-0-0
 ---
 type: specs.openrewrite.org/v1beta/recipe

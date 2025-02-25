@@ -53,6 +53,7 @@ recipeList:
   - com.oracle.weblogic.rewrite.jakarta.RemovalsServletJakarta9
   - com.oracle.weblogic.rewrite.jakarta.JavaxToJakartaCdiExtensions
   - com.oracle.weblogic.rewrite.jakarta.UpdateJakartaPlatform9_1
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeCommonOpenSourceLibraries
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.JavaxBeansXmlToJakarta9BeansXml
@@ -235,5 +236,38 @@ tags:
 recipeList:
   - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
       groupId: jakarta.platform
-      artifactId: "*"
+      artifactId: '*'
       newVersion: 9.1.0
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.UpgradeCommonOpenSourceLibraries
+displayName: Upgrade Common open source libraries
+description: Upgrade Common open source libraries libraries to Jakarta EE9 versions.
+tags:
+  - jakarta
+  - hibernate
+recipeList:
+  - com.oracle.weblogic.rewrite.hibernate.MigrateToHibernateJakartaEE9
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.hibernate.MigrateToHibernateJakartaEE9
+displayName: Migrate to Hibernate for Jakarta EE 9
+description: Upgrade hibernate libraries to Jakarta EE9 versions.
+tags:
+  - jakarta
+  - hibernate
+recipeList:
+  - org.openrewrite.hibernate.MigrateToHibernate65
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.hibernate.orm
+      artifactId: '*'
+      newVersion: 6.6.x
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.hibernate.search
+      artifactId: '*'
+      newVersion: 7.2.x
+  - org.openrewrite.java.dependencies.ChangeDependency:
+      oldGroupId: org.hibernate
+      oldArtifactId: hibernate-validator
+      newGroupId: org.hibernate.validator
+      newVersion: 8.0.x

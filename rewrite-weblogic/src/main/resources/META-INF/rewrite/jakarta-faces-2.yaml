@@ -43,10 +43,12 @@ recipeList:
       groupId: org.primefaces
       artifactId: primefaces
       newVersion: 8.0.x
+      versionPattern: '-LTS'
   - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
       groupId: org.primefaces.extensions
       artifactId: primefaces-extensions
       newVersion: 8.0.x
+      versionPattern: '-LTS'
   - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
       groupId: org.omnifaces
       artifactId: omnifaces

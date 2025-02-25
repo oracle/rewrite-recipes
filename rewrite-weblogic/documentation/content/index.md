@@ -33,8 +33,8 @@ The following example sections illustrate the methods for upgrading your applica
 
 The following is required to build and run this project:
 
-- Java 8 or later
-- Maven or Gradle
+- JDK (version 1.8 or later)
+- Maven (version 3.2+) or Gradle (version 4.0+)
 - Your code
 
 ### Get Your Code
@@ -56,7 +56,8 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
 
 ### Run Using Maven and Adding `<plugin>` in the `pom.xml` File
 
-Add the plug-in to your `pom.xml` file and activate the recipes. The following example illustrates the Upgrade to WebLogic 14.1.2 and Migrate to Java 21 recipes.
+1. Add the plug-in to your `pom.xml` file and activate the recipes. The following example illustrates the Upgrade to WebLogic 14.1.2 and Migrate to Java 21 recipes.
+
 ```
     <plugin>
         <groupId>org.openrewrite.maven</groupId>
@@ -83,7 +84,8 @@ Add the plug-in to your `pom.xml` file and activate the recipes. The following e
         </dependencies>
     </plugin>
 ```
-    To run the recipe: `mvn rewrite:run`
+
+2. To run the recipe: `mvn rewrite:run`
 
 **Tip**
 
@@ -93,7 +95,7 @@ If you just want to dry run the recipe without changing the code, use `mvn rewri
 
 The goals `rewrite:run` and `rewrite:dryRun` are configured to fork Maven's life cycle and are a better choice when running recipes using a standalone goal (`mvn rewrite:run`) because this will trigger all the necessary life-cycle goals before running the rewrite plug-in. However, when using rewrite within the context of an integration build (`mvn deploy rewrite:run`), it may be more efficient to use the non-forking variants, as these will not cause duplicate life cycle phases to be called.
 
-    If you are using git for your repository, you can see the differences by using `git diff` or other diff viewers. This option will show you the differences between your original and migrated code.
+If you are using git for your repository, you can see the differences by using `git diff` or other diff viewers. This option will show you the differences between your original and migrated code.
 
 ### Run Using Gradle
 

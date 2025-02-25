@@ -95,7 +95,7 @@ If you just want to dry run the recipe without changing the code, use `mvn rewri
 
 The goals `rewrite:run` and `rewrite:dryRun` are configured to fork Maven's life cycle and are a better choice when running recipes using a standalone goal (`mvn rewrite:run`) because this will trigger all the necessary life-cycle goals before running the rewrite plug-in. However, when using rewrite within the context of an integration build (`mvn deploy rewrite:run`), it may be more efficient to use the non-forking variants, as these will not cause duplicate life cycle phases to be called.
 
-    If you are using git for your repository, you can see the differences by using `git diff` or other diff viewers. This option will show you the differences between your original and migrated code.
+If you are using git for your repository, you can see the differences by using `git diff` or other diff viewers. This option will show you the differences between your original and migrated code.
 
 ### Run Using Gradle
 

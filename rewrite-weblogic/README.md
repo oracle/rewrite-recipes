@@ -11,6 +11,10 @@ Elevate your WebLogic applications effortlessly! Upgrade to the latest version o
 
 Experience automatic migration like never before! Migrate your WebLogic applications to the latest version of WebLogic and supported Java, Jakarta EE with OpenRewrite. Automatically.
 
+To learn all about WebLogic Server Application Upgrade Tooling, see the [docs](/docs/index.md).
+
+To jump start your hands on learning, see the [examples and tutorials](https://github.com/oracle-samples/weblogic-examples).
+
 ## Recipes
 
 | Composite Recipes | Recipes | Description |

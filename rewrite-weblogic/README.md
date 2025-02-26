@@ -11,7 +11,7 @@ Elevate your WebLogic applications effortlessly! Upgrade to the latest version o
 
 Experience automatic migration like never before! Migrate your WebLogic applications to the latest version of WebLogic and supported Java, Jakarta EE with OpenRewrite. Automatically.
 
-To learn all about WebLogic Server application upgrade tooling, see the [docs](../docs/index.md).
+To learn all about WebLogic Server application upgrade tooling, see the [docs](../rewrite-weblogic/docs/index.md).
 
 To jump start your hands on learning, see the [examples and tutorials](https://github.com/oracle-samples/weblogic-examples).
 
@@ -69,7 +69,7 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
 > [!WARNING]  
 > Make sure you are using an approved WebLogic Server 15.1.1 BETA installation before deploying the migrated app
 
-##### Upgrading applications to WebLogic Server 15.1.1 beta, Jakarta EE 9.1 and Java 21
+##### Upgrading applications to WebLogic Server 15.1.1 BETA, Jakarta EE 9.1 and Java 21
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
@@ -78,7 +78,7 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
   -Drewrite.exportDatatables=true
 ```
 
-##### Upgrading applications to WebLogic Server 15.1.1 beta, Jakarta EE 9.1 and Java 17
+##### Upgrading applications to WebLogic Server 15.1.1 BETA, Jakarta EE 9.1 and Java 17
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \

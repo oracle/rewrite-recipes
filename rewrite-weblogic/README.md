@@ -64,10 +64,10 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
   -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1412,org.openrewrite.java.migrate.UpgradeToJava17
 ```
 
-#### **WebLogic Server 15.1.1 beta recipes**
+#### **WebLogic Server 15.1.1 BETA recipes**
 
 > [!WARNING]  
-> Make sure you are using an approved WebLogic Server 15.1.1 beta installation before deploying the migrated app
+> Make sure you are using an approved WebLogic Server 15.1.1 BETA installation before deploying the migrated app
 
 ##### Upgrading applications to WebLogic Server 15.1.1 beta, Jakarta EE 9.1 and Java 21
 

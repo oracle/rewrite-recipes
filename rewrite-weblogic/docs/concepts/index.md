@@ -12,7 +12,7 @@ OpenRewite employs an auto-refactoring engine that works by makes changes to the
 
 OpenRewrite [recipes](https://docs.openrewrite.org/concepts-and-explanations/recipes) comprise search and refactoring operations that can be applied to LSTs. A recipe can represent a single, standalone operation or it can be linked together with other recipes to accomplish a larger goal. WebLogic Rewrite recipes are composite recipes (recipes that consists of a list of other recipes). Recipes can be further composable - that is, a composite recipe can include composite recipes. In addition, recipes are stackable meaning that you can run more than one recipe at a time, within a single command or Maven configuration; the recipes are run in order.
 
-You call [Rewrite WebLogic recipes](../recipes/index.md) on your code folder using the Maven or Gradle CLI, or by including them as a build plug-in in your `pom.xml` file. Recipes are activated, marked as `activeRecipes`, on the command line or in the `pom.xml` file. You trigger running the activated recipe with the appropriate Maven or Gradle `run` command.
+You call [Rewrite WebLogic recipes](./docs/recipes/index.md) on your code folder using the Maven or Gradle CLI, or by including them as a build plug-in in your `pom.xml` file. Recipes are activated, marked as `activeRecipes`, on the command line or in the `pom.xml` file. You trigger running the activated recipe with the appropriate Maven or Gradle `run` command.
 
 You can use one or more recipes to accomplish your goals. Recipes are stackable, meaning that you can run more than one recipe at a time, within a single command or Maven configuration. The active recipes are run in order.
 

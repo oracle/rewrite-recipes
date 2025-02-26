@@ -1,4 +1,4 @@
-# How To Run Recipes
+# How to run recipes
 
 Depending on your application dependencies and WebLogic Server and JDK source versions, you can use one or more recipes to accomplish your goals. Recipes are stackable; you can run more than one recipe at a time, within a single command or Maven configuration; recipes are run in order.
 

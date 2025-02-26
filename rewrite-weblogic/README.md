@@ -11,7 +11,7 @@ Elevate your WebLogic applications effortlessly! Upgrade to the latest version o
 
 Experience automatic migration like never before! Migrate your WebLogic applications to the latest version of WebLogic and supported Java, Jakarta EE with OpenRewrite. Automatically.
 
-To learn all about WebLogic Server Application Upgrade Tooling, see the [docs](/docs/index.md).
+To learn all about WebLogic Server application upgrade tooling, see the [docs](./rewrite-weblogic/docs/index.md).
 
 To jump start your hands on learning, see the [examples and tutorials](https://github.com/oracle-samples/weblogic-examples).
 
@@ -64,10 +64,10 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
   -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1412,org.openrewrite.java.migrate.UpgradeToJava17
 ```
 
-#### **WebLogic Server 15.1.1 Beta Recipes**
+#### **WebLogic Server 15.1.1 BETA recipes**
 
 > [!WARNING]  
-> Make sure you are using an approved WebLogic Server 15.1.1 beta installation before deploying the migrated app
+> Make sure you are using an approved WebLogic Server 15.1.1 BETA installation before deploying the migrated app
 
 ##### Upgrading applications to WebLogic Server 15.1.1 beta, Jakarta EE 9.1 and Java 21
 
@@ -87,7 +87,7 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
   -Drewrite.exportDatatables=true
 ```
 
-##### Spring Framework Upgrade
+##### Spring Framework upgrade
 If your application is running with Spring Framework 5.x on WebLogic 12.x or 14.x and you want to migrate to Spring Framework 6.x, upgrade the application to WebLogic 15.1.1, and then run this command:
 
 ```shell
@@ -148,7 +148,7 @@ The following tools are required to build and run this project:
 - Maven (version 3.2+) or Gradle (version 4.0+ )
 - Your code
 
-#### Dry Run
+#### Dry run
 
 ```shell
 mvn org.openrewrite.maven:rewrite-maven-plugin:dryRun

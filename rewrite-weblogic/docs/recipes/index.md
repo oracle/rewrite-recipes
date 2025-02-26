@@ -1,8 +1,8 @@
-# Rewrite WebLogic Recipes
+# Rewrite WebLogic recipes
 
-Look here for detailed information about each of the following Rewrite WebLogic composite recipes (recipes that consists of a list of other recipes). Depending on your application dependencies and WebLogic Server and JDK source versions, you can use one or more recipes to accomplish your goals. 
+Look here for detailed information about each of the following Rewrite WebLogic composite recipes (recipes that consists of a list of other recipes). Depending on your application dependencies and WebLogic Server and JDK source versions, you can use one or more recipes to accomplish your goals.
 
-For detailed information about running recipes, see [How To Run Recipes](./procedures/index.md) and the examples and tutorials in the [WebLogic Examples](https://github.com/oracle-samples/weblogic-examples) repository.
+For detailed information about running recipes, see [How to run recipes](../procedures/index.md) and the examples and tutorials in the [WebLogic Examples](https://github.com/oracle-samples/weblogic-examples) repository.
 
 | Composite Recipe | Description |
 | --- | --- |

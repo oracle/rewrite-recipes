@@ -11,9 +11,14 @@ Elevate your WebLogic applications effortlessly! Upgrade to the latest version o
 
 Experience automatic migration like never before! Migrate your WebLogic applications to the latest version of WebLogic and supported Java, Jakarta EE with OpenRewrite. Automatically.
 
-To learn all about WebLogic Server application upgrade tooling, see the [docs](./docs/index.md).
+To learn all about WebLogic Server application upgrade tooling, see the [**Documentation**](./docs/index.md).
 
-To jump start your hands on learning, see the [examples and tutorials](https://github.com/oracle-samples/weblogic-examples).
+To jump start your hands on learning, see these [**Examples and Tutorials**](https://github.com/oracle-samples/weblogic-examples):
+
+- [Example Applications](https://github.com/oracle-samples/weblogic-examples/blob/main/README.md#examples)
+- [Migrate WebLogic Cafe to WLS 14.1.2](https://github.com/oracle-samples/weblogic-examples/blob/main/tutorials/migrate/weblogic-cafe-14.1.2/README.md)
+- [Migrate WebLogic Cafe to WLS 15.1.1 (BETA)](https://github.com/oracle-samples/weblogic-examples/blob/main/tutorials/migrate/weblogic-cafe-15.1.1/README.md)
+- [Migrate Spring Framework Pet Clinic to WLS 15.1.1 (BETA)](https://github.com/oracle-samples/weblogic-examples/blob/main/tutorials/migrate/spring-framework-petclinic-15.1.1/README.md)
 
 ## Recipes
 

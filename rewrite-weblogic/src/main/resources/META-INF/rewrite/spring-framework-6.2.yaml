@@ -29,6 +29,7 @@ recipeList:
       newVersion: 6.2.x
   - com.oracle.weblogic.rewrite.spring.framework.DefaultServletHandler
   - org.openrewrite.java.spring.data.UpgradeSpringData_2_7
+  - com.oracle.weblogic.rewrite.spring.data.UpgradeSpringDataBom
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.spring.framework.DefaultServletHandler
@@ -40,3 +41,16 @@ recipeList:
       attributeName: default-servlet-name
       newValue: DefaultServlet
       oldValue: ""
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.spring.data.UpgradeSpringDataBom
+displayName: Upgrade Spring Data BOM to 2024.1.x
+description: Upgrade Spring Data BOM to 2024.1.x version.
+tags:
+  - springdata
+  - springframework
+recipeList:
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.springframework.data
+      artifactId: spring-data-bom
+      newVersion: 2024.1.x

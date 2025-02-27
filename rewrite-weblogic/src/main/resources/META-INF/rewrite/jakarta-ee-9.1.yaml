@@ -52,6 +52,8 @@ recipeList:
   - com.oracle.weblogic.rewrite.jakarta.JavaxEjbJarXmlToJakarta9EjbJarXml
   - com.oracle.weblogic.rewrite.jakarta.RemovalsServletJakarta9
   - com.oracle.weblogic.rewrite.jakarta.JavaxToJakartaCdiExtensions
+  - com.oracle.weblogic.rewrite.jakarta.MigrateTagLibsToJakartaEE9
+  - com.oracle.weblogic.rewrite.jakarta.OrgGlassfishJavaxElToJakartaEl
   - com.oracle.weblogic.rewrite.jakarta.UpdateJakartaPlatform9_1
   - com.oracle.weblogic.rewrite.jakarta.UpgradeCommonOpenSourceLibraries
 ---
@@ -106,7 +108,7 @@ recipeList:
   - org.openrewrite.text.FindAndReplace:
       find: javax.
       replace: jakarta.
-      filePattern: '**/ejb-jar.xml'
+      filePattern: '**/application.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.JavaxEjbJarXmlToJakarta9EjbJarXml
@@ -227,6 +229,37 @@ recipeList:
       fileName: jakarta.enterprise.inject.spi.Extension
 ---
 type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigrateTagLibsToJakartaEE9
+displayName: Migrate Tag Libraries to 2.0 (Jakarta EE 9)
+description: Upgrade Jakarta Standard Tag libraries to 2.0 (Jakarta EE9) versions.
+tags:
+  - jakarta
+  - hibernate
+recipeList:
+  - org.openrewrite.java.dependencies.ChangeDependency:
+      oldGroupId: javax.servlet
+      oldArtifactId: jstl
+      newGroupId: jakarta.servlet.jsp.jstl
+      newArtifactId: jakarta.servlet.jsp.jstl-api
+      newVersion: 2.0.x
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.OrgGlassfishJavaxElToJakartaEl
+displayName: Migrate deprecated `org.glassfish.javax.el` packages to `jakarta.el`
+description: Package relocation for rebranded Javax to Jakarta EE.
+recipeList:
+  - org.openrewrite.java.ChangePackage:
+      oldPackageName: org.glassfish.javax.el
+      newPackageName: jakarta.el
+      recursive: true
+  - org.openrewrite.java.dependencies.ChangeDependency:
+      oldGroupId: org.glassfish
+      oldArtifactId: javax.el
+      newGroupId: jakarta.el
+      newArtifactId: jakarta.el-api
+      newVersion: 4.x
+---
+type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.UpdateJakartaPlatform9_1
 displayName: Update Jakarta EE Platform Dependencies to 9.1.0
 description: Update Jakarta EE Platform Dependencies to 9.1.0
@@ -247,10 +280,17 @@ tags:
   - jakarta
   - hibernate
 recipeList:
-  - com.oracle.weblogic.rewrite.hibernate.MigrateToHibernateJakartaEE9
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: com.h2database
+      artifactId: '*'
+      newVersion: 2.3.x
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.hsqldb
+      artifactId: hsqldb
+      newVersion: 2.7.x
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.hibernate.MigrateToHibernateJakartaEE9
+name: com.oracle.weblogic.rewrite.hibernate.MigrateHibernate4JakartaEE9
 displayName: Migrate to Hibernate for Jakarta EE 9
 description: Upgrade hibernate libraries to Jakarta EE9 versions.
 tags:

@@ -87,14 +87,19 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
   -Drewrite.exportDatatables=true
 ```
 
-##### Spring Framework upgrade
-If your application is running with Spring Framework 5.x on WebLogic 12.x or 14.x and you want to migrate to Spring Framework 6.x, upgrade the application to WebLogic 15.1.1, and then run this command:
+##### **Spring Framework upgrade:** Upgrading applications to WebLogic Server 15.1.1 BETA, Jakarta EE 9.1, Java 21 and Spring Framework 6.2.x
+
+If your application is running with Spring Framework 5.x on WebLogic 12.x or 14.x and you want to migrate to Spring Framework 6.2.x, include the Spring Framework recipe to the command:
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-  -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-spring:RELEASE \
-  -Drewrite.activeRecipes=org.openrewrite.java.spring.framework.UpgradeSpringFramework_6_1 -Drewrite.exportDatatables=true
+      -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:0.4.3,org.openrewrite.recipe:rewrite-spring:RELEASE \
+      -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1511,org.openrewrite.java.migrate.UpgradeToJava21,com.oracle.weblogic.rewrite.JakartaEE9_1,com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_6_2 \
+      -Drewrite.exportDatatables=true
 ```
+
+> [!TIP]  
+> When upgrading your app to Spring Framework 6.2.x, you may have other libraries that needs update, like `org.hibernate`. You can include the recipe on the same command or execute the recipe separated later. Check the [tutorials](https://github.com/oracle-samples/weblogic-examples) for other examples.
 
 ### Running using Maven and adding `<plugin>` in the `pom.xml` file
 

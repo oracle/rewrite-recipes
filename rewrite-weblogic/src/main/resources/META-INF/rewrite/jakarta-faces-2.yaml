@@ -1,0 +1,63 @@
+#
+# Copyright 2025 the original author or authors.
+# <p>
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# <p>
+# https://www.apache.org/licenses/LICENSE-2.0
+# <p>
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.FacesMigrationToJakartaFaces2x
+displayName: JSF 1.x to Jakarta Server Faces 2.3 on WebLogic 14.1.2 or older
+description: Jakarta EE 8 uses Faces 2.3 a major upgrade to Jakarta packages and XML namespaces. This recipe will migrate JSF 1.x to Jakarta Server Faces 2.3 on WebLogic 14.1.2 or older.
+tags:
+  - jakarta
+  - jakartaee
+  - faces
+  - jsf
+  - javax
+recipeList:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeFacesOpenSourceLibraries2
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.UpgradeFacesOpenSourceLibraries2
+displayName: Upgrade Faces open source libraries
+description: Upgrade PrimeFaces, OmniFaces, and MyFaces libraries to Jakarta EE9 versions.
+tags:
+  - jakarta
+  - faces
+  - jsf
+  - myfaces
+  - omnifaces
+  - primefaces
+recipeList:
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.primefaces
+      artifactId: primefaces
+      newVersion: 8.0.x
+      versionPattern: '-LTS'
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.primefaces.extensions
+      artifactId: primefaces-extensions
+      newVersion: 8.0.x
+      versionPattern: '-LTS'
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.omnifaces
+      artifactId: omnifaces
+      newVersion: 3.x
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.apache.myfaces.core
+      artifactId: myfaces-api
+      newVersion: 2.3.x
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.apache.myfaces.core
+      artifactId: myfaces-impl
+      newVersion: 2.3.x

@@ -45,7 +45,8 @@ tags:
   - java
 recipeList:
   - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1511
-  - com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1412
+  - com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1511
+  - com.oracle.weblogic.rewrite.WebLogicXmlWebAppNamespace1511
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1511
@@ -59,17 +60,43 @@ recipeList:
       newValue: 15.1.1-0-0
   - org.openrewrite.maven.UpgradeParentVersion:
       groupId: com.oracle.weblogic.archetype
-      artifactId: "*"
+      artifactId: '*'
       newVersion: 15.1.1-0-0
   - org.openrewrite.maven.UpgradePluginVersion:
       groupId: com.oracle.weblogic
-      artifactId: "*"
+      artifactId: '*'
       newVersion: 15.1.1-0-0
       trustParent: "True"
   - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
       groupId: com.oracle.weblogic
-      artifactId: "*"
+      artifactId: '*'
       newVersion: 15.1.1-0-0
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicXmlWebAppNamespace1511
+displayName: Migrate xmlns entries in `weblogic.xml` files for WebLogic 15.1.1
+description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
+tags:
+  - jakarta
+  - faces
+  - jsf
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: version
+      elementName: web-app
+      newValue: 5.0
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: web-app
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: web-app
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: "javax."
+      replace: "jakarta."
+      filePattern: '**/weblogic.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.JavaxEjbToJakartaEjb4
@@ -96,3 +123,4 @@ recipeList:
       newGroupId: jakarta.ejb
       newArtifactId: jakarta.ejb-api
       newVersion: 4.x
+

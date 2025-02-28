@@ -18,7 +18,7 @@ To jump start your hands on learning, see these [**Examples and Tutorials**](htt
 - [Example Applications](https://github.com/oracle-samples/weblogic-examples/blob/main/README.md#examples)
 - [Migrate WebLogic Cafe to WLS 14.1.2](https://github.com/oracle-samples/weblogic-examples/blob/main/tutorials/migrate/weblogic-cafe-14.1.2/README.md)
 - [Migrate WebLogic Cafe to WLS 15.1.1 (BETA)](https://github.com/oracle-samples/weblogic-examples/blob/main/tutorials/migrate/weblogic-cafe-15.1.1/README.md)
-- [Migrate Spring Framework Pet Clinic to WLS 15.1.1 (BETA)](https://github.com/oracle-samples/weblogic-examples/blob/main/tutorials/migrate/spring-framework-petclinic-15.1.1/README.md)
+- [Migrate Spring Framework PetClinic to WLS 15.1.1 (BETA)](https://github.com/oracle-samples/weblogic-examples/blob/main/tutorials/migrate/spring-framework-petclinic-15.1.1/README.md)
 
 ## Recipes
 

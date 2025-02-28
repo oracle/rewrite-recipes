@@ -9,5 +9,5 @@ You can run Rewrite WebLogic recipes on your code folder using the Maven or Grad
 The following procedures illustrate the methods to upgrade your applications, WebLogic Server, and Java versions:
 
 - [Upgrade to WebLogic Server 14.1.2](upgrade-141200.md)
-- [Upgrade to WebLogic Server 15.1.1](upgrade-151100.md)
-- Upgrade to WebLogic Server 15.1.1 with Spring Framework
+- [Upgrade to WebLogic Server 15.1.1 (BETA)](upgrade-151100.md)
+- [Upgrade to WebLogic Server 15.1.1 with Spring Framework](https://github.com/oracle-samples/weblogic-examples/blob/main/tutorials/migrate/spring-framework-petclinic-15.1.1/README.md)

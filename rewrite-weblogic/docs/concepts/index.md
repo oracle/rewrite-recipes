@@ -18,3 +18,20 @@ You can use one or more recipes to accomplish your goals. Recipes are stackable,
 
 
 ## Troubleshooting
+
+Here are some issues associated with OpenRewrite recipes that you may encounter in the WebLogic Server 15.1.1.0.0 beta release.
+
+**Issue** </br>
+WebLogic OpenRewrite recipes do not support the transformation of descriptors that use DTD references.
+<!-- Bug #37639800 -->
+
+**Issue** </br>
+To migrate Spring Framework applications to WebLogic Server version 15.1.1.0.0 (BETA) and Jakarta EE 9.1, using either JDK17 or JDK21, at a _minimum_, you must have:
+* Spring version 5.3
+* Hibernate version 6.1
+* Run both Hibernate and Spring recipes together
+<!-- Bug #37642918 -->
+
+**Issue** </br>
+For application migration to be successful, all dependencies, including fourth-party dependencies, must be included in the `pom.xml` file, _before_ migration.
+<!-- Bugs #37644007, #37638545 , #37642398 -->

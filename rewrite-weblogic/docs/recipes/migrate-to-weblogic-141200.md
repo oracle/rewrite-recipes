@@ -50,6 +50,9 @@ This recipe will upgrade the WebLogic version to 14.1.2 for the Maven build, and
 ```
 2. Run `mvn rewrite:run` to run the recipe.
 
+> [!TIP]  
+> If you just want to dry run the recipe without changing the code, use `mvn rewrite:DryRun`. For more details when using Maven, see [here](https://docs.openrewrite.org/reference/rewrite-maven-plugin).
+
 #### Gradle
 
 1. Add the following to your `build.gradle` file:
@@ -74,6 +77,9 @@ dependencies {
 }
 ```
 2. Run `gradle rewriteRun` to run the recipe.
+
+> [!TIP]  
+> If you just want to dry run the recipe without changing the code, use `gradle rewrite:DryRun`.
 
 #### Maven Command Line
 

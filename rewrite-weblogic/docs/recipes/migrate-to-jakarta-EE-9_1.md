@@ -87,7 +87,7 @@ dependencies {
 2. Run `gradle rewriteRun` to run the recipe.
 
 > [!TIP]  
-> If you just want to dry run the recipe without changing the code, use `gradle rewrite:DryRun`.
+> If you just want to dry run the recipe without changing the code, use `gradle rewriteDryRun`.
 
 #### Maven Command Line
 

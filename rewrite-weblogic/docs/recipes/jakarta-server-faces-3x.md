@@ -65,6 +65,9 @@ This recipe will find and replace legacy JSF namespaces and `javax` references w
 ```
 2. Run `mvn rewrite:run` to run the recipe.
 
+> [!TIP]  
+> If you just want to dry run the recipe without changing the code, use `mvn rewrite:DryRun`. For more details when using Maven, see [here](https://docs.openrewrite.org/reference/rewrite-maven-plugin).
+
 #### Gradle
 
 1. Add the following to your `build.gradle` file:
@@ -89,6 +92,9 @@ dependencies {
 }
 ```
 2. Run `gradle rewriteRun` to run the recipe.
+
+> [!TIP]  
+> If you just want to dry run the recipe without changing the code, use `gradle rewriteDryRun`. For more details about the "dryRun" task, see [here](https://docs.openrewrite.org/reference/gradle-plugin-configuration#the-dryrun-task).
 
 #### Maven Command Line
 

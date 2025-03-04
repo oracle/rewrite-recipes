@@ -1,24 +1,29 @@
-# Migrate to WebLogic 14.1.2
-**com.oracle.weblogic.rewrite.UpgradeTo1412**
+# Migrate to Spring Framework 6.2 for WebLogic 15.1.1
+**com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_6_2**
 
-This recipe applies the changes required for upgrading to WebLogic Server 14.1.2.0.0.
+This recipe migrates applications to the Spring Framework 6.2 release and to compatibility with WebLogic 15.1.1.
 
 ### Tags:
   - weblogic
-  - java
+  - springframework
 
 ### Recipe Source
 
-[weblogic-14.1.2.yaml](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/weblogic-14.1.2.yaml)
+[spring-framework-6.2.yaml](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/spring-framework-6.2.yaml)
 
 ### Recipe List:
-  - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1412
-  - [com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1412](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/weblogic-deprecations.yaml)
-  - com.oracle.weblogic.rewrite.jakarta.FacesMigrationToJakartaFaces2x
+- org.openrewrite.java.spring.framework.UpgradeSpringFramework_6_1
+- org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+    groupId: org.springframework
+    artifactId: '*'
+    newVersion: 6.2.x
+- com.oracle.weblogic.rewrite.spring.framework.DefaultServletHandler
+- org.openrewrite.java.spring.data.UpgradeSpringData_2_7
+- com.oracle.weblogic.rewrite.spring.data.UpgradeSpringDataBom
 
 ### Usage
 
-This recipe will upgrade the WebLogic version to 14.1.2 for the Maven build, and comment out deprecated and removed APIs.
+This recipe will migrate applications to the Spring Framework 6.2 release and to compatibility with WebLogic 15.1.1.
 
 #### Maven POM
 
@@ -31,7 +36,7 @@ This recipe will upgrade the WebLogic version to 14.1.2 for the Maven build, and
     <configuration>
         <exportDatatables>true</exportDatatables>
         <activeRecipes>
-            <recipe>com.oracle.weblogic.rewrite.UpgradeTo1412</recipe>
+            <recipe>com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_6_2</recipe>
         </activeRecipes>
     </configuration>
     <dependencies>
@@ -64,7 +69,7 @@ plugins {
 }
 
 rewrite {
-    activeRecipe("com.oracle.weblogic.rewrite.UpgradeTo1412")
+    activeRecipe("com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_6_2")
     setExportDatatables(true)
 }
 
@@ -89,6 +94,6 @@ dependencies {
 ```
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
   -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \
-  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1412 \
+  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_6_2 \
   -Drewrite.exportDatatables=true
   ```

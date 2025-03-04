@@ -8,7 +8,7 @@ This recipe will identify and comment out deprecations on WebLogic version 14.1.
 [weblogic-deprecations.yaml](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/weblogic-deprecations.yaml)
 
 ### Recipe List:
-  - [org.openrewrite.yaml.CommentOutProperty](https://docs.openrewrite.org/recipes/yaml/commentoutproperty)
+  - com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1412
 
 ### Usage
 

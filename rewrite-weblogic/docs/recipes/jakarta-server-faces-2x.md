@@ -1,24 +1,26 @@
-# Migrate to WebLogic 14.1.2
-**com.oracle.weblogic.rewrite.UpgradeTo1412**
+# Migrate From JSF 1.x to Jakarta Server Faces 2.3 on WebLogic 14.1.2 or older
+**com.oracle.weblogic.rewrite.jakarta.FacesMigrationToJakartaFaces2x**
 
-This recipe applies the changes required for upgrading to WebLogic Server 14.1.2.0.0.
+Jakarta EE 8 uses Faces 2.3, a major upgrade to Jakarta packages and XML namespaces. This recipe will migrate JSF 1.x to Jakarta Server Faces 2.3 on WebLogic 14.1.2 or older.
 
 ### Tags:
-  - weblogic
-  - java
+- jakarta
+- jakartaee
+- faces
+- jsf
+- javax
 
 ### Recipe Source
 
-[weblogic-14.1.2.yaml](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/weblogic-14.1.2.yaml)
+[jakarta-faces-2.yaml](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/jakarta-faces-2.yaml)
 
 ### Recipe List:
-  - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1412
-  - [com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1412](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/weblogic-deprecations.yaml)
-  - com.oracle.weblogic.rewrite.jakarta.FacesMigrationToJakartaFaces2x
+
+- com.oracle.weblogic.rewrite.jakarta.UpgradeFacesOpenSourceLibraries2
 
 ### Usage
 
-This recipe will upgrade the WebLogic version to 14.1.2 for the Maven build, and comment out deprecated and removed APIs.
+This recipe will upgrade PrimeFaces, OmniFaces, and MyFaces libraries to Jakarta EE9 versions.
 
 #### Maven POM
 
@@ -31,7 +33,7 @@ This recipe will upgrade the WebLogic version to 14.1.2 for the Maven build, and
     <configuration>
         <exportDatatables>true</exportDatatables>
         <activeRecipes>
-            <recipe>com.oracle.weblogic.rewrite.UpgradeTo1412</recipe>
+            <recipe>com.oracle.weblogic.rewrite.jakarta.FacesMigrationToJakartaFaces2x</recipe>
         </activeRecipes>
     </configuration>
     <dependencies>
@@ -64,7 +66,7 @@ plugins {
 }
 
 rewrite {
-    activeRecipe("com.oracle.weblogic.rewrite.UpgradeTo1412")
+    activeRecipe("com.oracle.weblogic.rewrite.jakarta.FacesMigrationToJakartaFaces2x")
     setExportDatatables(true)
 }
 
@@ -89,6 +91,6 @@ dependencies {
 ```
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
   -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \
-  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1412 \
+  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.jakarta.FacesMigrationToJakartaFaces2x \
   -Drewrite.exportDatatables=true
   ```

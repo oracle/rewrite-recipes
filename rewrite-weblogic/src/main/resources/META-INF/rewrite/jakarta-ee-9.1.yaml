@@ -50,11 +50,15 @@ recipeList:
   - com.oracle.weblogic.rewrite.jakarta.JavaxBeansXmlToJakarta9BeansXml
   - com.oracle.weblogic.rewrite.jakarta.JavaxApplicationXmlToJakarta9ApplicationXml
   - com.oracle.weblogic.rewrite.jakarta.JavaxEjbJarXmlToJakarta9EjbJarXml
+  - com.oracle.weblogic.rewrite.jakarta.JavaxJobXmlToJakarta9JobXml
   - com.oracle.weblogic.rewrite.jakarta.RemovalsServletJakarta9
   - com.oracle.weblogic.rewrite.jakarta.JavaxToJakartaCdiExtensions
   - com.oracle.weblogic.rewrite.jakarta.MigrateTagLibsToJakartaEE9
+  - com.oracle.weblogic.rewrite.jakarta.MigrateJavaxMVCToJakartaEE9
+  - com.oracle.weblogic.rewrite.jakarta.JavaxAnnotationMigrationToJakarta9Annotation
   - com.oracle.weblogic.rewrite.jakarta.OrgGlassfishJavaxElToJakartaEl
   - com.oracle.weblogic.rewrite.jakarta.UpdateJakartaPlatform9_1
+  - com.oracle.weblogic.rewrite.jakarta.MitigateUnaffectedNonEEJakarta9Packages
   - com.oracle.weblogic.rewrite.jakarta.UpgradeCommonOpenSourceLibraries
 ---
 type: specs.openrewrite.org/v1beta/recipe
@@ -137,6 +141,30 @@ recipeList:
       find: javax.
       replace: jakarta.
       filePattern: '**/ejb-jar.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.JavaxJobXmlToJakarta9JobXml
+displayName: Migrate xmlns entries in `*job.xml` files.
+description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
+tags:
+  - jakarta
+  - jobXML
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/batch-jobs/*.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: job
+      attributeName: version
+      newValue: 2.0
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: job
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: job
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/jobXML_2_0.xsd
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.RemovalsServletJakarta9
@@ -234,7 +262,7 @@ displayName: Migrate Tag Libraries to 2.0 (Jakarta EE 9)
 description: Upgrade Jakarta Standard Tag libraries to 2.0 (Jakarta EE9) versions.
 tags:
   - jakarta
-  - hibernate
+  - taglibs
 recipeList:
   - org.openrewrite.java.dependencies.ChangeDependency:
       oldGroupId: javax.servlet
@@ -242,6 +270,64 @@ recipeList:
       newGroupId: jakarta.servlet.jsp.jstl
       newArtifactId: jakarta.servlet.jsp.jstl-api
       newVersion: 2.0.x
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigrateJavaxMVCToJakartaEE9
+displayName: Migrate javax.mvc to 2.0 (Jakarta EE 9)
+description: Upgrade Jakarta Model-View-Controller libraries to 2.0 (Jakarta EE9) versions.
+tags:
+  - jakarta
+  - mvc
+recipeList:
+  - org.openrewrite.java.dependencies.ChangeDependency:
+      oldGroupId: javax.mvc
+      oldArtifactId: javax.mvc-api
+      newGroupId: jakarta.mvc
+      newArtifactId: jakarta.mvc-api
+      newVersion: 2.x
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.JavaxAnnotationMigrationToJakarta9Annotation
+displayName: Migrate deprecated `javax.annotation` to `jakarta.annotation`
+description: |
+  Java EE has been rebranded to Jakarta EE, necessitating a package relocation.
+tags:
+  - annotation
+  - javax
+  - jakarta
+recipeList:
+  - org.openrewrite.java.dependencies.ChangeDependency:
+      oldGroupId: javax.annotation
+      oldArtifactId: javax.annotation-api
+      newGroupId: jakarta.annotation
+      newArtifactId: jakarta.annotation-api
+      newVersion: 2.0.x
+  - org.openrewrite.java.dependencies.ChangeDependency:
+      oldGroupId: org.glassfish.main
+      oldArtifactId: javax.annotation
+      newGroupId: jakarta.annotation
+      newArtifactId: jakarta.annotation-api
+      newVersion: 2.0.x
+  - org.openrewrite.java.ChangePackage:
+      oldPackageName: javax.annotation
+      newPackageName: jakarta.annotation
+      recursive: true
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: jakarta.annotation
+      artifactId: jakarta.annotation-api
+      newVersion: 2.0.x
+  - org.openrewrite.java.ChangePackage:
+      oldPackageName: jakarta.annotation.processing
+      newPackageName: javax.annotation.processing
+  - org.openrewrite.java.ChangePackage:
+      oldPackageName: jakarta.annotation.concurrent
+      newPackageName: javax.annotation.concurrent
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: jakarta.annotation.Nullable
+      newFullyQualifiedTypeName: javax.annotation.Nullable
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: jakarta.annotation.Nonnull
+      newFullyQualifiedTypeName: javax.annotation.Nonnull
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.OrgGlassfishJavaxElToJakartaEl
@@ -271,6 +357,23 @@ recipeList:
       groupId: jakarta.platform
       artifactId: '*'
       newVersion: 9.1.0
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MitigateUnaffectedNonEEJakarta9Packages
+displayName: Mitigate Unaffected Non-EE Jakarta 9 Packages
+description: |
+    Mitigate Unaffected Non-EE Jakarta 9 Packages. Reference: [https://github.com/jakartaee/platform/blob/main/namespace/unaffected-packages.adoc](https://github.com/jakartaee/platform/blob/main/namespace/unaffected-packages.adoc)
+tags:
+  - jakarta
+  - unaffected
+  - non-eejakarta
+recipeList:
+  - org.openrewrite.java.ChangePackage:
+      oldPackageName: jakarta.sql
+      newPackageName: javax.sql
+  - org.openrewrite.java.ChangePackage:
+      oldPackageName: jakarta.sql.rowset
+      newPackageName: javax.sql.rowset
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.UpgradeCommonOpenSourceLibraries
@@ -315,5 +418,5 @@ recipeList:
       oldGroupId: org.hibernate
       oldArtifactId: hibernate-ehcache
       newGroupId: org.hibernate.orm
-      newArtifactId: hibernate-core
-      newVersion: 6.6.x
+      newArtifactId: hibernate-jcache
+      newVersion: 6.x

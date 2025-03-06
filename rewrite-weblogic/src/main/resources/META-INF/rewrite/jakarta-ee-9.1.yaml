@@ -55,6 +55,7 @@ recipeList:
   - com.oracle.weblogic.rewrite.jakarta.JavaxToJakartaCdiExtensions
   - com.oracle.weblogic.rewrite.jakarta.MigrateTagLibsToJakartaEE9
   - com.oracle.weblogic.rewrite.jakarta.MigrateJavaxMVCToJakartaEE9
+  - com.oracle.weblogic.rewrite.jakarta.MigrateJavaxWebToJakartaWeb9
   - com.oracle.weblogic.rewrite.jakarta.JavaxAnnotationMigrationToJakarta9Annotation
   - com.oracle.weblogic.rewrite.jakarta.OrgGlassfishJavaxElToJakartaEl
   - com.oracle.weblogic.rewrite.jakarta.UpdateJakartaPlatform9_1
@@ -270,6 +271,21 @@ recipeList:
       newGroupId: jakarta.servlet.jsp.jstl
       newArtifactId: jakarta.servlet.jsp.jstl-api
       newVersion: 2.0.x
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigrateJavaxWebToJakartaWeb9
+displayName: Migrate javax.javaee-web-api to jakarta.jakartaee-web-api (Jakarta EE 9)
+description: Update Java EE Web API dependency to Jakarta EE Web Profile API 9.1
+tags:
+  - jakarta
+  - web-api
+recipeList:
+  - org.openrewrite.java.dependencies.ChangeDependency:
+      oldGroupId: javax
+      oldArtifactId: javaee-web-api
+      newGroupId: jakarta.platform
+      newArtifactId: jakarta.jakartaee-web-api
+      newVersion: 9.1.0
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.MigrateJavaxMVCToJakartaEE9

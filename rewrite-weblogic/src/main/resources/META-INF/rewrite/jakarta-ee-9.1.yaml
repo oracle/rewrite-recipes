@@ -301,6 +301,10 @@ recipeList:
       newGroupId: jakarta.mvc
       newArtifactId: jakarta.mvc-api
       newVersion: 2.x
+  - org.openrewrite.java.ChangePackage:
+      oldPackageName: javax.mvc
+      newPackageName: jakarta.mvc
+      recursive: true
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.JavaxAnnotationMigrationToJakarta9Annotation

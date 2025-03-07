@@ -46,7 +46,7 @@ tags:
 recipeList:
   - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1511
   - com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1511
-  - com.oracle.weblogic.rewrite.WebLogicXmlWebAppNamespace1511
+  - com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo1511
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1511
@@ -71,6 +71,18 @@ recipeList:
       groupId: com.oracle.weblogic
       artifactId: '*'
       newVersion: 15.1.1-0-0
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo1511
+displayName: Migrate WebLogic Schemas to 15.1.1
+description: This recipe will migrate WebLogic schemas to 15.1.1
+tags:
+  - weblogic
+  - schemas
+  - descriptors
+  - java
+recipeList:
+  - com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo1412
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.WebLogicXmlWebAppNamespace1511

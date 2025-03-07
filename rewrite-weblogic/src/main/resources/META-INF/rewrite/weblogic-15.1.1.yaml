@@ -85,32 +85,6 @@ recipeList:
   - com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo1412
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.WebLogicXmlWebAppNamespace1511
-displayName: Migrate xmlns entries in `weblogic.xml` files for WebLogic 15.1.1
-description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
-tags:
-  - jakarta
-  - faces
-  - jsf
-recipeList:
-  - org.openrewrite.xml.ChangeTagAttribute:
-      attributeName: version
-      elementName: web-app
-      newValue: 5.0
-  - org.openrewrite.xml.ChangeTagAttribute:
-      attributeName: xmlns
-      elementName: web-app
-      newValue: https://jakarta.ee/xml/ns/jakartaee
-  - org.openrewrite.xml.ChangeTagAttribute:
-      attributeName: xsi:schemaLocation
-      elementName: web-app
-      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd
-  - org.openrewrite.text.FindAndReplace:
-      find: "javax."
-      replace: "jakarta."
-      filePattern: '**/weblogic.xml'
----
-type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.JavaxEjbToJakartaEjb4
 displayName: Migrate deprecated `javax.ejb` packages to `jakarta.ejb`
 description: Package relocation for rebranded Java EE to Jakarta EE.

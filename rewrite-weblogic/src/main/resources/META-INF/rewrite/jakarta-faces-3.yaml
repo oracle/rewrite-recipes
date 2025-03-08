@@ -103,7 +103,7 @@ recipeList:
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.JavaxFacesTagLibraryXmlToJakartaFaces3TagLibraryXml
-displayName: Migrate xmlns entries in `taglib.xml` files for Jakarta Server Faces 3
+displayName: Migrate xmlns entries in `*taglib*.xml` files for Jakarta Server Faces 3
 description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
 tags:
   - jakarta

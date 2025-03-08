@@ -46,7 +46,7 @@ tags:
 recipeList:
   - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1511
   - com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1511
-  - com.oracle.weblogic.rewrite.WebLogicXmlWebAppNamespace1511
+  - com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo1511
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1511
@@ -73,54 +73,205 @@ recipeList:
       newVersion: 15.1.1-0-0
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.WebLogicXmlWebAppNamespace1511
-displayName: Migrate xmlns entries in `weblogic.xml` files for WebLogic 15.1.1
-description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
+name: com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo1511
+displayName: Migrate WebLogic Schemas to 15.1.1
+description: This recipe will migrate WebLogic schemas to 15.1.1
 tags:
-  - jakarta
-  - faces
-  - jsf
+  - weblogic
+  - schemas
+  - descriptors
+  - java
 recipeList:
-  - org.openrewrite.xml.ChangeTagAttribute:
-      attributeName: version
-      elementName: web-app
-      newValue: 5.0
-  - org.openrewrite.xml.ChangeTagAttribute:
-      attributeName: xmlns
-      elementName: web-app
-      newValue: https://jakarta.ee/xml/ns/jakartaee
-  - org.openrewrite.xml.ChangeTagAttribute:
-      attributeName: xsi:schemaLocation
-      elementName: web-app
-      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd
-  - org.openrewrite.text.FindAndReplace:
-      find: "javax."
-      replace: "jakarta."
-      filePattern: '**/weblogic.xml'
+  - com.oracle.weblogic.rewrite.WebLogicXmlWebAppNamespace1511
+  - com.oracle.weblogic.rewrite.WebLogicEjbJar32XmlNamespace1511
+  - com.oracle.weblogic.rewrite.WebLogicRdbmsJarXmlNamespace1511
+  - com.oracle.weblogic.rewrite.WebLogicPersistenceConfigurationXmlNamespace1511
+  - com.oracle.weblogic.rewrite.WebLogicWebServicesXmlNamespace1511
+  - com.oracle.weblogic.rewrite.WebLogicWseeClientHandlerChainXmlNamespace1511
+  - com.oracle.weblogic.rewrite.WebLogicWebservicesPolicyRefXmlNamespace1511
+  - com.oracle.weblogic.rewrite.WebLogicWseeStandaloneClientXmlNamespace1511
+  - com.oracle.weblogic.rewrite.WebLogicRaXmlNamespace1511
+  - com.oracle.weblogic.rewrite.WebLogicApplicationXmlNamespace1511
+  - com.oracle.weblogic.rewrite.WebLogicApplicationClientXmlNamespace1511
+  - com.oracle.weblogic.rewrite.WebLogicPubSubXmlNamespace1511
+  - com.oracle.weblogic.rewrite.WebLogicJmsXmlNamespace1511
+  - com.oracle.weblogic.rewrite.WebLogicJdbcXmlNamespace1511
+  - com.oracle.weblogic.rewrite.WebLogicPlanXmlNamespace1511
+  - com.oracle.weblogic.rewrite.WebLogicResourceDeploymentPlanXmlNamespace1511
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.JavaxEjbToJakartaEjb4
-displayName: Migrate deprecated `javax.ejb` packages to `jakarta.ejb`
-description: Package relocation for rebranded Java EE to Jakarta EE.
+name: com.oracle.weblogic.rewrite.WebLogicXmlWebAppNamespace1511
+displayName: Migrate xmlns entries in `weblogic.xml` files to WebLogic 15.1.1
+description: This recipe will update the `xmlns` entries in `weblogic.xml` files to WebLogic 15.1.1
+tags:
+  - weblogic
+  - web-app
+  - schemas
 recipeList:
-  - org.openrewrite.maven.UpgradeDependencyVersion:
-      groupId: jakarta.ejb
-      artifactId: jakarta.ejb-api
-      newVersion: 4.x
-  - org.openrewrite.java.ChangePackage:
-      oldPackageName: javax.ejb
-      newPackageName: jakarta.ejb
-      recursive: true
-  - org.openrewrite.java.dependencies.ChangeDependency:
-      oldGroupId: javax.ejb
-      oldArtifactId: javax.ejb-api
-      newGroupId: jakarta.ejb
-      newArtifactId: jakarta.ejb-api
-      newVersion: 4.x
-  - org.openrewrite.java.dependencies.ChangeDependency:
-      oldGroupId: org.glassfish.main
-      oldArtifactId: javax.ejb
-      newGroupId: jakarta.ejb
-      newArtifactId: jakarta.ejb-api
-      newVersion: 4.x
-
+  - com.oracle.weblogic.rewrite.WebLogicXmlWebAppNamespace1412
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicEjbJar32XmlNamespace1511
+displayName: Migrate xmlns entries in `weblogic-ejb-jar.xml` files to WebLogic 15.1.1
+description: This recipe will update the `xmlns` entries in `weblogic-ejb-jar.xml` files to WebLogic 15.1.1
+tags:
+  - weblogic
+  - ejb-jar
+  - schemas
+recipeList:
+  - com.oracle.weblogic.rewrite.WebLogicEjbJar32XmlNamespace1412
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicRdbmsJarXmlNamespace1511
+displayName: Migrate xmlns entries in `weblogic-rdbms-jar.xml` files to WebLogic 15.1.1
+description: This recipe will update the `xmlns` entries in `weblogic-rdbms-jar.xml` files to WebLogic 15.1.1
+tags:
+  - weblogic
+  - rdbms-jar
+  - schemas
+recipeList:
+  - com.oracle.weblogic.rewrite.WebLogicRdbmsJarXmlNamespace1412
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicPersistenceConfigurationXmlNamespace1511
+displayName: Migrate xmlns entries in `persistence-configuration.xml` files to WebLogic 15.1.1
+description: This recipe will update the `xmlns` entries in `persistence-configuration.xml` files to WebLogic 15.1.1
+tags:
+  - weblogic
+  - persistence-configuration
+  - schemas
+recipeList:
+  - com.oracle.weblogic.rewrite.WebLogicPersistenceConfigurationXmlNamespace1412
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicWebServicesXmlNamespace1511
+displayName: Migrate xmlns entries in `weblogic-webservices.xml` files to WebLogic 15.1.1
+description: This recipe will update the `xmlns` entries in `weblogic-webservices.xml` files to WebLogic 15.1.1
+tags:
+  - weblogic
+  - webservices
+  - schemas
+recipeList:
+  - com.oracle.weblogic.rewrite.WebLogicWebServicesXmlNamespace1412
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicWseeClientHandlerChainXmlNamespace1511
+displayName: Migrate xmlns entries in `weblogic-wsee-clientHandlerChain.xml` files to WebLogic 15.1.1
+description: This recipe will update the `xmlns` entries in `weblogic-wsee-clientHandlerChain.xml` files to WebLogic 15.1.1
+tags:
+  - weblogic
+  - wsee-clientHandlerChain
+  - schemas
+recipeList:
+  - com.oracle.weblogic.rewrite.WebLogicWseeClientHandlerChainXmlNamespace1412
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicWebservicesPolicyRefXmlNamespace1511
+displayName: Migrate xmlns entries in `weblogic-webservices-policy.xml` files to WebLogic 15.1.1
+description: This recipe will update the `xmlns` entries in `weblogic-webservices-policy.xml` files to WebLogic 15.1.1
+tags:
+  - weblogic
+  - webservices-policy
+  - schemas
+recipeList:
+  - com.oracle.weblogic.rewrite.WebLogicWebservicesPolicyRefXmlNamespace1412
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicWseeStandaloneClientXmlNamespace1511
+displayName: Migrate xmlns entries in `weblogic-wsee-standaloneclient.xml` files to WebLogic 15.1.1
+description: This recipe will update the `xmlns` entries in `weblogic-wsee-standaloneclient.xml` files to WebLogic 15.1.1
+tags:
+  - weblogic
+  - wsee-standaloneclient
+  - schemas
+recipeList:
+  - com.oracle.weblogic.rewrite.WebLogicWseeStandaloneClientXmlNamespace1412
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicRaXmlNamespace1511
+displayName: Migrate xmlns entries in `weblogic-ra.xml` files to WebLogic 15.1.1
+description: This recipe will update the `xmlns` entries in `weblogic-ra.xml` files to WebLogic 15.1.1
+tags:
+  - weblogic
+  - ra
+  - connector
+  - schemas
+recipeList:
+  - com.oracle.weblogic.rewrite.WebLogicRaXmlNamespace1412
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicApplicationXmlNamespace1511
+displayName: Migrate xmlns entries in `weblogic-application.xml` files to WebLogic 15.1.1
+description: This recipe will update the `xmlns` entries in `weblogic-application.xml` files to WebLogic 15.1.1
+tags:
+  - weblogic
+  - application
+  - schemas
+recipeList:
+  - com.oracle.weblogic.rewrite.WebLogicApplicationXmlNamespace1412
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicApplicationClientXmlNamespace1511
+displayName: Migrate xmlns entries in `application-client.xml` files to WebLogic 15.1.1
+description: This recipe will update the `xmlns` entries in `application-client.xml` files to WebLogic 15.1.1
+tags:
+  - weblogic
+  - application-client
+  - schemas
+recipeList:
+  - com.oracle.weblogic.rewrite.WebLogicApplicationClientXmlNamespace1412
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicPubSubXmlNamespace1511
+displayName: Migrate xmlns entries in `weblogic-pubsub.xml` files to WebLogic 15.1.1
+description: This recipe will update the `xmlns` entries in `weblogic-pubsub.xml` files to WebLogic 15.1.1
+tags:
+  - weblogic
+  - pubsub
+  - schemas
+recipeList:
+  - com.oracle.weblogic.rewrite.WebLogicPubSubXmlNamespace1412
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicJmsXmlNamespace1511
+displayName: Migrate xmlns entries in `*-jms.xml` files to WebLogic 15.1.1
+description: This recipe will update the `xmlns` entries in `*-jms.xml` files to WebLogic 15.1.1
+tags:
+  - weblogic
+  - jms
+  - schemas
+recipeList:
+  - com.oracle.weblogic.rewrite.WebLogicJmsXmlNamespace1412
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicJdbcXmlNamespace1511
+displayName: Migrate xmlns entries in `*-jdbc.xml` files to WebLogic 15.1.1
+description: This recipe will update the `xmlns` entries in `*-jdbc.xml` files to WebLogic 15.1.1
+tags:
+  - weblogic
+  - jdbc
+  - schemas
+recipeList:
+  - com.oracle.weblogic.rewrite.WebLogicJdbcXmlNamespace1412
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicPlanXmlNamespace1511
+displayName: Migrate xmlns entries in `plan.xml` files to WebLogic 15.1.1
+description: This recipe will update the `xmlns` entries in `plan.xml` files to WebLogic 15.1.1
+tags:
+  - weblogic
+  - deployment-plan
+  - schemas
+recipeList:
+  - com.oracle.weblogic.rewrite.WebLogicPlanXmlNamespace1412
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicResourceDeploymentPlanXmlNamespace1511
+displayName: Migrate xmlns entries in `resource-deployment-plan.xml` files to WebLogic 15.1.1
+description: This recipe will update the `xmlns` entries in `resource-deployment-plan.xml` files to WebLogic 15.1.1
+tags:
+  - weblogic
+  - resource-deployment-plan
+  - schemas
+recipeList:
+  - com.oracle.weblogic.rewrite.WebLogicResourceDeploymentPlanXmlNamespace1412

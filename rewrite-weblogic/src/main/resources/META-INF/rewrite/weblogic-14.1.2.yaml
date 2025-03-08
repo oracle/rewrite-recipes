@@ -46,8 +46,9 @@ tags:
 recipeList:
   - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1412
   - com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1412
-  - com.oracle.weblogic.rewrite.jakarta.FacesMigrationToJakartaFaces2x
-  # - com.oracle.weblogic.rewrite.WebLogic1412JavaXxmlBindMitigation
+  - com.oracle.weblogic.rewrite.FacesMigrationToJakartaFaces2x
+  - com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo1412
+  - com.oracle.weblogic.rewrite.WebLogic1412JavaXmlBindMitigation
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1412
@@ -74,7 +75,446 @@ recipeList:
       newVersion: 14.1.2-0-0
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.WebLogic1412JavaXxmlBindMitigation
+name: com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo1412
+displayName: Migrate WebLogic Schemas to 14.1.2
+description: This recipe will migrate WebLogic schemas to 14.1.2
+tags:
+  - weblogic
+  - schemas
+  - descriptors
+  - java
+recipeList:
+  - com.oracle.weblogic.rewrite.WebLogicXmlWebAppNamespace1412
+  - com.oracle.weblogic.rewrite.WebLogicEjbJar32XmlNamespace1412
+  - com.oracle.weblogic.rewrite.WebLogicRdbmsJarXmlNamespace1412
+  - com.oracle.weblogic.rewrite.WebLogicPersistenceConfigurationXmlNamespace1412
+  - com.oracle.weblogic.rewrite.WebLogicWebServicesXmlNamespace1412
+  - com.oracle.weblogic.rewrite.WebLogicWseeClientHandlerChainXmlNamespace1412
+  - com.oracle.weblogic.rewrite.WebLogicWebservicesPolicyRefXmlNamespace1412
+  - com.oracle.weblogic.rewrite.WebLogicWseeStandaloneClientXmlNamespace1412
+  - com.oracle.weblogic.rewrite.WebLogicRaXmlNamespace1412
+  - com.oracle.weblogic.rewrite.WebLogicApplicationXmlNamespace1412
+  - com.oracle.weblogic.rewrite.WebLogicApplicationClientXmlNamespace1412
+  - com.oracle.weblogic.rewrite.WebLogicPubSubXmlNamespace1412
+  - com.oracle.weblogic.rewrite.WebLogicJmsXmlNamespace1412
+  - com.oracle.weblogic.rewrite.WebLogicJdbcXmlNamespace1412
+  - com.oracle.weblogic.rewrite.WebLogicPlanXmlNamespace1412
+  - com.oracle.weblogic.rewrite.WebLogicResourceDeploymentPlanXmlNamespace1412
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicXmlWebAppNamespace1412
+displayName: Migrate xmlns entries in `weblogic.xml` files to WebLogic 14.1.2
+description: Migrate xmlns entries in WebLogic schema files to WebLogic 14.1.2
+tags:
+  - weblogic
+  - web-app
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-web-app
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-web-app
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-web-app
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-web-app
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-web-app http://xmlns.oracle.com/weblogic/weblogic-web-app/1.9/weblogic-web-app.xsd
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicEjbJar32XmlNamespace1412
+displayName: Migrate xmlns entries in `weblogic-ejb-jar.xml` files to WebLogic 14.1.2
+description: Migrate xmlns entries in WebLogic EJB 3.2 schema files to WebLogic 14.1.2
+tags:
+  - weblogic
+  - ejb-jar
+  - ejb-3.2
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic-ejb-jar.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-ejb-jar
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-ejb-jar
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-ejb-jar
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-ejb-jar
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-ejb-jar http://xmlns.oracle.com/weblogic/weblogic-ejb-jar/1.7/weblogic-ejb-jar.xsd
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicRdbmsJarXmlNamespace1412
+displayName: Migrate xmlns entries in `weblogic-rdbms-jar.xml` files to WebLogic 14.1.2
+description: Migrate xmlns entries in WebLogic EJB 3.2 RDBMS schema files to WebLogic 14.1.2
+tags:
+  - weblogic
+  - rdbms-jar
+  - ejb-3.2
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic-rdbms-jar.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-rdbms-jar
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-rdbms-jar
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-rdbms-jar
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-rdbms-jar
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-rdbms-jar http://xmlns.oracle.com/weblogic/weblogic-rdbms-jar/1.2/weblogic-rdbms-jar.xsd
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicPersistenceConfigurationXmlNamespace1412
+displayName: Migrate xmlns entries in `persistence-configuration.xml` files to WebLogic 14.1.2
+description: Migrate xmlns entries in WebLogic EJB 3.2 Persistence Configuration schema files to WebLogic 14.1.2
+tags:
+  - weblogic
+  - persistence-configuration
+  - ejb-3.2
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/persistence-configuration.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: persistence-configuration
+      newValue: http://xmlns.oracle.com/weblogic/persistence-configuration
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: persistence-configuration
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: persistence-configuration
+      newValue: http://xmlns.oracle.com/weblogic/persistence-configuration http://xmlns.oracle.com/weblogic/persistence-configuration/1.0/persistence-configuration.xsd
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicWebServicesXmlNamespace1412
+displayName: Migrate xmlns entries in `weblogic-webservices.xml` files to WebLogic 14.1.2
+description: Migrate xmlns entries in WebLogic Web Services schema files to WebLogic 14.1.2
+tags:
+  - weblogic
+  - webservices
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic-webservices.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-webservices
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-webservices
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-webservices
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-webservices
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-webservices http://xmlns.oracle.com/weblogic/weblogic-webservices/1.1/weblogic-webservices.xsd
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicWseeClientHandlerChainXmlNamespace1412
+displayName: Migrate xmlns entries in `weblogic-wsee-clientHandlerChain.xml` files to WebLogic 14.1.2
+description: Migrate xmlns entries in WebLogic WSEE Client Handler Chains schema files to WebLogic 14.1.2
+tags:
+  - weblogic
+  - wsee-clientHandlerChain
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic-wsee-clientHandlerChain.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-wsee-clientHandlerChain
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-wsee-clientHandlerChain
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-wsee-clientHandlerChain
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-wsee-clientHandlerChain
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-wsee-clientHandlerChain http://xmlns.oracle.com/weblogic/weblogic-wsee-clientHandlerChain/1.0/weblogic-wsee-clientHandlerChain.xsd
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicWebservicesPolicyRefXmlNamespace1412
+displayName: Migrate xmlns entries in `weblogic-webservices-policy.xml` files to WebLogic 14.1.2
+description: Migrate xmlns entries in WebLogic Web Service Policy Reference schema files to WebLogic 14.1.2
+tags:
+  - weblogic
+  - webservices-policy
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic-webservices-policy.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: webservice-policy-ref
+      newValue: http://xmlns.oracle.com/weblogic/webservice-policy-ref
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: webservice-policy-ref
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: webservice-policy-ref
+      newValue: http://xmlns.oracle.com/weblogic/webservice-policy-ref http://xmlns.oracle.com/weblogic/webservice-policy-ref/1.1/webservice-policy-ref.xsd
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicWseeStandaloneClientXmlNamespace1412
+displayName: Migrate xmlns entries in `weblogic-wsee-standaloneclient.xml` files to WebLogic 14.1.2
+description: Migrate xmlns entries in WebLogic WSEE Standalone Client schema files to WebLogic 14.1.2
+tags:
+  - weblogic
+  - wsee-standaloneclient
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic-wsee-standaloneclient.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-wsee-standaloneclient
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-wsee-standaloneclient
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-wsee-standaloneclient
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-wsee-standaloneclient
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-wsee-standaloneclient http://xmlns.oracle.com/weblogic/weblogic-wsee-standaloneclient/1.0/weblogic-wsee-standaloneclient.xsd
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicRaXmlNamespace1412
+displayName: Migrate xmlns entries in `weblogic-ra.xml` files to WebLogic 14.1.2
+description: Migrate xmlns entries in WebLogic Resource Adapter schema files to WebLogic 14.1.2
+tags:
+  - weblogic
+  - ra
+  - connector
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic-ra.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-connector
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-connector
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-connector
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-connector
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-connector http://xmlns.oracle.com/weblogic/weblogic-connector/1.5/weblogic-connector.xsd
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicApplicationXmlNamespace1412
+displayName: Migrate xmlns entries in `weblogic-application.xml` files to WebLogic 14.1.2
+description: Migrate xmlns entries in WebLogic Application schema files to WebLogic 14.1.2
+tags:
+  - weblogic
+  - application
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic-application.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-application
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-application
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-application
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-application
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-application http://xmlns.oracle.com/weblogic/weblogic-application/1.8/weblogic-application.xsd
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicApplicationClientXmlNamespace1412
+displayName: Migrate xmlns entries in `application-client.xml` files to WebLogic 14.1.2
+description: Migrate xmlns entries in WebLogic Application Client schema files to WebLogic 14.1.2
+tags:
+  - weblogic
+  - application-client
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/application-client.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-application-client
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-application-client
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-application-client
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-application-client
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-application-client http://xmlns.oracle.com/weblogic/weblogic-application-client/1.6/weblogic-application-client.xsd
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicPubSubXmlNamespace1412
+displayName: Migrate xmlns entries in `weblogic-pubsub.xml` files to WebLogic 14.1.2
+description: Migrate xmlns entries in WebLogic PubSub schema files to WebLogic 14.1.2
+tags:
+  - weblogic
+  - pubsub
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic-pubsub.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-pubsub
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-pubsub
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-pubsub
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-pubsub
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-pubsub http://xmlns.oracle.com/weblogic/weblogic-pubsub/1.0/weblogic-pubsub.xsd
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicJmsXmlNamespace1412
+displayName: Migrate xmlns entries in `*-jms.xml` files to WebLogic 14.1.2
+description: Migrate xmlns entries in WebLogic JMS schema files to WebLogic 14.1.2
+tags:
+  - weblogic
+  - jms
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/*-jms.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-jms
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-jms
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-jms
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-jms
+      newValue: http://xmlns.oracle.com/weblogic/jms http://xmlns.oracle.com/weblogic/weblogic-jms/1.8/weblogic-jms.xsd
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicJdbcXmlNamespace1412
+displayName: Migrate xmlns entries in `*-jdbc.xml` files to WebLogic 14.1.2
+description: Migrate xmlns entries in WebLogic JDBC schema files to WebLogic 14.1.2
+tags:
+  - weblogic
+  - jdbc
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/*-jdbc.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: jdbc-data-source
+      newValue: http://xmlns.oracle.com/weblogic/jdbc-data-source
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:sec
+      elementName: jdbc-data-source
+      newValue: http://xmlns.oracle.com/weblogic/security
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: jdbc-data-source
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:wls
+      elementName: jdbc-data-source
+      newValue: http://xmlns.oracle.com/weblogic/security/wls
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: jdbc-data-source
+      newValue: http://xmlns.oracle.com/weblogic/jdbc-data-source http://xmlns.oracle.com/weblogic/jdbc-data-source/1.6/jdbc-data-source.xsd
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicPlanXmlNamespace1412
+displayName: Migrate xmlns entries in `plan.xml` files to WebLogic 14.1.2
+description: Migrate xmlns entries in WebLogic Plan schema files to WebLogic 14.1.2
+tags:
+  - weblogic
+  - deployment-plan
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/plan.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: deployment-plan
+      newValue: http://xmlns.oracle.com/weblogic/deployment-plan
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: deployment-plan
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: deployment-plan
+      newValue: http://xmlns.oracle.com/weblogic/deployment-plan http://xmlns.oracle.com/weblogic/deployment-plan/1.01/deployment-plan.xsd
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicResourceDeploymentPlanXmlNamespace1412
+displayName: Migrate xmlns entries in `resource-deployment-plan.xml` files to WebLogic 14.1.2
+description: Migrate xmlns entries in WebLogic Resource Deployment Plan schema files to WebLogic 14.1.2
+tags:
+  - weblogic
+  - resource-deployment-plan
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/resource-deployment-plan.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-diagnostics
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-diagnostics
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-diagnostics
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-diagnostics
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-diagnostics http://xmlns.oracle.com/weblogic/weblogic-diagnostics/2.0/weblogic-diagnostics.xsd
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogic1412JavaXmlBindMitigation
 displayName: Mitigation of Java XML Bind Deprecation in Java 11 vs WebLogic 14.1.2
 description: This recipe will mitigate the Javax XML Bind deprecation in Java 11 vs WebLogic 14.1.2
 tags:
@@ -82,15 +522,27 @@ tags:
   - java
   - javax
 recipeList:
+  - org.openrewrite.java.dependencies.ChangeDependency:
+      oldGroupId: jakarta.inject
+      newGroupId: javax.inject
+      newVersion: 1.x
+  - org.openrewrite.java.dependencies.ChangeDependency:
+      oldGroupId: jakarta.annotation
+      newGroupId: javax.annotation
+      newVersion: 1.3.x
+  - org.openrewrite.java.dependencies.ChangeDependency:
+      oldGroupId: jakarta.xml.bind
+      oldArtifactId: jakarta.xml.bind-api
+      newGroupId: javax.xml.bind
+      newArtifactId: jaxb-api
+      newVersion: 3.x
+  # - org.openrewrite.java.dependencies.ChangeDependency:
+  #     oldGroupId: jakarta.activation
+  #     oldArtifactId: jakarta.activation-api
+  #     newGroupId: javax.xml.bind
+  #     newArtifactId: activation
+  #     newVersion: 1.x
   - org.openrewrite.text.FindAndReplace:
-      find: "jakarta.xml.bind"
-      replace: "javax.xml.bind"
-      filePattern: '**/pom.xml'
-  - org.openrewrite.text.FindAndReplace:
-      find: "jakarta.inject"
-      replace: "javax.inject"
-      filePattern: '**/pom.xml'
-  - org.openrewrite.text.FindAndReplace:
-      find: "jakarta.annotation"
-      replace: "javax.annotation"
+      find: "jakarta."
+      replace: "javax."
       filePattern: '**/pom.xml'

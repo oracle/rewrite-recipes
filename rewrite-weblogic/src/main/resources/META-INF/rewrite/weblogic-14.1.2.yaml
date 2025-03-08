@@ -118,6 +118,10 @@ recipeList:
       elementName: weblogic-web-app
       newValue: http://xmlns.oracle.com/weblogic/weblogic-web-app
   - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:wls
+      elementName: weblogic-web-app
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-web-app
+  - org.openrewrite.xml.ChangeTagAttribute:
       attributeName: xmlns:xsi
       elementName: weblogic-web-app
       newValue: http://www.w3.org/2001/XMLSchema-instance

@@ -46,7 +46,7 @@ tags:
 recipeList:
   - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1412
   - com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1412
-  - com.oracle.weblogic.rewrite.jakarta.FacesMigrationToJakartaFaces2x
+  - com.oracle.weblogic.rewrite.FacesMigrationToJakartaFaces2x
   - com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo1412
   - com.oracle.weblogic.rewrite.WebLogic1412JavaXmlBindMitigation
 ---
@@ -98,6 +98,7 @@ recipeList:
   - com.oracle.weblogic.rewrite.WebLogicPubSubXmlNamespace1412
   - com.oracle.weblogic.rewrite.WebLogicJmsXmlNamespace1412
   - com.oracle.weblogic.rewrite.WebLogicJdbcXmlNamespace1412
+  - com.oracle.weblogic.rewrite.WebLogicPlanXmlNamespace1412
   - com.oracle.weblogic.rewrite.WebLogicResourceDeploymentPlanXmlNamespace1412
 ---
 type: specs.openrewrite.org/v1beta/recipe
@@ -461,6 +462,31 @@ recipeList:
       attributeName: xsi:schemaLocation
       elementName: jdbc-data-source
       newValue: http://xmlns.oracle.com/weblogic/jdbc-data-source http://xmlns.oracle.com/weblogic/jdbc-data-source/1.6/jdbc-data-source.xsd
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicPlanXmlNamespace1412
+displayName: Migrate xmlns entries in `plan.xml` files to WebLogic 14.1.2
+description: Migrate xmlns entries in WebLogic Plan schema files to WebLogic 14.1.2
+tags:
+  - weblogic
+  - deployment-plan
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/plan.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: deployment-plan
+      newValue: http://xmlns.oracle.com/weblogic/deployment-plan
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: deployment-plan
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: deployment-plan
+      newValue: http://xmlns.oracle.com/weblogic/deployment-plan http://xmlns.oracle.com/weblogic/deployment-plan/1.01/deployment-plan.xsd
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.WebLogicResourceDeploymentPlanXmlNamespace1412

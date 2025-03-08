@@ -15,7 +15,7 @@
 #
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.jakarta.FacesMigrationToJakartaFaces2x
+name: com.oracle.weblogic.rewrite.FacesMigrationToJakartaFaces2x
 displayName: JSF 1.x to Jakarta Server Faces 2.3 on WebLogic 14.1.2 or older
 description: Jakarta EE 8 uses Faces 2.3 a major upgrade to Jakarta packages and XML namespaces. This recipe will migrate JSF 1.x to Jakarta Server Faces 2.3 on WebLogic 14.1.2 or older.
 tags:

@@ -259,6 +259,19 @@ recipeList:
       newVersion: 4.x
 ---
 type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.JavaxJmsToJakartaJmsOnMdb
+displayName: Migrate javax.jms to jakarta.jms on MDB
+description: Migrate javax.jms to jakarta.jms on MDB
+tags:
+  - jakarta
+  - jms
+recipeList:
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.jms
+      replace: jakarta.jms
+      filePattern: '**/*.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.UpdateJakartaPlatform9_1
 displayName: Update Jakarta EE Platform Dependencies to 9.1.0
 description: Update Jakarta EE Platform Dependencies to 9.1.0

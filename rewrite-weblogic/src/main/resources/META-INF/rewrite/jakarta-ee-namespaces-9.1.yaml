@@ -53,7 +53,9 @@ recipeList:
   - com.oracle.weblogic.rewrite.jakarta.JavaxJobXmlToJakarta9JobXml
   - com.oracle.weblogic.rewrite.jakarta.JavaxApplicationXmlToJakarta9ApplicationXml
   - com.oracle.weblogic.rewrite.jakarta.JavaxApplicationClientXmlToJakarta9ApplicationClientXml
+  - com.oracle.weblogic.rewrite.jakarta.JavaxRaXmlToJakarta9RaXml
   - com.oracle.weblogic.rewrite.jakarta.JavaxEjbJarXmlToJakarta9EjbJarXml
+  - org.openrewrite.java.migrate.jakarta.JavaxWebServicesXmlToJakarta9WebServicesXml
   - org.openrewrite.java.migrate.jakarta.JavaxBeanValidationXmlToJakartaBeanValidationXml
 ---
 type: specs.openrewrite.org/v1beta/recipe

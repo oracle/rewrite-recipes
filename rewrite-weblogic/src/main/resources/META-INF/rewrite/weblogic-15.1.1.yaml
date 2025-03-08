@@ -96,6 +96,7 @@ recipeList:
   - com.oracle.weblogic.rewrite.WebLogicPubSubXmlNamespace1511
   - com.oracle.weblogic.rewrite.WebLogicJmsXmlNamespace1511
   - com.oracle.weblogic.rewrite.WebLogicJdbcXmlNamespace1511
+  - com.oracle.weblogic.rewrite.WebLogicPlanXmlNamespace1511
   - com.oracle.weblogic.rewrite.WebLogicResourceDeploymentPlanXmlNamespace1511
 ---
 type: specs.openrewrite.org/v1beta/recipe
@@ -254,6 +255,17 @@ recipeList:
   - com.oracle.weblogic.rewrite.WebLogicJdbcXmlNamespace1412
 ---
 type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicPlanXmlNamespace1511
+displayName: Migrate xmlns entries in `plan.xml` files to WebLogic 15.1.1
+description: This recipe will update the `xmlns` entries in `plan.xml` files to WebLogic 15.1.1
+tags:
+  - weblogic
+  - deployment-plan
+  - schemas
+recipeList:
+  - com.oracle.weblogic.rewrite.WebLogicPlanXmlNamespace1412
+---
+type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.WebLogicResourceDeploymentPlanXmlNamespace1511
 displayName: Migrate xmlns entries in `resource-deployment-plan.xml` files to WebLogic 15.1.1
 description: This recipe will update the `xmlns` entries in `resource-deployment-plan.xml` files to WebLogic 15.1.1
@@ -263,30 +275,3 @@ tags:
   - schemas
 recipeList:
   - com.oracle.weblogic.rewrite.WebLogicResourceDeploymentPlanXmlNamespace1412
----
-type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.JavaxEjbToJakartaEjb4
-displayName: Migrate deprecated `javax.ejb` packages to `jakarta.ejb`
-description: Package relocation for rebranded Java EE to Jakarta EE.
-recipeList:
-  - org.openrewrite.maven.UpgradeDependencyVersion:
-      groupId: jakarta.ejb
-      artifactId: jakarta.ejb-api
-      newVersion: 4.x
-  - org.openrewrite.java.ChangePackage:
-      oldPackageName: javax.ejb
-      newPackageName: jakarta.ejb
-      recursive: true
-  - org.openrewrite.java.dependencies.ChangeDependency:
-      oldGroupId: javax.ejb
-      oldArtifactId: javax.ejb-api
-      newGroupId: jakarta.ejb
-      newArtifactId: jakarta.ejb-api
-      newVersion: 4.x
-  - org.openrewrite.java.dependencies.ChangeDependency:
-      oldGroupId: org.glassfish.main
-      oldArtifactId: javax.ejb
-      newGroupId: jakarta.ejb
-      newArtifactId: jakarta.ejb-api
-      newVersion: 4.x
-

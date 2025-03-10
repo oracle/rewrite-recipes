@@ -12,12 +12,12 @@ These recipes apply the changes required for upgrading to WebLogic Server 14.1.1
 [weblogic-14.1.1.yaml](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/weblogic-14.1.1.yaml)
 
 ### Recipe list:
-  - [org.openrewrite.java.migrate.Java8toJava11](https://docs.openrewrite.org/recipes/java/migrate/java8tojava11)
+  - org.openrewrite.java.migrate.Java8toJava11
   - com.oracle.weblogic.rewrite.UpgradeTo1411
 
 ### Usage
 
-These recipes will update the WebLogic version to 14.1.2 for the Maven build and will apply changes commonly needed when upgrading to Java 11. Specifically, for those applications that are built on Java 8, the recipe will update and add dependencies on J2EE libraries that are no longer directly bundled with the JDK and will also replace deprecated API with equivalents when there is a clear migration strategy.
+These recipes will update the WebLogic version to 14.1.1 for the Maven build and will apply changes commonly needed when upgrading to Java 11. Specifically, for those applications that are built on Java 8, the recipe will update and add dependencies on Java EE libraries that are no longer directly bundled with the JDK and will also replace deprecated API with equivalents when there is a clear migration strategy.
 
 #### Maven POM
 

@@ -36,7 +36,7 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
 
 ## Run using Maven with the `<plugin>` in the `pom.xml` file
 
-1. Add the plug-in to your `pom.xml` file and activate the recipes. The following example illustrates the Upgrade to WebLogic 14.1.2 and Migrate to Java 21 recipes.
+1. Add the plug-in to your `pom.xml` file and activate the recipes. The following example illustrates the Upgrade to WebLogic 14.1.2 and Upgrade to Java 21 recipes.
 
 ```
     <plugin>

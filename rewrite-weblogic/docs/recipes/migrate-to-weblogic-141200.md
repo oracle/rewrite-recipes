@@ -13,8 +13,10 @@ This recipe applies the changes required for upgrading to WebLogic Server 14.1.2
 
 ### Recipe list:
   - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1412
-  - [com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1412](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/weblogic-deprecations.yaml)
-  - com.oracle.weblogic.rewrite.jakarta.FacesMigrationToJakartaFaces2x
+  - com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1412
+  - com.oracle.weblogic.rewrite.FacesMigrationToJakartaFaces2x
+  - com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo1412
+  - com.oracle.weblogic.rewrite.WebLogic1412JavaXmlBindMitigation
 
 ### Usage
 

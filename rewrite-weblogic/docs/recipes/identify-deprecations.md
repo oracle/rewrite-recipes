@@ -1,7 +1,7 @@
 # Identify and Comment Out Deprecations
-**com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1412**
+**com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1511**
 
-This recipe will identify and comment out deprecations on WebLogic version 14.1.2.0.0.
+This recipe will identify and comment out deprecations on WebLogic version 15.1.1.0.0.
 
 ### Recipe source
 
@@ -25,7 +25,7 @@ This recipe will identify, and comment out deprecated and removed APIs.
     <configuration>
         <exportDatatables>true</exportDatatables>
         <activeRecipes>
-            <recipe>com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1412</recipe>
+            <recipe>com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1511</recipe>
         </activeRecipes>
     </configuration>
     <dependencies>
@@ -58,7 +58,7 @@ plugins {
 }
 
 rewrite {
-    activeRecipe("com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1412")
+    activeRecipe("com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1511")
     setExportDatatables(true)
 }
 
@@ -84,6 +84,6 @@ dependencies {
 ```
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
   -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \
-  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1412 \
+  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1511 \
   -Drewrite.exportDatatables=true
   ```

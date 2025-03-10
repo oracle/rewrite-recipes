@@ -15,7 +15,6 @@ The following is required to build and run this project:
 Clone your project to your local machine.
 
 > [!IMPORTANT]
-
 > Note that the `run` command will make changes to your code. Always make sure you have a backup of your code. When using git, create a branch and use `git diff` to see the differences.
 
 # Examples

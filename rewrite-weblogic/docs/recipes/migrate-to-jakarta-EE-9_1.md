@@ -14,15 +14,14 @@ This recipe applies the changes required for migrating to Jakarta EE 9.1.
 
 ### Recipe list:
 
-  - [org.openrewrite.java.migrate.jakarta.JavaxMigrationToJakarta](https://docs.openrewrite.org/recipes/java/migrate/jakarta/javaxmigrationtojakarta)
-  - com.oracle.weblogic.rewrite.jakarta.Faces2xMigrationToJakarta3x
-  - com.oracle.weblogic.rewrite.jakarta.JavaxBeansXmlToJakarta9BeansXml
-  - com.oracle.weblogic.rewrite.jakarta.JavaxApplicationXmlToJakarta9ApplicationXml
-  - com.oracle.weblogic.rewrite.jakarta.JavaxEjbJarXmlToJakarta9EjbJarXml
+  - org.openrewrite.java.migrate.jakarta.JavaxMigrationToJakarta
+  - com.oracle.weblogic.rewrite.jakarta.Faces2xMigrationToJakartaFaces3x
+  - com.oracle.weblogic.rewrite.jakarta.JakartaEeNamespaces9_1
   - com.oracle.weblogic.rewrite.jakarta.RemovalsServletJakarta9
   - com.oracle.weblogic.rewrite.jakarta.JavaxToJakartaCdiExtensions
   - com.oracle.weblogic.rewrite.jakarta.MigrateTagLibsToJakartaEE9
   - com.oracle.weblogic.rewrite.jakarta.MigrateJavaxMVCToJakartaEE9
+  - com.oracle.weblogic.rewrite.jakarta.MigrateJavaxWebToJakartaWeb9
   - com.oracle.weblogic.rewrite.jakarta.JavaxAnnotationMigrationToJakarta9Annotation
   - com.oracle.weblogic.rewrite.jakarta.OrgGlassfishJavaxElToJakartaEl
   - com.oracle.weblogic.rewrite.jakarta.UpdateJakartaPlatform9_1

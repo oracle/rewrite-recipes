@@ -9,11 +9,11 @@ migrating your [WebLogic](https://www.oracle.com/java/weblogic/) applications to
 
 Elevate your WebLogic applications effortlessly! Upgrade to the latest version of WebLogic and ensure compatibility with supported Java and Jakarta EE, all thanks to OpenRewrite recipes.
 
-Experience automatic migration like never before! Migrate your WebLogic applications to the latest version of WebLogic and supported Java, Jakarta EE with OpenRewrite. Automatically.
+Experience automatic migration like never before! Migrate your WebLogic applications to the latest version of WebLogic and supported Java and Jakarta EE with OpenRewrite. Automatically.
 
 To learn all about WebLogic Server application upgrade tooling, see the [**Documentation**](./docs/index.md).
 
-To jump start your hands on learning, see these [**Examples and Tutorials**](https://github.com/oracle-samples/weblogic-examples):
+To jump start your hands-on learning, see these [**Examples and Tutorials**](https://github.com/oracle-samples/weblogic-examples):
 
 - [Example Applications](https://github.com/oracle-samples/weblogic-examples/blob/main/README.md#examples)
 - [Migrate WebLogic Cafe to WLS 14.1.2](https://github.com/oracle-samples/weblogic-examples/blob/main/tutorials/migrate/weblogic-cafe-14.1.2/README.md)
@@ -104,11 +104,11 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
 ```
 
 > [!TIP]  
-> When upgrading your application to Spring Framework 6.2.x, you may have other libraries that need to be updated, like `org.hibernate`. You can include the recipe in the same command or run the recipe separately, later. For other examples, see the [tutorials](https://github.com/oracle-samples/weblogic-examples).
+> When upgrading your application to Spring Framework 6.2.x, you may have other libraries that need to be updated. You can include the recipe in the same command, like `org.hibernate`, or run other third-party libraries separately. Because it is commonly used, we have included a recipe for Hibernate in the [com.oracle.weblogic.rewrite.JakartaEE9_1] (https://github.com/oracle/rewrite-recipes/blob/c0f8c0166fa69ef96112b3009303de91c23a0975/rewrite-weblogic/src/main/resources/META-INF/rewrite/jakarta-ee-9.1.yaml#L321-348) recipe. For other examples, see the [tutorials](https://github.com/oracle-samples/weblogic-examples).
 
 ### Run using Maven with the `<plugin>` in the `pom.xml` file
 
-- Add the plug-in to your `pom.xml` file and activate the desired recipe from the `rewrite-weblogic` group recipe. The following example illustrates Upgrade to WebLogic 14.1.2 and Migrate to Java 21.
+- Add the plug-in to your `pom.xml` file and activate the desired recipe from the `rewrite-weblogic` group recipe. The following example illustrates Upgrade to WebLogic 14.1.2 and Upgrade to Java 21.
 
     ```xml
         <plugin>
@@ -144,7 +144,7 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
 > If you just want to dry run the recipe without changing the code, use `mvn rewrite:DryRun`. For more details when using Maven, see [here](https://docs.openrewrite.org/reference/rewrite-maven-plugin).
 
 > [!TIP]  
-> The goals `rewrite:run` and `rewrite:dryRun` are configured to fork Maven's life cycle and are a better choice when running recipes using a standalone goal (`mvn rewrite:run`) because this will trigger all the necessary life-cycle goals before running rewrite's plug-in. However, when using rewrite within the context of an integration build (`mvn deploy rewrite:run`), it may be more efficient to use the non-forking variants, as these will not cause duplicate life cycle phases to be called.
+> The goals `rewrite:run` and `rewrite:dryRun` are configured to fork Maven's life cycle and are a better choice when running recipes using a standalone goal (`mvn rewrite:run`) because this will trigger all the necessary lifecycle goals before running rewrite's plug-in. However, when using `rewrite` within the context of an integration build (`mvn deploy rewrite:run`), it may be more efficient to use the non-forking variants, as these will not cause duplicate lifecycle phases to be called.
 
 - If you are using `git` for your repository, you can see the differences by using `git diff` or other diff viewers. This option will show you the differences between your original and migrated code.
 

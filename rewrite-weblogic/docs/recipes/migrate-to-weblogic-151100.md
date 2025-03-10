@@ -7,11 +7,11 @@ This recipe applies the changes required for migrating applications to WebLogic 
   - weblogic
   - java
 
-### Recipe Source
+### Recipe source
 
 [weblogic-15.1.1.yaml](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/weblogic-15.1.1.yaml)
 
-### Recipe List:
+### Recipe list:
   - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1511
   - [com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1412](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/weblogic-deprecations.yaml)
   - com.oracle.weblogic.rewrite.WebLogicXmlWebAppNamespace1511
@@ -82,9 +82,10 @@ dependencies {
 > [!TIP]  
 > If you just want to dry run the recipe without changing the code, use `gradle rewriteDryRun`. For more details about the "dryRun" task, see [here](https://docs.openrewrite.org/reference/gradle-plugin-configuration#the-dryrun-task).
 
-#### Maven Command Line
+#### Maven command line
 
-**NOTE**: You will need to have [Maven](https://maven.apache.org/download.cgi) installed on your machine before you can run the following command.
+> [!NOTE]
+> You will need to have [Maven](https://maven.apache.org/download.cgi) installed on your machine before you can run the following command.
 
 ```
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \

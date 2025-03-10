@@ -10,13 +10,13 @@ The following is required to build and run this project:
 - Maven (version 3.2+) or Gradle (version 4.0+)
 - Your code
 
-## Get Your Code
+## Get your code
 
 Clone your project to your local machine.
 
-**Important**
+> [!IMPORTANT]
 
-Note that the `run` command will make changes to your code. Always make sure you have a backup of your code. When using git, create a branch and use `git diff` to see the differences.
+> Note that the `run` command will make changes to your code. Always make sure you have a backup of your code. When using git, create a branch and use `git diff` to see the differences.
 
 # Examples
 
@@ -24,9 +24,10 @@ The following example sections illustrate the methods for upgrading your applica
 
 You can run OpenRewrite recipes on your code folder using the Maven or Gradle CLI, or include them as a build plug-in in your `pom.xml` file
 
-## Run Using the Maven CLI
+## Run using the Maven CLI
 
-**NOTE**: You will need to have [Maven](https://maven.apache.org/download.cgi) installed on your machine before you can run the following command.
+> [!NOTE]
+> You will need to have [Maven](https://maven.apache.org/download.cgi) installed on your machine before you can run the following command.
 
 ```
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
@@ -34,7 +35,7 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
   -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1412,org.openrewrite.java.migrate.UpgradeToJava21
 ```
 
-## Run Using Maven and Adding `<plugin>` in the `pom.xml` File
+## Run using Maven with the `<plugin>` in the `pom.xml` file
 
 1. Add the plug-in to your `pom.xml` file and activate the recipes. The following example illustrates the Upgrade to WebLogic 14.1.2 and Migrate to Java 21 recipes.
 
@@ -67,7 +68,10 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
 
 2. To run the recipe: `mvn rewrite:run`
 
-### Run Using Gradle
+> [!TIP]  
+> If you just want to dry run the recipe without changing the code, use `mvn rewrite:DryRun`. For more details when using Maven, see [here](https://docs.openrewrite.org/reference/rewrite-maven-plugin).
+
+### Run using Gradle
 
 1. Add the following to your `build.gradle` file:
 
@@ -92,3 +96,6 @@ dependencies {
 }
 ```
 2. Run `gradle rewriteRun` to run the recipe.
+
+> [!TIP]  
+> If you just want to dry run the recipe without changing the code, use `gradle rewriteDryRun`. For more details about the "dryRun" task, see [here](https://docs.openrewrite.org/reference/gradle-plugin-configuration#the-dryrun-task).

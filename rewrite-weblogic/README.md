@@ -49,11 +49,11 @@ The following tools are required to build and run this project:
 Clone your project to your local machine.
 
 > [!IMPORTANT]  
-> Note that the run command will make changes to your code. Always make sure you have a backup of your code. When using `git`, create a branch and use `git diff` to see the differences.
+> Note that the `run` command will make changes to your code. Always make sure you have a backup of your code. When using `git`, create a branch and use `git diff` to see the differences.
 
-### Running using the Maven CLI
+### Run using the Maven CLI
 
-#### Upgrading applications to WebLogic 14.1.2 and Java 21
+#### Upgrade applications to WebLogic 14.1.2 and Java 21
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
@@ -61,7 +61,7 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
   -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1412,org.openrewrite.java.migrate.UpgradeToJava21
 ```
 
-#### Upgrading applications to WebLogic 14.1.2 and Java 17
+#### Upgrade applications to WebLogic 14.1.2 and Java 17
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
@@ -72,9 +72,9 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
 #### **WebLogic Server 15.1.1 BETA recipes**
 
 > [!WARNING]  
-> Make sure you are using an approved WebLogic Server 15.1.1 BETA installation before deploying the migrated app
+> Before deploying a migrated application, make sure that you are using an approved WebLogic Server 15.1.1 BETA installation.
 
-##### Upgrading applications to WebLogic Server 15.1.1 BETA, Jakarta EE 9.1 and Java 21
+##### Upgrade applications to WebLogic Server 15.1.1 BETA, Jakarta EE 9.1, and Java 21
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
@@ -83,7 +83,7 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
   -Drewrite.exportDatatables=true
 ```
 
-##### Upgrading applications to WebLogic Server 15.1.1 BETA, Jakarta EE 9.1 and Java 17
+##### Upgrade applications to WebLogic Server 15.1.1 BETA, Jakarta EE 9.1, and Java 17
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
@@ -92,9 +92,9 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
   -Drewrite.exportDatatables=true
 ```
 
-##### **Spring Framework upgrade:** Upgrading applications to WebLogic Server 15.1.1 BETA, Jakarta EE 9.1, Java 21 and Spring Framework 6.2.x
+##### **Spring Framework upgrade:** Upgrade applications to WebLogic Server 15.1.1 BETA, Jakarta EE 9.1, Java 21, and Spring Framework 6.2.x
 
-If your application is running with Spring Framework 5.x on WebLogic 12.x or 14.x and you want to migrate to Spring Framework 6.2.x, include the Spring Framework recipe to the command:
+If your application is running with Spring Framework 5.x on WebLogic 12.x or 14.x, and you want to migrate to Spring Framework 6.2.x, add the Spring Framework recipe to the command:
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
@@ -104,9 +104,9 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
 ```
 
 > [!TIP]  
-> When upgrading your app to Spring Framework 6.2.x, you may have other libraries that needs update, like `org.hibernate`. You can include the recipe on the same command or execute the recipe separated later. Check the [tutorials](https://github.com/oracle-samples/weblogic-examples) for other examples.
+> When upgrading your application to Spring Framework 6.2.x, you may have other libraries that need to be updated, like `org.hibernate`. You can include the recipe in the same command or run the recipe separately, later. For other examples, see the [tutorials](https://github.com/oracle-samples/weblogic-examples).
 
-### Running using Maven and adding `<plugin>` in the `pom.xml` file
+### Run using Maven with the `<plugin>` in the `pom.xml` file
 
 - Add the plug-in to your `pom.xml` file and activate the desired recipe from the `rewrite-weblogic` group recipe. The following example illustrates Upgrade to WebLogic 14.1.2 and Migrate to Java 21.
 

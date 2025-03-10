@@ -10,11 +10,11 @@ Jakarta EE 8 uses Faces 2.3, a major upgrade to Jakarta packages and XML namespa
 - jsf
 - javax
 
-### Recipe Source
+### Recipe source
 
 [jakarta-faces-2.yaml](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/jakarta-faces-2.yaml)
 
-### Recipe List:
+### Recipe list:
 
 - com.oracle.weblogic.rewrite.jakarta.UpgradeFacesOpenSourceLibraries2
 
@@ -84,9 +84,10 @@ dependencies {
 > [!TIP]  
 > If you just want to dry run the recipe without changing the code, use `gradle rewriteDryRun`. For more details about the "dryRun" task, see [here](https://docs.openrewrite.org/reference/gradle-plugin-configuration#the-dryrun-task).
 
-#### Maven Command Line
+#### Maven command line
 
-**NOTE**: You will need to have [Maven](https://maven.apache.org/download.cgi) installed on your machine before you can run the following command.
+> [!NOTE]
+> You will need to have [Maven](https://maven.apache.org/download.cgi) installed on your machine before you can run the following command.
 
 ```
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \

@@ -8,11 +8,11 @@ This recipe applies the changes required for migrating to Jakarta EE 9.1.
   - jakarta
   - jakartaee
 
-### Recipe Source
+### Recipe source
 
 [jakarta-ee-9.1.yaml](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/jakarta-ee-9.1.yaml)
 
-### Recipe List:
+### Recipe list:
 
   - [org.openrewrite.java.migrate.jakarta.JavaxMigrationToJakarta](https://docs.openrewrite.org/recipes/java/migrate/jakarta/javaxmigrationtojakarta)
   - com.oracle.weblogic.rewrite.jakarta.Faces2xMigrationToJakarta3x
@@ -95,9 +95,10 @@ dependencies {
 > [!TIP]  
 > If you just want to dry run the recipe without changing the code, use `gradle rewriteDryRun`. For more details about the "dryRun" task, see [here](https://docs.openrewrite.org/reference/gradle-plugin-configuration#the-dryrun-task).
 
-#### Maven Command Line
+#### Maven command line
 
-**NOTE**: You will need to have [Maven](https://maven.apache.org/download.cgi) installed on your machine before you can run the following command.
+> [!NOTE]
+> You will need to have [Maven](https://maven.apache.org/download.cgi) installed on your machine before you can run the following command.
 
 ```
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \

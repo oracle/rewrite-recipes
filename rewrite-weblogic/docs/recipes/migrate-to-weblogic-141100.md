@@ -7,11 +7,11 @@ These recipes apply the changes required for upgrading to WebLogic Server 14.1.1
   - weblogic
   - java
 
-### Recipe Source
+### Recipe source
 
 [weblogic-14.1.1.yaml](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/weblogic-14.1.1.yaml)
 
-### Recipe List:
+### Recipe list:
   - [org.openrewrite.java.migrate.Java8toJava11](https://docs.openrewrite.org/recipes/java/migrate/java8tojava11)
   - com.oracle.weblogic.rewrite.UpgradeTo1411
 
@@ -84,9 +84,10 @@ dependencies {
 > If you just want to dry run the recipe without changing the code, use `gradle rewriteDryRun`. For more details about the "dryRun" task, see [here](https://docs.openrewrite.org/reference/gradle-plugin-configuration#the-dryrun-task).
 
 
-#### Maven Command Line
+#### Maven command line
 
-**NOTE**: You will need to have [Maven](https://maven.apache.org/download.cgi) installed on your machine before you can run the following command.
+> [!NOTE]
+> You will need to have [Maven](https://maven.apache.org/download.cgi) installed on your machine before you can run the following command.
 
 ```
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \

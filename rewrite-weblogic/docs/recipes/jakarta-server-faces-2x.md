@@ -40,7 +40,7 @@ This recipe will upgrade PrimeFaces, OmniFaces, and MyFaces libraries to Jakarta
         <dependency>
             <groupId>com.oracle.weblogic.rewrite</groupId>
             <artifactId>rewrite-weblogic</artifactId>
-            <version>0.4.2</version>
+            <version>[0.4.5,)</version>
         </dependency>
         <dependency>
             <groupId>org.openrewrite.recipe</groupId>

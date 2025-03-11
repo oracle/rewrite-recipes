@@ -5,13 +5,9 @@ Migrate your WebLogic applications to the latest version of WebLogic and Java wi
 ## What is this?
 
 This project implements a [Rewrite module](https://github.com/openrewrite/rewrite) that performs common tasks when
-migrating your [WebLogic](https://www.oracle.com/java/weblogic/) applications to a new version of WebLogic and Java.
+migrating your [WebLogic](https://www.oracle.com/java/weblogic/) applications to a new version of WebLogic Server and Java.
 
-Elevate your WebLogic applications effortlessly! Upgrade to the latest version of WebLogic and ensure compatibility with supported Java and Jakarta EE, all thanks to OpenRewrite recipes.
-
-Experience automatic migration like never before! Migrate your WebLogic applications to the latest version of WebLogic and supported Java and Jakarta EE with OpenRewrite. Automatically.
-
-To learn all about WebLogic Server application upgrade tooling, see the [**Documentation**](./docs/index.md).
+WebLogic Server application upgrade tooling makes upgrading your WebLogic applications easy. To learn all about it, see the [**Documentation**](./docs/index.md).
 
 To jump start your hands-on learning, see these [**Examples and Tutorials**](https://github.com/oracle-samples/weblogic-examples):
 
@@ -21,6 +17,11 @@ To jump start your hands-on learning, see these [**Examples and Tutorials**](htt
 - [Migrate Spring Framework PetClinic to WLS 15.1.1 (BETA)](https://github.com/oracle-samples/weblogic-examples/blob/main/tutorials/migrate/spring-framework-petclinic-15.1.1/README.md)
 
 ## Recipes
+
+Use these `rewrite-weblogic` recipes to migrate WebLogic Server applications to newer versions of WebLogic Server, Java, Jakarta EE, and related versions of Jakarta Server Faces and Spring Framework.
+
+> [!NOTE]
+> These recipes do not address _any_ other third-party dependencies. For all other third-party dependencies, you _must_ find or create an additional [recipe](https://docs.openrewrite.org/recipes) to do the migration, or make manual code changes after the migration.
 
 | Composite Recipes | Recipes | Description |
 | --- | --- | --- |

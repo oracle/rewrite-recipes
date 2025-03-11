@@ -98,7 +98,7 @@ If your application is running with Spring Framework 5.x on WebLogic 12.x or 14.
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-      -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:0.4.3,org.openrewrite.recipe:rewrite-spring:RELEASE \
+      -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:0.4.5,org.openrewrite.recipe:rewrite-spring:RELEASE \
       -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1511,org.openrewrite.java.migrate.UpgradeToJava21,com.oracle.weblogic.rewrite.JakartaEE9_1,com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_6_2 \
       -Drewrite.exportDatatables=true
 ```
@@ -126,7 +126,7 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
                 <dependency>
                     <groupId>com.oracle.weblogic.rewrite</groupId>
                     <artifactId>rewrite-weblogic</artifactId>
-                    <version>0.4.2</version>
+                    <version>[0.4.5,)</version>
                 </dependency>
                 <dependency>
                     <groupId>org.openrewrite.recipe</groupId>

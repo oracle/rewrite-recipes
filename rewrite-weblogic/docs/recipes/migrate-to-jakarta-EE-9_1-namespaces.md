@@ -49,7 +49,7 @@ This recipe will help you migrate `javax` packages to `jakarta` EE 9.1.0.
         <dependency>
             <groupId>com.oracle.weblogic.rewrite</groupId>
             <artifactId>rewrite-weblogic</artifactId>
-            <version>0.4.2</version>
+            <version>[0.4.5,)</version>
         </dependency>
         <dependency>
             <groupId>org.openrewrite.recipe</groupId>

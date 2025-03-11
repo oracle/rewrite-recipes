@@ -106,6 +106,18 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
 > [!TIP]  
 > When upgrading your application to Spring Framework 6.2.x, you may have other libraries that need to be updated. You can include the recipe in the same command, like `org.hibernate`, or run other third-party libraries separately. Because it is commonly used, we have included a recipe for Hibernate in the [JakartaEE9_1](https://github.com/oracle/rewrite-recipes/blob/c0f8c0166fa69ef96112b3009303de91c23a0975/rewrite-weblogic/src/main/resources/META-INF/rewrite/jakarta-ee-9.1.yaml#L321-348) recipe. For other examples, see the [tutorials](https://github.com/oracle-samples/weblogic-examples).
 
+<details>
+<summary>(Click to expand) Example including Hibernate recipe to run with the WebLogic 15.1.1 beta, Java 21 and Spring Framework 6.2</summary>
+
+```shell
+mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
+  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:0.4.5,org.openrewrite.recipe:rewrite-spring:RELEASE,org.openrewrite.recipe:rewrite-hibernate:RELEASE \
+  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1511,org.openrewrite.java.migrate.UpgradeToJava21,com.oracle.weblogic.rewrite.JakartaEE9_1,com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_6_2,com.oracle.weblogic.rewrite.hibernate.MigrateHibernate4JakartaEE9 \
+  -Drewrite.exportDatatables=true
+```
+
+</details>
+
 ### Run using Maven with the `<plugin>` in the `pom.xml` file
 
 - Add the plug-in to your `pom.xml` file and activate the desired recipe from the `rewrite-weblogic` group recipe. The following example illustrates Upgrade to WebLogic 14.1.2 and Upgrade to Java 21.

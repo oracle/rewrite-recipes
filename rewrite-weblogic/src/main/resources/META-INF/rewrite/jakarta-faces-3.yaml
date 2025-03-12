@@ -34,6 +34,7 @@ recipeList:
   - com.oracle.weblogic.rewrite.jakarta.JavaxWebXmlToJakartaWebXml5
   - com.oracle.weblogic.rewrite.jakarta.FacesJNDINamesChanged3
   - com.oracle.weblogic.rewrite.jakarta.RemovedJakartaFaces3ExpressionLanguageClasses
+  - com.oracle.weblogic.rewrite.jakarta.UpdateJakartaFacesMethodCalls
   - com.oracle.weblogic.rewrite.jakarta.RemovedJakartaFaces3ResourceResolver
   - com.oracle.weblogic.rewrite.jakarta.RemovedStateManagerMethods3
   - com.oracle.weblogic.rewrite.jakarta.FacesManagedBeansRemoved3
@@ -322,6 +323,15 @@ recipeList:
       oldFullyQualifiedTypeName: javax.faces.el.ReferenceSyntaxException
       newFullyQualifiedTypeName: jakarta.el.ELException
       ignoreDefinition: true
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.UpdateJakartaFacesMethodCalls
+displayName: Update deprecated Faces method calls
+description: >
+  Custom recipe to handle method call changes for deprecated Faces/EL methods where the method argument lists have
+  changed. This recipe should be run _after_ all the Jakarta Faces related type changes are completed.
+recipeList:
+  - com.oracle.weblogic.rewrite.jakarta.ChangeJakartaFacesMethodCalls
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.FacesManagedBeansRemoved3

@@ -44,6 +44,7 @@ tags:
   - weblogic
   - java
 recipeList:
+  - com.oracle.weblogic.rewrite.OutputRecipeVersion
   - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1511
   - com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1511
   - com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo1511

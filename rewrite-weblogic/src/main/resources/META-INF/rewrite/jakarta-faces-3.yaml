@@ -408,7 +408,6 @@ recipeList:
       groupId: org.primefaces
       artifactId: primefaces
       newVersion: 13.0.x
-      versionPattern: '-LTS'
   - org.openrewrite.maven.ChangeDependencyClassifier:
       groupId: org.primefaces.extensions
       artifactId: primefaces-extensions
@@ -417,7 +416,6 @@ recipeList:
       groupId: org.primefaces.extensions
       artifactId: primefaces-extensions
       newVersion: 13.0.x
-      versionPattern: '-LTS'
   - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
       groupId: org.omnifaces
       artifactId: omnifaces

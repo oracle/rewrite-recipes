@@ -94,7 +94,7 @@ dependencies {
 
 ```
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \
+  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST,org.openrewrite.recipe:rewrite-spring:RELEASE \
   -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_6_2 \
   -Drewrite.exportDatatables=true
   ```

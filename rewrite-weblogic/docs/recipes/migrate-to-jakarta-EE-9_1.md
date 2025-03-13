@@ -101,7 +101,7 @@ dependencies {
 
 ```
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \
+  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST,org.openrewrite.recipe:rewrite-migrate-java:RELEASE \
   -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.JakartaEE9_1 \
   -Drewrite.exportDatatables=true
   ```

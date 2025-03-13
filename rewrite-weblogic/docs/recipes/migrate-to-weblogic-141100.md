@@ -91,7 +91,7 @@ dependencies {
 
 ```
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \
-  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1411, org.openrewrite.java.migrate.Java8toJava11 \
+  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST,org.openrewrite.recipe:rewrite-migrate-java:RELEASE \
+  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1411,org.openrewrite.java.migrate.Java8toJava11 \
   -Drewrite.exportDatatables=true
   ```

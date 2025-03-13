@@ -193,7 +193,7 @@ recipeList:
   - org.openrewrite.xml.ChangeTagAttribute:
       attributeName: version
       elementName: application
-      newValue: 9.0
+      newValue: 9
   - org.openrewrite.xml.ChangeTagAttribute:
       attributeName: xmlns
       elementName: application
@@ -225,7 +225,7 @@ recipeList:
   - org.openrewrite.xml.ChangeTagAttribute:
       attributeName: version
       elementName: application-client
-      newValue: 9.0
+      newValue: 9
   - org.openrewrite.xml.ChangeTagAttribute:
       attributeName: xmlns
       elementName: application-client

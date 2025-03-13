@@ -5,7 +5,7 @@
 
   <groupId>com.oracle.weblogic.rewrite</groupId>
   <artifactId>rewrite-weblogic</artifactId>
-  <version>0.4.5</version>
+  <version>0.4.6</version>
 
   <name>rewrite-weblogic</name>
   <description>Migrate your WebLogic applications to the latest version of WebLogic
@@ -17,11 +17,6 @@
     <license>
       <name>The Universal Permissive License (UPL), Version 1.0</name>
       <url>http://www.oracle.com/technetwork/licenses/upl-license-2927578.html</url>
-      <distribution>repo</distribution>
-    </license>
-    <license>
-      <name>Apache License 2.0</name>
-      <url>http://apache.org/licenses/LICENSE-2.0.html</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
@@ -73,31 +68,6 @@
           <groupId>org.openrewrite</groupId>
           <artifactId>rewrite-java</artifactId>
           <scope>compile</scope>
-      </dependency>
-      <dependency>
-          <groupId>org.openrewrite</groupId>
-          <artifactId>rewrite-java-8</artifactId>
-          <scope>runtime</scope>
-      </dependency>
-      <dependency>
-          <groupId>org.openrewrite</groupId>
-          <artifactId>rewrite-java-11</artifactId>
-          <scope>runtime</scope>
-      </dependency>
-      <dependency>
-          <groupId>org.openrewrite</groupId>
-          <artifactId>rewrite-java-17</artifactId>
-          <scope>runtime</scope>
-      </dependency>
-      <dependency>
-          <groupId>org.openrewrite</groupId>
-          <artifactId>rewrite-java-21</artifactId>
-          <scope>runtime</scope>
-      </dependency>
-      <dependency>
-          <groupId>org.openrewrite.recipe</groupId>
-          <artifactId>rewrite-migrate-java</artifactId>
-          <scope>runtime</scope>
       </dependency>
       <dependency>
           <groupId>org.openrewrite</groupId>
@@ -153,6 +123,19 @@
                       </path>
                   </annotationProcessorPaths>
               </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.4.2</version>
+            <configuration>
+                <archive>
+                    <manifestEntries>
+                        <Implementation-Title>${project.name}</Implementation-Title>
+                        <Implementation-Version>${project.version}</Implementation-Version>
+                    </manifestEntries>
+                </archive>
+            </configuration>
           </plugin>
           <plugin>
               <groupId>org.openrewrite.maven</groupId>

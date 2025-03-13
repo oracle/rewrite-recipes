@@ -70,6 +70,10 @@ preconditions:
       filePattern: '**/handler.xml'
 recipeList:
   - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: version
+      elementName: handler-chains
+      newValue: 3.0
+  - org.openrewrite.xml.ChangeTagAttribute:
       attributeName: xmlns
       elementName: handler-chains
       newValue: https://jakarta.ee/xml/ns/jakartaee
@@ -97,6 +101,10 @@ preconditions:
   - org.openrewrite.FindSourceFiles:
       filePattern: '**/batch.xml'
 recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: version
+      elementName: batch-artifacts
+      newValue: 2.0
   - org.openrewrite.xml.ChangeTagAttribute:
       attributeName: xmlns
       elementName: batch-artifacts
@@ -185,7 +193,7 @@ recipeList:
   - org.openrewrite.xml.ChangeTagAttribute:
       attributeName: version
       elementName: application
-      newValue: 9.0
+      newValue: 9
   - org.openrewrite.xml.ChangeTagAttribute:
       attributeName: xmlns
       elementName: application
@@ -217,7 +225,7 @@ recipeList:
   - org.openrewrite.xml.ChangeTagAttribute:
       attributeName: version
       elementName: application-client
-      newValue: 9.0
+      newValue: 9
   - org.openrewrite.xml.ChangeTagAttribute:
       attributeName: xmlns
       elementName: application-client
@@ -247,6 +255,10 @@ preconditions:
   - org.openrewrite.FindSourceFiles:
       filePattern: '**/ra.xml'
 recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: version
+      elementName: connector
+      newValue: 2.0
   - org.openrewrite.xml.ChangeTagAttribute:
       attributeName: xmlns
       elementName: connector
@@ -291,6 +303,10 @@ recipeList:
       find: javax.
       replace: jakarta.
       filePattern: '**/ejb-jar.xml'
+  - org.openrewrite.text.FindAndReplace:
+      find: jakarta.sql.
+      replace: javax.sql.
+      filePattern: '**/ejb-jar.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: org.openrewrite.java.migrate.jakarta.JavaxWebServicesXmlToJakarta9WebServicesXml
@@ -303,6 +319,10 @@ preconditions:
   - org.openrewrite.FindSourceFiles:
       filePattern: '**/webservices.xml'
 recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: version
+      elementName: webservices
+      newValue: 2.0
   - org.openrewrite.xml.ChangeTagAttribute:
       attributeName: xmlns
       elementName: webservices

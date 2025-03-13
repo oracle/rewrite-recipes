@@ -30,8 +30,8 @@ You can run OpenRewrite recipes on your code folder using the Maven or Gradle CL
 
 ```
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \
-  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1511
+  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST,org.openrewrite.recipe:rewrite-migrate-java:RELEASE \
+  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1511,com.oracle.weblogic.rewrite.JakartaEE9_1
 ```
 
 ## Run using Maven with the `<plugin>` in the `pom.xml` file

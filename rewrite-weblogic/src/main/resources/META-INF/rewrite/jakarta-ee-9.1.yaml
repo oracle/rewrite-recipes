@@ -56,6 +56,7 @@ recipeList:
   - com.oracle.weblogic.rewrite.jakarta.MigrateJavaxWebToJakartaWeb9
   - com.oracle.weblogic.rewrite.jakarta.JavaxAnnotationMigrationToJakarta9Annotation
   - com.oracle.weblogic.rewrite.jakarta.OrgGlassfishJavaxElToJakartaEl
+  - com.oracle.weblogic.rewrite.jakarta.JavaxJmsToJakartaJmsOnMdb
   - com.oracle.weblogic.rewrite.jakarta.UpdateJakartaPlatform9_1
   - com.oracle.weblogic.rewrite.jakarta.MitigateUnaffectedNonEEJakarta9Packages
   - com.oracle.weblogic.rewrite.jakarta.UpgradeCommonOpenSourceLibraries
@@ -267,9 +268,9 @@ tags:
   - jms
 recipeList:
   - org.openrewrite.text.FindAndReplace:
-      find: javax.jms
-      replace: jakarta.jms
-      filePattern: '**/*.xml'
+      find: javax.jms.
+      replace: jakarta.jms.
+      filePattern: '**/*.xml;**/*.java'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.UpdateJakartaPlatform9_1
@@ -317,6 +318,10 @@ recipeList:
       groupId: org.hsqldb
       artifactId: '*'
       newVersion: 2.7.x
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.glassfish.jersey.media
+      artifactId: '*'
+      newVersion: 3.x
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.hibernate.MigrateHibernate4JakartaEE9

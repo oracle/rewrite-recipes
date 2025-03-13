@@ -310,7 +310,7 @@ recipeList:
       filePattern: '**/ejb-jar.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: org.openrewrite.java.migrate.jakarta.JavaxWebServicesXmlToJakarta9WebServicesXml
+name: com.oracle.weblogic.rewrite.jakarta.JavaxWebServicesXmlToJakarta9WebServicesXml
 displayName: Migrate xmlns entries in `webservices.xml` files.
 description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
 tags:
@@ -342,7 +342,7 @@ recipeList:
       filePattern: '**/webservices.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: org.openrewrite.java.migrate.jakarta.JavaxPermissionsXmlToJakartaPermissionsXml
+name: com.oracle.weblogic.rewrite.jakarta.JavaxPermissionsXmlToJakartaPermissionsXml
 displayName: Migrate xmlns entries in `permissions.xml` files.
 description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
 tags:

@@ -337,7 +337,9 @@ type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.FacesManagedBeansRemoved3
 displayName: Substitute deprecated Faces Managed Beans
 description: >
-  This recipe substitutes Faces Managed Beans, which were deprecated in JavaServer Faces 2.3 and have been removed from Jakarta Faces 3.0.
+  This recipe substitutes Faces Managed Beans, which were deprecated in JavaServer Faces 2.3 and have been removed
+  from Jakarta Faces 3.0. It also replaces the deprecated jakarta.faces.bean.ManagedBean annotation with the
+  jarkarta.inject.Named annotation.
 recipeList:
   - org.openrewrite.java.ChangeType:
       oldFullyQualifiedTypeName: javax.faces.bean.ApplicationScoped
@@ -386,6 +388,17 @@ recipeList:
   - org.openrewrite.java.ChangeType:
       oldFullyQualifiedTypeName: jakarta.faces.bean.ViewScoped
       newFullyQualifiedTypeName: jakarta.faces.view.ViewScoped
+      ignoreDefinition: true
+  # Change the annotation type for the deprecated jakarta.faces.bean.ManagedBean, to use jakarta.named.Inject, and then
+  # change the annotation attribute name (from "name" for ManagedBean to "value" for jakarta.inject.Named).
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: jakarta.faces.bean.ManagedBean
+      newFullyQualifiedTypeName: jakarta.inject.Named
+      ignoreDefinition: true
+  - org.openrewrite.java.ChangeAnnotationAttributeName:
+      annotationType: jakarta.inject.Named
+      oldAttributeName: name
+      newAttributeName: value
       ignoreDefinition: true
 ---
 type: specs.openrewrite.org/v1beta/recipe

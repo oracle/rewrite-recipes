@@ -50,13 +50,16 @@ recipeList:
   - com.oracle.weblogic.rewrite.jakarta.JavaxWebHandlerXmlToJakarta9HandlerXml
   - com.oracle.weblogic.rewrite.jakarta.JavaxBatchXmlToJakarta9BatchXml
   - com.oracle.weblogic.rewrite.jakarta.JavaxBeansXmlToJakarta9BeansXml
-  - com.oracle.weblogic.rewrite.jakarta.JavaxJobXmlToJakarta9JobXml
+  - com.oracle.weblogic.rewrite.jakarta.JavaxBatchJobsXmlsToJakarta9BatchJobsXmls
   - com.oracle.weblogic.rewrite.jakarta.JavaxApplicationXmlToJakarta9ApplicationXml
   - com.oracle.weblogic.rewrite.jakarta.JavaxApplicationClientXmlToJakarta9ApplicationClientXml
   - com.oracle.weblogic.rewrite.jakarta.JavaxRaXmlToJakarta9RaXml
   - com.oracle.weblogic.rewrite.jakarta.JavaxEjbJarXmlToJakarta9EjbJarXml
   - com.oracle.weblogic.rewrite.jakarta.JavaxWebServicesXmlToJakarta9WebServicesXml
-  - com.oracle.weblogic.rewrite.jakarta.JavaxPermissionsXmlToJakartaPermissionsXml
+  - com.oracle.weblogic.rewrite.jakarta.JavaxPermissionsXmlToJakarta9PermissionsXml
+  - com.oracle.weblogic.rewrite.jakarta.JavaxWebJspTagLibraryTldsToJakarta9WebJspTagLibraryTlds
+  - com.oracle.weblogic.rewrite.jakarta.JavaxBindingsSchemaXjbsToJakarta9BindingsSchemaXjbs
+  - com.oracle.weblogic.rewrite.jakarta.JavaxValidationMappingXmlsToJakarta9ValidationMappingXmls
   - org.openrewrite.java.migrate.jakarta.JavaxBeanValidationXmlToJakartaBeanValidationXml
 ---
 type: specs.openrewrite.org/v1beta/recipe
@@ -153,8 +156,8 @@ recipeList:
       newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/beans_3_0.xsd
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.jakarta.JavaxJobXmlToJakarta9JobXml
-displayName: Migrate xmlns entries in `*job.xml` files.
+name: com.oracle.weblogic.rewrite.jakarta.JavaxBatchJobsXmlsToJakarta9BatchJobsXmls
+displayName: Migrate xmlns entries in `**/batch-jobs/*.xml` files.
 description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
 tags:
   - jakarta
@@ -342,7 +345,7 @@ recipeList:
       filePattern: '**/webservices.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.jakarta.JavaxPermissionsXmlToJakartaPermissionsXml
+name: com.oracle.weblogic.rewrite.jakarta.JavaxPermissionsXmlToJakarta9PermissionsXml
 displayName: Migrate xmlns entries in `permissions.xml` files.
 description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
 tags:
@@ -372,3 +375,127 @@ recipeList:
       find: javax.
       replace: jakarta.
       filePattern: '**/permissions.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.JavaxWebJspTagLibraryTldsToJakarta9WebJspTagLibraryTlds
+displayName: Migrate xmlns entries in `*.tld` files.
+description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
+tags:
+  - jakarta
+  - jsp
+  - jsptaglibrary
+  - tld
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/*.tld'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: version
+      elementName: taglib
+      newValue: 3.0
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: taglib
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: taglib
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: taglib
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-jsptaglibrary_3_0.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/*.tld'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.JavaxBindingsSchemaXjbsToJakarta9BindingsSchemaXjbs
+displayName: Migrate xmlns entries in `*.xjb` files.
+description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
+tags:
+  - jakarta
+  - bindings
+  - jaxb
+  - xjb
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/*.xjb'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: version
+      elementName: jaxb:bindings
+      newValue: 3.0
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: jaxb:bindings
+      newValue: https://jakarta.ee/xml/ns/jaxb
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:jaxb
+      elementName: jaxb:bindings
+      newValue: https://jakarta.ee/xml/ns/jaxb
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: jaxb:bindings
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: jaxb:bindings
+      newValue: https://jakarta.ee/xml/ns/jaxb https://jakarta.ee/xml/ns/jaxb/bindingschema_3_0.xsd
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: version
+      elementName: bindings
+      newValue: 3.0
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: bindings
+      newValue: https://jakarta.ee/xml/ns/jaxb
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:jaxb
+      elementName: bindings
+      newValue: https://jakarta.ee/xml/ns/jaxb
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: bindings
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: bindings
+      newValue: https://jakarta.ee/xml/ns/jaxb https://jakarta.ee/xml/ns/jaxb/bindingschema_3_0.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/*.xjb'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.JavaxValidationMappingXmlsToJakarta9ValidationMappingXmls
+displayName: Migrate xmlns entries in `**/validation/*.xml` files.
+description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
+tags:
+  - jakarta
+  - validation-mapping
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/validation/*.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: version
+      elementName: constraint-mappings
+      newValue: 3.0
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: constraint-mappings
+      newValue: https://jakarta.ee/xml/ns/validation
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: constraint-mappings
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: constraint-mappings
+      newValue: https://jakarta.ee/xml/ns/validation https://jakarta.ee/xml/ns/validation/validation-mapping-3.0.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/validation/*.xml'

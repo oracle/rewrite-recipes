@@ -7,16 +7,11 @@
  */
 package com.oracle.weblogic.rewrite.jakarta;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openrewrite.InMemoryExecutionContext;
 import org.openrewrite.java.JavaParser;
 import org.openrewrite.test.RecipeSpec;
 import org.openrewrite.test.RewriteTest;
 import org.openrewrite.test.TypeValidation;
-
-import java.io.File;
-import java.nio.file.Files;
 
 import static org.openrewrite.java.Assertions.java;
 

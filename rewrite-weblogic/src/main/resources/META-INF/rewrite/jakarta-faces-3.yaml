@@ -26,7 +26,6 @@ tags:
 recipeList:
   - org.openrewrite.java.migrate.jakarta.JakartaFacesEcmaScript
   - org.openrewrite.java.migrate.jakarta.RemovedUIComponentConstant
-  - com.oracle.weblogic.rewrite.jakarta.JakartaFaces3WebXml
   - com.oracle.weblogic.rewrite.jakarta.JakartaFaces3Xhtml
   - com.oracle.weblogic.rewrite.jakarta.JavaxFacesConfigXmlToJakartaFaces3ConfigXml
   - com.oracle.weblogic.rewrite.jakarta.JavaxFacesTagLibraryXmlToJakartaFaces3TagLibraryXml
@@ -39,28 +38,6 @@ recipeList:
   - com.oracle.weblogic.rewrite.jakarta.RemovedStateManagerMethods3
   - com.oracle.weblogic.rewrite.jakarta.FacesManagedBeansRemoved3
   - com.oracle.weblogic.rewrite.jakarta.UpgradeFacesOpenSourceLibraries3
----
-type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.jakarta.JakartaFaces3WebXml
-displayName: Faces WebLogic web.xml migration for Jakarta EE 9.1
-description: Find and replace legacy JSF namespaces and javax references with Jakarta Faces values in web.xml.
-tags:
-  - faces
-  - jsf
-  - jakarta
-recipeList:
-  - org.openrewrite.text.FindAndReplace:
-      find: http://primefaces.org/ui/extensions
-      replace: primefaces.extensions
-      filePattern: '**/web.xml'
-  - org.openrewrite.text.FindAndReplace:
-      find: http://primefaces.org/ui
-      replace: primefaces
-      filePattern: '**/web.xml'
-  - org.openrewrite.text.FindAndReplace:
-      find: javax.
-      replace: jakarta.
-      filePattern: '**/web.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.JakartaFaces3Xhtml

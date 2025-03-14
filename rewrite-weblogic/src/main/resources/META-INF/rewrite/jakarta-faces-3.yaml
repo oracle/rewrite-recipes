@@ -47,11 +47,79 @@ tags:
   - jakarta
   - faces
   - jsf
+  - xhtml
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/*.xhtml'
 recipeList:
   - org.openrewrite.text.FindAndReplace:
       find: javax.
       replace: jakarta.
       filePattern: '**/*.xhtml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.JavaxWebXmlToJakartaWebXml5
+displayName: Migrate xmlns entries in `web.xml` files for Jakarta Server Faces 3
+description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
+tags:
+  - jakarta
+  - faces
+  - jsf
+  - webxml
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/web.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: web-app
+      attributeName: version
+      newValue: 5.0
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: web-app
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: web-app
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/web.xml'
+  - org.openrewrite.text.FindAndReplace:
+      find: jakarta.sql.
+      replace: javax.sql.
+      filePattern: '**/web.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.JavaxWebFragmentXmlToJakartaWebFragmentXml5
+displayName: Migrate xmlns entries in `web-fragment.xml` files for Jakarta Server Faces 3
+description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
+tags:
+  - jakarta
+  - faces
+  - jsf
+  - web-fragment
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/web-fragment.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: version
+      elementName: web-fragment
+      newValue: 5.0
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: web-fragment
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: web-fragment
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-fragment_5_0.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: "javax."
+      replace: "jakarta."
+      filePattern: '**/web-fragment.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.JavaxFacesConfigXmlToJakartaFaces3ConfigXml
@@ -61,6 +129,10 @@ tags:
   - jakarta
   - faces
   - jsf
+  - faces-config
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/faces-config.xml'
 recipeList:
   - org.openrewrite.xml.ChangeTagAttribute:
       attributeName: version
@@ -87,6 +159,10 @@ tags:
   - jakarta
   - faces
   - jsf
+  - taglib
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/*taglib*.xml'
 recipeList:
   - org.openrewrite.xml.ChangeTagAttribute:
       attributeName: version
@@ -104,62 +180,6 @@ recipeList:
       find: javax.
       replace: jakarta.
       filePattern: '**/*taglib*.xml'
----
-type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.jakarta.JavaxWebFragmentXmlToJakartaWebFragmentXml5
-displayName: Migrate xmlns entries in `web-fragment.xml` files for Jakarta Server Faces 3
-description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
-tags:
-  - jakarta
-  - faces
-  - jsf
-recipeList:
-  - org.openrewrite.xml.ChangeTagAttribute:
-      attributeName: version
-      elementName: web-fragment
-      newValue: 5.0
-  - org.openrewrite.xml.ChangeTagAttribute:
-      attributeName: xmlns
-      elementName: web-fragment
-      newValue: https://jakarta.ee/xml/ns/jakartaee
-  - org.openrewrite.xml.ChangeTagAttribute:
-      attributeName: xsi:schemaLocation
-      elementName: web-fragment
-      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-fragment_5_0.xsd
-  - org.openrewrite.text.FindAndReplace:
-      find: "javax."
-      replace: "jakarta."
-      filePattern: '**/web-fragment.xml'
----
-type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.jakarta.JavaxWebXmlToJakartaWebXml5
-displayName: Migrate xmlns entries in `web.xml` files for Jakarta Server Faces 3
-description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation.
-tags:
-  - jakarta
-  - faces
-  - jsf
-recipeList:
-  - org.openrewrite.xml.ChangeTagAttribute:
-      elementName: web-app
-      attributeName: version
-      newValue: 5.0
-  - org.openrewrite.xml.ChangeTagAttribute:
-      elementName: web-app
-      attributeName: xmlns
-      newValue: https://jakarta.ee/xml/ns/jakartaee
-  - org.openrewrite.xml.ChangeTagAttribute:
-      elementName: web-app
-      attributeName: xsi:schemaLocation
-      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd
-  - org.openrewrite.text.FindAndReplace:
-      find: javax.
-      replace: jakarta.
-      filePattern: '**/web.xml'
-  - org.openrewrite.text.FindAndReplace:
-      find: jakarta.sql.
-      replace: javax.sql.
-      filePattern: '**/web.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.FacesJNDINamesChanged3

@@ -20,10 +20,9 @@ For example:
 ```
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \ <- Command to launch OpenRewrite tool
 
-  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST,org.openrewrite.recipe:rewrite-migrate-java:RELEASE \ <- Recipe source
+  -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:RELEASE,com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \ <- Recipe source
 
-  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1511,
-    org.openrewrite.java.migrate.UpgradeToJava21,com.oracle.weblogic.rewrite.JakartaEE9_1 \ <- Recipe list
+  -Drewrite.activeRecipes=,org.openrewrite.java.migrate.UpgradeToJava21,com.oracle.weblogic.rewrite.JakartaEE9_1,com.oracle.weblogic.rewrite.UpgradeTo1511 \ <- Recipe list
   -Drewrite.exportDatatables=true
 ```
 For more information, see [How to run recipes](../../docs/procedures/index.md).

@@ -61,16 +61,16 @@ Clone your project to your local machine.
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST,org.openrewrite.recipe:rewrite-migrate-java:RELEASE \
-  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1412,org.openrewrite.java.migrate.UpgradeToJava21
+  -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:RELEASE,com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \
+  -Drewrite.activeRecipes=org.openrewrite.java.migrate.UpgradeToJava21,com.oracle.weblogic.rewrite.UpgradeTo1412
 ```
 
 #### Upgrade applications to WebLogic 14.1.2 and Java 17
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST,org.openrewrite.recipe:rewrite-migrate-java:RELEASE \
-  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1412,org.openrewrite.java.migrate.UpgradeToJava17
+  -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:RELEASE,com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \
+  -Drewrite.activeRecipes=org.openrewrite.java.migrate.UpgradeToJava17,com.oracle.weblogic.rewrite.UpgradeTo1412
 ```
 
 #### **WebLogic Server 15.1.1 BETA recipes**
@@ -82,8 +82,8 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST,org.openrewrite.recipe:rewrite-migrate-java:RELEASE \
-  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1511,org.openrewrite.java.migrate.UpgradeToJava21,com.oracle.weblogic.rewrite.JakartaEE9_1 \
+  -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:RELEASE,com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \
+  -Drewrite.activeRecipes=,org.openrewrite.java.migrate.UpgradeToJava21,com.oracle.weblogic.rewrite.JakartaEE9_1,com.oracle.weblogic.rewrite.UpgradeTo1511 \
   -Drewrite.exportDatatables=true
 ```
 
@@ -91,8 +91,8 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST,org.openrewrite.recipe:rewrite-migrate-java:RELEASE \
-  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1511,org.openrewrite.java.migrate.UpgradeToJava17,com.oracle.weblogic.rewrite.JakartaEE9_1 \
+  -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:RELEASE,com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \
+  -Drewrite.activeRecipes=org.openrewrite.java.migrate.UpgradeToJava17,com.oracle.weblogic.rewrite.JakartaEE9_1,com.oracle.weblogic.rewrite.UpgradeTo1511 \
   -Drewrite.exportDatatables=true
 ```
 
@@ -102,8 +102,8 @@ If your application is running with Spring Framework 5.x on WebLogic 12.x or 14.
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-      -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST,org.openrewrite.recipe:rewrite-migrate-java:RELEASE,org.openrewrite.recipe:rewrite-spring:RELEASE \
-      -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1511,org.openrewrite.java.migrate.UpgradeToJava21,com.oracle.weblogic.rewrite.JakartaEE9_1,com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_6_2 \
+      -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:RELEASE,com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST,org.openrewrite.recipe:rewrite-spring:RELEASE \
+      -Drewrite.activeRecipes=org.openrewrite.java.migrate.UpgradeToJava21,com.oracle.weblogic.rewrite.JakartaEE9_1,com.oracle.weblogic.rewrite.UpgradeTo1511,com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_6_2 \
       -Drewrite.exportDatatables=true
 ```
 
@@ -114,8 +114,8 @@ Example that includes the Hibernate recipe running with the WebLogic 15.1.1 BETA
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST,org.openrewrite.recipe:rewrite-migrate-java:RELEASE,org.openrewrite.recipe:rewrite-spring:RELEASE,org.openrewrite.recipe:rewrite-hibernate:RELEASE \
-  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1511,org.openrewrite.java.migrate.UpgradeToJava21,com.oracle.weblogic.rewrite.JakartaEE9_1,com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_6_2,com.oracle.weblogic.rewrite.hibernate.MigrateHibernate4JakartaEE9 \
+  -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:RELEASE,com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST,org.openrewrite.recipe:rewrite-spring:RELEASE,org.openrewrite.recipe:rewrite-hibernate:RELEASE \
+  -Drewrite.activeRecipes=org.openrewrite.java.migrate.UpgradeToJava21,com.oracle.weblogic.rewrite.JakartaEE9_1,com.oracle.weblogic.rewrite.UpgradeTo1511,com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_6_2,com.oracle.weblogic.rewrite.hibernate.MigrateHibernate4JakartaEE9 \
   -Drewrite.exportDatatables=true
 ```
 
@@ -128,24 +128,24 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
         <plugin>
             <groupId>org.openrewrite.maven</groupId>
             <artifactId>rewrite-maven-plugin</artifactId>
-            <version>5.43.0</version>
+            <version>6.3.1</version>
             <configuration>
                 <exportDatatables>true</exportDatatables>
                 <activeRecipes>
-                    <recipe>com.oracle.weblogic.rewrite.UpgradeTo1412</recipe>
                     <recipe>org.openrewrite.java.migrate.UpgradeToJava21</recipe>
+                    <recipe>com.oracle.weblogic.rewrite.UpgradeTo1412</recipe>
                 </activeRecipes>
             </configuration>
             <dependencies>
                 <dependency>
+                    <groupId>org.openrewrite.recipe</groupId>
+                    <artifactId>rewrite-migrate-java</artifactId>
+                    <version>3.4.0</version>
+                </dependency>
+                <dependency>
                     <groupId>com.oracle.weblogic.rewrite</groupId>
                     <artifactId>rewrite-weblogic</artifactId>
                     <version>[0.4.5,)</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.openrewrite.recipe</groupId>
-                    <artifactId>rewrite-migrate-java</artifactId>
-                    <version>2.28.0</version>
                 </dependency>
             </dependencies>
         </plugin>

@@ -26,24 +26,24 @@ These recipes will update the WebLogic version to 14.1.1 for the Maven build and
 <plugin>
     <groupId>org.openrewrite.maven</groupId>
     <artifactId>rewrite-maven-plugin</artifactId>
-    <version>5.43.0</version>
+    <version>6.3.1</version>
     <configuration>
         <exportDatatables>true</exportDatatables>
         <activeRecipes>
-            <recipe>com.oracle.weblogic.rewrite.UpgradeTo1411</recipe>
             <recipe>org.openrewrite.java.migrate.Java8toJava11</recipe>
+            <recipe>com.oracle.weblogic.rewrite.UpgradeTo1411</recipe>
         </activeRecipes>
     </configuration>
     <dependencies>
         <dependency>
+            <groupId>org.openrewrite.recipe</groupId>
+            <artifactId>rewrite-migrate-java</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.oracle.weblogic.rewrite</groupId>
             <artifactId>rewrite-weblogic</artifactId>
             <version>[0.4.5,)</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openrewrite.recipe</groupId>
-            <artifactId>rewrite-migrate-java</artifactId>
-            <version>2.28.0</version>
         </dependency>
     </dependencies>
 </plugin>
@@ -60,12 +60,12 @@ These recipes will update the WebLogic version to 14.1.1 for the Maven build and
 
 ```
 plugins {
-    id("org.openrewrite.rewrite") version("7.1.4")
+    id("org.openrewrite.rewrite") version("7.2.0")
 }
 
 rewrite {
-    activeRecipe("com.oracle.weblogic.rewrite.UpgradeTo1411")
     activeRecipe("org.openrewrite.java.migrate.Java8toJava11")
+    activeRecipe("com.oracle.weblogic.rewrite.UpgradeTo1411")
     setExportDatatables(true)
 }
 
@@ -74,7 +74,7 @@ repositories {
 }
 
 dependencies {
-    rewrite("org.openrewrite.recipe:rewrite-migrate-java:3.2.0")
+    rewrite("org.openrewrite.recipe:rewrite-migrate-java:3.4.0")
     rewrite("com.oracle.weblogic.rewrite:rewrite-weblogic:+")
 }
 ```
@@ -91,7 +91,7 @@ dependencies {
 
 ```
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST,org.openrewrite.recipe:rewrite-migrate-java:RELEASE \
-  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1411,org.openrewrite.java.migrate.Java8toJava11 \
+  -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:RELEASE,com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \
+  -Drewrite.activeRecipes=org.openrewrite.java.migrate.Java8toJava11,com.oracle.weblogic.rewrite.UpgradeTo1411 \
   -Drewrite.exportDatatables=true
   ```

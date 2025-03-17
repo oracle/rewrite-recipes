@@ -21,7 +21,7 @@ This recipe will identify, and comment out deprecated and removed APIs.
 <plugin>
     <groupId>org.openrewrite.maven</groupId>
     <artifactId>rewrite-maven-plugin</artifactId>
-    <version>5.43.0</version>
+    <version>6.3.1</version>
     <configuration>
         <exportDatatables>true</exportDatatables>
         <activeRecipes>
@@ -33,11 +33,6 @@ This recipe will identify, and comment out deprecated and removed APIs.
             <groupId>com.oracle.weblogic.rewrite</groupId>
             <artifactId>rewrite-weblogic</artifactId>
             <version>[0.4.5,)</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openrewrite.recipe</groupId>
-            <artifactId>rewrite-migrate-java</artifactId>
-            <version>2.28.0</version>
         </dependency>
     </dependencies>
 </plugin>

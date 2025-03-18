@@ -55,7 +55,7 @@ Clone your project to your local machine.
 ### Run using the Maven CLI
 
 > [!TIP]  
-> If you're using WebLogic artifacts, you need to install the corresponding [WebLogic Maven plug-in](https://docs.oracle.com/en/middleware/fusion-middleware/weblogic-server/14.1.2/wlprg/maven.html#GUID-7759C76C-D6E9-4A7E-BE99-96787814576D) version (for example, 14.1.1). After migration (for example, to 15.1.1), update and sync the plug-in version accordingly before building the migrated application.
+> If you're using WebLogic artifacts, you need to install the corresponding [WebLogic Maven plug-in](https://docs.oracle.com/en/middleware/fusion-middleware/weblogic-server/14.1.2/wlprg/maven.html#GUID-7759C76C-D6E9-4A7E-BE99-96787814576D) version (for example, 14.1.1). After migration (for example, to 15.1.1), update and sync the plug-in version accordingly, before building the migrated application.
 
 #### Upgrade applications to WebLogic 14.1.2 and Java 21
 
@@ -95,6 +95,9 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
   -Drewrite.activeRecipes=org.openrewrite.java.migrate.UpgradeToJava17,com.oracle.weblogic.rewrite.JakartaEE9_1,com.oracle.weblogic.rewrite.UpgradeTo1511 \
   -Drewrite.exportDatatables=true
 ```
+> [!NOTE]
+> When upgrading to WebLogic Server 15.1.1 BETA, the `UpgradeTo1511` recipe must be run _after_ the Java and Jakarta recipes.
+
 
 ##### **Spring Framework upgrade:** Upgrade applications to WebLogic Server 15.1.1 BETA, Jakarta EE 9.1, Java 21, and Spring Framework 6.2.x
 

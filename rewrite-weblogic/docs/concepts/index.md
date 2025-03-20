@@ -45,3 +45,13 @@ To migrate Spring Framework applications to WebLogic Server version 15.1.1.0.0 (
 **Issue** </br>
 For application migration to be successful, all dependencies, including fourth-party dependencies, must be included in the `pom.xml` file, _before_ migration.
 <!-- Bugs #37644007, #37638545 , #37642398 -->
+
+**Issue** </br>
+The `weblogic open-rewrite` command fails to run on a multi-module Maven project when dependent modules are delayed in running. The issue is solved by specifying the module dependencies using the `--projects` option. For example:
+```
+mvn -U
+   ...
+   --projects <module_project> --also-make
+```
+For more information, see the [Guide to Working with Multiple Subprojects in Maven 4](https://maven.apache.org/guides/mini/guide-multiple-subprojects-4.html).
+<!-- Bug #37638183 -->

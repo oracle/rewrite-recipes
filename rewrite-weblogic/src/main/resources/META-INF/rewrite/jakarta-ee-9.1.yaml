@@ -52,6 +52,7 @@ recipeList:
   - com.oracle.weblogic.rewrite.jakarta.RemovalsServletJakarta9
   - com.oracle.weblogic.rewrite.jakarta.JavaxToJakartaCdiExtensions
   - com.oracle.weblogic.rewrite.jakarta.MigrateTagLibsToJakartaEE9
+  - com.oracle.weblogic.rewrite.jakarta.AddJakartaEE9ServletDependencyIfUsingServletContext
   - com.oracle.weblogic.rewrite.jakarta.MigrateJavaxMVCToJakartaEE9
   - com.oracle.weblogic.rewrite.jakarta.MigrateJavaxWebToJakartaWeb9
   - com.oracle.weblogic.rewrite.jakarta.JavaxAnnotationMigrationToJakarta9Annotation
@@ -63,7 +64,7 @@ recipeList:
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.RemovalsServletJakarta9
-displayName: Replace  deprecated Jakarta Servlet methods and classes
+displayName: Replace deprecated Jakarta Servlet methods and classes
 description: >
   This recipe replaces the classes and methods deprecated in Jakarta Servlet 5.0
 recipeList:
@@ -165,6 +166,21 @@ recipeList:
       newGroupId: jakarta.servlet.jsp.jstl
       newArtifactId: jakarta.servlet.jsp.jstl-api
       newVersion: 2.0.x
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.AddJakartaEE9ServletDependencyIfUsingServletContext
+displayName: Add Jakarta EE 9 Servlet Dependency
+description: Add Jakarta EE 9 Servlet Dependency if using jakarta.servlet.ServletContext
+tags:
+  - jakarta
+  - servlet
+recipeList:
+  - org.openrewrite.java.dependencies.AddDependency:
+      groupId: jakarta.servlet
+      artifactId: jakarta.servlet-api
+      version: 5.0.0
+      onlyIfUsing: jakarta.servlet.ServletContext
+      acceptTransitive: true
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.MigrateJavaxWebToJakartaWeb9
@@ -322,32 +338,3 @@ recipeList:
       groupId: org.glassfish.jersey.media
       artifactId: '*'
       newVersion: 3.x
----
-type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.hibernate.MigrateHibernate4JakartaEE9
-displayName: Migrate to Hibernate for Jakarta EE 9
-description: Upgrade hibernate libraries to Jakarta EE9 versions.
-tags:
-  - jakarta
-  - hibernate
-recipeList:
-  - org.openrewrite.hibernate.MigrateToHibernate65
-  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
-      groupId: org.hibernate.search
-      artifactId: '*'
-      newVersion: 7.2.x
-  - org.openrewrite.java.dependencies.ChangeDependency:
-      oldGroupId: org.hibernate
-      oldArtifactId: hibernate-validator
-      newGroupId: org.hibernate.validator
-      newVersion: 8.0.x
-  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
-      groupId: org.hibernate.validator
-      artifactId: hibernate-validator
-      newVersion: 8.0.x
-  - org.openrewrite.java.dependencies.ChangeDependency:
-      oldGroupId: org.hibernate
-      oldArtifactId: hibernate-ehcache
-      newGroupId: org.hibernate.orm
-      newArtifactId: hibernate-jcache
-      newVersion: 6.x

@@ -112,6 +112,10 @@ tags:
   - schemas
 recipeList:
   - com.oracle.weblogic.rewrite.WebLogicXmlWebAppNamespace1412
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/weblogic.xml'  
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.WebLogicEjbJar32XmlNamespace1511

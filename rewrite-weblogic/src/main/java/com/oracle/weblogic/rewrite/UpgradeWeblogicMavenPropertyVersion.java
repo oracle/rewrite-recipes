@@ -23,13 +23,27 @@ import java.util.Optional;
 
 @Value
 @EqualsAndHashCode(callSuper = false)
+/**
+ * A recipe to upgrade the `weblogic.version` Maven property.
+ * This recipe updates the version of the `weblogic.version` property in the `pom.xml`
+ * based on a specified version or a node-style semver selector.
+ */
 public class UpgradeWeblogicMavenPropertyVersion extends Recipe {
 
+    /**
+     * The new version to which the `weblogic.version` property should be updated.
+     * This can be an exact version number or a semver selector.
+     */
     @Option(displayName = "New version",
             description = "An exact version number, or node-style semver selector used to select the version number.",
             example = "14.1.2-0-0")
     String newVersion;
 
+    /**
+     * Constructor for the `UpgradeWeblogicMavenPropertyVersion` recipe.
+     *
+     * @param newVersion The new version to which the `weblogic.version` property should be updated.
+     */
     @JsonCreator
     public UpgradeWeblogicMavenPropertyVersion(@JsonProperty("newVersion") String newVersion) {
         this.newVersion = newVersion;

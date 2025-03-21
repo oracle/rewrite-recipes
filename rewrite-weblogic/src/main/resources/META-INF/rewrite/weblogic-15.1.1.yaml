@@ -127,6 +127,10 @@ tags:
   - schemas
 recipeList:
   - com.oracle.weblogic.rewrite.WebLogicEjbJar32XmlNamespace1412
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/weblogic-ejb-jar.xml'  
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.WebLogicRdbmsJarXmlNamespace1511
@@ -138,6 +142,10 @@ tags:
   - schemas
 recipeList:
   - com.oracle.weblogic.rewrite.WebLogicRdbmsJarXmlNamespace1412
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/weblogic-rdbms-jar.xml'  
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.WebLogicPersistenceConfigurationXmlNamespace1511
@@ -149,6 +157,10 @@ tags:
   - schemas
 recipeList:
   - com.oracle.weblogic.rewrite.WebLogicPersistenceConfigurationXmlNamespace1412
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/persistence-configuration.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.WebLogicWebServicesXmlNamespace1511
@@ -160,6 +172,10 @@ tags:
   - schemas
 recipeList:
   - com.oracle.weblogic.rewrite.WebLogicWebServicesXmlNamespace1412
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/weblogic-webservices.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.WebLogicWseeClientHandlerChainXmlNamespace1511
@@ -171,6 +187,10 @@ tags:
   - schemas
 recipeList:
   - com.oracle.weblogic.rewrite.WebLogicWseeClientHandlerChainXmlNamespace1412
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/weblogic-wsee-clientHandlerChain.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.WebLogicWebservicesPolicyRefXmlNamespace1511
@@ -182,6 +202,10 @@ tags:
   - schemas
 recipeList:
   - com.oracle.weblogic.rewrite.WebLogicWebservicesPolicyRefXmlNamespace1412
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/weblogic-webservices-policy.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.WebLogicWseeStandaloneClientXmlNamespace1511
@@ -193,6 +217,10 @@ tags:
   - schemas
 recipeList:
   - com.oracle.weblogic.rewrite.WebLogicWseeStandaloneClientXmlNamespace1412
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/weblogic-wsee-standaloneclient.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.WebLogicRaXmlNamespace1511
@@ -205,6 +233,10 @@ tags:
   - schemas
 recipeList:
   - com.oracle.weblogic.rewrite.WebLogicRaXmlNamespace1412
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/weblogic-ra.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.WebLogicApplicationXmlNamespace1511
@@ -216,6 +248,10 @@ tags:
   - schemas
 recipeList:
   - com.oracle.weblogic.rewrite.WebLogicApplicationXmlNamespace1412
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/weblogic-application.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.WebLogicApplicationClientXmlNamespace1511
@@ -227,6 +263,10 @@ tags:
   - schemas
 recipeList:
   - com.oracle.weblogic.rewrite.WebLogicApplicationClientXmlNamespace1412
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/application-client.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.WebLogicPubSubXmlNamespace1511
@@ -238,6 +278,10 @@ tags:
   - schemas
 recipeList:
   - com.oracle.weblogic.rewrite.WebLogicPubSubXmlNamespace1412
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/weblogic-pubsub.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.WebLogicJmsXmlNamespace1511
@@ -249,6 +293,10 @@ tags:
   - schemas
 recipeList:
   - com.oracle.weblogic.rewrite.WebLogicJmsXmlNamespace1412
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/*-jms.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.WebLogicJdbcXmlNamespace1511
@@ -260,6 +308,10 @@ tags:
   - schemas
 recipeList:
   - com.oracle.weblogic.rewrite.WebLogicJdbcXmlNamespace1412
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/*-jdbc.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.WebLogicPlanXmlNamespace1511
@@ -271,6 +323,10 @@ tags:
   - schemas
 recipeList:
   - com.oracle.weblogic.rewrite.WebLogicPlanXmlNamespace1412
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/plan.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.WebLogicResourceDeploymentPlanXmlNamespace1511
@@ -282,6 +338,10 @@ tags:
   - schemas
 recipeList:
   - com.oracle.weblogic.rewrite.WebLogicResourceDeploymentPlanXmlNamespace1412
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/resource-deployment-plan.xml'
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.ChangeJakartaInjectAPIDependencyScope

@@ -1,5 +1,12 @@
 # Rewrite WebLogic
 
+[![Maven Central Version](https://img.shields.io/maven-central/v/com.oracle.weblogic.rewrite/rewrite-weblogic)](https://search.maven.org/artifact/com.oracle.weblogic.rewrite/rewrite-weblogic)
+![Dynamic XML Badge](https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Fraw.githubusercontent.com%2Foracle%2Frewrite-recipes%2Frefs%2Fheads%2Fmain%2Frewrite-weblogic%2Fpom.xml&query=%2F*%5Blocal-name()%3D'project'%5D%2F*%5Blocal-name()%3D'version'%5D&prefix=v&label=Dev%20Version)
+[![License](https://img.shields.io/badge/License-UPL%201.0-blue.svg)](https://oss.oracle.com/licenses/upl/)
+[![GitHub issues](https://img.shields.io/github/issues-raw/oracle/rewrite-recipes)](https://github.com/oracle/rewrite-recipes/issues)
+[![Contributing Guide](https://img.shields.io/badge/Contributing-Guide-informational)](https://github.com/oracle/rewrite-recipes/blob/main/CONTRIBUTING.md)
+[![Code of Conduct](https://img.shields.io/badge/Code%20of%20Conduct-Oracle%20Community%20Code%20of%20Conduct-informational)](https://www.oracle.com/corporate/community/code-of-conduct.html)
+
 Migrate your WebLogic applications to the latest version of WebLogic and Java with OpenRewrite. Automatically.
 
 ## What is this?

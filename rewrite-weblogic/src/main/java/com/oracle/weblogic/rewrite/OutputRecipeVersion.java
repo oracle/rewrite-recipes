@@ -11,6 +11,11 @@ import org.openrewrite.*;
 import org.openrewrite.maven.MavenIsoVisitor;
 import org.openrewrite.xml.tree.Xml;
 
+/**
+ * A recipe that outputs the version of the recipe after it runs.
+ * This is useful for tracking and debugging purposes.
+ * Currently only works with recipes called using Maven. Gradle TBD.
+ */
 public class OutputRecipeVersion extends Recipe {
 
     @Override

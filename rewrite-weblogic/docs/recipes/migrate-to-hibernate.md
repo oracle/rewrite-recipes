@@ -1,7 +1,7 @@
 # Migrate to Hibernate for Jakarta EE 9
 **com.oracle.weblogic.rewrite.hibernate.MigrateHibernateToJakartaEE9**
 
-This recipe upgrades Hibernate libraries to Jakarta EE 9 versions.
+This recipe upgrades Hibernate libraries to versions compatible with Jakarta EE 9.
 
 ### Tags:
   - jakarta

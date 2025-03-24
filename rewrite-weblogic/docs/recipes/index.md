@@ -14,4 +14,5 @@ For detailed information about running recipes, see [How to run recipes](../proc
 | [Migrate From JSF 2.x to Jakarta Server Faces 3.x](jakarta-server-faces-3x.md) | This recipe will find and replace legacy JSF namespaces and `javax` references with Jakarta Server Faces values. |
 | [Migrate From JSF 1.x to Jakarta Server Faces 2.3 on WebLogic 14.1.2 or older](jakarta-server-faces-2x.md) | This recipe will upgrade PrimeFaces, OmniFaces, and MyFaces libraries to Jakarta EE9 versions. |
 | [Migrate to Spring Framework 6.2 for WebLogic 15.1.1](migrate-to-spring-6_2.md) | This recipe migrates applications to the Spring Framework 6.2 release and to compatibility with WebLogic 15.1.1. |
+| [Migrate to Hibernate for Jakarta EE 9](migrate-to-hibernate.md) | This recipe upgrades Hibernate libraries to versions compatible with Jakarta EE 9. |
 | [Identify and Comment Out Deprecations](identify-deprecations.md) | This recipe will identify, and comment out deprecated and removed APIs. |

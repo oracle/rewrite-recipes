@@ -29,6 +29,7 @@ recipeList:
   - com.oracle.weblogic.rewrite.jakarta.JakartaFaces3Xhtml
   - com.oracle.weblogic.rewrite.jakarta.JavaxFacesConfigXmlToJakartaFaces3ConfigXml
   - com.oracle.weblogic.rewrite.jakarta.JavaxFacesTagLibraryXmlToJakartaFaces3TagLibraryXml
+  - com.oracle.weblogic.rewrite.jakarta.JavaxTestWebXmlToJakartaTestWebXml5
   - com.oracle.weblogic.rewrite.jakarta.JavaxWebFragmentXmlToJakartaWebFragmentXml5
   - com.oracle.weblogic.rewrite.jakarta.JavaxWebXmlToJakartaWebXml5
   - com.oracle.weblogic.rewrite.jakarta.FacesJNDINamesChanged3
@@ -180,6 +181,32 @@ recipeList:
       find: javax.
       replace: jakarta.
       filePattern: '**/*taglib*.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.JavaxTestWebXmlToJakartaTestWebXml5
+displayName: Migrate xmlns entries in `test-web.xml` files for Jakarta Server Faces 3 using test interfaces
+description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation for test interfaces like arquillian.
+tags:
+  - jakarta
+  - faces
+  - jsf
+  - testwebxml
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/test-web.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: web-app
+      attributeName: version
+      newValue: 5.0
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: web-app
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: web-app
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.FacesJNDINamesChanged3

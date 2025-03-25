@@ -61,6 +61,7 @@ recipeList:
   - com.oracle.weblogic.rewrite.jakarta.JavaxBindingsSchemaXjbsToJakarta9BindingsSchemaXjbs
   - com.oracle.weblogic.rewrite.jakarta.JavaxValidationMappingXmlsToJakarta9ValidationMappingXmls
   - org.openrewrite.java.migrate.jakarta.JavaxBeanValidationXmlToJakartaBeanValidationXml
+  - com.oracle.weblogic.rewrite.jakarta.JavaxTestXmlsToJakartaTestsXmls
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.JavaxWebHandlerXmlToJakarta9HandlerXml
@@ -499,3 +500,23 @@ recipeList:
       find: javax.
       replace: jakarta.
       filePattern: '**/validation/*.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.JavaxTestXmlsToJakartaTestsXmls
+displayName: Migrate xmlns entries in `test-*.xml` files for Jakarta EE 9.1 using test interfaces
+description: Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocation for test interfaces like arquillian.
+tags:
+  - jakarta
+  - test
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/test-*.xml'
+recipeList:
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/test-*.xml'
+  - org.openrewrite.text.FindAndReplace:
+      find: jakarta.sql.
+      replace: javax.sql.
+      filePattern: '**/test-*.xml'

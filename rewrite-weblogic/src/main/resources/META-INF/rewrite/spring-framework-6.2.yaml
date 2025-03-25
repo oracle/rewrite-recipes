@@ -28,6 +28,7 @@ recipeList:
       artifactId: '*'
       newVersion: 6.2.x
   - com.oracle.weblogic.rewrite.spring.framework.DefaultServletHandler
+  - com.oracle.weblogic.rewrite.spring.framework.ReplaceWebLogicJtaTransactionManager
   - org.openrewrite.java.spring.data.UpgradeSpringData_2_7
   - com.oracle.weblogic.rewrite.spring.data.UpgradeSpringDataBom
 ---
@@ -41,6 +42,25 @@ recipeList:
       attributeName: default-servlet-name
       newValue: DefaultServlet
       oldValue: ""
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.spring.framework.ReplaceWebLogicJtaTransactionManager
+displayName: Replace Removed WebLogicJtaTransactionManager from Spring Framework 5.3.x to 6.2.x
+description: Replace removed WebLogicJtaTransactionManager with JtaTransactionManager from Spring Framework 6.2.x.
+tags:
+  - springframework
+  - weblogic
+  - JtaTransactionManager
+recipeList:
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: org.springframework.transaction.jta.WebLogicJtaTransactionManager
+      newFullyQualifiedTypeName: org.springframework.transaction.jta.JtaTransactionManager
+  - org.openrewrite.java.RemoveMethodInvocations:
+      methodPattern: org.springframework.transaction.jta.* loadWebLogicTransactionClasses()
+  - org.openrewrite.java.RemoveMethodInvocations:
+      methodPattern: org.springframework.transaction.jta.* loadWebLogicTransactionHelper()
+  - org.openrewrite.java.RemoveMethodInvocations:
+      methodPattern: org.springframework.transaction.jta.* obtainTransactionManager() 
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.spring.data.UpgradeSpringDataBom

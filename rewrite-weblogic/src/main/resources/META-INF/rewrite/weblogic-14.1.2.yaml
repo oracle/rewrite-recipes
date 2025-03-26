@@ -550,7 +550,3 @@ recipeList:
       newGroupId: javax.xml.bind
       newArtifactId: activation
       newVersion: 1.0.2
-  # - org.openrewrite.text.FindAndReplace:
-  #     find: "jakarta."
-  #     replace: "javax."
-  #     filePattern: '**/pom.xml'

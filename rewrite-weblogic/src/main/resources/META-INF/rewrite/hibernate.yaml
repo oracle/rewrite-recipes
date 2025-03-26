@@ -44,23 +44,44 @@ tags:
   - jakarta
   - hibernate
 recipeList:
-  - org.openrewrite.hibernate.MigrateToHibernate65
+  - org.openrewrite.hibernate.MigrateToHibernate61
+  - com.oracle.weblogic.rewrite.hibernate.AddHibernateOrmCore61
   - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
       groupId: org.hibernate.search
       artifactId: '*'
-      newVersion: 7.2.x
+      newVersion: 6.2.x
   - org.openrewrite.java.dependencies.ChangeDependency:
       oldGroupId: org.hibernate
       oldArtifactId: hibernate-validator
       newGroupId: org.hibernate.validator
-      newVersion: 8.0.x
+      newVersion: 7.0.x
   - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
       groupId: org.hibernate.validator
       artifactId: hibernate-validator
-      newVersion: 8.0.x
+      newVersion: 7.0.x
   - org.openrewrite.java.dependencies.ChangeDependency:
       oldGroupId: org.hibernate
       oldArtifactId: hibernate-ehcache
       newGroupId: org.hibernate.orm
       newArtifactId: hibernate-jcache
-      newVersion: 6.x
+      newVersion: 6.1.x
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.hibernate.AddHibernateOrmCore61
+displayName: Add Hibernate ORM Core if has dependencies
+description: This recipe will add Hibernate ORM Core if has dependencies.
+tags:
+  - jakarta
+  - hibernate
+  - orm
+  - core
+preconditions:
+  - org.openrewrite.java.dependencies.DependencyInsight:
+      groupIdPattern: org.hibernate*
+      artifactIdPattern: hibernate-*
+recipeList:
+  - org.openrewrite.java.dependencies.AddDependency:
+      groupId: org.hibernate.orm
+      artifactId: hibernate-core
+      version: 6.1.x
+      acceptTransitive: true

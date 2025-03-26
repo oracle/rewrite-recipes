@@ -46,7 +46,7 @@ tags:
   - weblogic
 recipeList:
   - com.oracle.weblogic.rewrite.spring.examples.ChangeCacheManagerToSimpleCacheManager
-  - com.oracle.weblogic.rewrite.spring.examples.AddImplicitTldFileWithTaglib3_0
+  - com.oracle.weblogic.rewrite.examples.AddImplicitTldFileWithTaglib3_0
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.spring.examples.ChangeCacheManagerToSimpleCacheManager
@@ -81,11 +81,11 @@ recipeList:
       xPath: //beans/bean[@id="ehcache"]
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.spring.examples.AddImplicitTldFileWithTaglib3_0
+name: com.oracle.weblogic.rewrite.examples.AddImplicitTldFileWithTaglib3_0
 displayName: Add implicit TLD with taglib 3.0
 description: Add `implicit.tld` file with taglib 3.0 to `src/main/webapp/WEB-INF/tags`.
 tags:
-  - springframework
+  - weblogic
   - examples
   - taglib
 recipeList:

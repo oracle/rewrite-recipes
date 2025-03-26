@@ -36,13 +36,23 @@ recipeList:
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.spring.framework.DefaultServletHandler
 displayName: Update Default Servlet Handler for Spring Framework if empty
-description: This recipe will update Spring Framework default servlet handler if empty.
+description: This recipe will update Spring Framework default servlet handler if empty, as noted in the Spring Framework 6.2 [documentation](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-config/default-servlet-handler.html).
+tags:
+  - springframework
+  - weblogic
+  - default-servlet-handler
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/mvc-core-config.xml'
+  - org.openrewrite.xml.search.FindTags:
+      xPath: //beans/mvc:default-servlet-handler[not(@default-servlet-name)]
 recipeList:
-  - org.openrewrite.xml.ChangeTagAttribute:
-      elementName: mvc:default-servlet-handler
-      attributeName: default-servlet-name
-      newValue: DefaultServlet
-      oldValue: ""
+  - org.openrewrite.xml.RemoveXmlTag:
+      xPath: //beans/mvc:default-servlet-handler[not(@default-servlet-name)]
+  - org.openrewrite.xml.AddOrUpdateChildTag:
+      parentXPath: //beans
+      newChildTag: |
+        <mvc:default-servlet-handler default-servlet-name="DefaultServlet"/>
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.spring.framework.ReplaceWebLogicJtaTransactionManager

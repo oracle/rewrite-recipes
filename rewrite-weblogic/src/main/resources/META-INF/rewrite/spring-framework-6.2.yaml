@@ -29,6 +29,7 @@ recipeList:
       newVersion: 6.2.x
   - com.oracle.weblogic.rewrite.spring.framework.DefaultServletHandler
   - com.oracle.weblogic.rewrite.spring.framework.ReplaceWebLogicJtaTransactionManager
+  - com.oracle.weblogic.rewrite.spring.framework.ReplaceWebLogicLoadTimeWeaver
   - org.openrewrite.java.spring.data.UpgradeSpringData_2_7
   - com.oracle.weblogic.rewrite.spring.data.UpgradeSpringDataBom
 ---
@@ -61,6 +62,19 @@ recipeList:
       methodPattern: org.springframework.transaction.jta.* loadWebLogicTransactionHelper()
   - org.openrewrite.java.RemoveMethodInvocations:
       methodPattern: org.springframework.transaction.jta.* obtainTransactionManager() 
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.spring.framework.ReplaceWebLogicLoadTimeWeaver
+displayName: Replace Removed WebLogicLoadTimeWeaver from Spring Framework 5.3.x to 6.2.x
+description: Replace removed WebLogicLoadTimeWeaver with LoadTimeWeaver from Spring Framework 6.2.x.
+tags:
+  - springframework
+  - weblogic
+  - LoadTimeWeaver
+recipeList:
+  - org.openrewrite.java.ChangeType:
+      oldFullyQualifiedTypeName: org.springframework.instrument.classloading.weblogic.WebLogicLoadTimeWeaver
+      newFullyQualifiedTypeName: org.springframework.instrument.classloading.LoadTimeWeaver
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.spring.data.UpgradeSpringDataBom

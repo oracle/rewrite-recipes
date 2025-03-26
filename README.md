@@ -23,7 +23,7 @@ For `rewrite-weblogic`:
 
 We have a public Slack channel where you can get in touch with us to ask questions about using OpenRewrite recipes with WebLogic, or give us feedback or suggestions about features and improvements you would like to see. We would love to hear from you.
 
-To join our channel, please visit this [site](https://join.slack.com/t/oracle-weblogic/shared_invite/zt-2tgq767tj-i4ip6suUiW2Cgykb~rMijg) to get an invitation. The invitation email will include details on how to access our Slack workspace. After you are logged in, please go to #wls-app-upgrade-openrewrite and say, "Hello!"
+To join our channel, please visit this [site](https://join.slack.com/t/oracle-weblogic/shared_invite/zt-32ly2o8nl-HjLiIM4fazQ3vjZaqHPPRQ) to get an invitation. The invitation email will include details on how to access our Slack workspace. After you are logged in, please go to #wls-app-upgrade-openrewrite and say, "Hello!"
 
 ## Contributing
 

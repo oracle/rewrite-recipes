@@ -179,7 +179,7 @@ recipeList:
       groupId: jakarta.servlet
       artifactId: jakarta.servlet-api
       version: 5.0.0
-      onlyIfUsing: jakarta.servlet.ServletContext
+      onlyIfUsing: javax.servlet.*
       acceptTransitive: true
 ---
 type: specs.openrewrite.org/v1beta/recipe

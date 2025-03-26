@@ -528,24 +528,28 @@ tags:
 recipeList:
   - org.openrewrite.java.dependencies.ChangeDependency:
       oldGroupId: jakarta.inject
+      oldArtifactId: jakarta.inject-api
       newGroupId: javax.inject
+      newArtifactId: javax.inject
       newVersion: 1.x
   - org.openrewrite.java.dependencies.ChangeDependency:
       oldGroupId: jakarta.annotation
+      oldArtifactId: jakarta.annotation-api
       newGroupId: javax.annotation
+      newArtifactId: javax.annotation-api
       newVersion: 1.3.x
   - org.openrewrite.java.dependencies.ChangeDependency:
       oldGroupId: jakarta.xml.bind
       oldArtifactId: jakarta.xml.bind-api
       newGroupId: javax.xml.bind
       newArtifactId: jaxb-api
-      newVersion: 3.x
-  # - org.openrewrite.java.dependencies.ChangeDependency:
-  #     oldGroupId: jakarta.activation
-  #     oldArtifactId: jakarta.activation-api
-  #     newGroupId: javax.xml.bind
-  #     newArtifactId: activation
-  #     newVersion: 1.x
+      newVersion: 2.4.x
+  - org.openrewrite.java.dependencies.ChangeDependency:
+      oldGroupId: jakarta.activation
+      oldArtifactId: jakarta.activation-api
+      newGroupId: javax.xml.bind
+      newArtifactId: activation
+      newVersion: 1.x
   - org.openrewrite.text.FindAndReplace:
       find: "jakarta."
       replace: "javax."

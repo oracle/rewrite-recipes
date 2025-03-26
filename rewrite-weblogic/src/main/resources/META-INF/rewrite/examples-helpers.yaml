@@ -37,19 +37,33 @@
 # SOFTWARE.
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.spring.examples.MigratedPetClinicExtrasFor1511
+name: com.oracle.weblogic.rewrite.examples.spring.MigratedPetClinicExtrasFor1511
 displayName: Add WebLogic 15.1.1 PetClinic extras
 description: Run migration extras for migrated Spring Framework PetClinic example run on WebLogic 15.1.1.
 tags:
   - springframework
   - examples
+  - petclinic
   - weblogic
 recipeList:
-  - com.oracle.weblogic.rewrite.spring.examples.ChangeCacheManagerToSimpleCacheManager
+  - com.oracle.weblogic.rewrite.examples.spring.ChangeCacheManagerToSimpleCacheManager
   - com.oracle.weblogic.rewrite.examples.AddImplicitTldFileWithTaglib3_0
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.spring.examples.ChangeCacheManagerToSimpleCacheManager
+name: com.oracle.weblogic.rewrite.examples.spring.SetupSpringFrameworkPetClinicFor1412
+displayName: Setup Spring Framework 5.3.x PetClinic for WebLogic 14.1.2
+description: Setup Spring Framework 5.3.x PetClinic for WebLogic 14.1.2.
+tags:
+  - springframework
+  - examples
+  - petclinic
+  - weblogic
+recipeList:
+  - com.oracle.weblogic.rewrite.spring.framework.DefaultServletHandler
+  - com.oracle.weblogic.rewrite.examples.AddImplicitTldFileWithTaglib2_1
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.examples.spring.ChangeCacheManagerToSimpleCacheManager
 displayName: Change cacheManager to use the SimpleCacheManager
 description: Change cacheManager to use the SimpleCacheManager.
 tags:
@@ -93,6 +107,24 @@ recipeList:
       fileContents: >
         <?xml version="1.0" encoding="UTF-8"?>
         <taglib version="3.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-jsptaglibrary_3_0.xsd">
+            <tlib-version>1.0</tlib-version>
+            <short-name>implicit</short-name>
+        </taglib>
+      relativeFileName: src/main/webapp/WEB-INF/tags/implicit.tld
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.examples.AddImplicitTldFileWithTaglib2_1
+displayName: Add implicit TLD with taglib 2.1
+description: Add `implicit.tld` file with taglib 2.1 to `src/main/webapp/WEB-INF/tags`.
+tags:
+  - weblogic
+  - examples
+  - taglib
+recipeList:
+  - org.openrewrite.xml.CreateXmlFile:
+      fileContents: >
+        <?xml version="1.0" encoding="UTF-8"?>
+        <taglib version="2.1" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd">
             <tlib-version>1.0</tlib-version>
             <short-name>implicit</short-name>
         </taglib>

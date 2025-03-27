@@ -12,8 +12,34 @@ These recipes apply the changes required for upgrading to WebLogic Server 14.1.1
 [weblogic-14.1.1.yaml](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/weblogic-14.1.1.yaml)
 
 ### Recipe list:
-  - org.openrewrite.java.migrate.Java8toJava11
-  - com.oracle.weblogic.rewrite.UpgradeTo1411
+- org.openrewrite.java.migrate.Java8toJava11
+- org.openrewrite.maven.ChangePropertyValue:
+    key: weblogic.version
+    newValue: 14.1.1-0-0
+- org.openrewrite.maven.UpgradeParentVersion:
+    groupId: com.oracle.weblogic.archetype
+    artifactId: wls-common
+    newVersion: 14.1.1-0-0
+- org.openrewrite.maven.UpgradePluginVersion:
+    groupId: com.oracle.weblogic
+    artifactId: org.glassfish.javax.json
+    newVersion: 14.1.1-0-0
+    trustParent: "True"
+- org.openrewrite.maven.UpgradePluginVersion:
+    groupId: com.oracle.weblogic
+    artifactId: javax.javaee-api
+    newVersion: 14.1.1-0-0
+    trustParent: "True"
+- org.openrewrite.maven.UpgradePluginVersion:
+    groupId: com.oracle.weblogic
+    artifactId: org.codehaus.jettison.jettison
+    newVersion: 14.1.1-0-0
+    trustParent: "True"
+- org.openrewrite.maven.UpgradePluginVersion:
+    groupId: com.oracle.weblogic
+    artifactId: javax.javaee-api
+    newVersion: 14.1.1-0-0
+    trustParent: "True"
 
 ### Usage
 

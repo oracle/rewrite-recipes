@@ -15,17 +15,21 @@ Java EE has been rebranded to Jakarta EE, necessitating an XML namespace relocat
 [jakarta-ee-namespaces-9.1.yaml](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/jakarta-ee-namespaces-9.1.yaml)
 
 ### Recipe list:
-
- - com.oracle.weblogic.rewrite.jakarta.JavaxWebHandlerXmlToJakarta9HandlerXml
- - com.oracle.weblogic.rewrite.jakarta.JavaxBatchXmlToJakarta9BatchXml
- - com.oracle.weblogic.rewrite.jakarta.JavaxBeansXmlToJakarta9BeansXml
- - com.oracle.weblogic.rewrite.jakarta.JavaxJobXmlToJakarta9JobXml
- - com.oracle.weblogic.rewrite.jakarta.JavaxApplicationXmlToJakarta9ApplicationXml
- - com.oracle.weblogic.rewrite.jakarta.JavaxApplicationClientXmlToJakarta9ApplicationClientXml
- - com.oracle.weblogic.rewrite.jakarta.JavaxRaXmlToJakarta9RaXml
- - com.oracle.weblogic.rewrite.jakarta.JavaxEjbJarXmlToJakarta9EjbJarXml
- - org.openrewrite.java.migrate.jakarta.JavaxWebServicesXmlToJakarta9WebServicesXml
- - org.openrewrite.java.migrate.jakarta.JavaxBeanValidationXmlToJakartaBeanValidationXml
+- com.oracle.weblogic.rewrite.jakarta.JavaxWebHandlerXmlToJakarta9HandlerXml
+- com.oracle.weblogic.rewrite.jakarta.JavaxBatchXmlToJakarta9BatchXml
+- com.oracle.weblogic.rewrite.jakarta.JavaxBeansXmlToJakarta9BeansXml
+- com.oracle.weblogic.rewrite.jakarta.JavaxBatchJobsXmlsToJakarta9BatchJobsXmls
+- com.oracle.weblogic.rewrite.jakarta.JavaxApplicationXmlToJakarta9ApplicationXml
+- com.oracle.weblogic.rewrite.jakarta.JavaxApplicationClientXmlToJakarta9ApplicationClientXml
+- com.oracle.weblogic.rewrite.jakarta.JavaxRaXmlToJakarta9RaXml
+- com.oracle.weblogic.rewrite.jakarta.JavaxEjbJarXmlToJakarta9EjbJarXml
+- com.oracle.weblogic.rewrite.jakarta.JavaxWebServicesXmlToJakarta9WebServicesXml
+- com.oracle.weblogic.rewrite.jakarta.JavaxPermissionsXmlToJakarta9PermissionsXml
+- com.oracle.weblogic.rewrite.jakarta.JavaxWebJspTagLibraryTldsToJakarta9WebJspTagLibraryTlds
+- com.oracle.weblogic.rewrite.jakarta.JavaxBindingsSchemaXjbsToJakarta9BindingsSchemaXjbs
+- com.oracle.weblogic.rewrite.jakarta.JavaxValidationMappingXmlsToJakarta9ValidationMappingXmls
+- org.openrewrite.java.migrate.jakarta.JavaxBeanValidationXmlToJakartaBeanValidationXml
+- com.oracle.weblogic.rewrite.jakarta.JavaxTestXmlsToJakartaTestsXmls
 
 ### Usage
 

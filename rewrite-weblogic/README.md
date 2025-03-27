@@ -16,27 +16,31 @@ migrating your [WebLogic](https://www.oracle.com/java/weblogic/) applications to
 
 WebLogic Server application upgrade tooling makes upgrading your WebLogic applications easy. To learn all about it, see the [**Documentation**](./docs/index.md).
 
-To jump start your hands-on learning, see these [**Examples and Tutorials**](https://github.com/oracle-samples/weblogic-examples):
+To jump start your hands-on learning, see these **Tutorials**:
 
-- [Example Applications](https://github.com/oracle-samples/weblogic-examples/blob/main/README.md#examples)
 - [Migrate WebLogic Cafe to WLS 14.1.2](https://github.com/oracle-samples/weblogic-examples/blob/main/tutorials/migrate/weblogic-cafe-14.1.2/README.md)
 - [Migrate WebLogic Cafe to WLS 15.1.1 (BETA)](https://github.com/oracle-samples/weblogic-examples/blob/main/tutorials/migrate/weblogic-cafe-15.1.1/README.md)
 - [Migrate Spring Framework PetClinic to WLS 15.1.1 (BETA)](https://github.com/oracle-samples/weblogic-examples/blob/main/tutorials/migrate/spring-framework-petclinic-15.1.1/README.md)
 
-## Recipes
+## Recipes for common use cases
 
 Use these `rewrite-weblogic` recipes to migrate WebLogic Server applications to newer versions of WebLogic Server, Java, Jakarta EE, and related versions of Jakarta Server Faces and Spring Framework.
 
 > [!NOTE]
 > These recipes do not address _any_ other third-party dependencies. For all other third-party dependencies, you _must_ find or create an additional [recipe](https://docs.openrewrite.org/recipes) to do the migration, or make manual code changes after the migration.
 
-| Composite Recipes | Recipes | Description |
-| --- | --- | --- |
-| **BETA:** Migrate to WebLogic 15.1.1 BETA, Jakarta EE 9.1 and Java 21 | [com.oracle.weblogic.rewrite.UpgradeTo1511](./src/main/resources/META-INF/rewrite/weblogic-15.1.1.yaml) <br/> [org.openrewrite.java.migrate.UpgradeToJava21](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) </br> [com.oracle.weblogic.rewrite.JakartaEE9_1](./src/main/resources/META-INF/rewrite/jakarta-ee-9.1.yaml) | - Applies changes required for migrating applications to WebLogic 15.1.1 and Jakarta EE 9.1 <br/> - Upgrades Java version to 21|
-| **BETA:** Migrate to WebLogic 15.1.1 BETA, Jakarta EE 9.1 and Java 17 | [com.oracle.weblogic.rewrite.UpgradeTo1511](./src/main/resources/META-INF/rewrite/weblogic-15.1.1.yaml) <br/> [org.openrewrite.java.migrate.UpgradeToJava17](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) </br> [com.oracle.weblogic.rewrite.JakartaEE9_1](./src/main/resources/META-INF/rewrite/jakarta-ee-9.1.yaml) | - Applies changes required for migrating applications to WebLogic 15.1.1 and Jakarta EE 9.1 <br/> - Upgrades Java version to 17|
-| Migrate to WebLogic 14.1.2 and Java 21 | [com.oracle.weblogic.rewrite.UpgradeTo1412](./src/main/resources/META-INF/rewrite/weblogic-14.1.2.yaml) <br/>  [org.openrewrite.java.migrate.UpgradeToJava21](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) | - Applies changes required for migrating applications to WebLogic 14.1.2 <br/> - Upgrades Java version to 21|
-| Migrate to WebLogic 14.1.2 and Java 17 | [com.oracle.weblogic.rewrite.UpgradeTo1412](./src/main/resources/META-INF/rewrite/weblogic-14.1.2.yaml) <br/> [org.openrewrite.java.migrate.UpgradeToJava17](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava17) | - Applies changes required for migrating applications to WebLogic 14.1.2 <br/> - Upgrades Java version to 17|
+| Use Cases | Recipes |
+| --- | ------ |
+| **BETA:** Migrate to WebLogic 15.1.1 BETA, Jakarta EE 9.1 and Java 21 | [com.oracle.weblogic.rewrite.UpgradeTo1511](./src/main/resources/META-INF/rewrite/weblogic-15.1.1.yaml) <br/> [org.openrewrite.java.migrate.UpgradeToJava21](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) </br> [com.oracle.weblogic.rewrite.JakartaEE9_1](./src/main/resources/META-INF/rewrite/jakarta-ee-9.1.yaml) |
+| **BETA:** Migrate to WebLogic 15.1.1 BETA, Jakarta EE 9.1 and Java 17 | [com.oracle.weblogic.rewrite.UpgradeTo1511](./src/main/resources/META-INF/rewrite/weblogic-15.1.1.yaml) <br/> [org.openrewrite.java.migrate.UpgradeToJava17](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) </br> [com.oracle.weblogic.rewrite.JakartaEE9_1](./src/main/resources/META-INF/rewrite/jakarta-ee-9.1.yaml) |
+| **BETA:** Migrate to WebLogic 15.1.1 BETA, Jakarta EE 9.1, Java 21, and Spring Framework 6.2.x with Hibernate | [com.oracle.weblogic.rewrite.UpgradeTo1511](./src/main/resources/META-INF/rewrite/weblogic-15.1.1.yaml) <br/> [org.openrewrite.java.migrate.UpgradeToJava21](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) </br> [com.oracle.weblogic.rewrite.JakartaEE9_1](./src/main/resources/META-INF/rewrite/jakarta-ee-9.1.yaml) <br/> [com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_6_2](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/spring-framework-6.2.yaml) <br/> [com.oracle.weblogic.rewrite.hibernate.MigrateHibernateToJakartaEE9](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/hibernate.yaml) |
+| **BETA:** Migrate to WebLogic 15.1.1 BETA, Jakarta EE 9.1, Java 17, and Spring Framework 6.2.x with Hibernate | [com.oracle.weblogic.rewrite.UpgradeTo1511](./src/main/resources/META-INF/rewrite/weblogic-15.1.1.yaml) <br/> [org.openrewrite.java.migrate.UpgradeToJava17](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) </br> [com.oracle.weblogic.rewrite.JakartaEE9_1](./src/main/resources/META-INF/rewrite/jakarta-ee-9.1.yaml) <br/> [com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_6_2](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/spring-framework-6.2.yaml) <br/> [com.oracle.weblogic.rewrite.hibernate.MigrateHibernateToJakartaEE9](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/hibernate.yaml) |
+| Migrate to WebLogic 14.1.2 and Java 21 | [com.oracle.weblogic.rewrite.UpgradeTo1412](./src/main/resources/META-INF/rewrite/weblogic-14.1.2.yaml) <br/>  [org.openrewrite.java.migrate.UpgradeToJava21](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) |
+| Migrate to WebLogic 14.1.2 and Java 17 | [com.oracle.weblogic.rewrite.UpgradeTo1412](./src/main/resources/META-INF/rewrite/weblogic-14.1.2.yaml) <br/> [org.openrewrite.java.migrate.UpgradeToJava17](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava17) |
+
 <!-- | Migrate to WebLogic 14.1.1 and Java 11 | [com.oracle.weblogic.rewrite.UpgradeTo1411](resources/META-INF/rewrite/weblogic-14.1.1.yaml) <br/> [org.openrewrite.java.migrate.Java8toJava11](https://docs.openrewrite.org/recipes/java/migrate/java8tojava11) <br/> [org.openrewrite.maven.ChangePropertyValue](https://docs.openrewrite.org/recipes/maven/changepropertyvalue) <br/> [org.openrewrite.maven.UpgradeParentVersion](https://docs.openrewrite.org/recipes/maven/upgradeparentversion) | - Applies changes required for migrating apps to WebLogic 14.1.1 <br/> - Upgrade Java version to 11 <br/> - Change property to weblogic 14.1.1 <br/> - Upgrade WebLogic Version on parent| -->
+
+For more recipes, see [Rewrite WebLogic recipes](./docs/recipes/index.md).
 
 ## How do I use it?
 

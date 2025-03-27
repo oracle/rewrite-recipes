@@ -14,17 +14,17 @@ Jakarta EE 9 uses Jakarta Server Faces 3.0, a major upgrade to Jakarta packages 
 [jakarta-faces-3.yaml](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/jakarta-faces-3.yaml)
 
 ### Recipe list:
-
 - org.openrewrite.java.migrate.jakarta.JakartaFacesEcmaScript
 - org.openrewrite.java.migrate.jakarta.RemovedUIComponentConstant
-- com.oracle.weblogic.rewrite.jakarta.JakartaFaces3WebXml
 - com.oracle.weblogic.rewrite.jakarta.JakartaFaces3Xhtml
 - com.oracle.weblogic.rewrite.jakarta.JavaxFacesConfigXmlToJakartaFaces3ConfigXml
 - com.oracle.weblogic.rewrite.jakarta.JavaxFacesTagLibraryXmlToJakartaFaces3TagLibraryXml
+- com.oracle.weblogic.rewrite.jakarta.JavaxTestWebXmlToJakartaTestWebXml5
 - com.oracle.weblogic.rewrite.jakarta.JavaxWebFragmentXmlToJakartaWebFragmentXml5
 - com.oracle.weblogic.rewrite.jakarta.JavaxWebXmlToJakartaWebXml5
 - com.oracle.weblogic.rewrite.jakarta.FacesJNDINamesChanged3
 - com.oracle.weblogic.rewrite.jakarta.RemovedJakartaFaces3ExpressionLanguageClasses
+- com.oracle.weblogic.rewrite.jakarta.UpdateJakartaFacesMethodCalls
 - com.oracle.weblogic.rewrite.jakarta.RemovedJakartaFaces3ResourceResolver
 - com.oracle.weblogic.rewrite.jakarta.RemovedStateManagerMethods3
 - com.oracle.weblogic.rewrite.jakarta.FacesManagedBeansRemoved3

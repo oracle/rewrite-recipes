@@ -1,36 +1,38 @@
 # Migrate to Jakarta EE 9.1
 **com.oracle.weblogic.rewrite.JakartaEE9_1**
 
-This recipe applies the changes required for migrating to Jakarta EE 9.1.
+This recipe applies the changes required for migrating to Jakarta EE 9.1, flagging and updating deprecated methods.
 
 ### Tags:
   - weblogic
   - jakarta
   - jakartaee
+  - migration
 
 ### Recipe source
 
 [jakarta-ee-9.1.yaml](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/jakarta-ee-9.1.yaml)
 
 ### Recipe list:
-
-  - org.openrewrite.java.migrate.jakarta.JavaxMigrationToJakarta
-  - com.oracle.weblogic.rewrite.jakarta.Faces2xMigrationToJakartaFaces3x
-  - com.oracle.weblogic.rewrite.jakarta.JakartaEeNamespaces9_1
-  - com.oracle.weblogic.rewrite.jakarta.RemovalsServletJakarta9
-  - com.oracle.weblogic.rewrite.jakarta.JavaxToJakartaCdiExtensions
-  - com.oracle.weblogic.rewrite.jakarta.MigrateTagLibsToJakartaEE9
-  - com.oracle.weblogic.rewrite.jakarta.MigrateJavaxMVCToJakartaEE9
-  - com.oracle.weblogic.rewrite.jakarta.MigrateJavaxWebToJakartaWeb9
-  - com.oracle.weblogic.rewrite.jakarta.JavaxAnnotationMigrationToJakarta9Annotation
-  - com.oracle.weblogic.rewrite.jakarta.OrgGlassfishJavaxElToJakartaEl
-  - com.oracle.weblogic.rewrite.jakarta.UpdateJakartaPlatform9_1
-  - com.oracle.weblogic.rewrite.jakarta.MitigateUnaffectedNonEEJakarta9Packages
-  - com.oracle.weblogic.rewrite.jakarta.UpgradeCommonOpenSourceLibraries
+- org.openrewrite.java.migrate.jakarta.JavaxMigrationToJakarta
+- com.oracle.weblogic.rewrite.jakarta.Faces2xMigrationToJakartaFaces3x
+- com.oracle.weblogic.rewrite.jakarta.JakartaEeNamespaces9_1
+- com.oracle.weblogic.rewrite.jakarta.RemovalsServletJakarta9
+- com.oracle.weblogic.rewrite.jakarta.JavaxToJakartaCdiExtensions
+- com.oracle.weblogic.rewrite.jakarta.MigrateTagLibsToJakartaEE9
+- com.oracle.weblogic.rewrite.jakarta.AddJakartaEE9ServletDependencyIfUsingServletContext
+- com.oracle.weblogic.rewrite.jakarta.MigrateJavaxMVCToJakartaEE9
+- com.oracle.weblogic.rewrite.jakarta.MigrateJavaxWebToJakartaWeb9
+- com.oracle.weblogic.rewrite.jakarta.JavaxAnnotationMigrationToJakarta9Annotation
+- com.oracle.weblogic.rewrite.jakarta.OrgGlassfishJavaxElToJakartaEl
+- com.oracle.weblogic.rewrite.jakarta.JavaxJmsToJakartaJmsOnMdb
+- com.oracle.weblogic.rewrite.jakarta.UpdateJakartaPlatform9_1
+- com.oracle.weblogic.rewrite.jakarta.MitigateUnaffectedNonEEJakarta9Packages
+- com.oracle.weblogic.rewrite.jakarta.UpgradeCommonOpenSourceLibraries
 
 ### Usage
 
-This recipe will migrate `javax` packages to `jakarta` and update Jakarta EE platform dependencies to 9.1.0.
+This recipe will update Jakarta EE platform dependencies to 9.1.0, and flag and update deprecated methods.
 
 #### Maven POM
 

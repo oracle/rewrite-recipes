@@ -12,26 +12,27 @@ This recipe upgrades Hibernate libraries to versions compatible with Jakarta EE 
 [hibernate.yaml](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/hibernate.yaml)
 
 ### Recipe list:
-- org.openrewrite.hibernate.MigrateToHibernate65
+- org.openrewrite.hibernate.MigrateToHibernate61
+- com.oracle.weblogic.rewrite.hibernate.AddHibernateOrmCore61
 - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
     groupId: org.hibernate.search
     artifactId: '*'
-    newVersion: 7.2.x
+    newVersion: 6.2.x
 - org.openrewrite.java.dependencies.ChangeDependency:
     oldGroupId: org.hibernate
     oldArtifactId: hibernate-validator
     newGroupId: org.hibernate.validator
-    newVersion: 8.0.x
+    newVersion: 7.0.x
 - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
     groupId: org.hibernate.validator
     artifactId: hibernate-validator
-    newVersion: 8.0.x
+    newVersion: 7.0.x
 - org.openrewrite.java.dependencies.ChangeDependency:
     oldGroupId: org.hibernate
     oldArtifactId: hibernate-ehcache
     newGroupId: org.hibernate.orm
     newArtifactId: hibernate-jcache
-    newVersion: 6.x
+    newVersion: 6.1.x
 
 ### Usage
 

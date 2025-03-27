@@ -18,6 +18,8 @@ This recipe migrates applications to the Spring Framework 6.2 release and to com
     artifactId: '*'
     newVersion: 6.2.x
 - com.oracle.weblogic.rewrite.spring.framework.DefaultServletHandler
+- com.oracle.weblogic.rewrite.spring.framework.ReplaceWebLogicJtaTransactionManager
+- com.oracle.weblogic.rewrite.spring.framework.ReplaceWebLogicLoadTimeWeaver
 - org.openrewrite.java.spring.data.UpgradeSpringData_2_7
 - com.oracle.weblogic.rewrite.spring.data.UpgradeSpringDataBom
 

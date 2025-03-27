@@ -1,7 +1,7 @@
 # Migrate to WebLogic 15.1.1
 **com.oracle.weblogic.rewrite.UpgradeTo1511**
 
-This recipe applies the changes required for migrating applications to WebLogic Server 15.1.1.0.0 and Jakarta EE 9.1.
+This recipe applies the changes required for migrating applications to WebLogic Server 15.1.1.0.0.
 
 ### Tags:
   - weblogic
@@ -12,13 +12,16 @@ This recipe applies the changes required for migrating applications to WebLogic 
 [weblogic-15.1.1.yaml](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/weblogic-15.1.1.yaml)
 
 ### Recipe list:
-  - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1511
-  - com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1511
-  - com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo1511
+    - com.oracle.weblogic.rewrite.OutputRecipeVersion
+    - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1511
+    - com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1511
+    - com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo1511
+    - com.oracle.weblogic.rewrite.ChangeJakartaInjectAPIDependencyScope
+    - com.oracle.weblogic.rewrite.ChangeJAXBBindAPIDependencyScope
 
 ### Usage
 
-This recipe will update the WebLogic version to 15.1.1 for the Maven build, migrate `javax` packages to `jakarta`, and comment out deprecated and removed APIs.
+This recipe will update the WebLogic version to 15.1.1 for the Maven build and comment out deprecated and removed APIs.
 
 #### Maven POM
 

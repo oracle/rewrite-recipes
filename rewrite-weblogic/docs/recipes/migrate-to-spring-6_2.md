@@ -27,7 +27,7 @@ This recipe migrates applications to the Spring Framework 6.2 release and to com
 
 This recipe will migrate applications to the Spring Framework 6.2 release and to compatibility with WebLogic 15.1.1.
 
-**NOTE**: This recipe is intended for migration from Spring Framework version 5.3 or later. Though not tested or supported, older versions of Spring Framework may work.
+**NOTE**: This recipe is intended for migration from Spring Framework version 5.3 or later. We have not tested and we don’t support updating from earlier versions of Spring Framework.
 
 #### Maven POM
 

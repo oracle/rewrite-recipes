@@ -21,20 +21,16 @@ Clone your project to your local machine.
 
 The following example sections illustrate the methods for upgrading your applications to WebLogic 15.1.1 and Jakarta EE 9.1.
 
-You can run OpenRewrite recipes on your code folder using the Maven or Gradle CLI, or include them as a build plug-in in your `pom.xml` file.
+You can run OpenRewrite recipes on your code folder using the Maven or Gradle CLI, or include them as a build plug-in in your `pom.xml` or `build.gradle` file.
 
 ## Run using the Maven CLI
 
 > [!NOTE]
 > You will need to have [Maven](https://maven.apache.org/download.cgi) installed on your machine before you can run the following command.
 
-### Sync Maven dependencies
-
 For OpenRewrite to run, Maven dependencies must be resolved. If needed, run `mvn clean install` for missing dependencies.
 
-1. Open a terminal at the root of the project.
-
-1. Run the following command for missing dependencies:
+1. Open a terminal at the root of the project and run the following command for missing dependencies:
 
    ```shell
    mvn clean install
@@ -42,7 +38,7 @@ For OpenRewrite to run, Maven dependencies must be resolved. If needed, run `mvn
 
    Or, you can use other commands as well, such as `mvn dependency:resolve`.
 
-1. From the terminal open at the `weblogic-cafe` folder, run the following Maven command to run OpenRewrite:
+2. Run the following Maven command to run OpenRewrite:
 
    ```
    mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \

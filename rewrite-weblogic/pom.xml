@@ -5,7 +5,7 @@
 
   <groupId>com.oracle.weblogic.rewrite</groupId>
   <artifactId>rewrite-weblogic</artifactId>
-  <version>0.5.4</version>
+  <version>0.6.0</version>
 
   <name>rewrite-weblogic</name>
   <description>Migrate your WebLogic applications to the latest version of WebLogic
@@ -160,7 +160,7 @@
           <plugin>
               <groupId>org.openrewrite.maven</groupId>
               <artifactId>rewrite-maven-plugin</artifactId>
-              <version>6.3.1</version>
+              <version>6.3.2</version>
               <configuration>
                   <activeRecipes>com.oracle.weblogic.rewrite.RecipeBestPractices</activeRecipes>
                   <failOnDryRunResults>true</failOnDryRunResults>

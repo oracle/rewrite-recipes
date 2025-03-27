@@ -1,5 +1,5 @@
 # rewrite-weblogic Recipes Maintainers
-/rewrite-weblogic/ @rewrite-recipes-rewrite-weblogic-maintainers
+/rewrite-weblogic/ @rewrite-recipes-rewrite-weblogic-maintainers @junior @david-cabelus-oracle
 
 # 
 /.github/CODEOWNERS @junior

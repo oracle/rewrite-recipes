@@ -6,7 +6,7 @@ The following procedures will upgrade your applications to WebLogic 14.1.2 and J
 
 The following is required to build and run this project:
 
-- JDK (version 8 or later)
+- JDK - For migration, version 8 or later; post-migration, you need the target JDK installed.
 - Maven (version 3.2+) or Gradle (version 4.0+)
 - Your code
 
@@ -28,11 +28,26 @@ You can run OpenRewrite recipes on your code folder using the Maven or Gradle CL
 > [!NOTE]
 > You will need to have [Maven](https://maven.apache.org/download.cgi) installed on your machine before you can run the following command.
 
-```
-mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-  -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:RELEASE,com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \
-  -Drewrite.activeRecipes=org.openrewrite.java.migrate.UpgradeToJava21,com.oracle.weblogic.rewrite.UpgradeTo1412
-```
+### Sync Maven dependencies
+
+For OpenRewrite to run, Maven dependencies must be resolved. If needed, run `mvn clean install` for missing dependencies.
+
+1. Open a terminal at the root of the project.
+
+1. Run the following command for missing dependencies:
+
+   ```shell
+   mvn clean install
+   ```
+
+   Or, you can use other commands as well, such as `mvn dependency:resolve`.
+
+1. Run the following Maven command to run OpenRewrite:
+   ```
+   mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
+     -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:RELEASE,com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \
+     -Drewrite.activeRecipes=org.openrewrite.java.migrate.UpgradeToJava21,com.oracle.weblogic.rewrite.UpgradeTo1412
+   ```
 
 ## Run using Maven with the `<plugin>` in the `pom.xml` file
 

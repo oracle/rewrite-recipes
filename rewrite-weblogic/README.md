@@ -232,6 +232,9 @@ dependencies {
 > [!TIP]  
 > If you just want to dry run the recipe without changing the code, use `gradle rewriteDryRun`. For more details about the "dryRun" task, see [here](https://docs.openrewrite.org/reference/gradle-plugin-configuration#the-dryrun-task).
 
+> [!NOTE]
+> You can run Rewrite on a Gradle project without modifying the build, similar to using the `mvn` CLI command. For more information, see https://docs.openrewrite.org/running-recipes/running-rewrite-on-a-gradle-project-without-modifying-the-build.
+
 ## Developing, contributing, and testing this recipe locally
 ![Dev Version](https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Fraw.githubusercontent.com%2Foracle%2Frewrite-recipes%2Frefs%2Fheads%2Fmain%2Frewrite-weblogic%2Fpom.xml&query=%2F*%5Blocal-name()%3D'project'%5D%2F*%5Blocal-name()%3D'version'%5D&prefix=v&label=Dev%20Version)
 [![GitHub issues](https://img.shields.io/github/issues-raw/oracle/rewrite-recipes)](https://github.com/oracle/rewrite-recipes/issues)

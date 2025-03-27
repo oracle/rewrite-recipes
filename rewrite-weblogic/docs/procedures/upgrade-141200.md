@@ -6,7 +6,7 @@ The following procedures will upgrade your applications to WebLogic 14.1.2 and J
 
 The following is required to build and run this project:
 
-- JDK (version 8 or later)
+- JDK - For migration, version 8 or later; post-migration, you need the target JDK installed.
 - Maven (version 3.2+) or Gradle (version 4.0+)
 - Your code
 
@@ -21,18 +21,29 @@ Clone your project to your local machine.
 
 The following example sections illustrate the methods for upgrading your applications to WebLogic 14.1.2 and Java 21.
 
-You can run OpenRewrite recipes on your code folder using the Maven or Gradle CLI, or include them as a build plug-in in your `pom.xml` file
+You can run OpenRewrite recipes on your code folder using the Maven or Gradle CLI, or include them as a build plug-in in your `pom.xml` or `build.gradle` file.
 
 ## Run using the Maven CLI
 
 > [!NOTE]
 > You will need to have [Maven](https://maven.apache.org/download.cgi) installed on your machine before you can run the following command.
 
-```
-mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-  -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:RELEASE,com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \
-  -Drewrite.activeRecipes=org.openrewrite.java.migrate.UpgradeToJava21,com.oracle.weblogic.rewrite.UpgradeTo1412
-```
+For OpenRewrite to run, Maven dependencies must be resolved. If needed, run `mvn clean install` for missing dependencies.
+
+1. Open a terminal at the root of the project and run the following command for missing dependencies:
+
+   ```shell
+   mvn clean install
+   ```
+
+   Or, you can use other commands as well, such as `mvn dependency:resolve`.
+
+2. Run the following Maven command to run OpenRewrite:
+   ```
+   mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
+     -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:RELEASE,com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \
+     -Drewrite.activeRecipes=org.openrewrite.java.migrate.UpgradeToJava21,com.oracle.weblogic.rewrite.UpgradeTo1412
+   ```
 
 ## Run using Maven with the `<plugin>` in the `pom.xml` file
 
@@ -98,3 +109,6 @@ dependencies {
 
 > [!TIP]  
 > If you just want to dry run the recipe without changing the code, use `gradle rewriteDryRun`. For more details about the "dryRun" task, see [here](https://docs.openrewrite.org/reference/gradle-plugin-configuration#the-dryrun-task).
+
+> [!NOTE]
+> You can run Rewrite on a Gradle project without modifying the build, similar to using the `mvn` CLI command. For more information, see https://docs.openrewrite.org/running-recipes/running-rewrite-on-a-gradle-project-without-modifying-the-build.

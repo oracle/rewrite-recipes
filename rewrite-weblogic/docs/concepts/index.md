@@ -37,7 +37,7 @@ WebLogic OpenRewrite recipes do not support the transformation of descriptors th
 
 **Issue** </br>
 To migrate Spring Framework applications to WebLogic Server version 15.1.1.0.0 (BETA) and Jakarta EE 9.1, using either JDK17 or JDK21, you should have:
-* Spring Framework version 5.3 or later. Though not supported, older versions of Spring Framework may work.
+* Spring Framework version 5.3 or later. We have not tested and we don’t support updating from earlier versions of Spring Framework.
 * A supported Hibernate version for the Spring version. Make sure that the Spring Framework application compiles and runs.
 * Run both Hibernate and Spring recipes together.
 <!-- Bug #37642918 -->

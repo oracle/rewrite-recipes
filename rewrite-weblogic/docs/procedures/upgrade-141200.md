@@ -1,4 +1,4 @@
-# Upgrade to WebLogic Server 14.1.2
+run# Upgrade to WebLogic Server 14.1.2
 
 The following procedures will upgrade your applications to WebLogic 14.1.2 and Java 21, and comment out deprecated and removed APIs.
 
@@ -30,13 +30,13 @@ You can run OpenRewrite recipes on your code folder using the Maven or Gradle CL
 
 For OpenRewrite to run, Maven dependencies must be resolved. If needed, run `mvn clean install` for missing dependencies.
 
-1. Open a terminal at the root of the project and run the following command for missing dependencies:
+1. Open a terminal at the root of the project and run:
 
    ```shell
    mvn clean install
    ```
 
-   Or, you can use other commands as well, such as `mvn dependency:resolve`.
+   Or, you can use other commands, such as `mvn dependency:resolve`.
 
 2. Run the following Maven command to run OpenRewrite:
    ```

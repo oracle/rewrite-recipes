@@ -44,7 +44,7 @@ For more recipes, see [Rewrite WebLogic recipes](./docs/recipes/index.md).
 
 ## How do I use it?
 
-You can call OpenRewrite on your code folder using the Maven or Gradle CLI or include it as a build plug-in in your `pom.xml` file.
+You can call OpenRewrite on your code folder using the Maven or Gradle CLI, or include it as a build plug-in in your `pom.xml` or `build.gradle` file.
 
 For more details on running the recipes with Maven and Gradle, see the [OpenRewrite Quickstart](https://docs.openrewrite.org/running-recipes/getting-started) documentation.
 
@@ -233,7 +233,7 @@ dependencies {
 > If you just want to dry run the recipe without changing the code, use `gradle rewriteDryRun`. For more details about the "dryRun" task, see [here](https://docs.openrewrite.org/reference/gradle-plugin-configuration#the-dryrun-task).
 
 > [!NOTE]
-> You can run Rewrite on a Gradle project without modifying the build, similar to using the `mvn` CLI command. For more information, see https://docs.openrewrite.org/running-recipes/running-rewrite-on-a-gradle-project-without-modifying-the-build.
+> You can run `rewrite` on a Gradle project without modifying the build, similar to using the `mvn` CLI command. For more information, see https://docs.openrewrite.org/running-recipes/running-rewrite-on-a-gradle-project-without-modifying-the-build.
 
 ## Developing, contributing, and testing this recipe locally
 ![Dev Version](https://img.shields.io/badge/dynamic/xml?url=https%3A%2F%2Fraw.githubusercontent.com%2Foracle%2Frewrite-recipes%2Frefs%2Fheads%2Fmain%2Frewrite-weblogic%2Fpom.xml&query=%2F*%5Blocal-name()%3D'project'%5D%2F*%5Blocal-name()%3D'version'%5D&prefix=v&label=Dev%20Version)

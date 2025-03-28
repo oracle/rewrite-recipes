@@ -39,6 +39,9 @@ For OpenRewrite to run, Maven dependencies must be resolved. If needed, run `mvn
    Or, you can use other commands, such as `mvn dependency:resolve`.
 
 2. Run the following Maven command to run OpenRewrite:
+
+> [!NOTE]
+> The `UpgradeTo1412` recipe must be run _after_ the Java recipe.
    ```
    mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
      -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:RELEASE,com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \

@@ -1,6 +1,6 @@
 # How to run recipes
 
-Depending on your application dependencies and WebLogic Server and JDK source versions, you can use one or more recipes to accomplish your goals. Recipes are stackable meaning that you can run more than one recipe at a time, within a single command or Maven configuration. Recipes are run in order.
+Depending on your application dependencies and WebLogic Server and JDK source versions, you can use one or more recipes to accomplish your goals. Recipes are stackable meaning that you can run more than one recipe at a time, within a single command or Maven configuration. 
 
 You can run Rewrite WebLogic recipes on your code folder using the Maven or Gradle CLI, or include them as a build plug-in in your `pom.xml` or `build.gradle` file. After running recipes, you are notified of all of the files that have been changed. To see what's changed in the code, run `git diff` or use your preferred IDE's diff viewer. From there, you can commit the changes or add additional recipes based on your needs.
 

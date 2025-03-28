@@ -2,7 +2,7 @@
 
 Look here for detailed information about each of the following Rewrite WebLogic composite recipes (recipes that consist of a list of other recipes). Depending on your application dependencies and WebLogic Server and JDK source versions, you can use one or more recipes to accomplish your goals.
 
-For detailed information about running recipes, see [How to run recipes](../procedures/index.md) and the [WebLogic Examples and Tutorials](https://github.com/oracle-samples/weblogic-examples) repository.
+For detailed information about running recipes, see [How to run recipes](../procedures/README.md) and the [WebLogic Examples and Tutorials](https://github.com/oracle-samples/weblogic-examples) repository.
 
 > [!NOTE]
 > These recipes do not address _any_ other third-party dependencies. For all other third-party dependencies, you _must_ find or create an additional [recipe](https://docs.openrewrite.org/recipes) to do the migration, or make manual code changes after the migration.

@@ -1,6 +1,6 @@
 # Welcome to WebLogic Server application upgrade tooling
 
-WebLogic Server application upgrade tooling employs [OpenRewrite](https://github.com/openrewrite/rewrite) recipes for upgrading applications to new WebLogic and Java versions. Here, you'll find recipes that perform all the functions you need to successfully upgrade your applications. Use [Rewrite WebLogic](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/README.md) recipes to migrate your applications to WebLogic 14.1.2 and Java 17 or Java 21, or to WebLogic 15.1.1 Beta, Jakarta EE 9.1, and Java 17 or Java 21.
+WebLogic Server application upgrade tooling employs [OpenRewrite](https://github.com/openrewrite/rewrite) recipes for upgrading applications to newer versions of WebLogic Server, Java, Jakarta EE, and related versions of Jakarta Server Faces and Spring Framework. . Here, you'll find recipes that perform all the functions you need to successfully upgrade your applications. Use [Rewrite WebLogic](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/README.md) recipes to migrate your applications to WebLogic 14.1.2 and Java 17 or Java 21, or to WebLogic 15.1.1 Beta, Jakarta EE 9.1, and Java 17 or Java 21.
 
 ## Documentation
 

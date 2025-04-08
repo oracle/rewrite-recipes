@@ -7,7 +7,7 @@ The following procedures will upgrade your applications to WebLogic 14.1.2 and J
 The following is required to build and run this project:
 
 - JDK - For migration, version 8 or later; post-migration, you need the target JDK installed.
-- Maven (version 3.2+) or Gradle (version 4.0+)
+- Maven (minimum version 3.6, with recommended version, 3.9.9) or Gradle (version 4.0+)
 - Your code
 
 ## Get your code

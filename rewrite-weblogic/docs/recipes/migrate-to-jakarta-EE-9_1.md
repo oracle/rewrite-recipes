@@ -15,8 +15,8 @@ This recipe applies the changes required for migrating to Jakarta EE 9.1, flaggi
 
 ### Recipe list:
 - org.openrewrite.java.migrate.jakarta.JavaxMigrationToJakarta
-- com.oracle.weblogic.rewrite.jakarta.Faces2xMigrationToJakartaFaces3x
-- com.oracle.weblogic.rewrite.jakarta.JakartaEeNamespaces9_1
+- [com.oracle.weblogic.rewrite.jakarta.Faces2xMigrationToJakartaFaces3x](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/jakarta-faces-3.yaml)
+- [com.oracle.weblogic.rewrite.jakarta.JakartaEeNamespaces9_1](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/jakarta-ee-9.1-namespaces.yaml)
 - com.oracle.weblogic.rewrite.jakarta.RemovalsServletJakarta9
 - com.oracle.weblogic.rewrite.jakarta.JavaxToJakartaCdiExtensions
 - com.oracle.weblogic.rewrite.jakarta.MigrateTagLibsToJakartaEE9

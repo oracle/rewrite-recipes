@@ -1,26 +1,25 @@
-# Migrate From JSF 1.x to Jakarta Server Faces 2.3 on WebLogic 14.1.2 or older
-**com.oracle.weblogic.rewrite.jakarta.FacesMigrationToJakartaFaces2x**
+# Examples Helpers
+**com.oracle.weblogic.rewrite.examples.spring.MigratedPetClinicExtrasFor1511**
 
-Jakarta EE 8 uses Faces 2.3, a major upgrade to Jakarta packages and XML namespaces. This recipe will migrate JSF 1.x to Jakarta Server Faces 2.3 on WebLogic 14.1.2 or older.
+This recipe adds migration extras for migrating the Spring Framework PetClinic example to run on WebLogic 15.1.1.
 
 ### Tags:
-- jakarta
-- jakartaee
-- faces
-- jsf
-- javax
+- springframework
+- examples
+- petclinic
+- weblogic
 
 ### Recipe source
 
-[jakarta-faces-2.yaml](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/jakarta-faces-2.yaml)
+[examples-helpers.yaml](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/examples-helpers.yaml)
 
 ### Recipe list:
-
-- com.oracle.weblogic.rewrite.jakarta.UpgradeFacesOpenSourceLibraries2
+- com.oracle.weblogic.rewrite.examples.spring.ChangeCacheManagerToSimpleCacheManager
+- com.oracle.weblogic.rewrite.examples.AddImplicitTldFileWithTaglib3_0
 
 ### Usage
 
-This recipe will upgrade PrimeFaces, OmniFaces, and MyFaces libraries to Jakarta EE9 versions.
+This recipe will help you run the migrated Spring Framework PetClinic example on WebLogic 15.1.1.
 
 #### Maven POM
 
@@ -33,7 +32,7 @@ This recipe will upgrade PrimeFaces, OmniFaces, and MyFaces libraries to Jakarta
     <configuration>
         <exportDatatables>true</exportDatatables>
         <activeRecipes>
-            <recipe>com.oracle.weblogic.rewrite.jakarta.FacesMigrationToJakartaFaces2x</recipe>
+            <recipe>com.oracle.weblogic.rewrite.examples.spring.MigratedPetClinicExtrasFor1511</recipe>
         </activeRecipes>
     </configuration>
     <dependencies>
@@ -66,7 +65,7 @@ plugins {
 }
 
 rewrite {
-    activeRecipe("com.oracle.weblogic.rewrite.jakarta.FacesMigrationToJakartaFaces2x")
+    activeRecipe("com.oracle.weblogic.rewrite.examples.spring.MigratedPetClinicExtrasFor1511")
     setExportDatatables(true)
 }
 
@@ -91,7 +90,7 @@ dependencies {
 
 ```
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST,org.openrewrite.recipe:rewrite-migrate-java:RELEASE \
-  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.jakarta.FacesMigrationToJakartaFaces2x \
+  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST,org.openrewrite.recipe:rewrite-hibernate:RELEASE \
+  -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.examples.spring.MigratedPetClinicExtrasFor1511 \
   -Drewrite.exportDatatables=true
   ```

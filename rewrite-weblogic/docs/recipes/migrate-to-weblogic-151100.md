@@ -14,7 +14,7 @@ This recipe applies the changes required for migrating applications to WebLogic 
 ### Recipe list:
     - com.oracle.weblogic.rewrite.OutputRecipeVersion
     - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1511
-    - com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1511
+    - [com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1511](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/weblogic-deprecations.yaml)
     - com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo1511
     - com.oracle.weblogic.rewrite.ChangeJakartaInjectAPIDependencyScope
     - com.oracle.weblogic.rewrite.ChangeJAXBBindAPIDependencyScope

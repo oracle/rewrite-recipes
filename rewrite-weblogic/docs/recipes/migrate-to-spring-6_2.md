@@ -13,10 +13,10 @@ This recipe migrates applications to the Spring Framework 6.2 release and to com
 
 ### Recipe list:
 - org.openrewrite.java.spring.framework.UpgradeSpringFramework_6_1
-- org.openrewrite.java.dependencies.UpgradeDependencyVersion:
-    groupId: org.springframework
-    artifactId: '*'
-    newVersion: 6.2.x
+- org.openrewrite.java.dependencies.UpgradeDependencyVersion: </br>
+    groupId: org.springframework </br>
+    artifactId: '*' </br>
+    newVersion: 6.2.x </br>
 - com.oracle.weblogic.rewrite.spring.framework.DefaultServletHandler
 - com.oracle.weblogic.rewrite.spring.framework.ReplaceWebLogicJtaTransactionManager
 - com.oracle.weblogic.rewrite.spring.framework.ReplaceWebLogicLoadTimeWeaver

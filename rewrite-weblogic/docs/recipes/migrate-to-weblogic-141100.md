@@ -13,33 +13,33 @@ These recipes apply the changes required for upgrading to WebLogic Server 14.1.1
 
 ### Recipe list:
 - org.openrewrite.java.migrate.Java8toJava11
-- org.openrewrite.maven.ChangePropertyValue:
-    key: weblogic.version
-    newValue: 14.1.1-0-0
-- org.openrewrite.maven.UpgradeParentVersion:
-    groupId: com.oracle.weblogic.archetype
-    artifactId: wls-common
-    newVersion: 14.1.1-0-0
-- org.openrewrite.maven.UpgradePluginVersion:
-    groupId: com.oracle.weblogic
-    artifactId: org.glassfish.javax.json
-    newVersion: 14.1.1-0-0
-    trustParent: "True"
-- org.openrewrite.maven.UpgradePluginVersion:
-    groupId: com.oracle.weblogic
-    artifactId: javax.javaee-api
-    newVersion: 14.1.1-0-0
-    trustParent: "True"
-- org.openrewrite.maven.UpgradePluginVersion:
-    groupId: com.oracle.weblogic
-    artifactId: org.codehaus.jettison.jettison
-    newVersion: 14.1.1-0-0
-    trustParent: "True"
-- org.openrewrite.maven.UpgradePluginVersion:
-    groupId: com.oracle.weblogic
-    artifactId: javax.javaee-api
-    newVersion: 14.1.1-0-0
-    trustParent: "True"
+- org.openrewrite.maven.ChangePropertyValue: </br>
+    key: weblogic.version </br>
+    newValue: 14.1.1-0-0 </br>
+- org.openrewrite.maven.UpgradeParentVersion: </br>
+    groupId: com.oracle.weblogic.archetype </br>
+    artifactId: wls-common </br>
+    newVersion: 14.1.1-0-0 </br>
+- org.openrewrite.maven.UpgradePluginVersion: </br>
+    groupId: com.oracle.weblogic </br>
+    artifactId: org.glassfish.javax.json </br>
+    newVersion: 14.1.1-0-0 </br>
+    trustParent: "True" </br>
+- org.openrewrite.maven.UpgradePluginVersion: </br>
+    groupId: com.oracle.weblogic </br>
+    artifactId: javax.javaee-api </br>
+    newVersion: 14.1.1-0-0 </br>
+    trustParent: "True" </br>
+- org.openrewrite.maven.UpgradePluginVersion: </br>
+    groupId: com.oracle.weblogic </br>
+    artifactId: org.codehaus.jettison.jettison </br>
+    newVersion: 14.1.1-0-0 </br>
+    trustParent: "True" </br>
+- org.openrewrite.maven.UpgradePluginVersion: </br>
+    groupId: com.oracle.weblogic </br>
+    artifactId: javax.javaee-api </br>
+    newVersion: 14.1.1-0-0 </br>
+    trustParent: "True" </br>
 
 ### Usage
 

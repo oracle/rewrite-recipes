@@ -50,6 +50,7 @@ recipeList:
   - com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo1511
   - com.oracle.weblogic.rewrite.ChangeJakartaInjectAPIDependencyScope
   - com.oracle.weblogic.rewrite.ChangeJAXBBindAPIDependencyScope
+  - com.oracle.weblogic.rewrite.ChangeJakartaWebServiceRSAPIDependencyScope
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1511
@@ -377,4 +378,22 @@ recipeList:
   - org.openrewrite.maven.ChangeDependencyScope:
       groupId: jakarta.xml.bind
       artifactId: jakarta.xml.bind-api
+      newScope: provided
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.ChangeJakartaWebServiceRSAPIDependencyScope
+displayName: Change the jakarta.ws.rs-api dependency to scope provided when jakartaee-api 9.x is provided.
+description: This recipe will change the jakarta.ws.rs-api dependency scope to provided when jakarta.jakartaee-api version 9.x is provided in WebLogic 15.1.1. This prevents the jakarta.ws.rs-api jar from being deployed to WebLogic which can cause class conflicts.
+tags:
+  - weblogic
+preconditions:
+  - org.openrewrite.java.dependencies.DependencyInsight:
+      groupIdPattern: jakarta.platform
+      artifactIdPattern: jakarta.jakartaee-api
+      version: 9.x
+      scope: provided
+recipeList:
+  - org.openrewrite.maven.ChangeDependencyScope:
+      groupId: jakarta.ws.rs
+      artifactId: jakarta.ws.rs-api
       newScope: provided

@@ -6,12 +6,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.jspecify.annotations.Nullable;
 
-import org.openrewrite.ExecutionContext;
+import org.openrewrite.*;
 import org.openrewrite.maven.MavenIsoVisitor;
-import org.openrewrite.maven.table.MavenMetadataFailures;
-import org.openrewrite.Option;
-import org.openrewrite.Recipe;
-import org.openrewrite.TreeVisitor;
+//import org.openrewrite.maven.table.MavenMetadataFailures;
+import org.openrewrite.semver.Semver;
 import org.openrewrite.xml.XPathMatcher;
 import org.openrewrite.xml.tree.Xml;
 
@@ -27,8 +25,8 @@ import lombok.Value;
 @EqualsAndHashCode(callSuper = false)
 public class UpgradePluginConfigurationArtifactItems extends Recipe {
 
-    @EqualsAndHashCode.Exclude
-    transient MavenMetadataFailures metadataFailures = new MavenMetadataFailures(this);
+    //@EqualsAndHashCode.Exclude
+    //transient MavenMetadataFailures metadataFailures = new MavenMetadataFailures(this);
 
     @Option(displayName = "Old group ID",
             description = "The old group ID to replace.",
@@ -58,7 +56,6 @@ public class UpgradePluginConfigurationArtifactItems extends Recipe {
     String newVersion;
 
     @JsonCreator
-    @SuppressWarnings("DeprecatedIsStillUsed")
     public UpgradePluginConfigurationArtifactItems(@JsonProperty("oldGroupId") String oldGroupId,
                                                    @JsonProperty("oldArtifactId") String oldArtifactId,
                                                    @JsonProperty("newGroupId") String newGroupId,
@@ -69,6 +66,11 @@ public class UpgradePluginConfigurationArtifactItems extends Recipe {
         this.newGroupId = newGroupId;
         this.newArtifactId = newArtifactId;
         this.newVersion = newVersion;
+    }
+
+    @Override
+    public Validated validate() {
+        return super.validate();
     }
 
     // This will be added to MavenVisitor

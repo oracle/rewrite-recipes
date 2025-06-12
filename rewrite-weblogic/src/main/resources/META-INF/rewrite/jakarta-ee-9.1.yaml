@@ -61,7 +61,7 @@ recipeList:
   - com.oracle.weblogic.rewrite.jakarta.UpdateJakartaPlatform9_1
   - com.oracle.weblogic.rewrite.jakarta.MitigateUnaffectedNonEEJakarta9Packages
   - com.oracle.weblogic.rewrite.jakarta.UpgradeCommonOpenSourceLibraries
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems
+  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifacts
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.RemovalsServletJakarta9
@@ -341,8 +341,12 @@ recipeList:
       newVersion: 3.x
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems
+name: com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifacts
 displayName: Change artifacts for a Maven plugin configuration
+description: Change artifacts for a Maven plugin configuration artifacts.
+tags:
+  - jakarta
+  - dependencies
 recipeList:
   - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
       oldGroupId: javax

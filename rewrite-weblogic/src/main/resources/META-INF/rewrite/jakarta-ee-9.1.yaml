@@ -361,32 +361,20 @@ recipeList:
       newArtifactId: jakarta.jakartaee-web-api
       newVersion: 9.1.0
   - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: javax.activation
-      oldArtifactId: javax.activation-api
-      newGroupId: jakarta.activation
-      newArtifactId: jakarta.activation-api
-      newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
       oldGroupId: javax.annotation
       oldArtifactId: javax.annotation-api
       newGroupId: jakarta.annotation
       newArtifactId: jakarta.annotation-api
       newVersion: 2.0.x
   - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: org.glassfish.main
-      oldArtifactId: javax.annotation
-      newGroupId: jakarta.annotation
-      newArtifactId: jakarta.annotation-api
+      oldGroupId: javax.activation
+      oldArtifactId: javax.activation-api
+      newGroupId: jakarta.activation
+      newArtifactId: jakarta.activation-api
       newVersion: 2.0.x
   - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
       oldGroupId: javax.security.auth.message
       oldArtifactId: javax.security.auth.message-api
-      newGroupId: jakarta.authentication
-      newArtifactId: jakarta.authentication-api
-      newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: org.glassfish.main
-      oldArtifactId: javax.security.auth.message
       newGroupId: jakarta.authentication
       newArtifactId: jakarta.authentication-api
       newVersion: 2.0.x
@@ -397,47 +385,23 @@ recipeList:
       newArtifactId: jakarta.authorization-api
       newVersion: 2.0.x
   - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: org.glassfish.main
-      oldArtifactId: javax.security.jacc
-      newGroupId: jakarta.authorization
-      newArtifactId: jakarta.authorization-api
-      newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
       oldGroupId: javax.batch
       oldArtifactId: javax.batch-api
       newGroupId: jakarta.batch
       newArtifactId: jakarta.batch-api
       newVersion: 2.0.x
   - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: javax.validation
-      oldArtifactId: validation-api
-      newGroupId: jakarta.validation
-      newArtifactId: jakarta.validation-api
-      newVersion: 3.0.x
+      oldGroupId: javax.enterprise.concurrent
+      oldArtifactId: javax.enterprise.concurrent-api
+      newGroupId: jakarta.enterprise.concurrent
+      newArtifactId: jakarta.enterprise.concurrent-api
+      newVersion: 2.0.x
   - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: javax.enterprise
-      oldArtifactId: cdi-api
-      newGroupId: jakarta.enterprise
-      newArtifactId: jakarta.enterprise.cdi-api
-      newVersion: 3.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: javax.ejb
-      oldArtifactId: javax.ejb-api
-      newGroupId: jakarta.ejb
-      newArtifactId: jakarta.ejb-api
-      newVersion: 4.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: org.glassfish.main
-      oldArtifactId: javax.ejb
-      newGroupId: jakarta.ejb
-      newArtifactId: jakarta.ejb-api
-      newVersion: 4.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: javax.el
-      oldArtifactId: javax.el-api
-      newGroupId: jakarta.el
-      newArtifactId: jakarta.el-api
-      newVersion: 4.0.x
+      oldGroupId: javax.resource
+      oldArtifactId: javax.resource-api
+      newGroupId: jakarta.resource
+      newArtifactId: jakarta.resource-api
+      newVersion: 2.0.x
   - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
       oldGroupId: javax.enterprise
       oldArtifactId: cdi-api
@@ -451,16 +415,52 @@ recipeList:
       newArtifactId: jakarta.inject-api
       newVersion: 2.0.x
   - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: javax.inject
-      oldArtifactId: javax.inject
-      newGroupId: jakarta.inject
-      newArtifactId: jakarta.inject-api
-      newVersion: 2.0.x
+      oldGroupId: javax.ejb
+      oldArtifactId: javax.ejb-api
+      newGroupId: jakarta.ejb
+      newArtifactId: jakarta.ejb-api
+      newVersion: 4.0.x
+  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+      oldGroupId: javax.el
+      oldArtifactId: javax.el-api
+      newGroupId: jakarta.el
+      newArtifactId: jakarta.el-api
+      newVersion: 4.0.x
+  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+      oldGroupId: javax.faces
+      oldArtifactId: jsf-api
+      newGroupId: jakarta.faces
+      newArtifactId: jakarta.faces-api
+      newVersion: 3.0.x
   - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
       oldGroupId: javax.interceptor
       oldArtifactId: javax.interceptor-api
       newGroupId: jakarta.interceptor
       newArtifactId: jakarta.interceptor-api
+      newVersion: 2.0.x
+  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+      oldGroupId: javax.json
+      oldArtifactId: javax.json-api
+      newGroupId: jakarta.json
+      newArtifactId: jakarta.json-api
+      newVersion: 2.0.x
+  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+      oldGroupId: javax.json.bind
+      oldArtifactId: javax.json.bind-api
+      newGroupId: jakarta.json.bind
+      newArtifactId: jakarta.json.bind-api
+      newVersion: 2.0.x
+  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+      oldGroupId: javax.mail
+      oldArtifactId: mail
+      newGroupId: jakarta.mail
+      newArtifactId: jakarta.mail-api
+      newVersion: 2.0.x
+  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+      oldGroupId: javax.mail
+      oldArtifactId: javax.mail-api
+      newGroupId: jakarta.mail
+      newArtifactId: jakarta.mail-api
       newVersion: 2.0.x
   - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
       oldGroupId: javax.jms
@@ -469,16 +469,58 @@ recipeList:
       newArtifactId: jakarta.jms-api
       newVersion: 3.0.x
   - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: org.glassfish.main
-      oldArtifactId: javax.jms
-      newGroupId: jakarta.jms
-      newArtifactId: jakarta.jms-api
+      oldGroupId: javax.persistence
+      oldArtifactId: javax.persistence-api
+      newGroupId: jakarta.persistence
+      newArtifactId: jakarta.persistence-api
       newVersion: 3.0.x
   - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: javax.json
-      oldArtifactId: javax.json-api
-      newGroupId: jakarta.json
-      newArtifactId: jakarta.json-api
+      oldGroupId: org.eclipse.persistence
+      oldArtifactId: javax.persistence
+      newGroupId: jakarta.persistence
+      newArtifactId: jakarta.persistence-api
+      newVersion: 3.0.x
+  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+      oldGroupId: javax.ws.rs
+      oldArtifactId: javax.ws.rs-api
+      newGroupId: jakarta.ws.rs
+      newArtifactId: jakarta.ws.rs-api
+      newVersion: 3.0.x
+  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+      oldGroupId: javax.security.enterprise
+      oldArtifactId: javax.security.enterprise-api
+      newGroupId: jakarta.security.enterprise
+      newArtifactId: jakarta.security.enterprise-api
+      newVersion: 2.0.x
+  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+      oldGroupId: javax.servlet
+      oldArtifactId: javax.servlet-api
+      newGroupId: jakarta.servlet
+      newArtifactId: jakarta.servlet-api
+      newVersion: 5.0.x
+  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+      oldGroupId: javax.servlet
+      oldArtifactId: jstl
+      newGroupId: jakarta.servlet.jsp.jstl
+      newArtifactId: jakarta.servlet.jsp.jstl-api
+      newVersion: 2.0.x
+  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+      oldGroupId: javax.transaction
+      oldArtifactId: javax.transaction-api
+      newGroupId: jakarta.transaction
+      newArtifactId: jakarta.transaction-api
+      newVersion: 2.0.x
+  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+      oldGroupId: javax.websocket
+      oldArtifactId: javax.websocket-api
+      newGroupId: jakarta.websocket
+      newArtifactId: jakarta.websocket-api
+      newVersion: 2.0.x
+  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+      oldGroupId: javax.xml.soap
+      oldArtifactId: javax.xml.soap-api
+      newGroupId: jakarta.xml.soap
+      newArtifactId: jakarta.xml.soap-api
       newVersion: 2.0.x
   - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
       oldGroupId: javax.jws
@@ -493,71 +535,17 @@ recipeList:
       newArtifactId: jakarta.jws-api
       newVersion: 3.0.x
   - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: javax.mail
-      oldArtifactId: mail
-      newGroupId: jakarta.mail
-      newArtifactId: jakarta.mail-api
-      newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: javax.mail
-      oldArtifactId: javax.mail-api
-      newGroupId: jakarta.mail
-      newArtifactId: jakarta.mail-api
-      newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: javax.persistence
-      oldArtifactId: javax.persistence-api
-      newGroupId: jakarta.persistence
-      newArtifactId: jakarta.persistence-api
+      oldGroupId: javax.xml.ws
+      oldArtifactId: jaxws-api
+      newGroupId: jakarta.xml.ws
+      newArtifactId: jakarta.xml.ws-api
       newVersion: 3.0.x
   - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: org.eclipse.persistence
-      oldArtifactId: javax.persistence
-      newGroupId: jakarta.persistence
-      newArtifactId: jakarta.persistence-api
+      oldGroupId: javax.xml.bind
+      oldArtifactId: jaxb-api
+      newGroupId: jakarta.xml.bind
+      newArtifactId: jakarta.xml.bind-api
       newVersion: 3.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: javax.resource
-      oldArtifactId: javax.resource-api
-      newGroupId: jakarta.resource
-      newArtifactId: jakarta.resource-api
-      newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: org.glassfish.main
-      oldArtifactId: javax.resource
-      newGroupId: jakarta.resource
-      newArtifactId: jakarta.resource-api
-      newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: javax.security.enterprise
-      oldArtifactId: javax.security.enterprise-api
-      newGroupId: jakarta.security.enterprise
-      newArtifactId: jakarta.security.enterprise-api
-      newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: javax.servlet
-      oldArtifactId: javax.servlet-api
-      newGroupId: jakarta.servlet
-      newArtifactId: jakarta.servlet-api
-      newVersion: 5.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: javax.transaction
-      oldArtifactId: javax.transaction-api
-      newGroupId: jakarta.transaction
-      newArtifactId: jakarta.transaction-api
-      newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: org.glassfish.main
-      oldArtifactId: javax.transaction
-      newGroupId: jakarta.transaction
-      newArtifactId: jakarta.transaction-api
-      newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: javax.websocket
-      oldArtifactId: javax.websocket-api
-      newGroupId: jakarta.websocket
-      newArtifactId: jakarta.websocket-api
-      newVersion: 2.0.x
   - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
       oldGroupId: javax.websocket
       oldArtifactId: javax.websocket-client-api
@@ -569,94 +557,4 @@ recipeList:
       oldArtifactId: javax.websocket-all
       newGroupId: jakarta.websocket
       newArtifactId: jakarta.websocket-all
-      newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: javax.ws.rs
-      oldArtifactId: javax.ws.rs-api
-      newGroupId: jakarta.ws.rs
-      newArtifactId: jakarta.ws.rs-api
-      newVersion: 3.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: javax.xml.bind
-      oldArtifactId: jaxb-api
-      newGroupId: jakarta.xml.bind
-      newArtifactId: jakarta.xml.bind-api
-      newVersion: 3.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: com.sun.xml.bind
-      oldArtifactId: jaxb-impl
-      newGroupId: org.glassfish.jaxb
-      newArtifactId: jaxb-runtime
-      newVersion: 3.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: javax.xml.soap
-      oldArtifactId: javax.xml.soap-api
-      newGroupId: jakarta.xml.soap
-      newArtifactId: jakarta.xml.soap-api
-      newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: javax.xml.ws
-      oldArtifactId: jaxws-api
-      newGroupId: jakarta.xml.ws
-      newArtifactId: jakarta.xml.ws-api
-      newVersion: 3.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: com.fasterxml.jackson.module
-      oldArtifactId: jackson-module-jaxb-annotations
-      newGroupId: com.fasterxml.jackson.module
-      newArtifactId: jackson-module-jakarta-xmlbind-annotations
-      newVersion: 2.13.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: com.fasterxml.jackson.module
-      oldArtifactId: jackson-module-jaxb-annotations
-      newGroupId: com.fasterxml.jackson.module
-      newArtifactId: jackson-module-jakarta-xmlbind-annotations
-      newVersion: 2.13.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: com.fasterxml.jackson.jaxrs
-      oldArtifactId: jackson-jaxrs-cbor-provider
-      newGroupId: com.fasterxml.jackson.jakarta.rs
-      newArtifactId: jackson-jakarta-rs-cbor-provider
-      newVersion: 2.13.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: com.fasterxml.jackson.jaxrs
-      oldArtifactId: jackson-jaxrs-base
-      newGroupId: com.fasterxml.jackson.jakarta.rs
-      newArtifactId: jackson-jakarta-rs-base
-      newVersion: 2.13.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: com.fasterxml.jackson.jaxrs
-      oldArtifactId: jackson-jaxrs-json-provider
-      newGroupId: com.fasterxml.jackson.jakarta.rs
-      newArtifactId: jackson-jakarta-rs-json-provider
-      newVersion: 2.13.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: com.fasterxml.jackson.jaxrs
-      oldArtifactId: jackson-jaxrs-smile-provider
-      newGroupId: com.fasterxml.jackson.jakarta.rs
-      newArtifactId: jackson-jakarta-rs-smile-provider
-      newVersion: 2.13.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: com.fasterxml.jackson.jaxrs
-      oldArtifactId: jackson-jaxrs-xml-provider
-      newGroupId: com.fasterxml.jackson.jakarta.rs
-      newArtifactId: jackson-jakarta-rs-xml-provider
-      newVersion: 2.13.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: com.fasterxml.jackson.jaxrs
-      oldArtifactId: jackson-jaxrs-yaml-provider
-      newGroupId: com.fasterxml.jackson.jakarta.rs
-      newArtifactId: jackson-jakarta-rs-yaml-provider
-      newVersion: 2.13.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: com.fasterxml.jackson.datatype
-      oldArtifactId: jackson-datatype-jsr353
-      newGroupId: com.fasterxml.jackson.datatype
-      newArtifactId: jackson-datatype-jakarta-jsonp
-      newVersion: 2.13.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
-      oldGroupId: org.glassfish
-      oldArtifactId: javax.json
-      newGroupId: org.glassfish
-      newArtifactId: jakarta.json
       newVersion: 2.0.x

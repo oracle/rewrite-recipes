@@ -17,7 +17,7 @@ public class UpgradePluginConfigurationArtifactItemsTest implements RewriteTest 
     @Test
     void changePluginArtifactItemGroupArtifact() {
         rewriteRun(spec -> spec.recipe(new UpgradePluginConfigurationArtifactItems("javax", "javaee-api",
-            "jakarta.platform", "jakarta.jakartaee-api", null)),
+            "jakarta.platform", "jakarta.jakartaee-api", "9.1")),
           //language=xml
           pomXml(
             """
@@ -26,9 +26,6 @@ public class UpgradePluginConfigurationArtifactItemsTest implements RewriteTest 
                   <groupId>com.mycompany.app</groupId>
                   <artifactId>my-app</artifactId>
                   <version>1</version>
-                  <properties>
-                      <jakartaee>8.0</jakartaee>
-                  </properties>
                   <build>
                       <plugins>
                          <plugin>
@@ -48,7 +45,7 @@ public class UpgradePluginConfigurationArtifactItemsTest implements RewriteTest 
                                               <artifactItem>
                                                    <groupId>javax</groupId>
                                                    <artifactId>javaee-api</artifactId>
-                                                   <version>${jakartaee}</version>
+                                                   <version>8.0</version>
                                                    <type>jar</type>
                                               </artifactItem>
                                               <artifactItem>
@@ -72,9 +69,6 @@ public class UpgradePluginConfigurationArtifactItemsTest implements RewriteTest 
                   <groupId>com.mycompany.app</groupId>
                   <artifactId>my-app</artifactId>
                   <version>1</version>
-                  <properties>
-                      <jakartaee>8.0</jakartaee>
-                  </properties>
                   <build>
                       <plugins>
                          <plugin>
@@ -94,7 +88,7 @@ public class UpgradePluginConfigurationArtifactItemsTest implements RewriteTest 
                                               <artifactItem>
                                                    <groupId>jakarta.platform</groupId>
                                                    <artifactId>jakarta.jakartaee-api</artifactId>
-                                                   <version>${jakartaee}</version>
+                                                   <version>9.1</version>
                                                    <type>jar</type>
                                               </artifactItem>
                                               <artifactItem>
@@ -202,6 +196,104 @@ public class UpgradePluginConfigurationArtifactItemsTest implements RewriteTest 
                                                    <artifactId>${test.javaee.api.prop}</artifactId>
                                                    <version>${jakartaee}</version>
                                                    <type>jar</type>
+                                              </artifactItem>
+                                              <artifactItem>
+                                                   <groupId>junit</groupId>
+                                                   <artifactId>junit</artifactId>
+                                                   <version>3.8.1</version>
+                                                   <scope>test</scope>
+                                              </artifactItem>
+                                         </artifactItems>
+                                     </configuration>
+                                 </execution>
+                             </executions>
+                         </plugin>
+                      </plugins>
+                  </build>
+              </project>
+              """
+          )
+        );
+    }
+
+    // This unit test will fail when we have jakarta.ejb:jakarta.ejb-api:4.0.2. The test should use some kind of mask for the patch version
+    // and regular expression
+    @Test
+    void validateVersionResolution() {
+        rewriteRun(spec -> spec.recipe(new UpgradePluginConfigurationArtifactItems("javax.ejb", "javax.ejb-api",
+            "jakarta.ejb", "jakarta.ejb-api", "4.0.x")),
+          //language=xml
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-app</artifactId>
+                  <version>1</version>
+                  <build>
+                      <plugins>
+                         <plugin>
+                             <groupId>org.apache.maven.plugins</groupId>
+                             <artifactId>maven-dependency-plugin</artifactId>
+                             <version>2.6</version>
+                             <executions>
+                                 <execution>
+                                     <phase>validate</phase>
+                                     <goals>
+                                         <goal>copy</goal>
+                                     </goals>
+                                     <configuration>
+                                         <outputDirectory>${endorsed.dir}</outputDirectory>
+                                         <silent>true</silent>
+                                         <artifactItems>
+                                              <artifactItem>
+                                                  <groupId>javax.ejb</groupId>
+                                                  <artifactId>javax.ejb-api</artifactId>
+                                                  <version>3.2</version>
+                                                  <type>jar</type>
+                                              </artifactItem>
+                                              <artifactItem>
+                                                   <groupId>junit</groupId>
+                                                   <artifactId>junit</artifactId>
+                                                   <version>3.8.1</version>
+                                                   <scope>test</scope>
+                                              </artifactItem>
+                                         </artifactItems>
+                                     </configuration>
+                                 </execution>
+                             </executions>
+                         </plugin>
+                      </plugins>
+                  </build>
+              </project>
+              """,
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-app</artifactId>
+                  <version>1</version>
+                  <build>
+                      <plugins>
+                         <plugin>
+                             <groupId>org.apache.maven.plugins</groupId>
+                             <artifactId>maven-dependency-plugin</artifactId>
+                             <version>2.6</version>
+                             <executions>
+                                 <execution>
+                                     <phase>validate</phase>
+                                     <goals>
+                                         <goal>copy</goal>
+                                     </goals>
+                                     <configuration>
+                                         <outputDirectory>${endorsed.dir}</outputDirectory>
+                                         <silent>true</silent>
+                                         <artifactItems>
+                                              <artifactItem>
+                                                  <groupId>jakarta.ejb</groupId>
+                                                  <artifactId>jakarta.ejb-api</artifactId>
+                                                  <version>4.0.1</version>
+                                                  <type>jar</type>
                                               </artifactItem>
                                               <artifactItem>
                                                    <groupId>junit</groupId>

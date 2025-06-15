@@ -9,6 +9,11 @@ package com.oracle.weblogic.rewrite.jakarta;
 
 import static org.openrewrite.internal.StringUtils.matchesGlob;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Optional;
+
 import org.jspecify.annotations.Nullable;
 
 import org.openrewrite.ExecutionContext;
@@ -27,12 +32,6 @@ import org.openrewrite.xml.tree.Xml;
 
 import lombok.EqualsAndHashCode;
 import lombok.Value;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Optional;
-
 
 /**
  * UpgradePluginConfigurationArtifactItems updates the groupId, artifactId and version under
@@ -106,25 +105,13 @@ public class UpgradePluginConfigurationArtifactItems extends Recipe {
                     boolean isGroupIdFound = tag.getChildValue(GROUP_ID)
                             .map(a -> matchesGlob(a, oldGroupId))
                             .orElse(oldGroupId == null);
-                    if (!isGroupIdFound && getResolutionResult().getPom().getProperties() != null) {
-                        if (tag.getChildValue(GROUP_ID).isPresent() && tag.getChildValue(GROUP_ID).get().trim().startsWith("${")) {
-                            String propertyKey = tag.getChildValue(GROUP_ID).get().trim();
-                            String value = getResolutionResult().getPom().getValue(propertyKey);
-                            isGroupIdFound = value != null && matchesGlob(value, oldGroupId);
-                        }
-                    }
+                    isGroupIdFound = isElementFound(tag, isGroupIdFound, GROUP_ID, oldGroupId);
 
                     // Find out whether oldArtifactId really exists, consider the value defined as a project property as well
                     boolean isArtifactIdFound = tag.getChildValue(ARTIFACT_ID)
                             .map(a -> matchesGlob(a, oldArtifactId))
                             .orElse(oldArtifactId == null);
-                    if (!isArtifactIdFound && getResolutionResult().getPom().getProperties() != null) {
-                        if (tag.getChildValue(ARTIFACT_ID).isPresent() && tag.getChildValue(ARTIFACT_ID).get().trim().startsWith("${")) {
-                            String propertyKey = tag.getChildValue(ARTIFACT_ID).get().trim();
-                            String value = getResolutionResult().getPom().getValue(propertyKey);
-                            isArtifactIdFound = value != null && matchesGlob(value, oldArtifactId);
-                        }
-                    }
+                    isArtifactIdFound = isElementFound(tag, isArtifactIdFound, ARTIFACT_ID, oldArtifactId);
 
                     // Change the child tag value only when oldGroupId and oldArtifactId is found
                     if (isGroupIdFound && isArtifactIdFound) {
@@ -139,8 +126,8 @@ public class UpgradePluginConfigurationArtifactItems extends Recipe {
                         String currentVersion = t.getChildValue(ARTIFACT_VERSION).orElse(null);
                         if (newVersion != null) {
                             try {
-                                String resolvedNewVersion = resolveSemverVersion(ctx, GROUP_ID, ARTIFACT_ID, currentVersion);
-                                Optional<Xml.Tag> versionTag = t.getChild("version");
+                                String resolvedNewVersion = resolveSemverVersion(ctx, newGroupId, newArtifactId, currentVersion);
+                                Optional<Xml.Tag> versionTag = t.getChild(ARTIFACT_VERSION);
                                 boolean versionTagPresent = versionTag.isPresent();
                                 if (versionTagPresent) {
                                     t = changeChildTagValue(t, ARTIFACT_VERSION, resolvedNewVersion, ctx);
@@ -152,6 +139,17 @@ public class UpgradePluginConfigurationArtifactItems extends Recipe {
                     }
                 }
                 return t;
+            }
+
+            private boolean isElementFound(Xml.Tag tag, boolean isElementFound, String groupId, String oldGroupId) {
+                if (!isElementFound) {
+                    if (tag.getChildValue(groupId).isPresent() && tag.getChildValue(groupId).get().trim().startsWith("${")) {
+                        String propertyKey = tag.getChildValue(groupId).get().trim();
+                        String value = getResolutionResult().getPom().getValue(propertyKey);
+                        isElementFound = value != null && matchesGlob(value, oldGroupId);
+                    }
+                }
+                return isElementFound;
             }
 
             @SuppressWarnings("ConstantConditions")
@@ -168,7 +166,6 @@ public class UpgradePluginConfigurationArtifactItems extends Recipe {
                             availableVersions.add(v);
                         }
                     }
-
                 }
                 return availableVersions.isEmpty() ? newVersion : Collections.max(availableVersions, versionComparator);
             }

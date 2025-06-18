@@ -12,11 +12,11 @@ import org.openrewrite.test.RewriteTest;
 
 import static org.openrewrite.maven.Assertions.pomXml;
 
-public class UpgradePluginConfigurationArtifactItemsTest implements RewriteTest  {
+public class UpgradeMavenPluginArtifactItemsTest implements RewriteTest  {
 
     @Test
     void changePluginArtifactItemGroupArtifact() {
-        rewriteRun(spec -> spec.recipe(new UpgradePluginConfigurationArtifactItems("javax", "javaee-api",
+        rewriteRun(spec -> spec.recipe(new UpgradeMavenPluginArtifactItems("javax", "javaee-api",
             "jakarta.platform", "jakarta.jakartaee-api", "9.1")),
           //language=xml
           pomXml(
@@ -112,7 +112,7 @@ public class UpgradePluginConfigurationArtifactItemsTest implements RewriteTest 
 
     @Test
     void changePluginArtifactItemGroupArtifactInProperties() {
-        rewriteRun(spec -> spec.recipe(new UpgradePluginConfigurationArtifactItems("javax", "javaee-api",
+        rewriteRun(spec -> spec.recipe(new UpgradeMavenPluginArtifactItems("javax", "javaee-api",
             "jakarta.platform", "jakarta.jakartaee-api", null)),
           //language=xml
           pomXml(
@@ -220,7 +220,7 @@ public class UpgradePluginConfigurationArtifactItemsTest implements RewriteTest 
     // and regular expression
     @Test
     void validateVersionResolution() {
-        rewriteRun(spec -> spec.recipe(new UpgradePluginConfigurationArtifactItems("javax.ejb", "javax.ejb-api",
+        rewriteRun(spec -> spec.recipe(new UpgradeMavenPluginArtifactItems("javax.ejb", "javax.ejb-api",
             "jakarta.ejb", "jakarta.ejb-api", "4.0.x")),
           //language=xml
           pomXml(
@@ -316,7 +316,7 @@ public class UpgradePluginConfigurationArtifactItemsTest implements RewriteTest 
 
     @Test
     void validateRecipeDoesntAlterOtherDependencies() {
-        rewriteRun(spec -> spec.recipe(new UpgradePluginConfigurationArtifactItems("javax", "javaee-api",
+        rewriteRun(spec -> spec.recipe(new UpgradeMavenPluginArtifactItems("javax", "javaee-api",
             "jakarta.platform", "jakarta.jakartaee-api", null)),
           //language=xml
           pomXml(
@@ -438,7 +438,7 @@ public class UpgradePluginConfigurationArtifactItemsTest implements RewriteTest 
 
     @Test
     void validateRecipeDoesntAlterNonExistingArtifact() {
-        rewriteRun(spec -> spec.recipe(new UpgradePluginConfigurationArtifactItems("javax", "javaee-api",
+        rewriteRun(spec -> spec.recipe(new UpgradeMavenPluginArtifactItems("javax", "javaee-api",
             "jakarta.platform", "jakarta.jakartaee-api", null)),
           //language=xml
           pomXml(

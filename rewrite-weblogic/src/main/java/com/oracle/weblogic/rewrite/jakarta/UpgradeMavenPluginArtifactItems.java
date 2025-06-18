@@ -34,13 +34,13 @@ import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 /**
- * UpgradePluginConfigurationArtifactItems updates the groupId, artifactId and version under
- * plugin/executions/execution/configuration/artifactItems/artifactItem
+ * UpgradeMavenPluginArtifactItems is an imperative recipe to upgrade the groupId, artifactId and version of an artifactIem,
+ * of a Maven plugin.
  */
 
 @Value
 @EqualsAndHashCode(callSuper = false)
-public class UpgradePluginConfigurationArtifactItems extends Recipe {
+public class UpgradeMavenPluginArtifactItems extends Recipe {
 
     @EqualsAndHashCode.Exclude
     transient MavenMetadataFailures metadataFailures = new MavenMetadataFailures(this);

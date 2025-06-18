@@ -61,7 +61,7 @@ recipeList:
   - com.oracle.weblogic.rewrite.jakarta.UpdateJakartaPlatform9_1
   - com.oracle.weblogic.rewrite.jakarta.MitigateUnaffectedNonEEJakarta9Packages
   - com.oracle.weblogic.rewrite.jakarta.UpgradeCommonOpenSourceLibraries
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifacts
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginConfigurationArtifacts
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.RemovalsServletJakarta9
@@ -341,218 +341,218 @@ recipeList:
       newVersion: 3.x
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifacts
+name: com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginConfigurationArtifacts
 displayName: Change artifacts for a Maven plugin configuration
 description: Change artifacts for a Maven plugin configuration artifacts.
 tags:
   - jakarta
   - dependencies
 recipeList:
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax
       oldArtifactId: javaee-api
       newGroupId: jakarta.platform
       newArtifactId: jakarta.jakartaee-api
       newVersion: 9.1.0
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax
       oldArtifactId: javaee-web-api
       newGroupId: jakarta.platform
       newArtifactId: jakarta.jakartaee-web-api
       newVersion: 9.1.0
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.annotation
       oldArtifactId: javax.annotation-api
       newGroupId: jakarta.annotation
       newArtifactId: jakarta.annotation-api
       newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.activation
       oldArtifactId: javax.activation-api
       newGroupId: jakarta.activation
       newArtifactId: jakarta.activation-api
       newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.security.auth.message
       oldArtifactId: javax.security.auth.message-api
       newGroupId: jakarta.authentication
       newArtifactId: jakarta.authentication-api
       newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.security.jacc
       oldArtifactId: javax.security.jacc-api
       newGroupId: jakarta.authorization
       newArtifactId: jakarta.authorization-api
       newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.batch
       oldArtifactId: javax.batch-api
       newGroupId: jakarta.batch
       newArtifactId: jakarta.batch-api
       newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.enterprise.concurrent
       oldArtifactId: javax.enterprise.concurrent-api
       newGroupId: jakarta.enterprise.concurrent
       newArtifactId: jakarta.enterprise.concurrent-api
       newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.resource
       oldArtifactId: javax.resource-api
       newGroupId: jakarta.resource
       newArtifactId: jakarta.resource-api
       newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.enterprise
       oldArtifactId: cdi-api
       newGroupId: jakarta.enterprise
       newArtifactId: jakarta.enterprise.cdi-api
       newVersion: 3.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.inject
       oldArtifactId: javax.inject-api
       newGroupId: jakarta.inject
       newArtifactId: jakarta.inject-api
       newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.ejb
       oldArtifactId: javax.ejb-api
       newGroupId: jakarta.ejb
       newArtifactId: jakarta.ejb-api
       newVersion: 4.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.el
       oldArtifactId: javax.el-api
       newGroupId: jakarta.el
       newArtifactId: jakarta.el-api
       newVersion: 4.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.faces
       oldArtifactId: jsf-api
       newGroupId: jakarta.faces
       newArtifactId: jakarta.faces-api
       newVersion: 3.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.interceptor
       oldArtifactId: javax.interceptor-api
       newGroupId: jakarta.interceptor
       newArtifactId: jakarta.interceptor-api
       newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.json
       oldArtifactId: javax.json-api
       newGroupId: jakarta.json
       newArtifactId: jakarta.json-api
       newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.json.bind
       oldArtifactId: javax.json.bind-api
       newGroupId: jakarta.json.bind
       newArtifactId: jakarta.json.bind-api
       newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.mail
       oldArtifactId: mail
       newGroupId: jakarta.mail
       newArtifactId: jakarta.mail-api
       newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.mail
       oldArtifactId: javax.mail-api
       newGroupId: jakarta.mail
       newArtifactId: jakarta.mail-api
       newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.jms
       oldArtifactId: javax.jms-api
       newGroupId: jakarta.jms
       newArtifactId: jakarta.jms-api
       newVersion: 3.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.persistence
       oldArtifactId: javax.persistence-api
       newGroupId: jakarta.persistence
       newArtifactId: jakarta.persistence-api
       newVersion: 3.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: org.eclipse.persistence
       oldArtifactId: javax.persistence
       newGroupId: jakarta.persistence
       newArtifactId: jakarta.persistence-api
       newVersion: 3.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.ws.rs
       oldArtifactId: javax.ws.rs-api
       newGroupId: jakarta.ws.rs
       newArtifactId: jakarta.ws.rs-api
       newVersion: 3.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.security.enterprise
       oldArtifactId: javax.security.enterprise-api
       newGroupId: jakarta.security.enterprise
       newArtifactId: jakarta.security.enterprise-api
       newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.servlet
       oldArtifactId: javax.servlet-api
       newGroupId: jakarta.servlet
       newArtifactId: jakarta.servlet-api
       newVersion: 5.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.servlet
       oldArtifactId: jstl
       newGroupId: jakarta.servlet.jsp.jstl
       newArtifactId: jakarta.servlet.jsp.jstl-api
       newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.transaction
       oldArtifactId: javax.transaction-api
       newGroupId: jakarta.transaction
       newArtifactId: jakarta.transaction-api
       newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.websocket
       oldArtifactId: javax.websocket-api
       newGroupId: jakarta.websocket
       newArtifactId: jakarta.websocket-api
       newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.xml.soap
       oldArtifactId: javax.xml.soap-api
       newGroupId: jakarta.xml.soap
       newArtifactId: jakarta.xml.soap-api
       newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.jws
       oldArtifactId: javax.jws-api
       newGroupId: jakarta.jws
       newArtifactId: jakarta.jws-api
       newVersion: 3.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: org.glassfish.main
       oldArtifactId: javax.jws
       newGroupId: jakarta.jws
       newArtifactId: jakarta.jws-api
       newVersion: 3.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.xml.ws
       oldArtifactId: jaxws-api
       newGroupId: jakarta.xml.ws
       newArtifactId: jakarta.xml.ws-api
       newVersion: 3.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.xml.bind
       oldArtifactId: jaxb-api
       newGroupId: jakarta.xml.bind
       newArtifactId: jakarta.xml.bind-api
       newVersion: 3.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.websocket
       oldArtifactId: javax.websocket-client-api
       newGroupId: jakarta.websocket
       newArtifactId: jakarta.websocket-client-api
       newVersion: 2.0.x
-  - com.oracle.weblogic.rewrite.jakarta.UpgradePluginConfigurationArtifactItems:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
       oldGroupId: javax.websocket
       oldArtifactId: javax.websocket-all
       newGroupId: jakarta.websocket

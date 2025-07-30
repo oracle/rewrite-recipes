@@ -5,7 +5,7 @@
 
   <groupId>com.oracle.weblogic.rewrite</groupId>
   <artifactId>rewrite-weblogic</artifactId>
-  <version>0.6.1</version>
+  <version>0.6.2</version>
 
   <name>rewrite-weblogic</name>
   <description>Migrate your WebLogic applications to the latest version of WebLogic
@@ -44,7 +44,7 @@
         <dependency>
             <groupId>org.openrewrite.recipe</groupId>
             <artifactId>rewrite-recipe-bom</artifactId>
-            <version>3.9.0</version>
+            <version>3.12.1</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -102,7 +102,7 @@
       <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
-        <version>1.18.36</version>
+        <version>1.18.38</version>
         <optional>true</optional>
       </dependency>
       <dependency>
@@ -128,7 +128,7 @@
       <plugins>
           <plugin>
               <artifactId>maven-surefire-plugin</artifactId>
-              <version>3.5.2</version>
+              <version>3.5.3</version>
           </plugin>
           <plugin>
               <groupId>org.apache.maven.plugins</groupId>
@@ -139,7 +139,7 @@
                       <path>
                           <groupId>org.projectlombok</groupId>
                           <artifactId>lombok</artifactId>
-                          <version>1.18.36</version>
+                          <version>1.18.38</version>
                       </path>
                   </annotationProcessorPaths>
                   <compilerArgs>
@@ -163,7 +163,7 @@
           <plugin>
               <groupId>org.openrewrite.maven</groupId>
               <artifactId>rewrite-maven-plugin</artifactId>
-              <version>6.3.2</version>
+              <version>6.15.0</version>
               <configuration>
                   <activeRecipes>com.oracle.weblogic.rewrite.RecipeBestPractices</activeRecipes>
                   <failOnDryRunResults>true</failOnDryRunResults>

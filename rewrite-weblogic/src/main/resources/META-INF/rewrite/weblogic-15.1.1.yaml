@@ -397,3 +397,74 @@ recipeList:
       groupId: jakarta.ws.rs
       artifactId: jakarta.ws.rs-api
       newScope: provided
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicXmlCreateIfNotExists1511
+displayName: Create `weblogic.xml` if it does not exist
+description: This recipe will create a `weblogic.xml` file with the WebLogic 15.1.1 namespace if it does not already exist.
+tags:
+  - weblogic
+  - web-app
+  - schemas
+recipeList:
+  - org.openrewrite.xml.CreateXmlFile:
+      relativeFileName: src/main/webapp/WEB-INF/weblogic.xml
+      fileContents: >
+        <?xml version="1.0" encoding="UTF-8"?>
+        <weblogic-web-app
+            xmlns:wls="http://xmlns.oracle.com/weblogic/weblogic-web-app"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd http://xmlns.oracle.com/weblogic/weblogic-web-app http://xmlns.oracle.com/weblogic/weblogic-web-app/1.9/weblogic-web-app.xsd">
+        </weblogic-web-app>
+      overwriteExisting: false
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicXmlPreferApplicationPackagesJPA
+displayName: Add `prefer-application-packages` for JPA in `weblogic.xml`
+description: This recipe will add a `prefer-application-packages` entry for Jakarta Persistence in `weblogic.xml` if it does not already exist.
+tags:
+  - weblogic
+  - web-app
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic.xml'
+recipeList:
+  - org.openrewrite.xml.AddOrUpdateChildTag:
+      parentXPath: /weblogic-web-app
+      newChildTag: <container-descriptor></container-descriptor>
+      replaceExisting: false
+  - org.openrewrite.xml.AddOrUpdateChildTag:
+      parentXPath: /weblogic-web-app//container-descriptor
+      newChildTag: <prefer-application-packages></prefer-application-packages>
+      replaceExisting: false
+  - org.openrewrite.xml.AddOrUpdateChildTag:
+      parentXPath: /weblogic-web-app//container-descriptor//prefer-application-packages
+      newChildTag: <package-name>jakarta.persistence.*</package-name>
+      replaceExisting: false
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicXmlPreferApplicationPackagesSlf4j
+displayName: Add `prefer-application-packages` for SLF4J in `weblogic.xml`
+description: This recipe will add a `prefer-application-packages` entry for SLF4J in `weblogic.xml` if it does not already exist.
+tags:
+  - weblogic
+  - web-app
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic.xml'
+recipeList:
+  - org.openrewrite.xml.AddOrUpdateChildTag:
+      parentXPath: /weblogic-web-app
+      newChildTag: <container-descriptor></container-descriptor>
+      replaceExisting: false
+  - org.openrewrite.xml.AddOrUpdateChildTag:
+      parentXPath: /weblogic-web-app//container-descriptor
+      newChildTag: <prefer-application-packages></prefer-application-packages>
+      replaceExisting: false
+  - org.openrewrite.xml.AddOrUpdateChildTag:
+      parentXPath: /weblogic-web-app//container-descriptor//prefer-application-packages
+      newChildTag: <package-name>org.slf4j.*</package-name>
+      replaceExisting: false
+---

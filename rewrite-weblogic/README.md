@@ -52,7 +52,7 @@ For more details on running the recipes with Maven and Gradle, see the [OpenRewr
 
 The following tools are required to build and run this project:
 
-- Java 8 or later
+- Java 17 or later
 - Maven (minimum version 3.6, with recommended version, 3.9.9) or Gradle (version 4.0+)
 - Your code
 

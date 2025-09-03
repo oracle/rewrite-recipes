@@ -6,7 +6,7 @@ The following procedure will apply the changes required for migrating applicatio
 
 The following is required to build and run this project:
 
-- JDK - For migration, version 8 or later; post-migration, you need the target JDK installed.
+- JDK - For migration, version 17 or later; post-migration, you need the target JDK installed.
 - Maven (minimum version 3.6, with recommended version, 3.9.9) or Gradle (version 4.0+)
 - Your code
 

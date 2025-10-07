@@ -20,7 +20,7 @@ To jump start your hands-on learning, see these **Tutorials**:
 
 - [Migrate WebLogic Cafe to WLS 14.1.2](https://github.com/oracle-samples/weblogic-examples/blob/main/tutorials/migrate/weblogic-cafe-14.1.2/README.md)
 - [Migrate WebLogic Cafe to WLS 15.1.1 (BETA)](https://github.com/oracle-samples/weblogic-examples/blob/main/tutorials/migrate/weblogic-cafe-15.1.1/README.md)
-- [Migrate Spring Framework PetClinic to WLS 15.1.1 (BETA)](https://github.com/oracle-samples/weblogic-examples/blob/main/tutorials/migrate/spring-framework-petclinic-15.1.1/README.md)
+- [Migrate Spring Framework PetClinic to WLS 15.1.1](https://github.com/oracle-samples/weblogic-examples/blob/main/tutorials/migrate/spring-framework-petclinic-15.1.1/README.md)
 
 ## Recipes for common use cases
 
@@ -31,16 +31,16 @@ Use these `rewrite-weblogic` recipes to migrate WebLogic Server applications to 
 
 | Use Cases | Recipes |
 | --- | ------ |
-| **BETA:** Migrate to WebLogic 15.1.1 BETA, Jakarta EE 9.1, and Java 21 | [com.oracle.weblogic.rewrite.UpgradeTo1511](./src/main/resources/META-INF/rewrite/weblogic-15.1.1.yaml) <br/> [org.openrewrite.java.migrate.UpgradeToJava21](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) </br> [com.oracle.weblogic.rewrite.JakartaEE9_1](./src/main/resources/META-INF/rewrite/jakarta-ee-9.1.yaml) |
-| **BETA:** Migrate to WebLogic 15.1.1 BETA, Jakarta EE 9.1, and Java 17 | [com.oracle.weblogic.rewrite.UpgradeTo1511](./src/main/resources/META-INF/rewrite/weblogic-15.1.1.yaml) <br/> [org.openrewrite.java.migrate.UpgradeToJava17](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) </br> [com.oracle.weblogic.rewrite.JakartaEE9_1](./src/main/resources/META-INF/rewrite/jakarta-ee-9.1.yaml) |
-| **BETA:** Migrate to WebLogic 15.1.1 BETA, Jakarta EE 9.1, Java 21, and Spring Framework 6.2.x and Hibernate | [com.oracle.weblogic.rewrite.UpgradeTo1511](./src/main/resources/META-INF/rewrite/weblogic-15.1.1.yaml) <br/> [org.openrewrite.java.migrate.UpgradeToJava21](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) </br> [com.oracle.weblogic.rewrite.JakartaEE9_1](./src/main/resources/META-INF/rewrite/jakarta-ee-9.1.yaml) <br/> [com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_6_2](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/spring-framework-6.2.yaml) <br/> [com.oracle.weblogic.rewrite.hibernate.MigrateHibernateToJakartaEE9](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/hibernate.yaml) |
-| **BETA:** Migrate to WebLogic 15.1.1 BETA, Jakarta EE 9.1, Java 17, and Spring Framework 6.2.x and Hibernate | [com.oracle.weblogic.rewrite.UpgradeTo1511](./src/main/resources/META-INF/rewrite/weblogic-15.1.1.yaml) <br/> [org.openrewrite.java.migrate.UpgradeToJava17](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) </br> [com.oracle.weblogic.rewrite.JakartaEE9_1](./src/main/resources/META-INF/rewrite/jakarta-ee-9.1.yaml) <br/> [com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_6_2](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/spring-framework-6.2.yaml) <br/> [com.oracle.weblogic.rewrite.hibernate.MigrateHibernateToJakartaEE9](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/hibernate.yaml) |
+| Migrate to WebLogic 15.1.1, Jakarta EE 9.1, and Java 21 | [com.oracle.weblogic.rewrite.UpgradeTo1511](./src/main/resources/META-INF/rewrite/weblogic-15.1.1.yaml) <br/> [org.openrewrite.java.migrate.UpgradeToJava21](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) </br> [com.oracle.weblogic.rewrite.JakartaEE9_1](./src/main/resources/META-INF/rewrite/jakarta-ee-9.1.yaml) |
+| Migrate to WebLogic 15.1.1 BETA, Jakarta EE 9.1, and Java 17 | [com.oracle.weblogic.rewrite.UpgradeTo1511](./src/main/resources/META-INF/rewrite/weblogic-15.1.1.yaml) <br/> [org.openrewrite.java.migrate.UpgradeToJava17](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) </br> [com.oracle.weblogic.rewrite.JakartaEE9_1](./src/main/resources/META-INF/rewrite/jakarta-ee-9.1.yaml) |
+| Migrate to WebLogic 15.1.1 BETA, Jakarta EE 9.1, Java 21, and Spring Framework 6.2.x and Hibernate | [com.oracle.weblogic.rewrite.UpgradeTo1511](./src/main/resources/META-INF/rewrite/weblogic-15.1.1.yaml) <br/> [org.openrewrite.java.migrate.UpgradeToJava21](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) </br> [com.oracle.weblogic.rewrite.JakartaEE9_1](./src/main/resources/META-INF/rewrite/jakarta-ee-9.1.yaml) <br/> [com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_6_2](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/spring-framework-6.2.yaml) <br/> [com.oracle.weblogic.rewrite.hibernate.MigrateHibernateToJakartaEE9](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/hibernate.yaml) |
+| Migrate to WebLogic 15.1.1 BETA, Jakarta EE 9.1, Java 17, and Spring Framework 6.2.x and Hibernate | [com.oracle.weblogic.rewrite.UpgradeTo1511](./src/main/resources/META-INF/rewrite/weblogic-15.1.1.yaml) <br/> [org.openrewrite.java.migrate.UpgradeToJava17](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) </br> [com.oracle.weblogic.rewrite.JakartaEE9_1](./src/main/resources/META-INF/rewrite/jakarta-ee-9.1.yaml) <br/> [com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_6_2](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/spring-framework-6.2.yaml) <br/> [com.oracle.weblogic.rewrite.hibernate.MigrateHibernateToJakartaEE9](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/hibernate.yaml) |
 | Migrate to WebLogic 14.1.2 and Java 21 | [com.oracle.weblogic.rewrite.UpgradeTo1412](./src/main/resources/META-INF/rewrite/weblogic-14.1.2.yaml) <br/>  [org.openrewrite.java.migrate.UpgradeToJava21](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21) |
 | Migrate to WebLogic 14.1.2 and Java 17 | [com.oracle.weblogic.rewrite.UpgradeTo1412](./src/main/resources/META-INF/rewrite/weblogic-14.1.2.yaml) <br/> [org.openrewrite.java.migrate.UpgradeToJava17](https://docs.openrewrite.org/recipes/java/migrate/upgradetojava17) |
 
 <!-- | Migrate to WebLogic 14.1.1 and Java 11 | [com.oracle.weblogic.rewrite.UpgradeTo1411](resources/META-INF/rewrite/weblogic-14.1.1.yaml) <br/> [org.openrewrite.java.migrate.Java8toJava11](https://docs.openrewrite.org/recipes/java/migrate/java8tojava11) <br/> [org.openrewrite.maven.ChangePropertyValue](https://docs.openrewrite.org/recipes/maven/changepropertyvalue) <br/> [org.openrewrite.maven.UpgradeParentVersion](https://docs.openrewrite.org/recipes/maven/upgradeparentversion) | - Applies changes required for migrating apps to WebLogic 14.1.1 <br/> - Upgrade Java version to 11 <br/> - Change property to weblogic 14.1.1 <br/> - Upgrade WebLogic Version on parent| -->
 
-See these recipes for [WebLogic 15.1.1 BETA](#weblogic-server-1511-beta-recipes). For more recipes, see [Rewrite WebLogic recipes](./docs/recipes/README.md).
+See these recipes for [WebLogic 15.1.1](#weblogic-server-1511-recipes). For more recipes, see [Rewrite WebLogic recipes](./docs/recipes/README.md).
 
 ## How do I use it?
 
@@ -160,15 +160,15 @@ dependencies {
 > [!NOTE]
 > You can run `rewrite` on a Gradle project without modifying the build, similar to using the `mvn` CLI command. For more information, see https://docs.openrewrite.org/running-recipes/running-rewrite-on-a-gradle-project-without-modifying-the-build.
 
-## WebLogic Server 15.1.1 BETA recipes
+## WebLogic Server 15.1.1 recipes
 
 > [!WARNING]  
-> Before deploying a migrated application, make sure that you are using an approved WebLogic Server 15.1.1 BETA installation.
+> Before deploying a migrated application, make sure that you are using an approved WebLogic Server 15.1.1 installation.
 
 > [!NOTE]
-> When upgrading to WebLogic Server 15.1.1 BETA, the `UpgradeTo1511` recipe must be run _after_ the Java and Jakarta recipes.
+> When upgrading to WebLogic Server 15.1.1, the `UpgradeTo1511` recipe must be run _after_ the Java and Jakarta recipes.
 
-#### Upgrade applications to WebLogic Server 15.1.1 BETA, Jakarta EE 9.1, and Java 21
+#### Upgrade applications to WebLogic Server 15.1.1, Jakarta EE 9.1, and Java 21
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
@@ -177,7 +177,7 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
   -Drewrite.exportDatatables=true
 ```
 
-#### Upgrade applications to WebLogic Server 15.1.1 BETA, Jakarta EE 9.1, and Java 17
+#### Upgrade applications to WebLogic Server 15.1.1, Jakarta EE 9.1, and Java 17
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
@@ -187,7 +187,7 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
 ```
 
 
-#### **Spring Framework upgrade:** Upgrade applications to WebLogic Server 15.1.1 BETA, Jakarta EE 9.1, Java 21, and Spring Framework 6.2.x
+#### **Spring Framework upgrade:** Upgrade applications to WebLogic Server 15.1.1, Jakarta EE 9.1, Java 21, and Spring Framework 6.2.x
 
 If your application is running with Spring Framework 5.x on WebLogic 12.x or 14.x, and you want to migrate to Spring Framework 6.2.x, add the Spring Framework recipe to the command:
 
@@ -201,7 +201,7 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
 > [!TIP]  
 > When upgrading your application to Spring Framework 6.2.x, you may have other libraries that need to be updated. You can include the recipe in the same command, like `org.hibernate`, or run other third-party libraries separately. For other examples, see the [tutorials](https://github.com/oracle-samples/weblogic-examples).
 
-#### **Spring Framework upgrade:** Upgrade applications to WebLogic Server 15.1.1 BETA, Jakarta EE 9.1, Java 17, and Spring Framework 6.2.x
+#### **Spring Framework upgrade:** Upgrade applications to WebLogic Server 15.1.1, Jakarta EE 9.1, Java 17, and Spring Framework 6.2.x
 
 If your application is running with Spring Framework 5.x on WebLogic 12.x or 14.x, and you want to migrate to Spring Framework 6.2.x, add the Spring Framework recipe to the command:
 
@@ -218,7 +218,7 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
 
 #### Spring Framework and Hibernate upgrade
 
-This example includes the Hibernate recipe running with the WebLogic 15.1.1 BETA, Java 21, and Spring Framework 6.2 recipes.
+This example includes the Hibernate recipe running with the WebLogic 15.1.1, Java 21, and Spring Framework 6.2 recipes.
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
@@ -227,7 +227,7 @@ mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
   -Drewrite.exportDatatables=true
 ```
 
-This example includes the Hibernate recipe running with the WebLogic 15.1.1 BETA, Java 17, and Spring Framework 6.2 recipes.
+This example includes the Hibernate recipe running with the WebLogic 15.1.1, Java 17, and Spring Framework 6.2 recipes.
 
 ```shell
 mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \

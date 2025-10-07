@@ -1,4 +1,4 @@
-# Upgrade to WebLogic Server 15.1.1 (BETA)
+# Upgrade to WebLogic Server 15.1.1
 
 The following procedure will apply the changes required for migrating applications to WebLogic Server 15.1.1.0.0 and Jakarta EE 9.1.
 
@@ -47,7 +47,7 @@ For OpenRewrite to run, Maven dependencies must be resolved. If needed, run `mvn
    ```
 
 > [!NOTE]
-> When upgrading to WebLogic Server 15.1.1 BETA, the `UpgradeTo1511` recipe must be run _after_ the Java and Jakarta recipes.
+> When upgrading to WebLogic Server 15.1.1, the `UpgradeTo1511` recipe must be run _after_ the Java and Jakarta recipes.
 
 ## Run using Maven with the `<plugin>` in the `pom.xml` file
 

@@ -1,4 +1,4 @@
-# Upgrade to WebLogic Server 15.1.1 (BETA), Spring Framework 6.2.x, and Hibernate
+# Upgrade to WebLogic Server 15.1.1, Spring Framework 6.2.x, and Hibernate
 
 The following procedure will apply the changes required for migrating applications to WebLogic Server 15.1.1.0.0, Jakarta EE 9.1, Spring Framework 6.2.x, and Hibernate.
 
@@ -48,7 +48,7 @@ For OpenRewrite to run, Maven dependencies must be resolved. If needed, run `mvn
    ```
 
 > [!NOTE]
-> When upgrading to WebLogic Server 15.1.1 BETA, the `UpgradeTo1511` recipe must be run _after_ the Java and Jakarta recipes. </br>
+> When upgrading to WebLogic Server 15.1.1, the `UpgradeTo1511` recipe must be run _after_ the Java and Jakarta recipes. </br>
 > Note that this command updates the application to use Java 21. If you want to upgrade to Java 17 instead, replace UpgradeToJava21 with UpgradeToJava17.
 
 ## Run using Maven with the `<plugin>` in the `pom.xml` file

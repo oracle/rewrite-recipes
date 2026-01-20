@@ -206,7 +206,7 @@ public class UpgradeJPATo31HibernateTo66Test implements RewriteTest {
     }
 
     @Test
-    void upgradeJpaTo32() {
+    void upgradeJpaTo31() {
         rewriteRun(
           //language=xml
           pomXml(

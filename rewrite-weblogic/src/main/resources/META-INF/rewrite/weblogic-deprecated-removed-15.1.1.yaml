@@ -37,13 +37,28 @@
 # SOFTWARE.
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.ReportDeprecated
-displayName: Report uses of Java types deprecated or removed in WebLogic
-description: This recipe will report uses of Java types that have been deprecated or removed in WebLogic.
+name: com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1511
+displayName: Report types deprecated or removed in WebLogic version 15.1.1
+description: This recipe will report Java types that have been deprecated or removed in WebLogic version 15.1.1. This is an alias to prevent breaking existing recipes.
 recipeList:
-  - org.openrewrite.java.search.FindDeprecatedUses:
-      typePattern: weblogic..*
-      matchInherited: true
-  - org.openrewrite.java.search.FindDeprecatedUses:
-      typePattern: com.bea..*
-      matchInherited: true
+  - com.oracle.weblogic.rewrite.ReportDeprecatedOrRemoved1511
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.ReportDeprecatedOrRemoved1511
+displayName: Report types deprecated or removed in WebLogic version 15.1.1
+description: This recipe will report Java types that have been deprecated or removed in WebLogic version 15.1.1.
+recipeList:
+  - com.oracle.weblogic.rewrite.ReportDeprecatedOrRemoved1412
+  # Identify uses of deprecated types
+  - com.oracle.weblogic.rewrite.ReportDeprecated
+  # Identify uses of types removed in 15.1.1
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.FederationServicesMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.security.providers.saml..*
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.wsee.security.saml.PKISAMLCredentialProvider
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.wsee.security.saml.SAMLCredentialProvider
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.wsee.security.saml.SAMLTokenHandler

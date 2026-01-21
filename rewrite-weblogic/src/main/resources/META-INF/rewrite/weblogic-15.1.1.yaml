@@ -46,7 +46,7 @@ tags:
 recipeList:
   - com.oracle.weblogic.rewrite.OutputRecipeVersion
   - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1511
-  - com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1511
+  - com.oracle.weblogic.rewrite.ReportDeprecatedOrRemoved1511
   - com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo1511
   - com.oracle.weblogic.rewrite.ChangeJakartaInjectAPIDependencyScope
   - com.oracle.weblogic.rewrite.ChangeJAXBBindAPIDependencyScope

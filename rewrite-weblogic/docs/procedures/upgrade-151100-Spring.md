@@ -136,3 +136,7 @@ dependencies {
 
 > [!NOTE]
 > You can run Rewrite on a Gradle project without modifying the build, similar to using the `mvn` CLI command. For more information, see https://docs.openrewrite.org/running-recipes/running-rewrite-on-a-gradle-project-without-modifying-the-build.
+
+## Using Jakarta Persistence (JPA) 3.1 and Hibernate 6.6
+
+While WebLogic 15.1.1 is compatible with Jakarta EE 9, WebLogic 15.1.1 also supports a subset of Jakarta EE 10. To upgrade your application to use JPA 3.1 and Hibernate 6.6, add the `com.oracle.weblogic.rewrite.UpgradeJPATo31HibernateTo66` recipe to the end of the list of recipes.

@@ -41,6 +41,7 @@ name: com.oracle.weblogic.rewrite.ReportDeprecated
 displayName: Report uses of Java types deprecated or removed in WebLogic
 description: This recipe will report uses of Java types that have been deprecated or removed in WebLogic.
 recipeList:
+  # Match types in subpackages at any depth
   - org.openrewrite.java.search.FindDeprecatedUses:
       typePattern: weblogic..*
       matchInherited: true

@@ -21,7 +21,7 @@ This recipe applies the changes required for migrating applications to WebLogic 
 
 ### Usage
 
-This recipe will update the WebLogic version to 15.1.1 for the Maven build and comment out deprecated and removed APIs.
+This recipe will update the WebLogic version to 15.1.1 for the Maven build and flag deprecated and removed APIs.
 
 **NOTE**: The UpgradeTo1511 recipe must be run **after** the Java and Jakarta recipes.
 

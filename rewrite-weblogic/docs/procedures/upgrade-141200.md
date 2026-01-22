@@ -1,6 +1,6 @@
 # Upgrade to WebLogic Server 14.1.2
 
-The following procedures will upgrade your applications to WebLogic 14.1.2 and Java 21, and comment out deprecated and removed APIs.
+The following procedures will upgrade your applications to WebLogic 14.1.2 and Java 21, and flag deprecated and removed APIs.
 
 ## Prerequisites
 

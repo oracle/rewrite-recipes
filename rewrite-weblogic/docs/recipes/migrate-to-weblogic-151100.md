@@ -14,14 +14,14 @@ This recipe applies the changes required for migrating applications to WebLogic 
 ### Recipe list:
  - com.oracle.weblogic.rewrite.OutputRecipeVersion
  - com.oracle.weblogic.rewrite.UpdateBuildToWebLogic1511
- - [com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1511](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/weblogic-deprecations.yaml)
+ - [com.oracle.weblogic.rewrite.ReportDeprecatedOrRemoved1511](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/src/main/resources/META-INF/rewrite/weblogic-deprecated-removed-15.1.1.yaml)
  - com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo1511
  - com.oracle.weblogic.rewrite.ChangeJakartaInjectAPIDependencyScope
  - com.oracle.weblogic.rewrite.ChangeJAXBBindAPIDependencyScope
 
 ### Usage
 
-This recipe will update the WebLogic version to 15.1.1 for the Maven build and comment out deprecated and removed APIs.
+This recipe will update the WebLogic version to 15.1.1 for the Maven build and flag deprecated and removed APIs.
 
 **NOTE**: The UpgradeTo1511 recipe must be run **after** the Java and Jakarta recipes.
 

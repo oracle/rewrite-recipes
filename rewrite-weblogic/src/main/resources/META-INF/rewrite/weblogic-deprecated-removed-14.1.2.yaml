@@ -1,0 +1,155 @@
+#
+# Copyright (c) 2024, 2026, Oracle and/or its affiliates.  All rights reserved.
+
+# Licensed under the Universal Permissive License v 1.0 as shown at
+# https://oss.oracle.com/licenses/upl.
+
+# Subject to the condition set forth below, permission is hereby granted to any
+# person obtaining a copy of this software, associated documentation and/or data
+# (collectively the "Software"), free of charge and under any and all copyright
+# rights in the Software, and any and all patent rights owned or freely
+# licensable by each licensor hereunder covering either (i) the unmodified
+# Software as contributed to or provided by such licensor, or (ii) the Larger
+# Works (as defined below), to deal in both
+
+# (a) the Software, and
+# (b) any piece of software and/or hardware listed in the lrgrwrks.txt file if
+# one is included with the Software (each a "Larger Work" to which the Software
+# is contributed by such licensors),
+
+# without restriction, including without limitation the rights to copy, create
+# derivative works of, display, perform, and distribute the Software and make,
+# use, sell, offer for sale, import, export, have made, and have sold the
+# Software and the Larger Work(s), and to sublicense the foregoing rights on
+# either these or other terms.
+
+# This license is subject to the following condition:
+# The above copyright notice and either this complete permission notice or at
+# a minimum a reference to the UPL must be included in all copies or
+# substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.CheckAndCommentOutDeprecations1412
+displayName: Report types deprecated or removed in WebLogic version 14.1.2
+description: This recipe will report Java types that have been deprecated or removed in WebLogic version 14.1.2. This is an alias to prevent breaking existing recipes.
+recipeList:
+  - com.oracle.weblogic.rewrite.ReportDeprecatedOrRemoved1412
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.ReportDeprecatedOrRemoved1412
+displayName: Report types deprecated or removed in WebLogic version 14.1.2
+description: This recipe will report Java types that have been deprecated or removed in WebLogic version 14.1.2.
+recipeList:
+  # Identify uses of deprecated types
+  - com.oracle.weblogic.rewrite.ReportDeprecated
+  # Identify uses of types removed in 14.1.1 and 14.1.2
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.jdbc.extensions.DataSourceSwitchingCallback
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.jdbc.rowset.*
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.logging.log4j.*
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.ForeignJMSConnectionFactoryMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.ForeignJMSDestinationMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.ForeignJMSServerMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.JDBCSystemResourceOverrideMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.JMSConnectionFactoryMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.JMSDestCommonMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.JMSDestinationKeyMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.JMSDestinationMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.JMSDistributedDestinationMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.JMSDistributedDestinationMemberMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.JMSDistributedQueueMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.JMSDistributedQueueMemberMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.JMSDistributedTopicMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.JMSDistributedTopicMemberMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.JMSFileStoreMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.JMSInteropModuleMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.JMSJDBCStoreMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.JMSQueueMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.JMSStoreMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.JMSTemplateMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.JMSTopicMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.configuration.JMSVirtualDestinationMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.runtime.FairShareConstraintRuntimeMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.runtime.JDBCPartitionRuntimeMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.runtime.JDBCProxyDataSourceRuntimeMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.runtime.JTAPartitionRuntimeMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.runtime.KodoDataCacheRuntimeMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.runtime.KodoPersistenceUnitRuntimeMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.runtime.KodoQueryCacheRuntimeMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.runtime.KodoQueryCompilationCacheRuntimeMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.runtime.RecourseActionEventVBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.runtime.ResourceManagerRuntimeMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.runtime.ResourceRuntimeMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.runtime.ResourceRuntimeMBean$ResourceType
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.runtime.TriggerRuntimeMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.management.security.pk.KeyStoreMBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.rmi.RMISecurityException
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.rmi.RMISecurityManager
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.wsee.conversation.ConversationIdNotYetAvailableException
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.wsee.conversation.ConversationUtils
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.wsee.jws.JwsContext
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.wsee.reliability.ReliabilityErrorListener
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.wsee.reliability.ReliabilityErrorListenerRegistry
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.wsee.reliability.WsrmHelper
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.wsee.reliability.WsrmUtils
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.wsee.reliability.faults.*
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.wsee.wstx.wsat.Transactional.*
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: weblogic.xml.schema..*

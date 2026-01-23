@@ -20,7 +20,7 @@ This recipe applies the changes required for upgrading to WebLogic Server 14.1.2
 
 ### Usage
 
-This recipe will upgrade the WebLogic version to 14.1.2 for the Maven build, and comment out deprecated and removed APIs.
+This recipe will upgrade the WebLogic version to 14.1.2 for the Maven build, and flag deprecated and removed APIs.
 
 #### Maven POM
 

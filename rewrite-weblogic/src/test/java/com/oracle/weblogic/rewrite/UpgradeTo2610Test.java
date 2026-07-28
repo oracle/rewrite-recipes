@@ -54,7 +54,8 @@ class UpgradeTo2610Test implements RewriteTest {
                         "com.oracle.weblogic.rewrite.UpdateBuildToWebLogic2610",
                         "com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo2610",
                         "com.oracle.weblogic.rewrite.NormalizeWebLogic2610DependencyScopes",
-                        "com.oracle.weblogic.rewrite.ReportDeprecatedOrRemoved2610"),
+                        "com.oracle.weblogic.rewrite.ReportDeprecatedOrRemoved2610",
+                        "com.oracle.weblogic.rewrite.FindWebLogic2610MigrationRisks"),
                 recipe().getRecipeList().stream()
                         .map(Recipe::getName)
                         .collect(Collectors.toList()));

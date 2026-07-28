@@ -1,0 +1,263 @@
+#
+# Copyright (c) 2026, Oracle and/or its affiliates.  All rights reserved.
+
+# Licensed under the Universal Permissive License v 1.0 as shown at
+# https://oss.oracle.com/licenses/upl.
+
+# Subject to the condition set forth below, permission is hereby granted to any
+# person obtaining a copy of this software, associated documentation and/or data
+# (collectively the "Software"), free of charge and under any and all copyright
+# rights in the Software, and any and all patent rights owned or freely
+# licensable by each licensor hereunder covering either (i) the unmodified
+# Software as contributed to or provided by such licensor, or (ii) the Larger
+# Works (as defined below), to deal in both
+
+# (a) the Software, and
+# (b) any piece of software and/or hardware listed in the lrgrwrks.txt file if
+# one is included with the Software (each a "Larger Work" to which the Software
+# is contributed by such licensors),
+
+# without restriction, including without limitation the rights to copy, create
+# derivative works of, display, perform, and distribute the Software and make,
+# use, sell, offer for sale, import, export, have made, and have sold the
+# Software and the Larger Work(s), and to sublicense the foregoing rights on
+# either these or other terms.
+
+# This license is subject to the following condition:
+# The above copyright notice and either this complete permission notice or at
+# a minimum a reference to the UPL must be included in all copies or
+# substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.FindWebLogic2610MigrationRisks
+displayName: Find WebLogic 26.1.0 migration risks
+description: Report application-specific migration risks that require review when upgrading to WebLogic 26.1.0.
+tags:
+  - weblogic
+  - migration
+  - security
+recipeList:
+  - com.oracle.weblogic.rewrite.FindJavaSecurityManagerStartupOption2610
+  - com.oracle.weblogic.rewrite.FindJavaSecurityPolicyStartupOption2610
+  - com.oracle.weblogic.rewrite.FindApplicationSecurityPolicyFiles2610
+  - com.oracle.weblogic.rewrite.FindCustomSecurityManagerImplementations2610
+  - com.oracle.weblogic.rewrite.FindCompileScopedWebLogicDependencies2610
+  - com.oracle.weblogic.rewrite.FindRuntimeScopedWebLogicDependencies2610
+  - com.oracle.weblogic.rewrite.FindPreferWebInfClassesOverride2610
+  - com.oracle.weblogic.rewrite.FindPreferApplicationPackagesOverride2610
+  - com.oracle.weblogic.rewrite.FindPreferApplicationResourcesOverride2610
+  - com.oracle.weblogic.rewrite.FindNonTransactionalJdbcDataSources2610
+  - com.oracle.weblogic.rewrite.FindOnePhaseCommitJdbcDataSources2610
+  - com.oracle.weblogic.rewrite.FindEmulateTwoPhaseCommitJdbcDataSources2610
+  - com.oracle.weblogic.rewrite.FindLoggingLastResourceJdbcDataSources2610
+  - com.oracle.weblogic.rewrite.FindManagedBeanAnnotations2610
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.FindJavaSecurityManagerStartupOption2610
+displayName: Find Java Security Manager startup options
+description: Report `-Djava.security.manager` startup options that require manual review for JDK 25.
+tags:
+  - weblogic
+  - java
+  - security-manager
+recipeList:
+  - org.openrewrite.text.Find:
+      find: -Djava.security.manager
+      caseSensitive: true
+      filePattern: '**/*.sh;**/*.cmd;**/*.bat;**/*.properties'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.FindJavaSecurityPolicyStartupOption2610
+displayName: Find Java security policy startup options
+description: Report `-Djava.security.policy` startup options that require manual review for JDK 25.
+tags:
+  - weblogic
+  - java
+  - security-manager
+recipeList:
+  - org.openrewrite.text.Find:
+      find: -Djava.security.policy
+      caseSensitive: true
+      filePattern: '**/*.sh;**/*.cmd;**/*.bat;**/*.properties'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.FindApplicationSecurityPolicyFiles2610
+displayName: Find application security policy files
+description: Report application `.policy` files whose permission and sandboxing behavior requires manual review for JDK 25.
+tags:
+  - weblogic
+  - java
+  - security-manager
+recipeList:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/*.policy'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.FindCustomSecurityManagerImplementations2610
+displayName: Find custom Security Manager implementations
+description: Report custom `SecurityManager` implementations whose authorization and sandboxing behavior requires manual review for JDK 25.
+tags:
+  - weblogic
+  - java
+  - security-manager
+recipeList:
+  - org.openrewrite.java.search.FindImplementations:
+      typeName: java.lang.SecurityManager
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.FindCompileScopedWebLogicDependencies2610
+displayName: Find compile-scoped WebLogic dependencies
+description: Report direct compile-scoped WebLogic dependencies that may package server APIs with the application.
+tags:
+  - weblogic
+  - dependencies
+  - classloading
+recipeList:
+  - org.openrewrite.java.dependencies.DependencyInsight:
+      groupIdPattern: com.oracle.weblogic
+      artifactIdPattern: '*'
+      scope: compile
+      onlyDirect: true
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.FindRuntimeScopedWebLogicDependencies2610
+displayName: Find runtime-scoped WebLogic dependencies
+description: Report direct runtime-scoped WebLogic dependencies that may package server APIs with the application.
+tags:
+  - weblogic
+  - dependencies
+  - classloading
+recipeList:
+  - org.openrewrite.java.dependencies.DependencyInsight:
+      groupIdPattern: com.oracle.weblogic
+      artifactIdPattern: '*'
+      scope: runtime
+      onlyDirect: true
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.FindPreferWebInfClassesOverride2610
+displayName: Find WebLogic web application classloading overrides
+description: Report enabled `prefer-web-inf-classes` settings that require classloading review for WebLogic 26.1.0.
+tags:
+  - weblogic
+  - descriptors
+  - classloading
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic.xml'
+recipeList:
+  - org.openrewrite.xml.search.FindTags:
+      xPath: /weblogic-web-app/container-descriptor/prefer-web-inf-classes[text()='true']
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.FindPreferApplicationPackagesOverride2610
+displayName: Find preferred application package overrides
+description: Report `prefer-application-packages` settings that require classloading review for WebLogic 26.1.0.
+tags:
+  - weblogic
+  - descriptors
+  - classloading
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic.xml'
+recipeList:
+  - org.openrewrite.xml.search.FindTags:
+      xPath: /weblogic-web-app/container-descriptor/prefer-application-packages
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.FindPreferApplicationResourcesOverride2610
+displayName: Find preferred application resource overrides
+description: Report `prefer-application-resources` settings that require classloading review for WebLogic 26.1.0.
+tags:
+  - weblogic
+  - descriptors
+  - classloading
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic.xml'
+recipeList:
+  - org.openrewrite.xml.search.FindTags:
+      xPath: /weblogic-web-app/container-descriptor/prefer-application-resources
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.FindNonTransactionalJdbcDataSources2610
+displayName: Find non-transactional WebLogic JDBC data sources
+description: Report WebLogic JDBC data sources configured without a global transaction protocol for manual transaction review.
+tags:
+  - weblogic
+  - jdbc
+  - transactions
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/*-jdbc.xml'
+recipeList:
+  - org.openrewrite.xml.search.FindTags:
+      xPath: /jdbc-data-source/jdbc-data-source-params/global-transactions-protocol[text()='None']
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.FindOnePhaseCommitJdbcDataSources2610
+displayName: Find one-phase WebLogic JDBC data sources
+description: Report WebLogic JDBC data sources using `OnePhaseCommit` for manual non-XA transaction review.
+tags:
+  - weblogic
+  - jdbc
+  - transactions
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/*-jdbc.xml'
+recipeList:
+  - org.openrewrite.xml.search.FindTags:
+      xPath: /jdbc-data-source/jdbc-data-source-params/global-transactions-protocol[text()='OnePhaseCommit']
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.FindEmulateTwoPhaseCommitJdbcDataSources2610
+displayName: Find emulated two-phase WebLogic JDBC data sources
+description: Report WebLogic JDBC data sources using `EmulateTwoPhaseCommit` for manual non-XA transaction review.
+tags:
+  - weblogic
+  - jdbc
+  - transactions
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/*-jdbc.xml'
+recipeList:
+  - org.openrewrite.xml.search.FindTags:
+      xPath: /jdbc-data-source/jdbc-data-source-params/global-transactions-protocol[text()='EmulateTwoPhaseCommit']
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.FindLoggingLastResourceJdbcDataSources2610
+displayName: Find logging-last-resource WebLogic JDBC data sources
+description: Report WebLogic JDBC data sources using `LoggingLastResource` for manual non-XA transaction review.
+tags:
+  - weblogic
+  - jdbc
+  - transactions
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/*-jdbc.xml'
+recipeList:
+  - org.openrewrite.xml.search.FindTags:
+      xPath: /jdbc-data-source/jdbc-data-source-params/global-transactions-protocol[text()='LoggingLastResource']
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.FindManagedBeanAnnotations2610
+displayName: Find removed Managed Beans annotations
+description: Report Java EE and Jakarta Managed Beans annotations that require migration to CDI for Jakarta EE 11.
+tags:
+  - weblogic
+  - jakarta
+  - managed-beans
+  - cdi
+recipeList:
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: javax.annotation.ManagedBean
+  - org.openrewrite.java.search.FindTypes:
+      fullyQualifiedTypeName: jakarta.annotation.ManagedBean

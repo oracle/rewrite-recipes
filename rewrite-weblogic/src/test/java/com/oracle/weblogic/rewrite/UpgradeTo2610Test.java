@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.openrewrite.maven.Assertions.pomXml;
+import static org.openrewrite.xml.Assertions.xml;
 
 class UpgradeTo2610Test implements RewriteTest {
 
@@ -89,6 +90,115 @@ class UpgradeTo2610Test implements RewriteTest {
                   </properties>
               </project>
               """
+          )
+        );
+    }
+
+    @Test
+    void isIdempotentAcrossBuildAndDescriptorMigration() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .executionContext(localMavenExecutionContext())
+                .cycles(2)
+                .expectedCyclesThatMakeChanges(1),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-app</artifactId>
+                  <version>1</version>
+                  <properties>
+                      <weblogic.version>15.1.1-0-0</weblogic.version>
+                  </properties>
+              </project>
+              """,
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-app</artifactId>
+                  <version>1</version>
+                  <properties>
+                      <weblogic.version>26.1.0-0-0</weblogic.version>
+                  </properties>
+              </project>
+              """
+          ),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <weblogic-web-app xmlns="http://xmlns.oracle.com/weblogic/weblogic-web-app"
+                                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-web-app http://xmlns.oracle.com/weblogic/weblogic-web-app/1.9/weblogic-web-app.xsd">
+                  <context-root>my-app</context-root>
+              </weblogic-web-app>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <weblogic-web-app xmlns="http://xmlns.oracle.com/weblogic/weblogic-web-app"
+                                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-web-app http://xmlns.oracle.com/weblogic/weblogic-web-app/2.0/weblogic-web-app.xsd">
+                  <context-root>my-app</context-root>
+              </weblogic-web-app>
+              """,
+            source -> source.path("src/main/webapp/WEB-INF/weblogic.xml")
+          )
+        );
+    }
+
+    @Test
+    void changesOnlyTargetedFilesInMixedProject() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .executionContext(localMavenExecutionContext()),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-app</artifactId>
+                  <version>1</version>
+                  <properties>
+                      <weblogic.version>15.1.1-0-0</weblogic.version>
+                  </properties>
+                  <dependencies>
+                      <dependency>
+                          <groupId>com.oracle.database.jdbc</groupId>
+                          <artifactId>ojdbc11</artifactId>
+                          <version>23.2.0.0</version>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """,
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-app</artifactId>
+                  <version>1</version>
+                  <properties>
+                      <weblogic.version>26.1.0-0-0</weblogic.version>
+                  </properties>
+                  <dependencies>
+                      <dependency>
+                          <groupId>com.oracle.database.jdbc</groupId>
+                          <artifactId>ojdbc11</artifactId>
+                          <version>23.2.0.0</version>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """
+          ),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <application-configuration>
+                  <product-version>15.1.1-0-0</product-version>
+                  <implementation-class>javax.example.Type</implementation-class>
+              </application-configuration>
+              """,
+            source -> source.path("src/main/resources/application-configuration.xml")
           )
         );
     }

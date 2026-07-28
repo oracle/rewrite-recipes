@@ -82,6 +82,536 @@ class MigrateToJakartaEE11Test implements RewriteTest {
     }
 
     @Test
+    void upgradesWebXmlToServlet61() {
+        rewriteRun(spec -> spec.recipe(recipe()),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+                       version="6.0">
+                  <display-name>example</display-name>
+              </web-app>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_1.xsd"
+                       version="6.1">
+                  <display-name>example</display-name>
+              </web-app>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/webapp/WEB-INF/web.xml")
+          )
+        );
+    }
+
+    @Test
+    void upgradesWebFragmentXmlToServlet61() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .expectedCyclesThatMakeChanges(2),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <web-fragment xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                            xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-fragment_6_0.xsd"
+                            version="6.0">
+                  <name>example-fragment</name>
+              </web-fragment>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <web-fragment xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                            xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-fragment_6_1.xsd"
+                            version="6.1">
+                  <name>example-fragment</name>
+              </web-fragment>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/resources/META-INF/web-fragment.xml")
+          )
+        );
+    }
+
+    @Test
+    void upgradesApplicationXmlToJakartaEE11() {
+        rewriteRun(spec -> spec.recipe(recipe()),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <application xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                           xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/application_10.xsd"
+                           version="10">
+                  <display-name>example</display-name>
+              </application>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <application xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                           xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/application_11.xsd"
+                           version="11">
+                  <display-name>example</display-name>
+              </application>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/resources/META-INF/application.xml")
+          )
+        );
+    }
+
+    @Test
+    void upgradesApplicationClientXmlToJakartaEE11() {
+        rewriteRun(spec -> spec.recipe(recipe()),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <application-client xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                  xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/application-client_9.xsd"
+                                  version="9">
+                  <display-name>example-client</display-name>
+              </application-client>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <application-client xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                  xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/application-client_10.xsd"
+                                  version="10">
+                  <display-name>example-client</display-name>
+              </application-client>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/resources/META-INF/application-client.xml")
+          )
+        );
+    }
+
+    @Test
+    void upgradesEjbJarXmlToJakartaEE11() {
+        rewriteRun(spec -> spec.recipe(recipe()),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <ejb-jar xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/ejb-jar_3_2.xsd"
+                       version="3.2">
+                  <display-name>example-ejb</display-name>
+              </ejb-jar>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <ejb-jar xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/ejb-jar_4_0.xsd"
+                       version="4.0">
+                  <display-name>example-ejb</display-name>
+              </ejb-jar>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/resources/META-INF/ejb-jar.xml")
+          )
+        );
+    }
+
+    @Test
+    void upgradesRaXmlToJakartaConnectors21() {
+        rewriteRun(spec -> spec.recipe(recipe()),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <connector xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/connector_2_0.xsd"
+                         version="2.0">
+                  <display-name>example-adapter</display-name>
+              </connector>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <connector xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/connector_2_1.xsd"
+                         version="2.1">
+                  <display-name>example-adapter</display-name>
+              </connector>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/resources/META-INF/ra.xml")
+          )
+        );
+    }
+
+    @Test
+    void upgradesPersistenceXmlToJakartaPersistence32() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .expectedCyclesThatMakeChanges(2),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                           xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd"
+                           version="3.1">
+                  <persistence-unit name="example">
+                      <shared-cache-mode>NONE</shared-cache-mode>
+                  </persistence-unit>
+              </persistence>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                           xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
+                           version="3.2">
+                  <persistence-unit name="example">
+                      <shared-cache-mode>NONE</shared-cache-mode>
+                  </persistence-unit>
+              </persistence>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/resources/META-INF/persistence.xml")
+          )
+        );
+    }
+
+    @Test
+    void upgradesOrmXmlToJakartaPersistence32() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .expectedCyclesThatMakeChanges(2),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                               xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence/orm https://jakarta.ee/xml/ns/persistence/orm/orm_3_1.xsd"
+                               version="3.1">
+                  <description>example mappings</description>
+              </entity-mappings>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                               xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence/orm https://jakarta.ee/xml/ns/persistence/orm/orm_3_2.xsd"
+                               version="3.2">
+                  <description>example mappings</description>
+              </entity-mappings>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/resources/META-INF/orm.xml")
+          )
+        );
+    }
+
+    @Test
+    void upgradesValidationXmlToBeanValidation31() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .expectedCyclesThatMakeChanges(2),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <validation-config xmlns="https://jakarta.ee/xml/ns/validation/configuration"
+                                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                 xsi:schemaLocation="https://jakarta.ee/xml/ns/validation/configuration https://jakarta.ee/xml/ns/validation/validation-configuration-3.0.xsd"
+                                 version="3.0">
+                  <default-provider>org.hibernate.validator.HibernateValidator</default-provider>
+              </validation-config>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <validation-config xmlns="https://jakarta.ee/xml/ns/validation/configuration"
+                                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                 xsi:schemaLocation="https://jakarta.ee/xml/ns/validation/configuration https://jakarta.ee/xml/ns/validation/validation-configuration-3.1.xsd"
+                                 version="3.1">
+                  <default-provider>org.hibernate.validator.HibernateValidator</default-provider>
+              </validation-config>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/resources/META-INF/validation.xml")
+          )
+        );
+    }
+
+    @Test
+    void upgradesValidationMappingXmlToBeanValidation31() {
+        rewriteRun(spec -> spec.recipe(recipe()),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <constraint-mappings xmlns="https://jakarta.ee/xml/ns/validation/mapping"
+                                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                   xsi:schemaLocation="https://jakarta.ee/xml/ns/validation/mapping https://jakarta.ee/xml/ns/validation/validation-mapping-3.0.xsd"
+                                   version="3.0">
+                  <default-package>com.example.model</default-package>
+              </constraint-mappings>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <constraint-mappings xmlns="https://jakarta.ee/xml/ns/validation/mapping"
+                                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                   xsi:schemaLocation="https://jakarta.ee/xml/ns/validation/mapping https://jakarta.ee/xml/ns/validation/validation-mapping-3.1.xsd"
+                                   version="3.1">
+                  <default-package>com.example.model</default-package>
+              </constraint-mappings>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/resources/META-INF/validation/constraints.xml")
+          )
+        );
+    }
+
+    @Test
+    void upgradesFacesConfigXmlToJakartaFaces41() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .expectedCyclesThatMakeChanges(2),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <faces-config xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                            xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd"
+                            version="4.0">
+                  <name>example-faces</name>
+              </faces-config>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <faces-config xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                            xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_1.xsd"
+                            version="4.1">
+                  <name>example-faces</name>
+              </faces-config>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/webapp/WEB-INF/faces-config.xml")
+          )
+        );
+    }
+
+    @Test
+    void upgradesFaceletTagLibraryXmlToJakartaFaces41() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .expectedCyclesThatMakeChanges(2),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <facelet-taglib xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                              xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facelettaglibrary_4_0.xsd"
+                              version="4.0">
+                  <namespace>https://example.com/tags</namespace>
+              </facelet-taglib>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <facelet-taglib xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                              xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facelettaglibrary_4_1.xsd"
+                              version="4.1">
+                  <namespace>https://example.com/tags</namespace>
+              </facelet-taglib>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/resources/META-INF/example.taglib.xml")
+          )
+        );
+    }
+
+    @Test
+    void upgradesJspTagLibraryToJakartaPages40() {
+        rewriteRun(spec -> spec.recipe(recipe()),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <taglib xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-jsptaglibrary_3_0.xsd"
+                      version="3.0">
+                  <tlib-version>1.0</tlib-version>
+                  <short-name>example</short-name>
+                  <uri>https://example.com/tags</uri>
+              </taglib>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <taglib xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-jsptaglibrary_4_0.xsd"
+                      version="4.0">
+                  <tlib-version>1.0</tlib-version>
+                  <short-name>example</short-name>
+                  <uri>https://example.com/tags</uri>
+              </taglib>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/resources/META-INF/example.tld")
+          )
+        );
+    }
+
+    @Test
+    void upgradesBatchXmlToJakartaBatch20Descriptor() {
+        rewriteRun(spec -> spec.recipe(recipe()),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <batch-artifacts xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+                               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/batchXML_1_0.xsd"
+                               version="1.0">
+                  <ref id="exampleBatchlet" class="com.example.ExampleBatchlet"/>
+              </batch-artifacts>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <batch-artifacts xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                               xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/batchXML_2_0.xsd"
+                               version="2.0">
+                  <ref id="exampleBatchlet" class="com.example.ExampleBatchlet"/>
+              </batch-artifacts>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/resources/META-INF/batch.xml")
+          )
+        );
+    }
+
+    @Test
+    void upgradesBatchJobXmlToJakartaBatch20Descriptor() {
+        rewriteRun(spec -> spec.recipe(recipe()),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <job xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/jobXML_1_0.xsd"
+                   id="example-job"
+                   version="1.0">
+                  <step id="example-step"/>
+              </job>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <job xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/jobXML_2_0.xsd"
+                   id="example-job"
+                   version="2.0">
+                  <step id="example-step"/>
+              </job>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/resources/META-INF/batch-jobs/example-job.xml")
+          )
+        );
+    }
+
+    @Test
+    void upgradesPermissionsXmlToJakartaEE10Descriptor() {
+        rewriteRun(spec -> spec.recipe(recipe()),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <permissions xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                           xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/permissions_9.xsd"
+                           version="9">
+                  <permission>
+                      <class-name>java.io.FilePermission</class-name>
+                      <name>/tmp/example</name>
+                      <actions>read</actions>
+                  </permission>
+              </permissions>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <permissions xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                           xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/permissions_10.xsd"
+                           version="10">
+                  <permission>
+                      <class-name>java.io.FilePermission</class-name>
+                      <name>/tmp/example</name>
+                      <actions>read</actions>
+                  </permission>
+              </permissions>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/resources/META-INF/permissions.xml")
+          )
+        );
+    }
+
+    @Test
+    void upgradesWebServicesXmlToJakartaWebServices20() {
+        rewriteRun(spec -> spec.recipe(recipe()),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <webservices xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                           xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/javaee_web_services_1_4.xsd"
+                           version="1.4">
+                  <webservice-description>
+                      <webservice-description-name>ExampleService</webservice-description-name>
+                  </webservice-description>
+              </webservices>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <webservices xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                           xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/jakartaee_web_services_2_0.xsd"
+                           version="2.0">
+                  <webservice-description>
+                      <webservice-description-name>ExampleService</webservice-description-name>
+                  </webservice-description>
+              </webservices>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/resources/META-INF/webservices.xml")
+          )
+        );
+    }
+
+    @Test
+    void upgradesHandlerXmlToJakartaWebServicesMetadata30() {
+        rewriteRun(spec -> spec.recipe(recipe()),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <handler-chains xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+                              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/javaee_web_services_metadata_handler_2_0.xsd"
+                              version="2.0">
+                  <handler-chain>
+                      <handler>
+                          <handler-name>ExampleHandler</handler-name>
+                          <handler-class>javax.xml.ws.handler.Handler</handler-class>
+                      </handler>
+                  </handler-chain>
+              </handler-chains>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <handler-chains xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                              xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/jakartaee_web_services_metadata_handler_3_0.xsd"
+                              version="3.0">
+                  <handler-chain>
+                      <handler>
+                          <handler-name>ExampleHandler</handler-name>
+                          <handler-class>jakarta.xml.ws.handler.Handler</handler-class>
+                      </handler>
+                  </handler-chain>
+              </handler-chains>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/resources/META-INF/handler.xml")
+          )
+        );
+    }
+
+    @Test
     void preservesLegacyBeanDiscoveryMode() {
         rewriteRun(spec -> spec.recipe(recipe()),
           xml(

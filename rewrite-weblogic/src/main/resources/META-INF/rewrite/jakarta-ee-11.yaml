@@ -45,3 +45,580 @@ tags:
   - java
 recipeList:
   - org.openrewrite.java.migrate.jakarta.JakartaEE11
+  - com.oracle.weblogic.rewrite.jakarta.MigrateWebXmlToJakartaEE11
+  - com.oracle.weblogic.rewrite.jakarta.MigrateWebFragmentXmlToJakartaEE11
+  - com.oracle.weblogic.rewrite.jakarta.MigrateApplicationXmlToJakartaEE11
+  - com.oracle.weblogic.rewrite.jakarta.MigrateApplicationClientXmlToJakartaEE11
+  - com.oracle.weblogic.rewrite.jakarta.MigrateRaXmlToJakartaEE11
+  - com.oracle.weblogic.rewrite.jakarta.MigratePersistenceXmlToJakartaEE11
+  - com.oracle.weblogic.rewrite.jakarta.MigrateOrmXmlToJakartaEE11
+  - com.oracle.weblogic.rewrite.jakarta.MigrateValidationXmlToJakartaEE11
+  - com.oracle.weblogic.rewrite.jakarta.MigrateValidationMappingXmlToJakartaEE11
+  - com.oracle.weblogic.rewrite.jakarta.MigrateFacesConfigXmlToJakartaEE11
+  - com.oracle.weblogic.rewrite.jakarta.MigrateFacesTagLibraryXmlToJakartaEE11
+  - com.oracle.weblogic.rewrite.jakarta.MigrateJspTagLibraryToJakartaEE11
+  - com.oracle.weblogic.rewrite.jakarta.MigrateBatchXmlToJakartaEE11
+  - com.oracle.weblogic.rewrite.jakarta.MigrateBatchJobXmlToJakartaEE11
+  - com.oracle.weblogic.rewrite.jakarta.MigratePermissionsXmlToJakartaEE11
+  - com.oracle.weblogic.rewrite.jakarta.MigrateWebServicesXmlToJakartaEE11
+  - com.oracle.weblogic.rewrite.jakarta.MigrateHandlerXmlToJakartaEE11
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigrateWebXmlToJakartaEE11
+displayName: Migrate `web.xml` to Jakarta EE 11
+description: Update the namespace, schema location, and version in `web.xml` to Jakarta Servlet 6.1.
+tags:
+  - jakarta
+  - servlet
+  - webxml
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/web.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: web-app
+      attributeName: version
+      newValue: 6.1
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: web-app
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: web-app
+      attributeName: xmlns:xsi
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: web-app
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_1.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/web.xml'
+  - org.openrewrite.text.FindAndReplace:
+      find: jakarta.sql.
+      replace: javax.sql.
+      filePattern: '**/web.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigrateWebFragmentXmlToJakartaEE11
+displayName: Migrate `web-fragment.xml` to Jakarta EE 11
+description: Update the namespace, schema location, and version in `web-fragment.xml` to Jakarta Servlet 6.1.
+tags:
+  - jakarta
+  - servlet
+  - web-fragment
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/web-fragment.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: web-fragment
+      attributeName: version
+      newValue: 6.1
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: web-fragment
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: web-fragment
+      attributeName: xmlns:xsi
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: web-fragment
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-fragment_6_1.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/web-fragment.xml'
+  - org.openrewrite.text.FindAndReplace:
+      find: jakarta.sql.
+      replace: javax.sql.
+      filePattern: '**/web-fragment.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigrateApplicationXmlToJakartaEE11
+displayName: Migrate `application.xml` to Jakarta EE 11
+description: Update the namespace, schema location, and version in `application.xml` to Jakarta EE 11.
+tags:
+  - jakarta
+  - application
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/application.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: application
+      attributeName: version
+      newValue: 11
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: application
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: application
+      attributeName: xmlns:xsi
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: application
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/application_11.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/application.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigrateApplicationClientXmlToJakartaEE11
+displayName: Migrate `application-client.xml` for Jakarta EE 11
+description: Update the namespace, schema location, and version in `application-client.xml` to the version 10 descriptor used by Jakarta EE 11.
+tags:
+  - jakarta
+  - application-client
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/application-client.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: application-client
+      attributeName: version
+      newValue: 10
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: application-client
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: application-client
+      attributeName: xmlns:xsi
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: application-client
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/application-client_10.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/application-client.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigrateRaXmlToJakartaEE11
+displayName: Migrate `ra.xml` to Jakarta Connectors 2.1
+description: Update the namespace, schema location, and version in `ra.xml` to Jakarta Connectors 2.1.
+tags:
+  - jakarta
+  - connectors
+  - ra
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/ra.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: connector
+      attributeName: version
+      newValue: 2.1
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: connector
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: connector
+      attributeName: xmlns:xsi
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: connector
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/connector_2_1.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/ra.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigratePersistenceXmlToJakartaEE11
+displayName: Migrate `persistence.xml` to Jakarta Persistence 3.2
+description: Update the namespace, schema location, and version in `persistence.xml` to Jakarta Persistence 3.2.
+tags:
+  - jakarta
+  - persistence
+  - jpa
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/persistence.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: persistence
+      attributeName: version
+      newValue: 3.2
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: persistence
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/persistence
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: persistence
+      attributeName: xmlns:xsi
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: persistence
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/persistence.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigrateOrmXmlToJakartaEE11
+displayName: Migrate `orm.xml` to Jakarta Persistence 3.2
+description: Update the namespace, schema location, and version in `orm.xml` to Jakarta Persistence 3.2.
+tags:
+  - jakarta
+  - persistence
+  - jpa
+  - orm
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/orm.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: entity-mappings
+      attributeName: version
+      newValue: 3.2
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: entity-mappings
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/persistence/orm
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: entity-mappings
+      attributeName: xmlns:xsi
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: entity-mappings
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/persistence/orm https://jakarta.ee/xml/ns/persistence/orm/orm_3_2.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/orm.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigrateValidationXmlToJakartaEE11
+displayName: Migrate `validation.xml` to Jakarta Bean Validation 3.1
+description: Update the namespace, schema location, and version in `validation.xml` to Jakarta Bean Validation 3.1.
+tags:
+  - jakarta
+  - bean-validation
+  - validation
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/validation.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: validation-config
+      attributeName: version
+      newValue: 3.1
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: validation-config
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/validation/configuration
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: validation-config
+      attributeName: xmlns:xsi
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: validation-config
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/validation/configuration https://jakarta.ee/xml/ns/validation/validation-configuration-3.1.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/validation.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigrateValidationMappingXmlToJakartaEE11
+displayName: Migrate Bean Validation mapping XML to Jakarta Bean Validation 3.1
+description: Update the namespace, schema location, and version in Bean Validation mapping XML to Jakarta Bean Validation 3.1.
+tags:
+  - jakarta
+  - bean-validation
+  - validation-mapping
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/*.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: constraint-mappings
+      attributeName: version
+      newValue: 3.1
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: constraint-mappings
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/validation/mapping
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: constraint-mappings
+      attributeName: xmlns:xsi
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: constraint-mappings
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/validation/mapping https://jakarta.ee/xml/ns/validation/validation-mapping-3.1.xsd
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigrateFacesConfigXmlToJakartaEE11
+displayName: Migrate `faces-config.xml` to Jakarta Faces 4.1
+description: Update the namespace, schema location, and version in `faces-config.xml` to Jakarta Faces 4.1.
+tags:
+  - jakarta
+  - faces
+  - jsf
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/faces-config.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: faces-config
+      attributeName: version
+      newValue: 4.1
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: faces-config
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: faces-config
+      attributeName: xmlns:xsi
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: faces-config
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_1.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/faces-config.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigrateFacesTagLibraryXmlToJakartaEE11
+displayName: Migrate Facelet tag-library XML to Jakarta Faces 4.1
+description: Update the namespace, schema location, and version in Facelet tag-library XML to Jakarta Faces 4.1.
+tags:
+  - jakarta
+  - faces
+  - jsf
+  - taglib
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/*taglib*.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: facelet-taglib
+      attributeName: version
+      newValue: 4.1
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: facelet-taglib
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: facelet-taglib
+      attributeName: xmlns:xsi
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: facelet-taglib
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facelettaglibrary_4_1.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/*taglib*.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigrateJspTagLibraryToJakartaEE11
+displayName: Migrate JSP tag-library descriptors to Jakarta Pages 4.0
+description: Update the namespace, schema location, and version in `.tld` files to Jakarta Pages 4.0.
+tags:
+  - jakarta
+  - pages
+  - jsp
+  - tld
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/*.tld'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: taglib
+      attributeName: version
+      newValue: 4.0
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: taglib
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: taglib
+      attributeName: xmlns:xsi
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: taglib
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-jsptaglibrary_4_0.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/*.tld'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigrateBatchXmlToJakartaEE11
+displayName: Migrate `batch.xml` for Jakarta EE 11
+description: Update the namespace, schema location, and version in `batch.xml` to the Jakarta Batch 2.0 descriptor.
+tags:
+  - jakarta
+  - batch
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/batch.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: batch-artifacts
+      attributeName: version
+      newValue: 2.0
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: batch-artifacts
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: batch-artifacts
+      attributeName: xmlns:xsi
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: batch-artifacts
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/batchXML_2_0.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/batch.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigrateBatchJobXmlToJakartaEE11
+displayName: Migrate Batch job XML for Jakarta EE 11
+description: Update the namespace, schema location, and version in Batch job XML to the Jakarta Batch 2.0 descriptor.
+tags:
+  - jakarta
+  - batch
+  - batch-job
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/batch-jobs/*.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: job
+      attributeName: version
+      newValue: 2.0
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: job
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: job
+      attributeName: xmlns:xsi
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: job
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/jobXML_2_0.xsd
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigratePermissionsXmlToJakartaEE11
+displayName: Migrate `permissions.xml` for Jakarta EE 11
+description: Update the namespace, schema location, and version in `permissions.xml` to the version 10 descriptor used by Jakarta EE 11.
+tags:
+  - jakarta
+  - permissions
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/permissions.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: permissions
+      attributeName: version
+      newValue: 10
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: permissions
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: permissions
+      attributeName: xmlns:xsi
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: permissions
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/permissions_10.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/permissions.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigrateWebServicesXmlToJakartaEE11
+displayName: Migrate `webservices.xml` to Jakarta EE 11
+description: Update the namespace, schema location, and version in `webservices.xml` to Jakarta Web Services Metadata 2.0.
+tags:
+  - jakarta
+  - web-services
+  - webservices
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/webservices.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: webservices
+      attributeName: version
+      newValue: 2.0
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: webservices
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: webservices
+      attributeName: xmlns:xsi
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: webservices
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/jakartaee_web_services_2_0.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/webservices.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigrateHandlerXmlToJakartaEE11
+displayName: Migrate `handler.xml` to Jakarta EE 11
+description: Update the namespace, schema location, and version in `handler.xml` to Jakarta Web Services Metadata 3.0.
+tags:
+  - jakarta
+  - web-services
+  - handler
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/handler.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: handler-chains
+      attributeName: version
+      newValue: 3.0
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: handler-chains
+      attributeName: xmlns
+      newValue: https://jakarta.ee/xml/ns/jakartaee
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: handler-chains
+      attributeName: xmlns:xsi
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: handler-chains
+      attributeName: xsi:schemaLocation
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/jakartaee_web_services_metadata_handler_3_0.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/handler.xml'

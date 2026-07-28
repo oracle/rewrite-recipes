@@ -20,8 +20,10 @@ import org.openrewrite.test.RewriteTest;
 import java.io.File;
 import java.util.Collections;
 
+import static org.openrewrite.gradle.Assertions.buildGradle;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.openrewrite.maven.Assertions.pomXml;
+import static org.openrewrite.properties.Assertions.properties;
 
 class UpdateBuildToWebLogic2610Test implements RewriteTest {
 
@@ -114,6 +116,221 @@ class UpdateBuildToWebLogic2610Test implements RewriteTest {
                   </dependencies>
               </project>
               """
+          )
+        );
+    }
+
+    @Test
+    void updatesDirectGradleWebLogicDependencyVersion() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .executionContext(localMavenExecutionContext()),
+          buildGradle(
+            """
+              plugins {
+                  id 'java'
+              }
+
+              repositories {
+                  mavenCentral()
+              }
+
+              dependencies {
+                  implementation 'com.oracle.weblogic:weblogic-server-pom:15.1.1-0-0'
+              }
+              """,
+            """
+              plugins {
+                  id 'java'
+              }
+
+              repositories {
+                  mavenCentral()
+              }
+
+              dependencies {
+                  implementation 'com.oracle.weblogic:weblogic-server-pom:26.1.0-0-0'
+              }
+              """
+          )
+        );
+    }
+
+    @Test
+    void updatesGradlePropertyReferencedByWebLogicDependency() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .executionContext(localMavenExecutionContext()),
+          properties(
+            "weblogicVersion=15.1.1-0-0",
+            "weblogicVersion=26.1.0-0-0",
+            source -> source.path("gradle.properties")
+          ),
+          buildGradle(
+            """
+              plugins {
+                  id 'java'
+              }
+
+              repositories {
+                  mavenCentral()
+              }
+
+              dependencies {
+                  implementation "com.oracle.weblogic:weblogic-server-pom:${weblogicVersion}"
+              }
+              """
+          )
+        );
+    }
+
+    @Test
+    void updatesManagedWebLogicDependencyVersion() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .executionContext(localMavenExecutionContext()),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-app</artifactId>
+                  <version>1</version>
+                  <dependencyManagement>
+                      <dependencies>
+                          <dependency>
+                              <groupId>com.oracle.weblogic</groupId>
+                              <artifactId>weblogic-server-pom</artifactId>
+                              <version>15.1.1-0-0</version>
+                          </dependency>
+                      </dependencies>
+                  </dependencyManagement>
+              </project>
+              """,
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-app</artifactId>
+                  <version>1</version>
+                  <dependencyManagement>
+                      <dependencies>
+                          <dependency>
+                              <groupId>com.oracle.weblogic</groupId>
+                              <artifactId>weblogic-server-pom</artifactId>
+                              <version>26.1.0-0-0</version>
+                          </dependency>
+                      </dependencies>
+                  </dependencyManagement>
+              </project>
+              """
+          )
+        );
+    }
+
+    @Test
+    void updatesCustomPropertyReferencedByWebLogicDependency() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .executionContext(localMavenExecutionContext()),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-app</artifactId>
+                  <version>1</version>
+                  <properties>
+                      <wls.server.version>15.1.1-0-0</wls.server.version>
+                  </properties>
+                  <dependencies>
+                      <dependency>
+                          <groupId>com.oracle.weblogic</groupId>
+                          <artifactId>weblogic-server-pom</artifactId>
+                          <version>${wls.server.version}</version>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """,
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-app</artifactId>
+                  <version>1</version>
+                  <properties>
+                      <wls.server.version>26.1.0-0-0</wls.server.version>
+                  </properties>
+                  <dependencies>
+                      <dependency>
+                          <groupId>com.oracle.weblogic</groupId>
+                          <artifactId>weblogic-server-pom</artifactId>
+                          <version>${wls.server.version}</version>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """
+          )
+        );
+    }
+
+    @Test
+    void updatesParentPropertyUsedByChildModule() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .executionContext(localMavenExecutionContext()),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-parent</artifactId>
+                  <version>1</version>
+                  <packaging>pom</packaging>
+                  <properties>
+                      <weblogic.version>15.1.1-0-0</weblogic.version>
+                  </properties>
+                  <modules>
+                      <module>service</module>
+                  </modules>
+              </project>
+              """,
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-parent</artifactId>
+                  <version>1</version>
+                  <packaging>pom</packaging>
+                  <properties>
+                      <weblogic.version>26.1.0-0-0</weblogic.version>
+                  </properties>
+                  <modules>
+                      <module>service</module>
+                  </modules>
+              </project>
+              """
+          ),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <parent>
+                      <groupId>com.mycompany.app</groupId>
+                      <artifactId>my-parent</artifactId>
+                      <version>1</version>
+                  </parent>
+                  <artifactId>service</artifactId>
+                  <dependencies>
+                      <dependency>
+                          <groupId>com.oracle.weblogic</groupId>
+                          <artifactId>weblogic-server-pom</artifactId>
+                          <version>${weblogic.version}</version>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """,
+            source -> source.path("service/pom.xml")
           )
         );
     }

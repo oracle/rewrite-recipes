@@ -20,6 +20,7 @@ import org.openrewrite.test.RewriteTest;
 import java.io.File;
 import java.util.Collections;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.openrewrite.maven.Assertions.pomXml;
 
 class UpdateBuildToWebLogic2610Test implements RewriteTest {
@@ -41,13 +42,15 @@ class UpdateBuildToWebLogic2610Test implements RewriteTest {
                 .uri(new File("src/test/resources/test-repo").getAbsoluteFile().toURI().toString())
                 .build();
         mavenExecutionContext.setRepositories(Collections.singletonList(localRepository));
-        return mavenExecutionContext;
+        return MavenWrapperTestExecutionContext.configure(mavenExecutionContext);
     }
 
     @DocumentExample
     @Test
     void updatesOlderWebLogicVersionProperty() {
-        rewriteRun(spec -> spec.recipe(recipe()),
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .executionContext(localMavenExecutionContext()),
           pomXml(
             """
               <project>
@@ -214,5 +217,12 @@ class UpdateBuildToWebLogic2610Test implements RewriteTest {
               """
           )
         );
+    }
+
+    @Test
+    void includesExistingMavenWrapperUpdate() {
+        assertTrue(recipe().getRecipeList().stream()
+                .anyMatch(childRecipe -> childRecipe.getName()
+                        .equals("com.oracle.weblogic.rewrite.UpdateExistingMavenWrapperFor2610")));
     }
 }

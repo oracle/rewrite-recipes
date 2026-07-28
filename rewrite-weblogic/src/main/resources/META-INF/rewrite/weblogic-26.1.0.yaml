@@ -57,3 +57,14 @@ recipeList:
       groupId: com.oracle.weblogic
       artifactId: '*'
       newVersion: 26.1.0-0-0
+  - com.oracle.weblogic.rewrite.UpdateExistingMavenWrapperFor2610
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.UpdateExistingMavenWrapperFor2610
+displayName: Update an existing Maven Wrapper for WebLogic 26.1.0
+description: Update an existing Maven Wrapper to versions compatible with the WebLogic 26.1.0 build.
+recipeList:
+  - org.openrewrite.maven.UpdateMavenWrapper:
+      wrapperVersion: 3.3.4
+      distributionVersion: 3.9.16
+      addIfMissing: false

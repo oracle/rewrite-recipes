@@ -70,6 +70,64 @@ recipeList:
       addIfMissing: false
 ---
 type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.NormalizeWebLogic2610DependencyScopes
+displayName: Normalize dependency scopes for WebLogic 26.1.0
+description: Normalize application dependency scopes for APIs provided by WebLogic 26.1.0.
+tags:
+  - weblogic
+  - dependencies
+  - scopes
+recipeList:
+  - com.oracle.weblogic.rewrite.ChangeJakartaInjectAPIDependencyScopeFor2610
+  - com.oracle.weblogic.rewrite.ChangeJakartaRestAPIDependencyScopeFor2610
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.ChangeJakartaInjectAPIDependencyScopeFor2610
+displayName: Use the provided scope for Jakarta Dependency Injection on WebLogic 26.1.0
+description: Change `jakarta.inject-api` to provided when the Jakarta EE 11 platform API is provided by WebLogic 26.1.0.
+tags:
+  - weblogic
+  - jakarta
+  - dependency-injection
+preconditions:
+  - org.openrewrite.java.dependencies.DependencyInsight:
+      groupIdPattern: jakarta.platform
+      artifactIdPattern: jakarta.jakartaee-api
+      version: 11.x
+      scope: provided
+      onlyDirect: true
+  - org.openrewrite.xml.search.FindTags:
+      xPath: /project/dependencies/dependency[groupId='jakarta.platform' and artifactId='jakarta.jakartaee-api' and scope='provided']
+recipeList:
+  - org.openrewrite.maven.ChangeDependencyScope:
+      groupId: jakarta.inject
+      artifactId: jakarta.inject-api
+      newScope: provided
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.ChangeJakartaRestAPIDependencyScopeFor2610
+displayName: Use the provided scope for Jakarta REST on WebLogic 26.1.0
+description: Change `jakarta.ws.rs-api` to provided when the Jakarta EE 11 platform API is provided by WebLogic 26.1.0.
+tags:
+  - weblogic
+  - jakarta
+  - rest
+preconditions:
+  - org.openrewrite.java.dependencies.DependencyInsight:
+      groupIdPattern: jakarta.platform
+      artifactIdPattern: jakarta.jakartaee-api
+      version: 11.x
+      scope: provided
+      onlyDirect: true
+  - org.openrewrite.xml.search.FindTags:
+      xPath: /project/dependencies/dependency[groupId='jakarta.platform' and artifactId='jakarta.jakartaee-api' and scope='provided']
+recipeList:
+  - org.openrewrite.maven.ChangeDependencyScope:
+      groupId: jakarta.ws.rs
+      artifactId: jakarta.ws.rs-api
+      newScope: provided
+---
+type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo2610
 displayName: Migrate WebLogic schemas to 26.1.0
 description: Migrate WebLogic deployment descriptors to the schemas used by WebLogic 26.1.0.

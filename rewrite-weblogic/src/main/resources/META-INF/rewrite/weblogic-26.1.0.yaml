@@ -68,3 +68,507 @@ recipeList:
       wrapperVersion: 3.3.4
       distributionVersion: 3.9.16
       addIfMissing: false
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo2610
+displayName: Migrate WebLogic schemas to 26.1.0
+description: Migrate WebLogic deployment descriptors to the schemas used by WebLogic 26.1.0.
+tags:
+  - weblogic
+  - schemas
+  - descriptors
+  - jakarta
+recipeList:
+  - com.oracle.weblogic.rewrite.WebLogicXmlWebAppNamespace2610
+  - com.oracle.weblogic.rewrite.WebLogicEjbJar32XmlNamespace2610
+  - com.oracle.weblogic.rewrite.WebLogicRdbmsJarXmlNamespace2610
+  - com.oracle.weblogic.rewrite.WebLogicPersistenceConfigurationXmlNamespace2610
+  - com.oracle.weblogic.rewrite.WebLogicWebServicesXmlNamespace2610
+  - com.oracle.weblogic.rewrite.WebLogicWseeClientHandlerChainXmlNamespace2610
+  - com.oracle.weblogic.rewrite.WebLogicWebservicesPolicyRefXmlNamespace2610
+  - com.oracle.weblogic.rewrite.WebLogicWseeStandaloneClientXmlNamespace2610
+  - com.oracle.weblogic.rewrite.WebLogicRaXmlNamespace2610
+  - com.oracle.weblogic.rewrite.WebLogicApplicationXmlNamespace2610
+  - com.oracle.weblogic.rewrite.WebLogicApplicationClientXmlNamespace2610
+  - com.oracle.weblogic.rewrite.WebLogicPubSubXmlNamespace2610
+  - com.oracle.weblogic.rewrite.WebLogicJmsXmlNamespace2610
+  - com.oracle.weblogic.rewrite.WebLogicJdbcXmlNamespace2610
+  - com.oracle.weblogic.rewrite.WebLogicPlanXmlNamespace2610
+  - com.oracle.weblogic.rewrite.WebLogicResourceDeploymentPlanXmlNamespace2610
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicXmlWebAppNamespace2610
+displayName: Migrate `weblogic.xml` to the WebLogic 26.1.0 schema
+description: Update the namespace and schema location in `weblogic.xml` for WebLogic 26.1.0.
+tags:
+  - weblogic
+  - web-app
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-web-app
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-web-app
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:wls
+      elementName: weblogic-web-app
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-web-app
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-web-app
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-web-app
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-web-app http://xmlns.oracle.com/weblogic/weblogic-web-app/2.0/weblogic-web-app.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/weblogic.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicEjbJar32XmlNamespace2610
+displayName: Migrate `weblogic-ejb-jar.xml` to the WebLogic 26.1.0 schema
+description: Update the namespace and schema location in `weblogic-ejb-jar.xml` for WebLogic 26.1.0.
+tags:
+  - weblogic
+  - ejb-jar
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic-ejb-jar.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-ejb-jar
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-ejb-jar
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-ejb-jar
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-ejb-jar
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-ejb-jar http://xmlns.oracle.com/weblogic/weblogic-ejb-jar/2.0/weblogic-ejb-jar.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/weblogic-ejb-jar.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicRdbmsJarXmlNamespace2610
+displayName: Migrate `weblogic-rdbms-jar.xml` to the WebLogic 26.1.0 schema
+description: Update the namespace and schema location in `weblogic-rdbms-jar.xml` for WebLogic 26.1.0.
+tags:
+  - weblogic
+  - rdbms-jar
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic-rdbms-jar.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-rdbms-jar
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-rdbms-jar
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-rdbms-jar
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-rdbms-jar
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-rdbms-jar http://xmlns.oracle.com/weblogic/weblogic-rdbms-jar/2.0/weblogic-rdbms20-persistence.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/weblogic-rdbms-jar.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicPersistenceConfigurationXmlNamespace2610
+displayName: Migrate `persistence-configuration.xml` to the WebLogic 26.1.0 schema
+description: Update the namespace and schema location in `persistence-configuration.xml` for WebLogic 26.1.0.
+tags:
+  - weblogic
+  - persistence-configuration
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/persistence-configuration.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: persistence-configuration
+      newValue: http://xmlns.oracle.com/weblogic/persistence-configuration
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: persistence-configuration
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: persistence-configuration
+      newValue: http://xmlns.oracle.com/weblogic/persistence-configuration http://xmlns.oracle.com/weblogic/persistence-configuration/1.0/persistence-configuration.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/persistence-configuration.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicWebServicesXmlNamespace2610
+displayName: Migrate `weblogic-webservices.xml` to the WebLogic 26.1.0 schema
+description: Update the namespace and schema location in `weblogic-webservices.xml` for WebLogic 26.1.0.
+tags:
+  - weblogic
+  - webservices
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic-webservices.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-webservices
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-webservices
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-webservices
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-webservices
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-webservices http://xmlns.oracle.com/weblogic/weblogic-webservices/2.0/weblogic-webservices.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/weblogic-webservices.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicWseeClientHandlerChainXmlNamespace2610
+displayName: Migrate `weblogic-wsee-clientHandlerChain.xml` to the WebLogic 26.1.0 schema
+description: Update the namespace and schema location in `weblogic-wsee-clientHandlerChain.xml` for WebLogic 26.1.0.
+tags:
+  - weblogic
+  - wsee-clientHandlerChain
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic-wsee-clientHandlerChain.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-wsee-clientHandlerChain
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-wsee-clientHandlerChain
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-wsee-clientHandlerChain
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-wsee-clientHandlerChain
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-wsee-clientHandlerChain http://xmlns.oracle.com/weblogic/weblogic-wsee-clientHandlerChain/2.0/weblogic-wsee-clientHandlerChain.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/weblogic-wsee-clientHandlerChain.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicWebservicesPolicyRefXmlNamespace2610
+displayName: Migrate `weblogic-webservices-policy.xml` to the WebLogic 26.1.0 schema
+description: Update the namespace and schema location in `weblogic-webservices-policy.xml` for WebLogic 26.1.0.
+tags:
+  - weblogic
+  - webservices-policy
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic-webservices-policy.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: webservice-policy-ref
+      newValue: http://xmlns.oracle.com/weblogic/webservice-policy-ref
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: webservice-policy-ref
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: webservice-policy-ref
+      newValue: http://xmlns.oracle.com/weblogic/webservice-policy-ref http://xmlns.oracle.com/weblogic/webservice-policy-ref/2.0/webservice-policy-ref.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/weblogic-webservices-policy.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicWseeStandaloneClientXmlNamespace2610
+displayName: Migrate `weblogic-wsee-standaloneclient.xml` to the WebLogic 26.1.0 schema
+description: Update the namespace and schema location in `weblogic-wsee-standaloneclient.xml` for WebLogic 26.1.0.
+tags:
+  - weblogic
+  - wsee-standaloneclient
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic-wsee-standaloneclient.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-wsee-standaloneclient
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-wsee-standaloneclient
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-wsee-standaloneclient
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-wsee-standaloneclient
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-wsee-standaloneclient http://xmlns.oracle.com/weblogic/weblogic-wsee-standaloneclient/2.0/weblogic-wsee-standaloneclient.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/weblogic-wsee-standaloneclient.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicRaXmlNamespace2610
+displayName: Migrate `weblogic-ra.xml` to the WebLogic 26.1.0 schema
+description: Update the namespace and schema location in `weblogic-ra.xml` for WebLogic 26.1.0.
+tags:
+  - weblogic
+  - ra
+  - connector
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic-ra.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-connector
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-connector
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-connector
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-connector
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-connector http://xmlns.oracle.com/weblogic/weblogic-connector/2.0/weblogic-connector.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/weblogic-ra.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicApplicationXmlNamespace2610
+displayName: Migrate `weblogic-application.xml` to the WebLogic 26.1.0 schema
+description: Update the namespace and schema location in `weblogic-application.xml` for WebLogic 26.1.0.
+tags:
+  - weblogic
+  - application
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic-application.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-application
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-application
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-application
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-application
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-application http://xmlns.oracle.com/weblogic/weblogic-application/2.0/weblogic-application.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/weblogic-application.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicApplicationClientXmlNamespace2610
+displayName: Migrate WebLogic application-client descriptors to the WebLogic 26.1.0 schema
+description: Update the namespace and schema location in WebLogic application-client descriptors for WebLogic 26.1.0.
+tags:
+  - weblogic
+  - application-client
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/*application-client.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-application-client
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-application-client
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-application-client
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-application-client
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-application-client http://xmlns.oracle.com/weblogic/weblogic-application-client/2.0/weblogic-application-client.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/*application-client.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicPubSubXmlNamespace2610
+displayName: Migrate `weblogic-pubsub.xml` to the WebLogic 26.1.0 schema
+description: Update the namespace and schema location in `weblogic-pubsub.xml` for WebLogic 26.1.0.
+tags:
+  - weblogic
+  - pubsub
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/weblogic-pubsub.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-pubsub
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-pubsub
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-pubsub
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-pubsub
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-pubsub http://xmlns.oracle.com/weblogic/weblogic-pubsub/1.0/weblogic-pubsub.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/weblogic-pubsub.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicJmsXmlNamespace2610
+displayName: Migrate `*-jms.xml` to the WebLogic 26.1.0 schema
+description: Update the namespace and schema location in WebLogic JMS descriptors for WebLogic 26.1.0.
+tags:
+  - weblogic
+  - jms
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/*-jms.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: weblogic-jms
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-jms
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: weblogic-jms
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: weblogic-jms
+      newValue: http://xmlns.oracle.com/weblogic/weblogic-jms http://xmlns.oracle.com/weblogic/weblogic-jms/1.1/weblogic-jms.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/*-jms.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicJdbcXmlNamespace2610
+displayName: Migrate `*-jdbc.xml` to the WebLogic 26.1.0 schema
+description: Update the namespace and schema location in WebLogic JDBC descriptors for WebLogic 26.1.0.
+tags:
+  - weblogic
+  - jdbc
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/*-jdbc.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: jdbc-data-source
+      newValue: http://xmlns.oracle.com/weblogic/jdbc-data-source
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:sec
+      elementName: jdbc-data-source
+      newValue: http://xmlns.oracle.com/weblogic/security
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: jdbc-data-source
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:wls
+      elementName: jdbc-data-source
+      newValue: http://xmlns.oracle.com/weblogic/security/wls
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: jdbc-data-source
+      newValue: http://xmlns.oracle.com/weblogic/jdbc-data-source http://xmlns.oracle.com/weblogic/jdbc-data-source/2.0/jdbc-data-source.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/*-jdbc.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicPlanXmlNamespace2610
+displayName: Migrate `plan.xml` to the WebLogic 26.1.0 schema
+description: Update the namespace and schema location in `plan.xml` for WebLogic 26.1.0.
+tags:
+  - weblogic
+  - deployment-plan
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/plan.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: deployment-plan
+      newValue: http://xmlns.oracle.com/weblogic/deployment-plan
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: deployment-plan
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: deployment-plan
+      newValue: http://xmlns.oracle.com/weblogic/deployment-plan http://xmlns.oracle.com/weblogic/deployment-plan/2.0/deployment-plan.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/plan.xml'
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.WebLogicResourceDeploymentPlanXmlNamespace2610
+displayName: Migrate `resource-deployment-plan.xml` to the WebLogic 26.1.0 schema
+description: Update the namespace and schema location in `resource-deployment-plan.xml` for WebLogic 26.1.0.
+tags:
+  - weblogic
+  - resource-deployment-plan
+  - schemas
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/resource-deployment-plan.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns
+      elementName: resource-deployment-plan
+      newValue: http://xmlns.oracle.com/weblogic/resource-deployment-plan
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xmlns:xsi
+      elementName: resource-deployment-plan
+      newValue: http://www.w3.org/2001/XMLSchema-instance
+  - org.openrewrite.xml.ChangeTagAttribute:
+      attributeName: xsi:schemaLocation
+      elementName: resource-deployment-plan
+      newValue: http://xmlns.oracle.com/weblogic/resource-deployment-plan http://xmlns.oracle.com/weblogic/resource-deployment-plan/1.0/resource-deployment-plan.xsd
+  - org.openrewrite.text.FindAndReplace:
+      find: javax.
+      replace: jakarta.
+      filePattern: '**/resource-deployment-plan.xml'

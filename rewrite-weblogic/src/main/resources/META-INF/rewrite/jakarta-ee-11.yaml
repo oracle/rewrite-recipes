@@ -44,6 +44,7 @@ tags:
   - jakarta
   - java
 recipeList:
+  - com.oracle.weblogic.rewrite.jakarta.PreserveLegacyBeansXmlDiscoveryMode
   - org.openrewrite.java.migrate.jakarta.JakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateWebXmlToJakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateWebFragmentXmlToJakartaEE11
@@ -62,6 +63,37 @@ recipeList:
   - com.oracle.weblogic.rewrite.jakarta.MigratePermissionsXmlToJakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateWebServicesXmlToJakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateHandlerXmlToJakartaEE11
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.PreserveLegacyBeansXmlDiscoveryMode
+displayName: Preserve legacy CDI bean discovery mode
+description: Preserve the effective `all` discovery mode of existing pre-CDI 4 `beans.xml` descriptors when migrating to CDI 4.1.
+tags:
+  - jakarta
+  - cdi
+  - beans
+recipeList:
+  - org.openrewrite.java.migrate.BeanDiscovery
+  - com.oracle.weblogic.rewrite.jakarta.PreserveVersionedLegacyBeansXmlDiscoveryMode
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.PreserveVersionedLegacyBeansXmlDiscoveryMode
+displayName: Preserve versioned legacy CDI bean discovery mode
+description: Add an explicit `all` discovery mode to an existing CDI 1.x, 2.x, or 3.x `beans.xml` descriptor that does not specify one.
+tags:
+  - jakarta
+  - cdi
+  - beans
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/beans.xml'
+  - org.openrewrite.xml.search.FindTags:
+      xPath: /beans[not(@bean-discovery-mode) and (@version = '1.0' or @version = '1.1' or @version = '2.0' or @version = '3.0')]
+recipeList:
+  - org.openrewrite.xml.AddTagAttribute:
+      elementName: beans
+      attributeName: bean-discovery-mode
+      newValue: all
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.MigrateWebXmlToJakartaEE11

@@ -132,6 +132,11 @@
           <artifactId>rewrite-hibernate</artifactId>
           <scope>test</scope>
       </dependency>
+      <dependency>
+          <groupId>org.openrewrite.recipe</groupId>
+          <artifactId>rewrite-spring</artifactId>
+          <scope>test</scope>
+      </dependency>
   </dependencies>
 
   <build>

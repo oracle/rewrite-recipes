@@ -35,9 +35,12 @@ class MigrateToJakartaEE11Test implements RewriteTest {
 
     @Test
     void includesUpstreamJakartaEE11Migration() {
-        Recipe childRecipe = recipe().getRecipeList().get(0);
+        Recipe preserveBeanDiscoveryMode = recipe().getRecipeList().get(0);
+        Recipe upstreamJakartaMigration = recipe().getRecipeList().get(1);
 
-        assertEquals("org.openrewrite.java.migrate.jakarta.JakartaEE11", childRecipe.getName());
+        assertEquals("com.oracle.weblogic.rewrite.jakarta.PreserveLegacyBeansXmlDiscoveryMode",
+                preserveBeanDiscoveryMode.getName());
+        assertEquals("org.openrewrite.java.migrate.jakarta.JakartaEE11", upstreamJakartaMigration.getName());
     }
 
     @Test

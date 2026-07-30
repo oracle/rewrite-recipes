@@ -129,6 +129,11 @@
       </dependency>
       <dependency>
           <groupId>org.openrewrite.recipe</groupId>
+          <artifactId>rewrite-migrate-java</artifactId>
+          <scope>test</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.openrewrite.recipe</groupId>
           <artifactId>rewrite-hibernate</artifactId>
           <scope>test</scope>
       </dependency>

@@ -318,6 +318,7 @@ recipeList:
   - org.openrewrite.java.ChangePackage:
       oldPackageName: jakarta.sql.rowset
       newPackageName: javax.sql.rowset
+      recursive: true
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.UpgradeCommonOpenSourceLibraries

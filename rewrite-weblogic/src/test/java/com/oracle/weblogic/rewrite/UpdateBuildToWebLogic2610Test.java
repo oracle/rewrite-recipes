@@ -427,7 +427,7 @@ class UpdateBuildToWebLogic2610Test implements RewriteTest {
                       <dependency>
                           <groupId>com.oracle.database.jdbc</groupId>
                           <artifactId>ojdbc11</artifactId>
-                          <version>23.2.0.0</version>
+                          <version>23.5.0.24.07</version>
                       </dependency>
                   </dependencies>
               </project>

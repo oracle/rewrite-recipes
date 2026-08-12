@@ -7,7 +7,7 @@
 # Subject to the condition set forth below, permission is hereby granted to any
 # person obtaining a copy of this software, associated documentation and/or data
 # (collectively the "Software"), free of charge and under any and all copyright
-# rights in the Software, and in any and all patent rights owned or freely
+# rights in the Software, and any and all patent rights owned or freely
 # licensable by each licensor hereunder covering either (i) the unmodified
 # Software as contributed to or provided by such licensor, or (ii) the Larger
 # Works (as defined below), to deal in both
@@ -37,32 +37,15 @@
 # SOFTWARE.
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_7_0ForWebLogic2610
-displayName: Migrate to Spring Framework 7 for WebLogic 26.1.0
-description: Migrate a Spring application to Spring Framework 7 and apply compatibility changes for WebLogic 26.1.0.
+name: com.oracle.weblogic.rewrite.UpgradeJPATo32HibernateTo70ForWebLogic2610
+displayName: Upgrade Jakarta Persistence to 3.2 and Hibernate to 7.0 for WebLogic 26.1.0
+description: Upgrade Jakarta Persistence to 3.2 and Hibernate ORM to 7.0.8.Final for WebLogic 26.1.0 on Java 21 or Java 25.
 tags:
-  - springframework
+  - jakarta
+  - jpa
+  - hibernate
+  - persistence
   - weblogic
 recipeList:
-  - org.openrewrite.java.spring.framework.UpgradeSpringFramework_7_0
-  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
-      groupId: org.springframework
-      artifactId: '*'
-      newVersion: 7.0.8
-  - com.oracle.weblogic.rewrite.spring.framework.UseWebLogicJtaTransactionManagerForSpring7
----
-type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.spring.framework.UseWebLogicJtaTransactionManagerForSpring7
-displayName: Use Spring's WebLogic JTA transaction manager
-description: Use Spring's WebLogic-specific JTA transaction manager when the WebLogic Spring 7 migration lane is explicitly activated.
-tags:
-  - springframework
-  - weblogic
-  - transactions
-recipeList:
-  - com.oracle.weblogic.rewrite.spring.framework.UseWebLogicJtaTransactionManagerForSpring7JavaConfig
-  - org.openrewrite.xml.ChangeTagAttribute:
-      elementName: bean
-      attributeName: class
-      oldValue: org.springframework.transaction.jta.JtaTransactionManager
-      newValue: org.springframework.transaction.jta.WebLogicJtaTransactionManager
+  - com.oracle.weblogic.rewrite.jakarta.UpdateJakartaPersistenceTo32
+  - com.oracle.weblogic.rewrite.hibernate.UpgradeHibernateTo70ForWebLogic2610

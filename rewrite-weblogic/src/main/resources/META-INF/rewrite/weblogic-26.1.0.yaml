@@ -39,7 +39,7 @@
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.UpgradeTo2610
 displayName: Migrate to WebLogic 26.1.0
-description: Apply the core changes required to migrate an application to WebLogic 26.1.0.
+description: Apply the core changes required to migrate an application to WebLogic 26.1.0. Use the separate Java 21 or Java 25 build recipe to select a supported Java target.
 tags:
   - weblogic
   - java

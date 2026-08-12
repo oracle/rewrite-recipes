@@ -7,7 +7,7 @@
 # Subject to the condition set forth below, permission is hereby granted to any
 # person obtaining a copy of this software, associated documentation and/or data
 # (collectively the "Software"), free of charge and under any and all copyright
-# rights in the Software, and in any and all patent rights owned or freely
+# rights in the Software, and any and all patent rights owned or freely
 # licensable by each licensor hereunder covering either (i) the unmodified
 # Software as contributed to or provided by such licensor, or (ii) the Larger
 # Works (as defined below), to deal in both
@@ -37,32 +37,23 @@
 # SOFTWARE.
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_7_0ForWebLogic2610
-displayName: Migrate to Spring Framework 7 for WebLogic 26.1.0
-description: Migrate a Spring application to Spring Framework 7 and apply compatibility changes for WebLogic 26.1.0.
+name: com.oracle.weblogic.rewrite.UpgradeBuildToJava21ForWebLogic2610
+displayName: Upgrade the build to Java 21 for WebLogic 26.1.0
+description: Set the application build target to Java 21, one of the Java versions supported by WebLogic 26.1.0, without changing application source code.
 tags:
-  - springframework
   - weblogic
+  - java21
 recipeList:
-  - org.openrewrite.java.spring.framework.UpgradeSpringFramework_7_0
-  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
-      groupId: org.springframework
-      artifactId: '*'
-      newVersion: 7.0.8
-  - com.oracle.weblogic.rewrite.spring.framework.UseWebLogicJtaTransactionManagerForSpring7
+  - org.openrewrite.java.migrate.UpgradeJavaVersion:
+      version: 21
 ---
 type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.spring.framework.UseWebLogicJtaTransactionManagerForSpring7
-displayName: Use Spring's WebLogic JTA transaction manager
-description: Use Spring's WebLogic-specific JTA transaction manager when the WebLogic Spring 7 migration lane is explicitly activated.
+name: com.oracle.weblogic.rewrite.UpgradeBuildToJava25ForWebLogic2610
+displayName: Upgrade the build to Java 25 for WebLogic 26.1.0
+description: Set the application build target to Java 25, one of the Java versions supported by WebLogic 26.1.0, without changing application source code.
 tags:
-  - springframework
   - weblogic
-  - transactions
+  - java25
 recipeList:
-  - com.oracle.weblogic.rewrite.spring.framework.UseWebLogicJtaTransactionManagerForSpring7JavaConfig
-  - org.openrewrite.xml.ChangeTagAttribute:
-      elementName: bean
-      attributeName: class
-      oldValue: org.springframework.transaction.jta.JtaTransactionManager
-      newValue: org.springframework.transaction.jta.WebLogicJtaTransactionManager
+  - org.openrewrite.java.migrate.UpgradeJavaVersion:
+      version: 25

@@ -108,6 +108,20 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
     }
 
     @Test
+    void doesNotReportPolicyLikeTextInNonPolicyFile() {
+        rewriteRun(spec -> spec.recipe(recipe()),
+          text(
+            """
+              grant {
+                  permission java.io.FilePermission "/opt/app/-", "read";
+              };
+              """,
+            source -> source.path("config/application-policy.txt")
+          )
+        );
+    }
+
+    @Test
     void reportsCustomSecurityManagerImplementation() {
         rewriteRun(spec -> spec.recipe(recipe()),
           java(
@@ -259,6 +273,22 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
     }
 
     @Test
+    void doesNotReportDisabledPreferWebInfClassesOverride() {
+        rewriteRun(spec -> spec.recipe(recipe()),
+          xml(
+            """
+              <weblogic-web-app>
+                  <container-descriptor>
+                      <prefer-web-inf-classes>false</prefer-web-inf-classes>
+                  </container-descriptor>
+              </weblogic-web-app>
+              """,
+            source -> source.path("src/main/webapp/WEB-INF/weblogic.xml")
+          )
+        );
+    }
+
+    @Test
     void reportsPreferApplicationPackagesOverride() {
         rewriteRun(spec -> spec.recipe(recipe()),
           xml(
@@ -304,6 +334,22 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
                       <!--~~>--><prefer-application-resources>
                           <resource-name>META-INF/services/*</resource-name>
                       </prefer-application-resources>
+                  </container-descriptor>
+              </weblogic-web-app>
+              """,
+            source -> source.path("src/main/webapp/WEB-INF/weblogic.xml")
+          )
+        );
+    }
+
+    @Test
+    void doesNotReportAbsentPreferApplicationOverrides() {
+        rewriteRun(spec -> spec.recipe(recipe()),
+          xml(
+            """
+              <weblogic-web-app>
+                  <container-descriptor>
+                      <prefer-web-inf-classes>false</prefer-web-inf-classes>
                   </container-descriptor>
               </weblogic-web-app>
               """,

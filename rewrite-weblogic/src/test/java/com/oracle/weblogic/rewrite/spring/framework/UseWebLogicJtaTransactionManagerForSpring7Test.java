@@ -11,12 +11,14 @@ import org.junit.jupiter.api.Test;
 import org.openrewrite.Recipe;
 import org.openrewrite.config.Environment;
 import org.openrewrite.java.JavaParser;
+import org.openrewrite.java.dependencies.UpgradeDependencyVersion;
 import org.openrewrite.test.RewriteTest;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.openrewrite.java.Assertions.java;
 import static org.openrewrite.xml.Assertions.xml;
 
@@ -52,8 +54,15 @@ class UseWebLogicJtaTransactionManagerForSpring7Test implements RewriteTest {
         assertEquals(
                 Arrays.asList(
                         "org.openrewrite.java.spring.framework.UpgradeSpringFramework_7_0",
+                        "org.openrewrite.java.dependencies.UpgradeDependencyVersion",
                         "com.oracle.weblogic.rewrite.spring.framework.UseWebLogicJtaTransactionManagerForSpring7"),
                 composite.getRecipeList().stream().map(Recipe::getName).collect(Collectors.toList()));
+
+        UpgradeDependencyVersion springVersionPin = assertInstanceOf(
+                UpgradeDependencyVersion.class, composite.getRecipeList().get(1));
+        assertEquals("org.springframework", springVersionPin.getGroupId());
+        assertEquals("*", springVersionPin.getArtifactId());
+        assertEquals("7.0.8", springVersionPin.getNewVersion());
     }
 
     @Test

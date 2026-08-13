@@ -34,12 +34,15 @@ class MigrateToJakartaEE11Test implements RewriteTest {
     }
 
     @Test
-    void includesUpstreamJakartaEE11Migration() {
+    void ordersWebXmlMigrationBeforeUpstreamJakartaEE11Migration() {
         Recipe preserveBeanDiscoveryMode = recipe().getRecipeList().get(0);
-        Recipe upstreamJakartaMigration = recipe().getRecipeList().get(1);
+        Recipe webXmlMigration = recipe().getRecipeList().get(1);
+        Recipe upstreamJakartaMigration = recipe().getRecipeList().get(2);
 
         assertEquals("com.oracle.weblogic.rewrite.jakarta.PreserveLegacyBeansXmlDiscoveryMode",
                 preserveBeanDiscoveryMode.getName());
+        assertEquals("com.oracle.weblogic.rewrite.jakarta.MigrateWebXmlToJakartaEE11",
+                webXmlMigration.getName());
         assertEquals("org.openrewrite.java.migrate.jakarta.JakartaEE11", upstreamJakartaMigration.getName());
     }
 
@@ -226,6 +229,46 @@ class MigrateToJakartaEE11Test implements RewriteTest {
                        xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_1.xsd"
                        version="6.1">
                   <display-name>example</display-name>
+              </web-app>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/webapp/WEB-INF/web.xml")
+          )
+        );
+    }
+
+    @Test
+    void upgradesLegacyServlet30WebXmlToServlet61InOneCycle() {
+        assertLegacyWebXmlUpgradesToServlet61(
+                "http://java.sun.com/xml/ns/javaee", "3.0", "servlet-30");
+    }
+
+    @Test
+    void upgradesLegacyServlet31WebXmlToServlet61InOneCycle() {
+        assertLegacyWebXmlUpgradesToServlet61(
+                "http://xmlns.jcp.org/xml/ns/javaee", "3.1", "servlet-31");
+    }
+
+    @Test
+    void upgradesLegacyServlet40WebXmlToServlet61InOneCycle() {
+        assertLegacyWebXmlUpgradesToServlet61(
+                "http://xmlns.jcp.org/xml/ns/javaee", "4.0", "servlet-40");
+    }
+
+    @Test
+    void keepsServlet61WebXmlUnchanged() {
+        rewriteRun(spec -> spec.recipe(recipe()),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_1.xsd"
+                       version="6.1">
+                  <display-name>servlet-61</display-name>
+                  <context-param>
+                      <param-name>jakarta.faces.FACELETS_LIBRARIES</param-name>
+                      <param-value>/WEB-INF/example.taglib.xml</param-value>
+                  </context-param>
               </web-app>
               """,
             sourceSpec -> sourceSpec.path("src/main/webapp/WEB-INF/web.xml")
@@ -849,6 +892,43 @@ class MigrateToJakartaEE11Test implements RewriteTest {
               </beans>
               """,
             sourceSpec -> sourceSpec.path("src/main/webapp/WEB-INF/beans.xml")
+          )
+        );
+    }
+
+    private void assertLegacyWebXmlUpgradesToServlet61(String namespace, String version, String displayName) {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .cycles(1)
+                .expectedCyclesThatMakeChanges(1),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <web-app xmlns="%s"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       xsi:schemaLocation="%s %s/web-app_%s.xsd"
+                       version="%s">
+                  <display-name>%s</display-name>
+                  <context-param>
+                      <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+                      <param-value>/WEB-INF/example.taglib.xml</param-value>
+                  </context-param>
+              </web-app>
+              """.formatted(namespace, namespace, namespace, version.replace('.', '_'), version, displayName),
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                       xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_1.xsd"
+                       version="6.1">
+                  <display-name>%s</display-name>
+                  <context-param>
+                      <param-name>jakarta.faces.FACELETS_LIBRARIES</param-name>
+                      <param-value>/WEB-INF/example.taglib.xml</param-value>
+                  </context-param>
+              </web-app>
+              """.formatted(displayName),
+            sourceSpec -> sourceSpec.path("src/main/webapp/WEB-INF/web.xml")
           )
         );
     }

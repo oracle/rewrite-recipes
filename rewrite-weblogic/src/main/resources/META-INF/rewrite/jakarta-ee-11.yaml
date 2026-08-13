@@ -45,10 +45,10 @@ tags:
   - java
 recipeList:
   - com.oracle.weblogic.rewrite.jakarta.PreserveLegacyBeansXmlDiscoveryMode
+  - com.oracle.weblogic.rewrite.jakarta.MigrateWebXmlToJakartaEE11
   - org.openrewrite.java.migrate.jakarta.JakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateLegacyHibernateMetamodelProcessorToJakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginConfigurationArtifactsToJakartaEE11
-  - com.oracle.weblogic.rewrite.jakarta.MigrateWebXmlToJakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateWebFragmentXmlToJakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateApplicationXmlToJakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateApplicationClientXmlToJakartaEE11

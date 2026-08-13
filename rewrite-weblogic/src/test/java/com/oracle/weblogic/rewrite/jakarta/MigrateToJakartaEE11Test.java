@@ -184,9 +184,39 @@ class MigrateToJakartaEE11Test implements RewriteTest {
               <?xml version="1.0" encoding="UTF-8"?>
               <application-client xmlns="https://jakarta.ee/xml/ns/jakartaee"
                                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                                  xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/application-client_10.xsd"
+                                  xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/application-client_11.xsd"
                                   version="10">
                   <display-name>example-client</display-name>
+              </application-client>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/resources/META-INF/application-client.xml")
+          )
+        );
+    }
+
+    @Test
+    void upgradesJavaEE8ApplicationClientXmlToJakartaEE11Idempotently() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .cycles(2)
+                .expectedCyclesThatMakeChanges(1),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <application-client xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+                                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                  xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application-client_8.xsd"
+                                  version="8">
+                  <display-name>java-ee-8-client</display-name>
+              </application-client>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <application-client xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                  xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/application-client_11.xsd"
+                                  version="10">
+                  <display-name>java-ee-8-client</display-name>
               </application-client>
               """,
             sourceSpec -> sourceSpec.path("src/main/resources/META-INF/application-client.xml")

@@ -204,7 +204,7 @@ recipeList:
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.MigrateApplicationClientXmlToJakartaEE11
 displayName: Migrate `application-client.xml` for Jakarta EE 11
-description: Update the namespace, schema location, and version in `application-client.xml` to the version 10 descriptor used by Jakarta EE 11.
+description: Update `application-client.xml` to the Jakarta EE 11 schema while retaining the descriptor version 10 required by that schema.
 tags:
   - jakarta
   - application-client
@@ -227,7 +227,7 @@ recipeList:
   - org.openrewrite.xml.ChangeTagAttribute:
       elementName: application-client
       attributeName: xsi:schemaLocation
-      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/application-client_10.xsd
+      newValue: https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/application-client_11.xsd
   - org.openrewrite.text.FindAndReplace:
       find: javax.
       replace: jakarta.

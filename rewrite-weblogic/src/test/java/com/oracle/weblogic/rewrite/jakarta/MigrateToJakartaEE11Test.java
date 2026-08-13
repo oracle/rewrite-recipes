@@ -163,6 +163,50 @@ class MigrateToJakartaEE11Test implements RewriteTest {
     }
 
     @Test
+    void upgradesLegacyHibernateMetamodelProcessorForJakartaEE11Idempotently() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .cycles(2)
+                .expectedCyclesThatMakeChanges(1)
+                .executionContext(localMavenExecutionContext()),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-app</artifactId>
+                  <version>1</version>
+                  <dependencies>
+                      <dependency>
+                          <groupId>org.hibernate</groupId>
+                          <artifactId>hibernate-jpamodelgen</artifactId>
+                          <version>4.3.10.Final</version>
+                          <scope>provided</scope>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """,
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-app</artifactId>
+                  <version>1</version>
+                  <dependencies>
+                      <dependency>
+                          <groupId>org.hibernate.orm</groupId>
+                          <artifactId>hibernate-processor</artifactId>
+                          <version>7.0.8.Final</version>
+                          <scope>provided</scope>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """
+          )
+        );
+    }
+
+    @Test
     void upgradesWebXmlToServlet61() {
         rewriteRun(spec -> spec.recipe(recipe()),
           xml(

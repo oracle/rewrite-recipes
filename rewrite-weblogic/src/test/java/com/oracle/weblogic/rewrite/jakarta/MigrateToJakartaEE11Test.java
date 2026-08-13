@@ -85,6 +85,84 @@ class MigrateToJakartaEE11Test implements RewriteTest {
     }
 
     @Test
+    void upgradesJavaEEApiInMavenPluginConfigurationToJakartaEE11() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .executionContext(localMavenExecutionContext()),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-app</artifactId>
+                  <version>1</version>
+                  <build>
+                      <plugins>
+                          <plugin>
+                              <groupId>org.apache.maven.plugins</groupId>
+                              <artifactId>maven-dependency-plugin</artifactId>
+                              <version>3.9.0</version>
+                              <executions>
+                                  <execution>
+                                      <goals>
+                                          <goal>copy</goal>
+                                      </goals>
+                                      <configuration>
+                                          <artifactItems>
+                                              <artifactItem>
+                                                  <groupId>javax</groupId>
+                                                  <artifactId>javaee-api</artifactId>
+                                                  <version>11.0.0</version>
+                                                  <type>jar</type>
+                                              </artifactItem>
+                                          </artifactItems>
+                                      </configuration>
+                                  </execution>
+                              </executions>
+                          </plugin>
+                      </plugins>
+                  </build>
+              </project>
+              """,
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-app</artifactId>
+                  <version>1</version>
+                  <build>
+                      <plugins>
+                          <plugin>
+                              <groupId>org.apache.maven.plugins</groupId>
+                              <artifactId>maven-dependency-plugin</artifactId>
+                              <version>3.9.0</version>
+                              <executions>
+                                  <execution>
+                                      <goals>
+                                          <goal>copy</goal>
+                                      </goals>
+                                      <configuration>
+                                          <artifactItems>
+                                              <artifactItem>
+                                                  <groupId>jakarta.platform</groupId>
+                                                  <artifactId>jakarta.jakartaee-api</artifactId>
+                                                  <version>11.0.0</version>
+                                                  <type>jar</type>
+                                              </artifactItem>
+                                          </artifactItems>
+                                      </configuration>
+                                  </execution>
+                              </executions>
+                          </plugin>
+                      </plugins>
+                  </build>
+              </project>
+              """
+          )
+        );
+    }
+
+    @Test
     void upgradesWebXmlToServlet61() {
         rewriteRun(spec -> spec.recipe(recipe()),
           xml(

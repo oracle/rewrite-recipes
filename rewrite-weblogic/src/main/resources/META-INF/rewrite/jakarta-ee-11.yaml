@@ -46,6 +46,7 @@ tags:
 recipeList:
   - com.oracle.weblogic.rewrite.jakarta.PreserveLegacyBeansXmlDiscoveryMode
   - org.openrewrite.java.migrate.jakarta.JakartaEE11
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginConfigurationArtifactsToJakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateWebXmlToJakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateWebFragmentXmlToJakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateApplicationXmlToJakartaEE11
@@ -63,6 +64,22 @@ recipeList:
   - com.oracle.weblogic.rewrite.jakarta.MigratePermissionsXmlToJakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateWebServicesXmlToJakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateHandlerXmlToJakartaEE11
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginConfigurationArtifactsToJakartaEE11
+displayName: Migrate Java EE API Maven plugin configuration artifacts to Jakarta EE 11
+description: Replace the legacy Java EE aggregate API artifact in Maven plugin execution configuration with the Jakarta EE 11 aggregate API artifact.
+tags:
+  - jakarta
+  - dependencies
+  - maven
+recipeList:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginArtifactItems:
+      oldGroupId: javax
+      oldArtifactId: javaee-api
+      newGroupId: jakarta.platform
+      newArtifactId: jakarta.jakartaee-api
+      newVersion: 11.0.0
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.PreserveLegacyBeansXmlDiscoveryMode

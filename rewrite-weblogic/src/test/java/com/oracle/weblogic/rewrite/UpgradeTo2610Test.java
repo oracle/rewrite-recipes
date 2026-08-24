@@ -12,6 +12,7 @@ import org.openrewrite.ExecutionContext;
 import org.openrewrite.InMemoryExecutionContext;
 import org.openrewrite.Recipe;
 import org.openrewrite.config.Environment;
+import org.openrewrite.java.JavaParser;
 import org.openrewrite.maven.MavenExecutionContextView;
 import org.openrewrite.maven.tree.MavenRepository;
 import org.openrewrite.table.SearchResults;
@@ -20,10 +21,14 @@ import org.openrewrite.test.RewriteTest;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.openrewrite.java.Assertions.java;
+import static org.openrewrite.java.Assertions.mavenProject;
+import static org.openrewrite.java.Assertions.srcMainJava;
 import static org.openrewrite.maven.Assertions.pomXml;
 import static org.openrewrite.xml.Assertions.xml;
 
@@ -34,6 +39,15 @@ class UpgradeTo2610Test implements RewriteTest {
                 .scanRuntimeClasspath("com.oracle.weblogic")
                 .build()
                 .activateRecipes("com.oracle.weblogic.rewrite.UpgradeTo2610");
+    }
+
+    private Recipe jakartaEE11ToWebLogic2610Recipe() {
+        return Environment.builder()
+                .scanRuntimeClasspath("com.oracle.weblogic")
+                .build()
+                .activateRecipes(
+                        "com.oracle.weblogic.rewrite.jakarta.MigrateToJakartaEE11",
+                        "com.oracle.weblogic.rewrite.UpgradeTo2610");
     }
 
     private ExecutionContext localMavenExecutionContext() {
@@ -55,6 +69,7 @@ class UpgradeTo2610Test implements RewriteTest {
                 Arrays.asList(
                         "com.oracle.weblogic.rewrite.OutputRecipeVersion",
                         "com.oracle.weblogic.rewrite.UpdateBuildToWebLogic2610",
+                        "com.oracle.weblogic.rewrite.AddWebLogic2610StandaloneJakartaApiDependencies",
                         "com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo2610",
                         "com.oracle.weblogic.rewrite.NormalizeWebLogic2610DependencyScopes",
                         "com.oracle.weblogic.rewrite.ReportDeprecatedOrRemoved2610",
@@ -62,6 +77,117 @@ class UpgradeTo2610Test implements RewriteTest {
                 recipe().getRecipeList().stream()
                         .map(Recipe::getName)
                         .collect(Collectors.toList()));
+    }
+
+    @Test
+    void migratesJakartaEE9_1StandaloneApisAndReportsRisks() {
+        rewriteRun(spec -> spec
+                .recipe(jakartaEE11ToWebLogic2610Recipe())
+                .executionContext(localMavenExecutionContext())
+                .cycles(1)
+                .expectedCyclesThatMakeChanges(1)
+                .parser(JavaParser.fromJavaVersion().dependsOn(
+                        "package jakarta.xml.bind; public abstract class JAXBContext {}",
+                        "package jakarta.xml.soap; public abstract class MessageFactory {}",
+                        "package jakarta.jws; public @interface WebService {}",
+                        "package jakarta.xml.ws; public abstract class Endpoint {}"))
+                .dataTable(SearchResults.Row.class, rows -> {
+                    assertEquals(4, rows.size());
+                    assertEquals(Set.of(
+                                    "jakarta.jws.WebService",
+                                    "jakarta.xml.bind.JAXBContext",
+                                    "jakarta.xml.soap.MessageFactory",
+                                    "jakarta.xml.ws.Endpoint"),
+                            rows.stream().map(SearchResults.Row::getResult).collect(Collectors.toSet()));
+                    assertTrue(rows.stream().anyMatch(row -> row.getDescription().contains(
+                            "jakarta.xml.bind:jakarta.xml.bind-api:4.0.2")));
+                    assertTrue(rows.stream().anyMatch(row -> row.getDescription().contains(
+                            "jakarta.xml.soap:jakarta.xml.soap-api:3.0.2")));
+                    assertTrue(rows.stream().anyMatch(row -> row.getDescription().contains(
+                            "jakarta.jws:jakarta.jws-api:3.0.0")));
+                    assertTrue(rows.stream().anyMatch(row -> row.getDescription().contains(
+                            "jakarta.xml.ws:jakarta.xml.ws-api:4.0.2")));
+                }),
+          mavenProject("removed-api-app",
+            srcMainJava(
+              java(
+                """
+                  package com.example;
+
+                  import jakarta.jws.WebService;
+                  import jakarta.xml.bind.JAXBContext;
+                  import jakarta.xml.soap.MessageFactory;
+                  import jakarta.xml.ws.Endpoint;
+
+                  @WebService
+                  class OptionalXmlServicesUsage {
+                      JAXBContext bindingContext;
+                      MessageFactory messageFactory;
+                      Endpoint endpoint;
+                  }
+                  """
+              )
+            ),
+            pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.example</groupId>
+                  <artifactId>removed-api-app</artifactId>
+                  <version>1.0.0</version>
+                  <dependencies>
+                      <dependency>
+                          <groupId>jakarta.platform</groupId>
+                          <artifactId>jakarta.jakartaee-api</artifactId>
+                          <version>9.1.0</version>
+                          <scope>provided</scope>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """,
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.example</groupId>
+                  <artifactId>removed-api-app</artifactId>
+                  <version>1.0.0</version>
+                  <dependencies>
+                      <dependency>
+                          <groupId>jakarta.jws</groupId>
+                          <artifactId>jakarta.jws-api</artifactId>
+                          <version>3.0.0</version>
+                          <scope>provided</scope>
+                      </dependency>
+                      <dependency>
+                          <groupId>jakarta.platform</groupId>
+                          <artifactId>jakarta.jakartaee-api</artifactId>
+                          <version>11.0.0</version>
+                          <scope>provided</scope>
+                      </dependency>
+                      <dependency>
+                          <groupId>jakarta.xml.bind</groupId>
+                          <artifactId>jakarta.xml.bind-api</artifactId>
+                          <version>4.0.2</version>
+                          <scope>provided</scope>
+                      </dependency>
+                      <dependency>
+                          <groupId>jakarta.xml.soap</groupId>
+                          <artifactId>jakarta.xml.soap-api</artifactId>
+                          <version>3.0.2</version>
+                          <scope>provided</scope>
+                      </dependency>
+                      <dependency>
+                          <groupId>jakarta.xml.ws</groupId>
+                          <artifactId>jakarta.xml.ws-api</artifactId>
+                          <version>4.0.2</version>
+                          <scope>provided</scope>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """
+            )
+          )
+        );
     }
 
     @Test

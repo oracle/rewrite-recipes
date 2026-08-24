@@ -58,6 +58,7 @@ recipeList:
   - com.oracle.weblogic.rewrite.FindOnePhaseCommitJdbcDataSources2610
   - com.oracle.weblogic.rewrite.FindEmulateTwoPhaseCommitJdbcDataSources2610
   - com.oracle.weblogic.rewrite.FindLoggingLastResourceJdbcDataSources2610
+  - com.oracle.weblogic.rewrite.FindRemovedJakartaEE11Apis2610
   - com.oracle.weblogic.rewrite.FindManagedBeanAnnotations2610
 ---
 type: specs.openrewrite.org/v1beta/recipe

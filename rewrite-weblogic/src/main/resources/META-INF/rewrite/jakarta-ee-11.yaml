@@ -47,6 +47,7 @@ recipeList:
   - com.oracle.weblogic.rewrite.jakarta.PreserveLegacyBeansXmlDiscoveryMode
   - com.oracle.weblogic.rewrite.jakarta.MigrateWebXmlToJakartaEE11
   - org.openrewrite.java.migrate.jakarta.JakartaEE11
+  - com.oracle.weblogic.rewrite.jakarta.MigrateBeansXmlToJakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateActivationConfigPropertyDestinationType
   - com.oracle.weblogic.rewrite.jakarta.MigrateLegacyHibernateMetamodelProcessorToJakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginConfigurationArtifactsToJakartaEE11
@@ -152,6 +153,31 @@ recipeList:
       elementName: beans
       attributeName: bean-discovery-mode
       newValue: all
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.MigrateBeansXmlToJakartaEE11
+displayName: Migrate `beans.xml` to Jakarta CDI 4.1
+description: Update CDI 4.0 `beans.xml` descriptors to CDI 4.1 while retaining their bean discovery mode.
+tags:
+  - jakarta
+  - cdi
+  - beans
+preconditions:
+  - org.openrewrite.FindSourceFiles:
+      filePattern: '**/beans.xml'
+recipeList:
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: beans
+      attributeName: version
+      oldValue: '4[.]0'
+      newValue: 4.1
+      regex: true
+  - org.openrewrite.xml.ChangeTagAttribute:
+      elementName: beans
+      attributeName: xsi:schemaLocation
+      oldValue: '(.*)beans_4_0[.]xsd(.*)'
+      newValue: '$1beans_4_1.xsd$2'
+      regex: true
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.MigrateWebXmlToJakartaEE11

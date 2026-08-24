@@ -20,7 +20,6 @@ import java.io.File;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.openrewrite.maven.Assertions.pomXml;
 import static org.openrewrite.xml.Assertions.xml;
 
@@ -41,17 +40,20 @@ class MigrateToJakartaEE11Test implements RewriteTest {
     }
 
     @Test
-    void ordersWebXmlMigrationBeforeUpstreamJakartaEE11Migration() {
+    void ordersDescriptorMigrationsAroundUpstreamJakartaEE11Migration() {
         Recipe preserveBeanDiscoveryMode = recipe().getRecipeList().get(0);
         Recipe webXmlMigration = recipe().getRecipeList().get(1);
         Recipe upstreamJakartaMigration = recipe().getRecipeList().get(2);
-        Recipe activationConfigMigration = recipe().getRecipeList().get(3);
+        Recipe beansXmlMigration = recipe().getRecipeList().get(3);
+        Recipe activationConfigMigration = recipe().getRecipeList().get(4);
 
         assertEquals("com.oracle.weblogic.rewrite.jakarta.PreserveLegacyBeansXmlDiscoveryMode",
                 preserveBeanDiscoveryMode.getName());
         assertEquals("com.oracle.weblogic.rewrite.jakarta.MigrateWebXmlToJakartaEE11",
                 webXmlMigration.getName());
         assertEquals("org.openrewrite.java.migrate.jakarta.JakartaEE11", upstreamJakartaMigration.getName());
+        assertEquals("com.oracle.weblogic.rewrite.jakarta.MigrateBeansXmlToJakartaEE11",
+                beansXmlMigration.getName());
         assertEquals("com.oracle.weblogic.rewrite.jakarta.MigrateActivationConfigPropertyDestinationType",
                 activationConfigMigration.getName());
     }
@@ -984,8 +986,10 @@ class MigrateToJakartaEE11Test implements RewriteTest {
     }
 
     @Test
-    void preservesLegacyBeanDiscoveryMode() {
-        rewriteRun(spec -> spec.recipe(recipe()),
+    void upgradesLegacyBeansXmlToCdi41AndPreservesDiscoveryMode() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .expectedCyclesThatMakeChanges(2),
           xml(
             """
               <?xml version="1.0" encoding="UTF-8"?>
@@ -997,19 +1001,26 @@ class MigrateToJakartaEE11Test implements RewriteTest {
                   </interceptors>
               </beans>
               """,
-            sourceSpec -> sourceSpec
-                    .path("src/main/webapp/WEB-INF/beans.xml")
-                    .after(actual -> {
-                        assertTrue(actual.contains("bean-discovery-mode=\"all\""));
-                        return actual;
-                    })
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <beans xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/beans_4_1.xsd" bean-discovery-mode="all" version="4.1">
+                  <interceptors>
+                      <class>com.example.LoggingInterceptor</class>
+                  </interceptors>
+              </beans>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/webapp/WEB-INF/beans.xml")
           )
         );
     }
 
     @Test
-    void preservesExplicitAnnotatedBeanDiscoveryMode() {
-        rewriteRun(spec -> spec.recipe(recipe()),
+    void upgradesCdi40AndPreservesExplicitAnnotatedBeanDiscoveryMode() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .expectedCyclesThatMakeChanges(2),
           xml(
             """
               <?xml version="1.0" encoding="UTF-8"?>
@@ -1023,14 +1034,28 @@ class MigrateToJakartaEE11Test implements RewriteTest {
                   </interceptors>
               </beans>
               """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <beans xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/beans_4_1.xsd"
+                     version="4.1"
+                     bean-discovery-mode="annotated">
+                  <interceptors>
+                      <class>com.example.LoggingInterceptor</class>
+                  </interceptors>
+              </beans>
+              """,
             sourceSpec -> sourceSpec.path("src/main/webapp/WEB-INF/beans.xml")
           )
         );
     }
 
     @Test
-    void preservesExplicitAllBeanDiscoveryMode() {
-        rewriteRun(spec -> spec.recipe(recipe()),
+    void upgradesCdi40AndPreservesExplicitAllBeanDiscoveryMode() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .expectedCyclesThatMakeChanges(2),
           xml(
             """
               <?xml version="1.0" encoding="UTF-8"?>
@@ -1044,14 +1069,28 @@ class MigrateToJakartaEE11Test implements RewriteTest {
                   </interceptors>
               </beans>
               """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <beans xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/beans_4_1.xsd"
+                     version="4.1"
+                     bean-discovery-mode="all">
+                  <interceptors>
+                      <class>com.example.LoggingInterceptor</class>
+                  </interceptors>
+              </beans>
+              """,
             sourceSpec -> sourceSpec.path("src/main/webapp/WEB-INF/beans.xml")
           )
         );
     }
 
     @Test
-    void preservesExplicitNoneBeanDiscoveryMode() {
-        rewriteRun(spec -> spec.recipe(recipe()),
+    void upgradesCdi40AndPreservesExplicitNoneBeanDiscoveryMode() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .expectedCyclesThatMakeChanges(2),
           xml(
             """
               <?xml version="1.0" encoding="UTF-8"?>
@@ -1063,6 +1102,47 @@ class MigrateToJakartaEE11Test implements RewriteTest {
                   <interceptors>
                       <class>com.example.LoggingInterceptor</class>
                   </interceptors>
+              </beans>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <beans xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/beans_4_1.xsd"
+                     version="4.1"
+                     bean-discovery-mode="none">
+                  <interceptors>
+                      <class>com.example.LoggingInterceptor</class>
+                  </interceptors>
+              </beans>
+              """,
+            sourceSpec -> sourceSpec.path("src/main/webapp/WEB-INF/beans.xml")
+          )
+        );
+    }
+
+    @Test
+    void leavesCdi41BeansXmlUnchanged() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .expectedCyclesThatMakeChanges(2),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <beans xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/beans_4_1.xsd"
+                     version="4.1"
+                     bean-discovery-mode="annotated">
+              </beans>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <beans xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/beans_4_1.xsd"
+                     version="4.1"
+                     bean-discovery-mode="annotated">
               </beans>
               """,
             sourceSpec -> sourceSpec.path("src/main/webapp/WEB-INF/beans.xml")

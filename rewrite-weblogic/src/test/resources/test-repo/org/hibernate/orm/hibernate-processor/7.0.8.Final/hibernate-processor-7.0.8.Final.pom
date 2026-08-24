@@ -6,4 +6,11 @@
   <version>7.0.8.Final</version>
   <packaging>pom</packaging>
   <name>Stub POM for tests</name>
+  <dependencies>
+    <dependency>
+      <groupId>org.jboss.logging</groupId>
+      <artifactId>jboss-logging</artifactId>
+      <version>3.6.1.Final</version>
+    </dependency>
+  </dependencies>
 </project>

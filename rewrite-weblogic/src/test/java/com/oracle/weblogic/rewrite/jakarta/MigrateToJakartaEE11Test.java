@@ -33,6 +33,13 @@ class MigrateToJakartaEE11Test implements RewriteTest {
                 .activateRecipes("com.oracle.weblogic.rewrite.jakarta.MigrateToJakartaEE11");
     }
 
+    private Recipe legacyHibernateMetamodelProcessorRecipe() {
+        return Environment.builder()
+                .scanRuntimeClasspath()
+                .build()
+                .activateRecipes("com.oracle.weblogic.rewrite.jakarta.MigrateLegacyHibernateMetamodelProcessorToJakartaEE11");
+    }
+
     @Test
     void ordersWebXmlMigrationBeforeUpstreamJakartaEE11Migration() {
         Recipe preserveBeanDiscoveryMode = recipe().getRecipeList().get(0);
@@ -168,7 +175,7 @@ class MigrateToJakartaEE11Test implements RewriteTest {
     @Test
     void upgradesLegacyHibernateMetamodelProcessorForJakartaEE11Idempotently() {
         rewriteRun(spec -> spec
-                .recipe(recipe())
+                .recipe(legacyHibernateMetamodelProcessorRecipe())
                 .cycles(2)
                 .expectedCyclesThatMakeChanges(1)
                 .executionContext(localMavenExecutionContext()),
@@ -179,6 +186,17 @@ class MigrateToJakartaEE11Test implements RewriteTest {
                   <groupId>com.mycompany.app</groupId>
                   <artifactId>my-app</artifactId>
                   <version>1</version>
+                  <dependencyManagement>
+                      <dependencies>
+                          <dependency>
+                              <groupId>org.wildfly.bom</groupId>
+                              <artifactId>jboss-javaee-7.0-wildfly-with-tools</artifactId>
+                              <version>9.0.0.Final</version>
+                              <type>pom</type>
+                              <scope>import</scope>
+                          </dependency>
+                      </dependencies>
+                  </dependencyManagement>
                   <dependencies>
                       <dependency>
                           <groupId>org.hibernate</groupId>
@@ -195,6 +213,159 @@ class MigrateToJakartaEE11Test implements RewriteTest {
                   <groupId>com.mycompany.app</groupId>
                   <artifactId>my-app</artifactId>
                   <version>1</version>
+                  <dependencyManagement>
+                      <dependencies>
+                          <dependency>
+                              <groupId>org.jboss.logging</groupId>
+                              <artifactId>jboss-logging</artifactId>
+                              <version>3.6.1.Final</version>
+                          </dependency>
+                          <dependency>
+                              <groupId>org.wildfly.bom</groupId>
+                              <artifactId>jboss-javaee-7.0-wildfly-with-tools</artifactId>
+                              <version>9.0.0.Final</version>
+                              <type>pom</type>
+                              <scope>import</scope>
+                          </dependency>
+                      </dependencies>
+                  </dependencyManagement>
+                  <dependencies>
+                      <dependency>
+                          <groupId>org.hibernate.orm</groupId>
+                          <artifactId>hibernate-processor</artifactId>
+                          <version>7.0.8.Final</version>
+                          <scope>provided</scope>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """
+          )
+        );
+    }
+
+    @Test
+    void upgradesDirectJbossLoggingWhenMigratingLegacyHibernateMetamodelProcessor() {
+        rewriteRun(spec -> spec
+                .recipe(legacyHibernateMetamodelProcessorRecipe())
+                .executionContext(localMavenExecutionContext()),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-app</artifactId>
+                  <version>1</version>
+                  <dependencies>
+                      <dependency>
+                          <groupId>org.hibernate</groupId>
+                          <artifactId>hibernate-jpamodelgen</artifactId>
+                          <version>4.3.10.Final</version>
+                          <scope>provided</scope>
+                      </dependency>
+                      <dependency>
+                          <groupId>org.jboss.logging</groupId>
+                          <artifactId>jboss-logging</artifactId>
+                          <version>3.2.1.Final</version>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """,
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-app</artifactId>
+                  <version>1</version>
+                  <dependencies>
+                      <dependency>
+                          <groupId>org.hibernate.orm</groupId>
+                          <artifactId>hibernate-processor</artifactId>
+                          <version>7.0.8.Final</version>
+                          <scope>provided</scope>
+                      </dependency>
+                      <dependency>
+                          <groupId>org.jboss.logging</groupId>
+                          <artifactId>jboss-logging</artifactId>
+                          <version>3.6.1.Final</version>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """
+          )
+        );
+    }
+
+    @Test
+    void doesNotUpgradeJbossLoggingWithoutLegacyHibernateMetamodelProcessor() {
+        rewriteRun(spec -> spec
+                .recipe(legacyHibernateMetamodelProcessorRecipe())
+                .executionContext(localMavenExecutionContext()),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-app</artifactId>
+                  <version>1</version>
+                  <dependencies>
+                      <dependency>
+                          <groupId>org.jboss.logging</groupId>
+                          <artifactId>jboss-logging</artifactId>
+                          <version>3.2.1.Final</version>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """
+          )
+        );
+    }
+
+    @Test
+    void doesNotDowngradeNewerManagedJbossLoggingWhenMigratingLegacyHibernateMetamodelProcessor() {
+        rewriteRun(spec -> spec
+                .recipe(legacyHibernateMetamodelProcessorRecipe())
+                .executionContext(localMavenExecutionContext()),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-app</artifactId>
+                  <version>1</version>
+                  <dependencyManagement>
+                      <dependencies>
+                          <dependency>
+                              <groupId>org.jboss.logging</groupId>
+                              <artifactId>jboss-logging</artifactId>
+                              <version>3.6.2.Final</version>
+                          </dependency>
+                      </dependencies>
+                  </dependencyManagement>
+                  <dependencies>
+                      <dependency>
+                          <groupId>org.hibernate</groupId>
+                          <artifactId>hibernate-jpamodelgen</artifactId>
+                          <version>4.3.10.Final</version>
+                          <scope>provided</scope>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """,
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.mycompany.app</groupId>
+                  <artifactId>my-app</artifactId>
+                  <version>1</version>
+                  <dependencyManagement>
+                      <dependencies>
+                          <dependency>
+                              <groupId>org.jboss.logging</groupId>
+                              <artifactId>jboss-logging</artifactId>
+                              <version>3.6.2.Final</version>
+                          </dependency>
+                      </dependencies>
+                  </dependencyManagement>
                   <dependencies>
                       <dependency>
                           <groupId>org.hibernate.orm</groupId>

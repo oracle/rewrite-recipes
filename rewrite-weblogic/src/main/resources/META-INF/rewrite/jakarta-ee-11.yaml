@@ -69,18 +69,41 @@ recipeList:
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.MigrateLegacyHibernateMetamodelProcessorToJakartaEE11
 displayName: Migrate the legacy Hibernate metamodel processor to Jakarta EE 11
-description: Replace the legacy Hibernate metamodel annotation processor that requires `javax.xml.bind` with the Hibernate 7 processor compatible with Jakarta Persistence 3.2.
+description: Replace the legacy Hibernate metamodel annotation processor that requires `javax.xml.bind` with the Hibernate 7 processor compatible with Jakarta Persistence 3.2, and align JBoss Logging with the version required by that processor.
 tags:
   - jakarta
   - hibernate
   - annotation-processor
 recipeList:
+  - com.oracle.weblogic.rewrite.jakarta.UpgradeDirectJbossLoggingForLegacyHibernateMetamodelProcessor
+  - org.openrewrite.maven.AddManagedDependency:
+      groupId: org.jboss.logging
+      artifactId: jboss-logging
+      version: 3.6.1.Final
+      onlyIfUsing: org.hibernate:hibernate-jpamodelgen
+      addToRootPom: true
   - org.openrewrite.java.dependencies.ChangeDependency:
       oldGroupId: org.hibernate
       oldArtifactId: hibernate-jpamodelgen
       newGroupId: org.hibernate.orm
       newArtifactId: hibernate-processor
       newVersion: 7.0.8.Final
+      overrideManagedVersion: true
+      changeManagedDependency: false
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.UpgradeDirectJbossLoggingForLegacyHibernateMetamodelProcessor
+displayName: Upgrade direct JBoss Logging dependencies used with the legacy Hibernate metamodel processor
+description: Upgrade an explicitly declared JBoss Logging dependency when the project also declares the legacy Hibernate metamodel processor.
+preconditions:
+  - org.openrewrite.java.dependencies.FindDependency:
+      groupId: org.hibernate
+      artifactId: hibernate-jpamodelgen
+recipeList:
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.jboss.logging
+      artifactId: jboss-logging
+      newVersion: 3.6.1.Final
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginConfigurationArtifactsToJakartaEE11

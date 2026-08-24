@@ -14,6 +14,7 @@ import org.openrewrite.Recipe;
 import org.openrewrite.config.Environment;
 import org.openrewrite.maven.MavenExecutionContextView;
 import org.openrewrite.maven.tree.MavenRepository;
+import org.openrewrite.table.SearchResults;
 import org.openrewrite.test.RewriteTest;
 
 import java.io.File;
@@ -22,6 +23,7 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.openrewrite.java.Assertions.java;
 import static org.openrewrite.maven.Assertions.pomXml;
 import static org.openrewrite.xml.Assertions.xml;
 
@@ -60,6 +62,40 @@ class UpgradeTo2610Test implements RewriteTest {
                 recipe().getRecipeList().stream()
                         .map(Recipe::getName)
                         .collect(Collectors.toList()));
+    }
+
+    @Test
+    void reportsManagedBeanRiskWithoutChangingSource() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .executionContext(localMavenExecutionContext())
+                .dataTable(SearchResults.Row.class, rows -> {
+                    assertEquals(1, rows.size());
+                    assertEquals("jakarta.annotation.ManagedBean", rows.get(0).getResult());
+                    assertEquals("com.oracle.weblogic.rewrite.FindManagedBeanAnnotations2610",
+                            rows.get(0).getRecipe());
+                }),
+          java(
+            """
+              package jakarta.annotation;
+
+              public @interface ManagedBean {
+                  String value() default "";
+              }
+              """
+          ),
+          java(
+            """
+              package com.example;
+
+              import jakarta.annotation.ManagedBean;
+
+              @ManagedBean("cart")
+              class ManagedCart {
+              }
+              """
+          )
+        );
     }
 
     @Test

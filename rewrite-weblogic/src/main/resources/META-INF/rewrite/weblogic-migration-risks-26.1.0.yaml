@@ -246,18 +246,3 @@ preconditions:
 recipeList:
   - org.openrewrite.xml.search.FindTags:
       xPath: /jdbc-data-source/jdbc-data-source-params/global-transactions-protocol[text()='LoggingLastResource']
----
-type: specs.openrewrite.org/v1beta/recipe
-name: com.oracle.weblogic.rewrite.FindManagedBeanAnnotations2610
-displayName: Find removed Managed Beans annotations
-description: Report Java EE and Jakarta Managed Beans annotations that require migration to CDI for Jakarta EE 11.
-tags:
-  - weblogic
-  - jakarta
-  - managed-beans
-  - cdi
-recipeList:
-  - org.openrewrite.java.search.FindTypes:
-      fullyQualifiedTypeName: javax.annotation.ManagedBean
-  - org.openrewrite.java.search.FindTypes:
-      fullyQualifiedTypeName: jakarta.annotation.ManagedBean

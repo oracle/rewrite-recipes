@@ -14,11 +14,14 @@ import org.openrewrite.Recipe;
 import org.openrewrite.config.Environment;
 import org.openrewrite.maven.MavenExecutionContextView;
 import org.openrewrite.maven.tree.MavenRepository;
+import org.openrewrite.table.SearchResults;
 import org.openrewrite.test.RewriteTest;
 
 import java.io.File;
 import java.util.Collections;
+import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.openrewrite.java.Assertions.java;
 import static org.openrewrite.maven.Assertions.pomXml;
 import static org.openrewrite.test.SourceSpecs.text;
@@ -477,7 +480,10 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
 
     @Test
     void reportsJavaxManagedBeanAnnotation() {
-        rewriteRun(spec -> spec.recipe(recipe()),
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .dataTable(SearchResults.Row.class,
+                        rows -> assertManagedBeanRisk(rows, "javax.annotation.ManagedBean")),
           java(
             """
               package javax.annotation;
@@ -495,15 +501,6 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
               @ManagedBean
               class LegacyBean {
               }
-              """,
-            """
-              package com.example;
-
-              import javax.annotation.ManagedBean;
-
-              @/*~~>*/ManagedBean
-              class LegacyBean {
-              }
               """
           )
         );
@@ -511,7 +508,10 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
 
     @Test
     void reportsJakartaManagedBeanAnnotation() {
-        rewriteRun(spec -> spec.recipe(recipe()),
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .dataTable(SearchResults.Row.class,
+                        rows -> assertManagedBeanRisk(rows, "jakarta.annotation.ManagedBean")),
           java(
             """
               package jakarta.annotation;
@@ -529,13 +529,32 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
               @ManagedBean
               class LegacyBean {
               }
-              """,
+              """
+          )
+        );
+    }
+
+    @Test
+    void doesNotDuplicateSerializedManagedBeanSearchMarker() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .dataTable(SearchResults.Row.class,
+                        rows -> assertManagedBeanRisk(rows, "jakarta.annotation.ManagedBean")),
+          java(
+            """
+              package jakarta.annotation;
+
+              public @interface ManagedBean {
+              }
+              """
+          ),
+          java(
             """
               package com.example;
 
               import jakarta.annotation.ManagedBean;
 
-              @/*~~>*/ManagedBean
+              @/*~~>*/ManagedBean("cart")
               class LegacyBean {
               }
               """
@@ -566,5 +585,13 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
               """
           )
         );
+    }
+
+    private void assertManagedBeanRisk(List<SearchResults.Row> rows, String annotationType) {
+        assertEquals(1, rows.size());
+        SearchResults.Row risk = rows.get(0);
+        assertEquals(annotationType, risk.getResult());
+        assertEquals("com.oracle.weblogic.rewrite.FindManagedBeanAnnotations2610", risk.getRecipe());
+        assertEquals(risk.getSourcePath(), risk.getAfterSourcePath());
     }
 }

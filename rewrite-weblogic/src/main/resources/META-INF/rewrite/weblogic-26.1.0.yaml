@@ -148,14 +148,7 @@ tags:
   - jakarta
   - dependency-injection
 preconditions:
-  - org.openrewrite.java.dependencies.DependencyInsight:
-      groupIdPattern: jakarta.platform
-      artifactIdPattern: jakarta.jakartaee-api
-      version: 11.x
-      scope: provided
-      onlyDirect: true
-  - org.openrewrite.xml.search.FindTags:
-      xPath: /project/dependencies/dependency[groupId='jakarta.platform' and artifactId='jakarta.jakartaee-api' and scope='provided']
+  - com.oracle.weblogic.rewrite.FindProvidedJakartaEE11PlatformDependency
 recipeList:
   - org.openrewrite.maven.ChangeDependencyScope:
       groupId: jakarta.inject
@@ -171,14 +164,7 @@ tags:
   - jakarta
   - rest
 preconditions:
-  - org.openrewrite.java.dependencies.DependencyInsight:
-      groupIdPattern: jakarta.platform
-      artifactIdPattern: jakarta.jakartaee-api
-      version: 11.x
-      scope: provided
-      onlyDirect: true
-  - org.openrewrite.xml.search.FindTags:
-      xPath: /project/dependencies/dependency[groupId='jakarta.platform' and artifactId='jakarta.jakartaee-api' and scope='provided']
+  - com.oracle.weblogic.rewrite.FindProvidedJakartaEE11PlatformDependency
 recipeList:
   - org.openrewrite.maven.ChangeDependencyScope:
       groupId: jakarta.ws.rs

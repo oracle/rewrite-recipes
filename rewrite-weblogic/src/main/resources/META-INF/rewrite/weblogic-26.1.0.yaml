@@ -49,6 +49,7 @@ recipeList:
   - com.oracle.weblogic.rewrite.AddWebLogic2610StandaloneJakartaApiDependencies
   - com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo2610
   - com.oracle.weblogic.rewrite.NormalizeWebLogic2610DependencyScopes
+  - com.oracle.weblogic.rewrite.NormalizeWebLogic2610StandaloneJakartaApiDependencies
   - com.oracle.weblogic.rewrite.ReportDeprecatedOrRemoved2610
   - com.oracle.weblogic.rewrite.FindWebLogic2610MigrationRisks
 ---
@@ -116,6 +117,35 @@ recipeList:
       configuration: compileOnly
       scope: provided
       acceptTransitive: true
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.NormalizeWebLogic2610StandaloneJakartaApiDependencies
+displayName: Normalize standalone Jakarta APIs supplied by WebLogic 26.1.0
+description: Keep standalone Jakarta APIs aligned with the versions and scopes supplied by WebLogic Server 26.1 and remove an application-level JAX-WS runtime when the Jakarta EE platform is server-provided.
+tags:
+  - weblogic
+  - jakarta
+  - dependencies
+preconditions:
+  - com.oracle.weblogic.rewrite.FindProvidedJakartaEE11PlatformDependency
+recipeList:
+  - com.oracle.weblogic.rewrite.NormalizeWebLogic2610StandaloneApiVersions
+  - org.openrewrite.maven.ChangeDependencyScope:
+      groupId: jakarta.xml.bind
+      artifactId: jakarta.xml.bind-api
+      newScope: provided
+  - org.openrewrite.maven.ChangeDependencyScope:
+      groupId: jakarta.xml.soap
+      artifactId: jakarta.xml.soap-api
+      newScope: provided
+  - org.openrewrite.maven.ChangeDependencyScope:
+      groupId: jakarta.jws
+      artifactId: jakarta.jws-api
+      newScope: provided
+  - org.openrewrite.maven.ChangeDependencyScope:
+      groupId: jakarta.xml.ws
+      artifactId: jakarta.xml.ws-api
+      newScope: provided
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.UpdateExistingMavenWrapperFor2610

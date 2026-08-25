@@ -16,6 +16,7 @@ import org.openrewrite.maven.MavenExecutionContextView;
 import org.openrewrite.maven.tree.MavenRepository;
 import org.openrewrite.table.SearchResults;
 import org.openrewrite.test.RewriteTest;
+import org.openrewrite.test.TypeValidation;
 
 import java.io.File;
 import java.util.Collections;
@@ -520,6 +521,27 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
               }
               """
           ),
+          java(
+            """
+              package com.example;
+
+              import jakarta.annotation.ManagedBean;
+
+              @ManagedBean
+              class LegacyBean {
+              }
+              """
+          )
+        );
+    }
+
+    @Test
+    void reportsUnresolvedJakartaManagedBeanAnnotation() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .typeValidationOptions(TypeValidation.none())
+                .dataTable(SearchResults.Row.class,
+                        rows -> assertManagedBeanRisk(rows, "jakarta.annotation.ManagedBean")),
           java(
             """
               package com.example;

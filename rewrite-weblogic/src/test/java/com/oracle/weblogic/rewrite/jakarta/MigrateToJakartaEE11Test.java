@@ -62,7 +62,7 @@ class MigrateToJakartaEE11Test implements RewriteTest {
     void upgradesJakartaPlatformDependencyTo11() {
         rewriteRun(spec -> spec
                 .recipe(recipe())
-                .expectedCyclesThatMakeChanges(2)
+                .expectedCyclesThatMakeChanges(1)
                 .executionContext(localMavenExecutionContext()),
           pomXml(
             """

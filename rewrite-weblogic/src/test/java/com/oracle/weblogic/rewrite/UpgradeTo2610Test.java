@@ -14,6 +14,7 @@ import org.openrewrite.Recipe;
 import org.openrewrite.config.Environment;
 import org.openrewrite.java.JavaParser;
 import org.openrewrite.maven.MavenExecutionContextView;
+import org.openrewrite.maven.MavenParser;
 import org.openrewrite.maven.tree.MavenRepository;
 import org.openrewrite.table.SearchResults;
 import org.openrewrite.test.RewriteTest;
@@ -50,6 +51,14 @@ class UpgradeTo2610Test implements RewriteTest {
                         "com.oracle.weblogic.rewrite.UpgradeTo2610");
     }
 
+    private Recipe standaloneApiNormalizer() {
+        return Environment.builder()
+                .scanRuntimeClasspath("com.oracle.weblogic")
+                .build()
+                .activateRecipes(
+                        "com.oracle.weblogic.rewrite.NormalizeWebLogic2610StandaloneJakartaApiDependencies");
+    }
+
     private ExecutionContext localMavenExecutionContext() {
         ExecutionContext executionContext = new InMemoryExecutionContext(t -> {
             throw new RuntimeException("Rewrite error", t);
@@ -72,6 +81,7 @@ class UpgradeTo2610Test implements RewriteTest {
                         "com.oracle.weblogic.rewrite.AddWebLogic2610StandaloneJakartaApiDependencies",
                         "com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo2610",
                         "com.oracle.weblogic.rewrite.NormalizeWebLogic2610DependencyScopes",
+                        "com.oracle.weblogic.rewrite.NormalizeWebLogic2610StandaloneJakartaApiDependencies",
                         "com.oracle.weblogic.rewrite.ReportDeprecatedOrRemoved2610",
                         "com.oracle.weblogic.rewrite.FindWebLogic2610MigrationRisks"),
                 recipe().getRecipeList().stream()
@@ -110,6 +120,11 @@ class UpgradeTo2610Test implements RewriteTest {
                           <artifactId>jakarta.jakartaee-api</artifactId>
                       </dependency>
                       <dependency>
+                          <groupId>jakarta.xml.bind</groupId>
+                          <artifactId>jakarta.xml.bind-api</artifactId>
+                          <version>4.0.2</version>
+                      </dependency>
+                      <dependency>
                           <groupId>jakarta.inject</groupId>
                           <artifactId>jakarta.inject-api</artifactId>
                           <version>2.0.1</version>
@@ -145,6 +160,12 @@ class UpgradeTo2610Test implements RewriteTest {
                       <dependency>
                           <groupId>jakarta.platform</groupId>
                           <artifactId>jakarta.jakartaee-api</artifactId>
+                      </dependency>
+                      <dependency>
+                          <groupId>jakarta.xml.bind</groupId>
+                          <artifactId>jakarta.xml.bind-api</artifactId>
+                          <version>4.0.2</version>
+                          <scope>provided</scope>
                       </dependency>
                       <dependency>
                           <groupId>jakarta.inject</groupId>
@@ -272,6 +293,133 @@ class UpgradeTo2610Test implements RewriteTest {
               </project>
               """
             )
+          )
+        );
+    }
+
+    @Test
+    void restoresWebLogicStandaloneApisAfterGenericSecondPass() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .parser(MavenParser.builder().skipDependencyResolution(true)),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.example</groupId>
+                  <artifactId>removed-api-app</artifactId>
+                  <version>1.0.0</version>
+                  <dependencies>
+                      <dependency>
+                          <groupId>com.sun.xml.ws</groupId>
+                          <artifactId>jaxws-rt</artifactId>
+                          <version>4.0.5</version>
+                          <scope>provided</scope>
+                      </dependency>
+                      <dependency>
+                          <groupId>jakarta.jws</groupId>
+                          <artifactId>jakarta.jws-api</artifactId>
+                          <version>3.0.0</version>
+                      </dependency>
+                      <dependency>
+                          <groupId>jakarta.platform</groupId>
+                          <artifactId>jakarta.jakartaee-api</artifactId>
+                          <version>11.0.0</version>
+                          <scope>provided</scope>
+                      </dependency>
+                      <dependency>
+                          <groupId>jakarta.xml.bind</groupId>
+                          <artifactId>jakarta.xml.bind-api</artifactId>
+                          <version>4.0.5</version>
+                      </dependency>
+                      <dependency>
+                          <groupId>jakarta.xml.soap</groupId>
+                          <artifactId>jakarta.xml.soap-api</artifactId>
+                          <version>3.0.2</version>
+                      </dependency>
+                      <dependency>
+                          <groupId>jakarta.xml.ws</groupId>
+                          <artifactId>jakarta.xml.ws-api</artifactId>
+                          <version>4.0.3</version>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """,
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.example</groupId>
+                  <artifactId>removed-api-app</artifactId>
+                  <version>1.0.0</version>
+                  <dependencies>
+                      <dependency>
+                          <groupId>jakarta.jws</groupId>
+                          <artifactId>jakarta.jws-api</artifactId>
+                          <version>3.0.0</version>
+                          <scope>provided</scope>
+                      </dependency>
+                      <dependency>
+                          <groupId>jakarta.platform</groupId>
+                          <artifactId>jakarta.jakartaee-api</artifactId>
+                          <version>11.0.0</version>
+                          <scope>provided</scope>
+                      </dependency>
+                      <dependency>
+                          <groupId>jakarta.xml.bind</groupId>
+                          <artifactId>jakarta.xml.bind-api</artifactId>
+                          <version>4.0.2</version>
+                          <scope>provided</scope>
+                      </dependency>
+                      <dependency>
+                          <groupId>jakarta.xml.soap</groupId>
+                          <artifactId>jakarta.xml.soap-api</artifactId>
+                          <version>3.0.2</version>
+                          <scope>provided</scope>
+                      </dependency>
+                      <dependency>
+                          <groupId>jakarta.xml.ws</groupId>
+                          <artifactId>jakarta.xml.ws-api</artifactId>
+                          <version>4.0.2</version>
+                          <scope>provided</scope>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """
+          )
+        );
+    }
+
+    @Test
+    void leavesApplicationPackagedApisAndRuntimeUnchanged() {
+        rewriteRun(spec -> spec
+                .recipe(standaloneApiNormalizer())
+                .parser(MavenParser.builder().skipDependencyResolution(true)),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.example</groupId>
+                  <artifactId>packaged-platform-app</artifactId>
+                  <version>1.0.0</version>
+                  <dependencies>
+                      <dependency>
+                          <groupId>jakarta.platform</groupId>
+                          <artifactId>jakarta.jakartaee-api</artifactId>
+                          <version>11.0.0</version>
+                      </dependency>
+                      <dependency>
+                          <groupId>com.sun.xml.ws</groupId>
+                          <artifactId>jaxws-rt</artifactId>
+                          <version>4.0.5</version>
+                      </dependency>
+                      <dependency>
+                          <groupId>jakarta.xml.bind</groupId>
+                          <artifactId>jakarta.xml.bind-api</artifactId>
+                          <version>4.0.5</version>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """
           )
         );
     }

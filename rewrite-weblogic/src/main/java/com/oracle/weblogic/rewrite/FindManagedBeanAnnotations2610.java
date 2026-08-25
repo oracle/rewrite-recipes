@@ -57,8 +57,8 @@ public class FindManagedBeanAnnotations2610 extends Recipe {
             @Override
             public J.Annotation visitAnnotation(J.Annotation annotation, ExecutionContext ctx) {
                 J.Annotation a = super.visitAnnotation(annotation, ctx);
-                JavaType.FullyQualified type = TypeUtils.asFullyQualified(a.getType());
-                if (type == null || !MANAGED_BEAN_TYPES.contains(type.getFullyQualifiedName())) {
+                String managedBeanType = findManagedBeanType(a);
+                if (managedBeanType == null) {
                     return a;
                 }
 
@@ -67,10 +67,44 @@ public class FindManagedBeanAnnotations2610 extends Recipe {
                 searchResults.insertRow(ctx, new SearchResults.Row(
                         sourcePath,
                         sourcePath,
-                        type.getFullyQualifiedName(),
+                        managedBeanType,
                         RISK_DESCRIPTION,
                         getName()));
                 return a;
+            }
+
+            private String findManagedBeanType(J.Annotation annotation) {
+                JavaType.FullyQualified type = TypeUtils.asFullyQualified(annotation.getType());
+                if (type != null && MANAGED_BEAN_TYPES.contains(type.getFullyQualifiedName())) {
+                    return type.getFullyQualifiedName();
+                }
+
+                String annotationName = annotation.getAnnotationType().printTrimmed(getCursor());
+                if (MANAGED_BEAN_TYPES.contains(annotationName)) {
+                    return annotationName;
+                }
+                if (!"ManagedBean".equals(annotationName)) {
+                    return null;
+                }
+
+                J.CompilationUnit source = getCursor()
+                        .firstEnclosingOrThrow(J.CompilationUnit.class);
+                for (J.Import anImport : source.getImports()) {
+                    if (anImport.isStatic()) {
+                        continue;
+                    }
+                    String importedType = anImport.getQualid().printTrimmed(getCursor());
+                    if (MANAGED_BEAN_TYPES.contains(importedType)) {
+                        return importedType;
+                    }
+                    if ("jakarta.annotation.*".equals(importedType)) {
+                        return "jakarta.annotation.ManagedBean";
+                    }
+                    if ("javax.annotation.*".equals(importedType)) {
+                        return "javax.annotation.ManagedBean";
+                    }
+                }
+                return null;
             }
         };
     }

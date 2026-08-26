@@ -390,6 +390,144 @@ class UpgradeTo2610Test implements RewriteTest {
     }
 
     @Test
+    void reconcilesDuplicateJaxbRuntimeForProvidedPlatform() {
+        rewriteRun(spec -> spec
+                .recipe(standaloneApiNormalizer())
+                .parser(MavenParser.builder().skipDependencyResolution(true))
+                .cycles(2)
+                .expectedCyclesThatMakeChanges(1),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.example</groupId>
+                  <artifactId>provided-platform-app</artifactId>
+                  <version>1.0.0</version>
+                  <properties>
+                      <javaee-api.version>11.0.0</javaee-api.version>
+                  </properties>
+                  <dependencyManagement>
+                      <dependencies>
+                          <dependency>
+                              <groupId>jakarta.platform</groupId>
+                              <artifactId>jakarta.jakartaee-api</artifactId>
+                              <version>${javaee-api.version}</version>
+                              <scope>provided</scope>
+                          </dependency>
+                      </dependencies>
+                  </dependencyManagement>
+                  <dependencies>
+                      <dependency>
+                          <groupId>jakarta.platform</groupId>
+                          <artifactId>jakarta.jakartaee-api</artifactId>
+                      </dependency>
+                      <dependency>
+                          <groupId>org.glassfish.jaxb</groupId>
+                          <artifactId>jaxb-runtime</artifactId>
+                          <version>3.0.2</version>
+                          <scope>provided</scope>
+                      </dependency>
+                      <dependency>
+                          <groupId>org.glassfish.jaxb</groupId>
+                          <artifactId>jaxb-runtime</artifactId>
+                          <version>3.0.2</version>
+                          <scope>runtime</scope>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """,
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.example</groupId>
+                  <artifactId>provided-platform-app</artifactId>
+                  <version>1.0.0</version>
+                  <properties>
+                      <javaee-api.version>11.0.0</javaee-api.version>
+                  </properties>
+                  <dependencyManagement>
+                      <dependencies>
+                          <dependency>
+                              <groupId>jakarta.platform</groupId>
+                              <artifactId>jakarta.jakartaee-api</artifactId>
+                              <version>${javaee-api.version}</version>
+                              <scope>provided</scope>
+                          </dependency>
+                      </dependencies>
+                  </dependencyManagement>
+                  <dependencies>
+                      <dependency>
+                          <groupId>jakarta.platform</groupId>
+                          <artifactId>jakarta.jakartaee-api</artifactId>
+                      </dependency>
+                      <dependency>
+                          <groupId>org.glassfish.jaxb</groupId>
+                          <artifactId>jaxb-runtime</artifactId>
+                          <version>3.0.2</version>
+                          <scope>provided</scope>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """
+          )
+        );
+    }
+
+    @Test
+    void changesSingleJaxbRuntimeToProvidedForProvidedPlatform() {
+        rewriteRun(spec -> spec
+                .recipe(standaloneApiNormalizer())
+                .parser(MavenParser.builder().skipDependencyResolution(true)),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.example</groupId>
+                  <artifactId>provided-platform-app</artifactId>
+                  <version>1.0.0</version>
+                  <dependencies>
+                      <dependency>
+                          <groupId>jakarta.platform</groupId>
+                          <artifactId>jakarta.jakartaee-api</artifactId>
+                          <version>11.0.0</version>
+                          <scope>provided</scope>
+                      </dependency>
+                      <dependency>
+                          <groupId>org.glassfish.jaxb</groupId>
+                          <artifactId>jaxb-runtime</artifactId>
+                          <version>3.0.2</version>
+                          <scope>runtime</scope>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """,
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.example</groupId>
+                  <artifactId>provided-platform-app</artifactId>
+                  <version>1.0.0</version>
+                  <dependencies>
+                      <dependency>
+                          <groupId>jakarta.platform</groupId>
+                          <artifactId>jakarta.jakartaee-api</artifactId>
+                          <version>11.0.0</version>
+                          <scope>provided</scope>
+                      </dependency>
+                      <dependency>
+                          <groupId>org.glassfish.jaxb</groupId>
+                          <artifactId>jaxb-runtime</artifactId>
+                          <version>3.0.2</version>
+                          <scope>provided</scope>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """
+          )
+        );
+    }
+
+    @Test
     void leavesApplicationPackagedApisAndRuntimeUnchanged() {
         rewriteRun(spec -> spec
                 .recipe(standaloneApiNormalizer())
@@ -416,6 +554,12 @@ class UpgradeTo2610Test implements RewriteTest {
                           <groupId>jakarta.xml.bind</groupId>
                           <artifactId>jakarta.xml.bind-api</artifactId>
                           <version>4.0.5</version>
+                      </dependency>
+                      <dependency>
+                          <groupId>org.glassfish.jaxb</groupId>
+                          <artifactId>jaxb-runtime</artifactId>
+                          <version>4.0.5</version>
+                          <scope>runtime</scope>
                       </dependency>
                   </dependencies>
               </project>

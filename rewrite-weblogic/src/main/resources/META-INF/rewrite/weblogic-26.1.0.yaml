@@ -121,7 +121,7 @@ recipeList:
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.NormalizeWebLogic2610StandaloneJakartaApiDependencies
 displayName: Normalize standalone Jakarta APIs supplied by WebLogic 26.1.0
-description: Keep standalone Jakarta APIs aligned with the versions and scopes supplied by WebLogic Server 26.1 and remove an application-level JAX-WS runtime when the Jakarta EE platform is server-provided.
+description: Keep standalone Jakarta APIs aligned with the versions and scopes supplied by WebLogic Server 26.1, remove an application-level JAX-WS runtime, and reconcile duplicate JAXB runtime declarations when the Jakarta EE platform is server-provided.
 tags:
   - weblogic
   - jakarta
@@ -145,6 +145,10 @@ recipeList:
   - org.openrewrite.maven.ChangeDependencyScope:
       groupId: jakarta.xml.ws
       artifactId: jakarta.xml.ws-api
+      newScope: provided
+  - org.openrewrite.maven.ChangeDependencyScope:
+      groupId: org.glassfish.jaxb
+      artifactId: jaxb-runtime
       newScope: provided
 ---
 type: specs.openrewrite.org/v1beta/recipe

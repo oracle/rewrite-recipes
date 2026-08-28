@@ -39,23 +39,156 @@ class MigrateToJakartaEE11Test implements RewriteTest {
                 .activateRecipes("com.oracle.weblogic.rewrite.jakarta.MigrateLegacyHibernateMetamodelProcessorToJakartaEE11");
     }
 
+    private Recipe preserveProvidedJavaEEPlatformDependencyScopeRecipe() {
+        return Environment.builder()
+                .scanRuntimeClasspath()
+                .build()
+                .activateRecipes(
+                        "com.oracle.weblogic.rewrite.jakarta.PreserveProvidedJavaEEPlatformDependencyScope");
+    }
+
     @Test
     void ordersDescriptorMigrationsAroundUpstreamJakartaEE11Migration() {
         Recipe preserveBeanDiscoveryMode = recipe().getRecipeList().get(0);
         Recipe webXmlMigration = recipe().getRecipeList().get(1);
-        Recipe upstreamJakartaMigration = recipe().getRecipeList().get(2);
-        Recipe beansXmlMigration = recipe().getRecipeList().get(3);
-        Recipe activationConfigMigration = recipe().getRecipeList().get(4);
+        Recipe preserveProvidedPlatformScope = recipe().getRecipeList().get(2);
+        Recipe upstreamJakartaMigration = recipe().getRecipeList().get(3);
+        Recipe beansXmlMigration = recipe().getRecipeList().get(4);
+        Recipe activationConfigMigration = recipe().getRecipeList().get(5);
 
         assertEquals("com.oracle.weblogic.rewrite.jakarta.PreserveLegacyBeansXmlDiscoveryMode",
                 preserveBeanDiscoveryMode.getName());
         assertEquals("com.oracle.weblogic.rewrite.jakarta.MigrateWebXmlToJakartaEE11",
                 webXmlMigration.getName());
+        assertEquals("com.oracle.weblogic.rewrite.jakarta.PreserveProvidedJavaEEPlatformDependencyScope",
+                preserveProvidedPlatformScope.getName());
         assertEquals("org.openrewrite.java.migrate.jakarta.JakartaEE11", upstreamJakartaMigration.getName());
         assertEquals("com.oracle.weblogic.rewrite.jakarta.MigrateBeansXmlToJakartaEE11",
                 beansXmlMigration.getName());
         assertEquals("com.oracle.weblogic.rewrite.jakarta.MigrateActivationConfigPropertyDestinationType",
                 activationConfigMigration.getName());
+    }
+
+    @Test
+    void materializesInheritedProvidedJavaEEPlatformScopeBeforeMigration() {
+        rewriteRun(spec -> spec
+                .recipe(preserveProvidedJavaEEPlatformDependencyScopeRecipe())
+                .executionContext(localMavenExecutionContext()),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.example</groupId>
+                  <artifactId>application</artifactId>
+                  <version>1.0.0</version>
+                  <packaging>pom</packaging>
+                  <modules>
+                      <module>module-web</module>
+                  </modules>
+                  <dependencyManagement>
+                      <dependencies>
+                          <dependency>
+                              <groupId>javax</groupId>
+                              <artifactId>javaee-api</artifactId>
+                              <version>8.0</version>
+                              <scope>provided</scope>
+                          </dependency>
+                      </dependencies>
+                  </dependencyManagement>
+              </project>
+              """
+          ),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <parent>
+                      <groupId>com.example</groupId>
+                      <artifactId>application</artifactId>
+                      <version>1.0.0</version>
+                  </parent>
+                  <artifactId>module-web</artifactId>
+                  <dependencies>
+                      <dependency>
+                          <groupId>javax</groupId>
+                          <artifactId>javaee-api</artifactId>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """,
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <parent>
+                      <groupId>com.example</groupId>
+                      <artifactId>application</artifactId>
+                      <version>1.0.0</version>
+                  </parent>
+                  <artifactId>module-web</artifactId>
+                  <dependencies>
+                      <dependency>
+                          <groupId>javax</groupId>
+                          <artifactId>javaee-api</artifactId>
+                          <scope>provided</scope>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """,
+            spec -> spec.path("module-web/pom.xml")
+          )
+        );
+    }
+
+    @Test
+    void doesNotMaterializeInheritedCompileJavaEEPlatformScope() {
+        rewriteRun(spec -> spec
+                .recipe(preserveProvidedJavaEEPlatformDependencyScopeRecipe())
+                .executionContext(localMavenExecutionContext()),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.example</groupId>
+                  <artifactId>application</artifactId>
+                  <version>1.0.0</version>
+                  <packaging>pom</packaging>
+                  <modules>
+                      <module>module-web</module>
+                  </modules>
+                  <dependencyManagement>
+                      <dependencies>
+                          <dependency>
+                              <groupId>javax</groupId>
+                              <artifactId>javaee-api</artifactId>
+                              <version>8.0</version>
+                              <scope>compile</scope>
+                          </dependency>
+                      </dependencies>
+                  </dependencyManagement>
+              </project>
+              """
+          ),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <parent>
+                      <groupId>com.example</groupId>
+                      <artifactId>application</artifactId>
+                      <version>1.0.0</version>
+                  </parent>
+                  <artifactId>module-web</artifactId>
+                  <dependencies>
+                      <dependency>
+                          <groupId>javax</groupId>
+                          <artifactId>javaee-api</artifactId>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """,
+            spec -> spec.path("module-web/pom.xml")
+          )
+        );
     }
 
     @Test

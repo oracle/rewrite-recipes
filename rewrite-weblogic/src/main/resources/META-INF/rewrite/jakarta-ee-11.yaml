@@ -46,6 +46,7 @@ tags:
 recipeList:
   - com.oracle.weblogic.rewrite.jakarta.PreserveLegacyBeansXmlDiscoveryMode
   - com.oracle.weblogic.rewrite.jakarta.MigrateWebXmlToJakartaEE11
+  - com.oracle.weblogic.rewrite.jakarta.PreserveProvidedJavaEEPlatformDependencyScope
   - org.openrewrite.java.migrate.jakarta.JakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateBeansXmlToJakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateActivationConfigPropertyDestinationType
@@ -67,6 +68,26 @@ recipeList:
   - com.oracle.weblogic.rewrite.jakarta.MigratePermissionsXmlToJakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateWebServicesXmlToJakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateHandlerXmlToJakartaEE11
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.jakarta.PreserveProvidedJavaEEPlatformDependencyScope
+displayName: Preserve provided Java EE platform dependency scope
+description: Materialize an inherited provided scope on Java EE platform dependencies before migrating their coordinates to Jakarta EE.
+tags:
+  - jakarta
+  - dependencies
+  - scopes
+preconditions:
+  - com.oracle.weblogic.rewrite.FindProvidedJavaEEPlatformDependency
+recipeList:
+  - org.openrewrite.maven.ChangeDependencyScope:
+      groupId: javax
+      artifactId: javaee-api
+      newScope: provided
+  - org.openrewrite.maven.ChangeDependencyScope:
+      groupId: javax
+      artifactId: javaee-web-api
+      newScope: provided
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.jakarta.MigrateLegacyHibernateMetamodelProcessorToJakartaEE11

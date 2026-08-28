@@ -45,8 +45,42 @@ tags:
   - persistence
   - weblogic
 recipeList:
+  - org.openrewrite.java.dependencies.ChangeDependency:
+      oldGroupId: org.hibernate
+      oldArtifactId: hibernate-validator
+      newGroupId: org.hibernate.validator
+      newVersion: 9.1.0.Final
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.hibernate.validator
+      artifactId: hibernate-validator
+      newVersion: 9.1.0.Final
+  - com.oracle.weblogic.rewrite.hibernate.AddHibernateOrmCore70IfUsingEntityManager
   - org.openrewrite.hibernate.MigrateToHibernate70
+  - org.openrewrite.java.dependencies.ChangeDependency:
+      oldGroupId: org.hibernate
+      oldArtifactId: hibernate-ehcache
+      newGroupId: org.hibernate.orm
+      newArtifactId: hibernate-jcache
+      newVersion: 7.0.8.Final
   - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
       groupId: org.hibernate.orm
       artifactId: '*'
       newVersion: 7.0.8.Final
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.hibernate.AddHibernateOrmCore70IfUsingEntityManager
+displayName: Add Hibernate ORM core 7.0 when using legacy entity manager
+description: Preserve the Hibernate persistence provider when the Hibernate 7 migration removes the obsolete hibernate-entitymanager dependency.
+tags:
+  - hibernate
+  - persistence
+preconditions:
+  - org.openrewrite.java.dependencies.DependencyInsight:
+      groupIdPattern: org.hibernate
+      artifactIdPattern: hibernate-entitymanager
+recipeList:
+  - org.openrewrite.java.dependencies.AddDependency:
+      groupId: org.hibernate.orm
+      artifactId: hibernate-core
+      version: 7.0.8.Final
+      acceptTransitive: true

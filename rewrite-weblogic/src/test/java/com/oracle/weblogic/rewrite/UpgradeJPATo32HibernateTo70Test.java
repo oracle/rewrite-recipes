@@ -12,6 +12,7 @@ import org.openrewrite.ExecutionContext;
 import org.openrewrite.InMemoryExecutionContext;
 import org.openrewrite.Recipe;
 import org.openrewrite.config.Environment;
+import org.openrewrite.java.dependencies.ChangeDependency;
 import org.openrewrite.java.dependencies.UpgradeDependencyVersion;
 import org.openrewrite.maven.MavenExecutionContextView;
 import org.openrewrite.maven.tree.MavenRepository;
@@ -70,15 +71,101 @@ class UpgradeJPATo32HibernateTo70Test implements RewriteTest {
 
         assertEquals(
                 Arrays.asList(
+                        "org.openrewrite.java.dependencies.ChangeDependency",
+                        "org.openrewrite.java.dependencies.UpgradeDependencyVersion",
+                        "com.oracle.weblogic.rewrite.hibernate.AddHibernateOrmCore70IfUsingEntityManager",
                         "org.openrewrite.hibernate.MigrateToHibernate70",
+                        "org.openrewrite.java.dependencies.ChangeDependency",
                         "org.openrewrite.java.dependencies.UpgradeDependencyVersion"),
                 hibernate.getRecipeList().stream().map(Recipe::getName).collect(Collectors.toList()));
 
-        UpgradeDependencyVersion versionPin = assertInstanceOf(
+        ChangeDependency ehcache = assertInstanceOf(
+                ChangeDependency.class, hibernate.getRecipeList().get(4));
+        assertEquals("org.hibernate", ehcache.getOldGroupId());
+        assertEquals("hibernate-ehcache", ehcache.getOldArtifactId());
+        assertEquals("org.hibernate.orm", ehcache.getNewGroupId());
+        assertEquals("hibernate-jcache", ehcache.getNewArtifactId());
+        assertEquals("7.0.8.Final", ehcache.getNewVersion());
+
+        UpgradeDependencyVersion validatorVersion = assertInstanceOf(
                 UpgradeDependencyVersion.class, hibernate.getRecipeList().get(1));
+        assertEquals("org.hibernate.validator", validatorVersion.getGroupId());
+        assertEquals("hibernate-validator", validatorVersion.getArtifactId());
+        assertEquals("9.1.0.Final", validatorVersion.getNewVersion());
+
+        UpgradeDependencyVersion versionPin = assertInstanceOf(
+                UpgradeDependencyVersion.class, hibernate.getRecipeList().get(5));
         assertEquals("org.hibernate.orm", versionPin.getGroupId());
         assertEquals("*", versionPin.getArtifactId());
         assertEquals("7.0.8.Final", versionPin.getNewVersion());
+    }
+
+    @Test
+    void migratesLegacyPetclinicDependenciesIdempotently() {
+        rewriteRun(spec -> spec
+                .cycles(2)
+                .expectedCyclesThatMakeChanges(1),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.example</groupId>
+                  <artifactId>legacy-petclinic</artifactId>
+                  <version>1.0.0</version>
+                  <properties>
+                      <hibernate.version>5.6.999.Final</hibernate.version>
+                      <hibernate-validator.version>6.2.999.Final</hibernate-validator.version>
+                  </properties>
+                  <dependencies>
+                      <dependency>
+                          <groupId>org.hibernate</groupId>
+                          <artifactId>hibernate-entitymanager</artifactId>
+                          <version>${hibernate.version}</version>
+                      </dependency>
+                      <dependency>
+                          <groupId>org.hibernate.validator</groupId>
+                          <artifactId>hibernate-validator</artifactId>
+                          <version>${hibernate-validator.version}</version>
+                      </dependency>
+                      <dependency>
+                          <groupId>org.hibernate</groupId>
+                          <artifactId>hibernate-ehcache</artifactId>
+                          <version>${hibernate.version}</version>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """,
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.example</groupId>
+                  <artifactId>legacy-petclinic</artifactId>
+                  <version>1.0.0</version>
+                  <properties>
+                      <hibernate.version>7.0.8.Final</hibernate.version>
+                      <hibernate-validator.version>9.1.0.Final</hibernate-validator.version>
+                  </properties>
+                  <dependencies>
+                      <dependency>
+                          <groupId>org.hibernate.orm</groupId>
+                          <artifactId>hibernate-core</artifactId>
+                          <version>7.0.8.Final</version>
+                      </dependency>
+                      <dependency>
+                          <groupId>org.hibernate.validator</groupId>
+                          <artifactId>hibernate-validator</artifactId>
+                          <version>${hibernate-validator.version}</version>
+                      </dependency>
+                      <dependency>
+                          <groupId>org.hibernate.orm</groupId>
+                          <artifactId>hibernate-jcache</artifactId>
+                          <version>${hibernate.version}</version>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """
+          )
+        );
     }
 
     @Test

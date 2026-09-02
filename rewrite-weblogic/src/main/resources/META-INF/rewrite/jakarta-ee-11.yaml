@@ -50,6 +50,7 @@ recipeList:
   - org.openrewrite.java.migrate.jakarta.JakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateBeansXmlToJakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateActivationConfigPropertyDestinationType
+  - com.oracle.weblogic.rewrite.jakarta.MigrateJMSDestinationDefinitionInterfaceName
   - com.oracle.weblogic.rewrite.jakarta.MigrateLegacyHibernateMetamodelProcessorToJakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.UpgradeMavenPluginConfigurationArtifactsToJakartaEE11
   - com.oracle.weblogic.rewrite.jakarta.MigrateWebFragmentXmlToJakartaEE11

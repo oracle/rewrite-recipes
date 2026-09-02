@@ -55,6 +55,7 @@ class MigrateToJakartaEE11Test implements RewriteTest {
         Recipe upstreamJakartaMigration = recipe().getRecipeList().get(3);
         Recipe beansXmlMigration = recipe().getRecipeList().get(4);
         Recipe activationConfigMigration = recipe().getRecipeList().get(5);
+        Recipe destinationDefinitionMigration = recipe().getRecipeList().get(6);
 
         assertEquals("com.oracle.weblogic.rewrite.jakarta.PreserveLegacyBeansXmlDiscoveryMode",
                 preserveBeanDiscoveryMode.getName());
@@ -67,6 +68,8 @@ class MigrateToJakartaEE11Test implements RewriteTest {
                 beansXmlMigration.getName());
         assertEquals("com.oracle.weblogic.rewrite.jakarta.MigrateActivationConfigPropertyDestinationType",
                 activationConfigMigration.getName());
+        assertEquals("com.oracle.weblogic.rewrite.jakarta.MigrateJMSDestinationDefinitionInterfaceName",
+                destinationDefinitionMigration.getName());
     }
 
     @Test

@@ -21,6 +21,7 @@ import org.openrewrite.test.TypeValidation;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.openrewrite.java.Assertions.java;
@@ -52,13 +53,15 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
 
     @Test
     void reportsJavaSecurityManagerStartupOption() {
-        rewriteRun(spec -> spec.recipe(recipe()),
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .dataTable(SearchResults.Row.class,
+                        rows -> assertRisk(rows,
+                                "-Djava.security.manager",
+                                "com.oracle.weblogic.rewrite.FindJavaSecurityManagerStartupOption2610")),
           text(
             """
               JAVA_OPTIONS="${JAVA_OPTIONS} -Djava.security.manager"
-              """,
-            """
-              JAVA_OPTIONS="${JAVA_OPTIONS} ~~>-Djava.security.manager"
               """,
             source -> source.path("bin/startWebLogic.sh")
           )
@@ -79,13 +82,15 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
 
     @Test
     void reportsJavaSecurityPolicyStartupOption() {
-        rewriteRun(spec -> spec.recipe(recipe()),
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .dataTable(SearchResults.Row.class,
+                        rows -> assertRisk(rows,
+                                "-Djava.security.policy",
+                                "com.oracle.weblogic.rewrite.FindJavaSecurityPolicyStartupOption2610")),
           text(
             """
               JAVA_OPTIONS="${JAVA_OPTIONS} -Djava.security.policy=/opt/app/security/application.policy"
-              """,
-            """
-              JAVA_OPTIONS="${JAVA_OPTIONS} ~~>-Djava.security.policy=/opt/app/security/application.policy"
               """,
             source -> source.path("bin/startWebLogic.sh")
           )
@@ -94,15 +99,15 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
 
     @Test
     void reportsApplicationSecurityPolicyFile() {
-        rewriteRun(spec -> spec.recipe(recipe()),
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .dataTable(SearchResults.Row.class,
+                        rows -> assertRisk(rows,
+                                "Application security policy file",
+                                "com.oracle.weblogic.rewrite.FindApplicationSecurityPolicyFiles2610")),
           text(
             """
               grant {
-                  permission java.io.FilePermission "/opt/app/-", "read";
-              };
-              """,
-            """
-              ~~>grant {
                   permission java.io.FilePermission "/opt/app/-", "read";
               };
               """,
@@ -127,18 +132,17 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
 
     @Test
     void reportsCustomSecurityManagerImplementation() {
-        rewriteRun(spec -> spec.recipe(recipe()),
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .dataTable(SearchResults.Row.class,
+                        rows -> assertRisk(rows,
+                                "java.lang.SecurityManager",
+                                "com.oracle.weblogic.rewrite.FindCustomSecurityManagerImplementations2610")),
           java(
             """
               package com.example.security;
 
               class ApplicationSecurityManager extends SecurityManager {
-              }
-              """,
-            """
-              package com.example.security;
-
-              /*~~>*/class ApplicationSecurityManager extends SecurityManager {
               }
               """
           )
@@ -149,7 +153,11 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
     void reportsCompileScopedWebLogicDependency() {
         rewriteRun(spec -> spec
                 .recipe(recipe())
-                .executionContext(localMavenExecutionContext()),
+                .executionContext(localMavenExecutionContext())
+                .dataTable(SearchResults.Row.class,
+                        rows -> assertRisk(rows,
+                                "Compile-scoped WebLogic dependency",
+                                "com.oracle.weblogic.rewrite.FindCompileScopedWebLogicDependencies2610")),
           pomXml(
             """
               <project>
@@ -159,21 +167,6 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
                   <version>1.0.0</version>
                   <dependencies>
                       <dependency>
-                          <groupId>com.oracle.weblogic</groupId>
-                          <artifactId>weblogic-server-pom</artifactId>
-                          <version>26.1.0-0-0</version>
-                      </dependency>
-                  </dependencies>
-              </project>
-              """,
-            """
-              <project>
-                  <modelVersion>4.0.0</modelVersion>
-                  <groupId>com.example</groupId>
-                  <artifactId>example-app</artifactId>
-                  <version>1.0.0</version>
-                  <dependencies>
-                      <!--~~(com.oracle.weblogic:weblogic-server-pom:26.1.0-0-0)~~>--><dependency>
                           <groupId>com.oracle.weblogic</groupId>
                           <artifactId>weblogic-server-pom</artifactId>
                           <version>26.1.0-0-0</version>
@@ -189,7 +182,11 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
     void reportsRuntimeScopedWebLogicDependency() {
         rewriteRun(spec -> spec
                 .recipe(recipe())
-                .executionContext(localMavenExecutionContext()),
+                .executionContext(localMavenExecutionContext())
+                .dataTable(SearchResults.Row.class,
+                        rows -> assertRisk(rows,
+                                "Runtime-scoped WebLogic dependency",
+                                "com.oracle.weblogic.rewrite.FindRuntimeScopedWebLogicDependencies2610")),
           pomXml(
             """
               <project>
@@ -199,22 +196,6 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
                   <version>1.0.0</version>
                   <dependencies>
                       <dependency>
-                          <groupId>com.oracle.weblogic</groupId>
-                          <artifactId>weblogic-server-pom</artifactId>
-                          <version>26.1.0-0-0</version>
-                          <scope>runtime</scope>
-                      </dependency>
-                  </dependencies>
-              </project>
-              """,
-            """
-              <project>
-                  <modelVersion>4.0.0</modelVersion>
-                  <groupId>com.example</groupId>
-                  <artifactId>example-app</artifactId>
-                  <version>1.0.0</version>
-                  <dependencies>
-                      <!--~~(com.oracle.weblogic:weblogic-server-pom:26.1.0-0-0)~~>--><dependency>
                           <groupId>com.oracle.weblogic</groupId>
                           <artifactId>weblogic-server-pom</artifactId>
                           <version>26.1.0-0-0</version>
@@ -255,19 +236,17 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
 
     @Test
     void reportsPreferWebInfClassesOverride() {
-        rewriteRun(spec -> spec.recipe(recipe()),
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .dataTable(SearchResults.Row.class,
+                        rows -> assertRisk(rows,
+                                "prefer-web-inf-classes=true",
+                                "com.oracle.weblogic.rewrite.FindPreferWebInfClassesOverride2610")),
           xml(
             """
               <weblogic-web-app>
                   <container-descriptor>
                       <prefer-web-inf-classes>true</prefer-web-inf-classes>
-                  </container-descriptor>
-              </weblogic-web-app>
-              """,
-            """
-              <weblogic-web-app>
-                  <container-descriptor>
-                      <!--~~>--><prefer-web-inf-classes>true</prefer-web-inf-classes>
                   </container-descriptor>
               </weblogic-web-app>
               """,
@@ -294,21 +273,17 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
 
     @Test
     void reportsPreferApplicationPackagesOverride() {
-        rewriteRun(spec -> spec.recipe(recipe()),
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .dataTable(SearchResults.Row.class,
+                        rows -> assertRisk(rows,
+                                "prefer-application-packages",
+                                "com.oracle.weblogic.rewrite.FindPreferApplicationPackagesOverride2610")),
           xml(
             """
               <weblogic-web-app>
                   <container-descriptor>
                       <prefer-application-packages>
-                          <package-name>org.example.*</package-name>
-                      </prefer-application-packages>
-                  </container-descriptor>
-              </weblogic-web-app>
-              """,
-            """
-              <weblogic-web-app>
-                  <container-descriptor>
-                      <!--~~>--><prefer-application-packages>
                           <package-name>org.example.*</package-name>
                       </prefer-application-packages>
                   </container-descriptor>
@@ -321,21 +296,17 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
 
     @Test
     void reportsPreferApplicationResourcesOverride() {
-        rewriteRun(spec -> spec.recipe(recipe()),
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .dataTable(SearchResults.Row.class,
+                        rows -> assertRisk(rows,
+                                "prefer-application-resources",
+                                "com.oracle.weblogic.rewrite.FindPreferApplicationResourcesOverride2610")),
           xml(
             """
               <weblogic-web-app>
                   <container-descriptor>
                       <prefer-application-resources>
-                          <resource-name>META-INF/services/*</resource-name>
-                      </prefer-application-resources>
-                  </container-descriptor>
-              </weblogic-web-app>
-              """,
-            """
-              <weblogic-web-app>
-                  <container-descriptor>
-                      <!--~~>--><prefer-application-resources>
                           <resource-name>META-INF/services/*</resource-name>
                       </prefer-application-resources>
                   </container-descriptor>
@@ -364,21 +335,18 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
 
     @Test
     void reportsNonTransactionalJdbcDataSource() {
-        rewriteRun(spec -> spec.recipe(recipe()),
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .dataTable(SearchResults.Row.class,
+                        rows -> assertRisk(rows,
+                                "global-transactions-protocol=None",
+                                "com.oracle.weblogic.rewrite.FindNonTransactionalJdbcDataSources2610")),
           xml(
             """
               <jdbc-data-source>
                   <name>ApplicationDataSource</name>
                   <jdbc-data-source-params>
                       <global-transactions-protocol>None</global-transactions-protocol>
-                  </jdbc-data-source-params>
-              </jdbc-data-source>
-              """,
-            """
-              <jdbc-data-source>
-                  <name>ApplicationDataSource</name>
-                  <jdbc-data-source-params>
-                      <!--~~>--><global-transactions-protocol>None</global-transactions-protocol>
                   </jdbc-data-source-params>
               </jdbc-data-source>
               """,
@@ -389,21 +357,18 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
 
     @Test
     void reportsOnePhaseCommitJdbcDataSource() {
-        rewriteRun(spec -> spec.recipe(recipe()),
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .dataTable(SearchResults.Row.class,
+                        rows -> assertRisk(rows,
+                                "global-transactions-protocol=OnePhaseCommit",
+                                "com.oracle.weblogic.rewrite.FindOnePhaseCommitJdbcDataSources2610")),
           xml(
             """
               <jdbc-data-source>
                   <name>ApplicationDataSource</name>
                   <jdbc-data-source-params>
                       <global-transactions-protocol>OnePhaseCommit</global-transactions-protocol>
-                  </jdbc-data-source-params>
-              </jdbc-data-source>
-              """,
-            """
-              <jdbc-data-source>
-                  <name>ApplicationDataSource</name>
-                  <jdbc-data-source-params>
-                      <!--~~>--><global-transactions-protocol>OnePhaseCommit</global-transactions-protocol>
                   </jdbc-data-source-params>
               </jdbc-data-source>
               """,
@@ -414,21 +379,18 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
 
     @Test
     void reportsEmulateTwoPhaseCommitJdbcDataSource() {
-        rewriteRun(spec -> spec.recipe(recipe()),
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .dataTable(SearchResults.Row.class,
+                        rows -> assertRisk(rows,
+                                "global-transactions-protocol=EmulateTwoPhaseCommit",
+                                "com.oracle.weblogic.rewrite.FindEmulateTwoPhaseCommitJdbcDataSources2610")),
           xml(
             """
               <jdbc-data-source>
                   <name>ApplicationDataSource</name>
                   <jdbc-data-source-params>
                       <global-transactions-protocol>EmulateTwoPhaseCommit</global-transactions-protocol>
-                  </jdbc-data-source-params>
-              </jdbc-data-source>
-              """,
-            """
-              <jdbc-data-source>
-                  <name>ApplicationDataSource</name>
-                  <jdbc-data-source-params>
-                      <!--~~>--><global-transactions-protocol>EmulateTwoPhaseCommit</global-transactions-protocol>
                   </jdbc-data-source-params>
               </jdbc-data-source>
               """,
@@ -439,21 +401,18 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
 
     @Test
     void reportsLoggingLastResourceJdbcDataSource() {
-        rewriteRun(spec -> spec.recipe(recipe()),
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .dataTable(SearchResults.Row.class,
+                        rows -> assertRisk(rows,
+                                "global-transactions-protocol=LoggingLastResource",
+                                "com.oracle.weblogic.rewrite.FindLoggingLastResourceJdbcDataSources2610")),
           xml(
             """
               <jdbc-data-source>
                   <name>ApplicationDataSource</name>
                   <jdbc-data-source-params>
                       <global-transactions-protocol>LoggingLastResource</global-transactions-protocol>
-                  </jdbc-data-source-params>
-              </jdbc-data-source>
-              """,
-            """
-              <jdbc-data-source>
-                  <name>ApplicationDataSource</name>
-                  <jdbc-data-source-params>
-                      <!--~~>--><global-transactions-protocol>LoggingLastResource</global-transactions-protocol>
                   </jdbc-data-source-params>
               </jdbc-data-source>
               """,
@@ -471,6 +430,49 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
                   <name>ApplicationDataSource</name>
                   <jdbc-data-source-params>
                       <global-transactions-protocol>TwoPhaseCommit</global-transactions-protocol>
+                  </jdbc-data-source-params>
+              </jdbc-data-source>
+              """,
+            source -> source.path("src/main/resources/ApplicationDataSource-jdbc.xml")
+          )
+        );
+    }
+
+    @Test
+    void doesNotDuplicateSerializedMigrationRiskMarkers() {
+        rewriteRun(spec -> spec
+                .recipe(recipe())
+                .dataTable(SearchResults.Row.class, rows -> {
+                    assertRisk(rows,
+                            "-Djava.security.manager",
+                            "com.oracle.weblogic.rewrite.FindJavaSecurityManagerStartupOption2610");
+                    assertRisk(rows,
+                            "java.lang.SecurityManager",
+                            "com.oracle.weblogic.rewrite.FindCustomSecurityManagerImplementations2610");
+                    assertRisk(rows,
+                            "global-transactions-protocol=None",
+                            "com.oracle.weblogic.rewrite.FindNonTransactionalJdbcDataSources2610");
+                }),
+          text(
+            """
+              JAVA_OPTIONS="${JAVA_OPTIONS} ~~>-Djava.security.manager"
+              """,
+            source -> source.path("bin/startWebLogic.sh")
+          ),
+          java(
+            """
+              package com.example.security;
+
+              /*~~>*/class ApplicationSecurityManager extends SecurityManager {
+              }
+              """
+          ),
+          xml(
+            """
+              <jdbc-data-source>
+                  <name>ApplicationDataSource</name>
+                  <jdbc-data-source-params>
+                      <!--~~>--><global-transactions-protocol>None</global-transactions-protocol>
                   </jdbc-data-source-params>
               </jdbc-data-source>
               """,
@@ -614,6 +616,16 @@ class FindWebLogic2610MigrationRisksTest implements RewriteTest {
         SearchResults.Row risk = rows.get(0);
         assertEquals(annotationType, risk.getResult());
         assertEquals("com.oracle.weblogic.rewrite.FindManagedBeanAnnotations2610", risk.getRecipe());
+        assertEquals(risk.getSourcePath(), risk.getAfterSourcePath());
+    }
+
+    private void assertRisk(List<SearchResults.Row> rows, String result, String recipeName) {
+        List<SearchResults.Row> matchingRows = rows.stream()
+                .filter(row -> recipeName.equals(row.getRecipe()))
+                .collect(Collectors.toList());
+        assertEquals(1, matchingRows.size());
+        SearchResults.Row risk = matchingRows.get(0);
+        assertEquals(result, risk.getResult());
         assertEquals(risk.getSourcePath(), risk.getAfterSourcePath());
     }
 }

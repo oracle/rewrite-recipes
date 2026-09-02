@@ -69,11 +69,16 @@ tags:
   - weblogic
   - java
   - security-manager
-recipeList:
+preconditions:
   - org.openrewrite.text.Find:
       find: -Djava.security.manager
       caseSensitive: true
       filePattern: '**/*.sh;**/*.cmd;**/*.bat;**/*.properties'
+recipeList:
+  - com.oracle.weblogic.rewrite.ReportMigrationRisk:
+      result: -Djava.security.manager
+      riskDescription: Review this Java Security Manager startup option for compatibility with JDK 25.
+      recipeName: com.oracle.weblogic.rewrite.FindJavaSecurityManagerStartupOption2610
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.FindJavaSecurityPolicyStartupOption2610
@@ -83,11 +88,16 @@ tags:
   - weblogic
   - java
   - security-manager
-recipeList:
+preconditions:
   - org.openrewrite.text.Find:
       find: -Djava.security.policy
       caseSensitive: true
       filePattern: '**/*.sh;**/*.cmd;**/*.bat;**/*.properties'
+recipeList:
+  - com.oracle.weblogic.rewrite.ReportMigrationRisk:
+      result: -Djava.security.policy
+      riskDescription: Review this Java security policy startup option for compatibility with JDK 25.
+      recipeName: com.oracle.weblogic.rewrite.FindJavaSecurityPolicyStartupOption2610
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.FindApplicationSecurityPolicyFiles2610
@@ -97,9 +107,14 @@ tags:
   - weblogic
   - java
   - security-manager
-recipeList:
+preconditions:
   - org.openrewrite.FindSourceFiles:
       filePattern: '**/*.policy'
+recipeList:
+  - com.oracle.weblogic.rewrite.ReportMigrationRisk:
+      result: Application security policy file
+      riskDescription: Review this application policy file because its permission and sandboxing behavior may be affected by JDK 25.
+      recipeName: com.oracle.weblogic.rewrite.FindApplicationSecurityPolicyFiles2610
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.FindCustomSecurityManagerImplementations2610
@@ -109,9 +124,14 @@ tags:
   - weblogic
   - java
   - security-manager
-recipeList:
+preconditions:
   - org.openrewrite.java.search.FindImplementations:
       typeName: java.lang.SecurityManager
+recipeList:
+  - com.oracle.weblogic.rewrite.ReportMigrationRisk:
+      result: java.lang.SecurityManager
+      riskDescription: Review this custom SecurityManager implementation because Security Manager support is not available on JDK 25.
+      recipeName: com.oracle.weblogic.rewrite.FindCustomSecurityManagerImplementations2610
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.FindCompileScopedWebLogicDependencies2610
@@ -121,12 +141,17 @@ tags:
   - weblogic
   - dependencies
   - classloading
-recipeList:
+preconditions:
   - org.openrewrite.java.dependencies.DependencyInsight:
       groupIdPattern: com.oracle.weblogic
       artifactIdPattern: '*'
       scope: compile
       onlyDirect: true
+recipeList:
+  - com.oracle.weblogic.rewrite.ReportMigrationRisk:
+      result: Compile-scoped WebLogic dependency
+      riskDescription: Review this direct compile-scoped WebLogic dependency because it may package server APIs with the application.
+      recipeName: com.oracle.weblogic.rewrite.FindCompileScopedWebLogicDependencies2610
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.FindRuntimeScopedWebLogicDependencies2610
@@ -136,12 +161,17 @@ tags:
   - weblogic
   - dependencies
   - classloading
-recipeList:
+preconditions:
   - org.openrewrite.java.dependencies.DependencyInsight:
       groupIdPattern: com.oracle.weblogic
       artifactIdPattern: '*'
       scope: runtime
       onlyDirect: true
+recipeList:
+  - com.oracle.weblogic.rewrite.ReportMigrationRisk:
+      result: Runtime-scoped WebLogic dependency
+      riskDescription: Review this direct runtime-scoped WebLogic dependency because it may package server APIs with the application.
+      recipeName: com.oracle.weblogic.rewrite.FindRuntimeScopedWebLogicDependencies2610
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.FindPreferWebInfClassesOverride2610
@@ -154,9 +184,13 @@ tags:
 preconditions:
   - org.openrewrite.FindSourceFiles:
       filePattern: '**/weblogic.xml'
-recipeList:
   - org.openrewrite.xml.search.FindTags:
       xPath: /weblogic-web-app/container-descriptor/prefer-web-inf-classes[text()='true']
+recipeList:
+  - com.oracle.weblogic.rewrite.ReportMigrationRisk:
+      result: prefer-web-inf-classes=true
+      riskDescription: Review this enabled prefer-web-inf-classes setting for WebLogic 26.1.0 classloading compatibility.
+      recipeName: com.oracle.weblogic.rewrite.FindPreferWebInfClassesOverride2610
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.FindPreferApplicationPackagesOverride2610
@@ -169,9 +203,13 @@ tags:
 preconditions:
   - org.openrewrite.FindSourceFiles:
       filePattern: '**/weblogic.xml'
-recipeList:
   - org.openrewrite.xml.search.FindTags:
       xPath: /weblogic-web-app/container-descriptor/prefer-application-packages
+recipeList:
+  - com.oracle.weblogic.rewrite.ReportMigrationRisk:
+      result: prefer-application-packages
+      riskDescription: Review these preferred application package overrides for WebLogic 26.1.0 classloading compatibility.
+      recipeName: com.oracle.weblogic.rewrite.FindPreferApplicationPackagesOverride2610
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.FindPreferApplicationResourcesOverride2610
@@ -184,9 +222,13 @@ tags:
 preconditions:
   - org.openrewrite.FindSourceFiles:
       filePattern: '**/weblogic.xml'
-recipeList:
   - org.openrewrite.xml.search.FindTags:
       xPath: /weblogic-web-app/container-descriptor/prefer-application-resources
+recipeList:
+  - com.oracle.weblogic.rewrite.ReportMigrationRisk:
+      result: prefer-application-resources
+      riskDescription: Review these preferred application resource overrides for WebLogic 26.1.0 classloading compatibility.
+      recipeName: com.oracle.weblogic.rewrite.FindPreferApplicationResourcesOverride2610
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.FindNonTransactionalJdbcDataSources2610
@@ -199,9 +241,13 @@ tags:
 preconditions:
   - org.openrewrite.FindSourceFiles:
       filePattern: '**/*-jdbc.xml'
-recipeList:
   - org.openrewrite.xml.search.FindTags:
       xPath: /jdbc-data-source/jdbc-data-source-params/global-transactions-protocol[text()='None']
+recipeList:
+  - com.oracle.weblogic.rewrite.ReportMigrationRisk:
+      result: global-transactions-protocol=None
+      riskDescription: Review this non-transactional JDBC data source for WebLogic 26.1.0 transaction compatibility.
+      recipeName: com.oracle.weblogic.rewrite.FindNonTransactionalJdbcDataSources2610
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.FindOnePhaseCommitJdbcDataSources2610
@@ -214,9 +260,13 @@ tags:
 preconditions:
   - org.openrewrite.FindSourceFiles:
       filePattern: '**/*-jdbc.xml'
-recipeList:
   - org.openrewrite.xml.search.FindTags:
       xPath: /jdbc-data-source/jdbc-data-source-params/global-transactions-protocol[text()='OnePhaseCommit']
+recipeList:
+  - com.oracle.weblogic.rewrite.ReportMigrationRisk:
+      result: global-transactions-protocol=OnePhaseCommit
+      riskDescription: Review this one-phase JDBC data source for WebLogic 26.1.0 non-XA transaction compatibility.
+      recipeName: com.oracle.weblogic.rewrite.FindOnePhaseCommitJdbcDataSources2610
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.FindEmulateTwoPhaseCommitJdbcDataSources2610
@@ -229,9 +279,13 @@ tags:
 preconditions:
   - org.openrewrite.FindSourceFiles:
       filePattern: '**/*-jdbc.xml'
-recipeList:
   - org.openrewrite.xml.search.FindTags:
       xPath: /jdbc-data-source/jdbc-data-source-params/global-transactions-protocol[text()='EmulateTwoPhaseCommit']
+recipeList:
+  - com.oracle.weblogic.rewrite.ReportMigrationRisk:
+      result: global-transactions-protocol=EmulateTwoPhaseCommit
+      riskDescription: Review this emulated two-phase JDBC data source for WebLogic 26.1.0 non-XA transaction compatibility.
+      recipeName: com.oracle.weblogic.rewrite.FindEmulateTwoPhaseCommitJdbcDataSources2610
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.FindLoggingLastResourceJdbcDataSources2610
@@ -244,6 +298,10 @@ tags:
 preconditions:
   - org.openrewrite.FindSourceFiles:
       filePattern: '**/*-jdbc.xml'
-recipeList:
   - org.openrewrite.xml.search.FindTags:
       xPath: /jdbc-data-source/jdbc-data-source-params/global-transactions-protocol[text()='LoggingLastResource']
+recipeList:
+  - com.oracle.weblogic.rewrite.ReportMigrationRisk:
+      result: global-transactions-protocol=LoggingLastResource
+      riskDescription: Review this logging-last-resource JDBC data source for WebLogic 26.1.0 non-XA transaction compatibility.
+      recipeName: com.oracle.weblogic.rewrite.FindLoggingLastResourceJdbcDataSources2610

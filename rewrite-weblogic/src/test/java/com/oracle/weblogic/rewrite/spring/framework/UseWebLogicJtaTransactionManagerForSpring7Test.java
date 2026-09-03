@@ -55,12 +55,13 @@ class UseWebLogicJtaTransactionManagerForSpring7Test implements RewriteTest {
                 Arrays.asList(
                         "com.oracle.weblogic.rewrite.spring.framework.NormalizeJacksonAnnotationsForSpring7",
                         "org.openrewrite.java.spring.framework.UpgradeSpringFramework_7_0",
+                        "com.oracle.weblogic.rewrite.spring.data.UpgradeSpringDataBomForSpring7",
                         "org.openrewrite.java.dependencies.UpgradeDependencyVersion",
                         "com.oracle.weblogic.rewrite.spring.framework.UseWebLogicJtaTransactionManagerForSpring7"),
                 composite.getRecipeList().stream().map(Recipe::getName).collect(Collectors.toList()));
 
         UpgradeDependencyVersion springVersionPin = assertInstanceOf(
-                UpgradeDependencyVersion.class, composite.getRecipeList().get(2));
+                UpgradeDependencyVersion.class, composite.getRecipeList().get(3));
         assertEquals("org.springframework", springVersionPin.getGroupId());
         assertEquals("*", springVersionPin.getArtifactId());
         assertEquals("7.0.8", springVersionPin.getNewVersion());

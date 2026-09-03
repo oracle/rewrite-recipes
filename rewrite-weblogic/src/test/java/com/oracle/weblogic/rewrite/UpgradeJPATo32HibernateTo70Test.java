@@ -7,6 +7,7 @@
  */
 package com.oracle.weblogic.rewrite;
 
+import com.oracle.weblogic.rewrite.hibernate.NormalizeHibernateOrm70Versions;
 import org.junit.jupiter.api.Test;
 import org.openrewrite.ExecutionContext;
 import org.openrewrite.InMemoryExecutionContext;
@@ -74,13 +75,14 @@ class UpgradeJPATo32HibernateTo70Test implements RewriteTest {
                         "org.openrewrite.java.dependencies.ChangeDependency",
                         "org.openrewrite.java.dependencies.UpgradeDependencyVersion",
                         "com.oracle.weblogic.rewrite.hibernate.AddHibernateOrmCore70IfUsingEntityManager",
-                        "org.openrewrite.hibernate.MigrateToHibernate70",
+                        "org.openrewrite.hibernate.MigrateToHibernate66",
                         "org.openrewrite.java.dependencies.ChangeDependency",
-                        "org.openrewrite.java.dependencies.UpgradeDependencyVersion"),
+                        "org.openrewrite.java.dependencies.ChangeDependency",
+                        "com.oracle.weblogic.rewrite.hibernate.NormalizeHibernateOrm70Versions"),
                 hibernate.getRecipeList().stream().map(Recipe::getName).collect(Collectors.toList()));
 
         ChangeDependency ehcache = assertInstanceOf(
-                ChangeDependency.class, hibernate.getRecipeList().get(4));
+                ChangeDependency.class, hibernate.getRecipeList().get(5));
         assertEquals("org.hibernate", ehcache.getOldGroupId());
         assertEquals("hibernate-ehcache", ehcache.getOldArtifactId());
         assertEquals("org.hibernate.orm", ehcache.getNewGroupId());
@@ -93,11 +95,54 @@ class UpgradeJPATo32HibernateTo70Test implements RewriteTest {
         assertEquals("hibernate-validator", validatorVersion.getArtifactId());
         assertEquals("9.1.0.Final", validatorVersion.getNewVersion());
 
-        UpgradeDependencyVersion versionPin = assertInstanceOf(
-                UpgradeDependencyVersion.class, hibernate.getRecipeList().get(5));
-        assertEquals("org.hibernate.orm", versionPin.getGroupId());
-        assertEquals("*", versionPin.getArtifactId());
-        assertEquals("7.0.8.Final", versionPin.getNewVersion());
+        assertInstanceOf(NormalizeHibernateOrm70Versions.class, hibernate.getRecipeList().get(6));
+    }
+
+    @Test
+    void normalizesNewerHibernateOrmVersionIdempotently() {
+        rewriteRun(spec -> spec
+                .recipe(recipe("com.oracle.weblogic.rewrite.hibernate.NormalizeHibernateOrm70Versions"))
+                .cycles(2)
+                .expectedCyclesThatMakeChanges(1),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.example</groupId>
+                  <artifactId>hibernate-app</artifactId>
+                  <version>1.0.0</version>
+                  <properties>
+                      <orm.release>7.0.9.Final</orm.release>
+                  </properties>
+                  <dependencies>
+                      <dependency>
+                          <groupId>org.hibernate.orm</groupId>
+                          <artifactId>hibernate-core</artifactId>
+                          <version>${orm.release}</version>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """,
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.example</groupId>
+                  <artifactId>hibernate-app</artifactId>
+                  <version>1.0.0</version>
+                  <properties>
+                      <orm.release>7.0.8.Final</orm.release>
+                  </properties>
+                  <dependencies>
+                      <dependency>
+                          <groupId>org.hibernate.orm</groupId>
+                          <artifactId>hibernate-core</artifactId>
+                          <version>${orm.release}</version>
+                      </dependency>
+                  </dependencies>
+              </project>
+              """
+          )
+        );
     }
 
     @Test

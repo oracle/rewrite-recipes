@@ -46,11 +46,25 @@ tags:
 recipeList:
   - com.oracle.weblogic.rewrite.spring.framework.NormalizeJacksonAnnotationsForSpring7
   - org.openrewrite.java.spring.framework.UpgradeSpringFramework_7_0
+  - com.oracle.weblogic.rewrite.spring.data.UpgradeSpringDataBomForSpring7
   - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
       groupId: org.springframework
       artifactId: '*'
       newVersion: 7.0.8
   - com.oracle.weblogic.rewrite.spring.framework.UseWebLogicJtaTransactionManagerForSpring7
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.spring.data.UpgradeSpringDataBomForSpring7
+displayName: Upgrade Spring Data BOM for Spring Framework 7
+description: Upgrade Spring Data BOM to 2025.1.0, the Spring Data 4 release train used with Spring Framework 7.
+tags:
+  - springdata
+  - springframework
+recipeList:
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.springframework.data
+      artifactId: spring-data-bom
+      newVersion: 2025.1.0
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.spring.framework.UseWebLogicJtaTransactionManagerForSpring7

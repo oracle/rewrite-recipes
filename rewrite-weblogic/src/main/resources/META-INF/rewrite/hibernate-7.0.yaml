@@ -55,17 +55,21 @@ recipeList:
       artifactId: hibernate-validator
       newVersion: 9.1.0.Final
   - com.oracle.weblogic.rewrite.hibernate.AddHibernateOrmCore70IfUsingEntityManager
-  - org.openrewrite.hibernate.MigrateToHibernate70
+  # MigrateToHibernate70 is these two steps plus an open-ended 7.0.x upgrade.
+  # Keep the source migration while selecting the WebLogic-tested version below.
+  - org.openrewrite.hibernate.MigrateToHibernate66
+  - org.openrewrite.java.dependencies.ChangeDependency:
+      oldGroupId: org.hibernate.orm
+      oldArtifactId: hibernate-jpamodelgen
+      newArtifactId: hibernate-processor
+      newVersion: 7.0.8.Final
   - org.openrewrite.java.dependencies.ChangeDependency:
       oldGroupId: org.hibernate
       oldArtifactId: hibernate-ehcache
       newGroupId: org.hibernate.orm
       newArtifactId: hibernate-jcache
       newVersion: 7.0.8.Final
-  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
-      groupId: org.hibernate.orm
-      artifactId: '*'
-      newVersion: 7.0.8.Final
+  - com.oracle.weblogic.rewrite.hibernate.NormalizeHibernateOrm70Versions
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.hibernate.AddHibernateOrmCore70IfUsingEntityManager

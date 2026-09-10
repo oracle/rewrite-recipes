@@ -45,6 +45,7 @@ tags:
   - weblogic
 recipeList:
   - com.oracle.weblogic.rewrite.spring.framework.NormalizeJacksonAnnotationsForSpring7
+  - com.oracle.weblogic.rewrite.spring.framework.MigrateOpenSessionInViewFilterForSpring7
   - org.openrewrite.java.spring.framework.UpgradeSpringFramework_7_0
   - com.oracle.weblogic.rewrite.spring.data.UpgradeSpringDataBomForSpring7
   - org.openrewrite.java.dependencies.UpgradeDependencyVersion:

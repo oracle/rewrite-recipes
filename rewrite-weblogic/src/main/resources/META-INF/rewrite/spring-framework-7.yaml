@@ -48,11 +48,26 @@ recipeList:
   - com.oracle.weblogic.rewrite.spring.framework.MigrateOpenSessionInViewFilterForSpring7
   - org.openrewrite.java.spring.framework.UpgradeSpringFramework_7_0
   - com.oracle.weblogic.rewrite.spring.data.UpgradeSpringDataBomForSpring7
-  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
-      groupId: org.springframework
-      artifactId: '*'
-      newVersion: 7.0.8
+  - com.oracle.weblogic.rewrite.spring.framework.AlignSpringFrameworkBomForSpring7
   - com.oracle.weblogic.rewrite.spring.framework.UseWebLogicJtaTransactionManagerForSpring7
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.oracle.weblogic.rewrite.spring.framework.AlignSpringFrameworkBomForSpring7
+displayName: Align Spring Framework dependencies for Spring Framework 7
+description: Import the Spring Framework BOM before other Spring BOMs so direct and transitive Spring Framework modules use the same 7.0 patch version.
+tags:
+  - springframework
+  - dependencies
+recipeList:
+  - org.openrewrite.maven.AddManagedDependency:
+      groupId: org.springframework
+      artifactId: spring-framework-bom
+      version: 7.0.x
+      type: pom
+      scope: import
+      releasesOnly: true
+      onlyIfUsing: org.springframework:*
+      addToRootPom: true
 ---
 type: specs.openrewrite.org/v1beta/recipe
 name: com.oracle.weblogic.rewrite.spring.data.UpgradeSpringDataBomForSpring7

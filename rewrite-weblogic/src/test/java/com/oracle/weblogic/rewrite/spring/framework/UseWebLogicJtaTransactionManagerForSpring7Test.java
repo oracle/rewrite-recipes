@@ -52,6 +52,7 @@ class UseWebLogicJtaTransactionManagerForSpring7Test implements RewriteTest {
         assertEquals(
                 Arrays.asList(
                         "com.oracle.weblogic.rewrite.spring.framework.NormalizeJacksonAnnotationsForSpring7",
+                        "com.oracle.weblogic.rewrite.spring.framework.ConfigureJacksonClassloadingForSpring7",
                         "com.oracle.weblogic.rewrite.spring.framework.MigrateOpenSessionInViewFilterForSpring7",
                         "org.openrewrite.java.spring.framework.UpgradeSpringFramework_7_0",
                         "com.oracle.weblogic.rewrite.spring.data.UpgradeSpringDataBomForSpring7",

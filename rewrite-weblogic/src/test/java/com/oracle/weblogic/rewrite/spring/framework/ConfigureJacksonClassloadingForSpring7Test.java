@@ -25,6 +25,15 @@ class ConfigureJacksonClassloadingForSpring7Test implements RewriteTest {
                         "com.oracle.weblogic.rewrite.spring.framework.ConfigureJacksonClassloadingForSpring7");
     }
 
+    private Recipe schemaMigrationAndJacksonClassloadingRecipe() {
+        return Environment.builder()
+                .scanRuntimeClasspath()
+                .build()
+                .activateRecipes(
+                        "com.oracle.weblogic.rewrite.MigrateWebLogicSchemasTo2610",
+                        "com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_7_0ForWebLogic2610");
+    }
+
     @Test
     void createsWebLogicDescriptorForWarProject() {
         rewriteRun(spec -> spec
@@ -138,6 +147,67 @@ class ConfigureJacksonClassloadingForSpring7Test implements RewriteTest {
                   <version>1.0.0</version>
               </project>
               """
+          )
+        );
+    }
+
+    @Test
+    void configuresLegacyDescriptorInFirstCycle() {
+        rewriteRun(spec -> spec
+                .recipe(schemaMigrationAndJacksonClassloadingRecipe())
+                .cycles(2)
+                .expectedCyclesThatMakeChanges(1),
+          pomXml(
+            """
+              <project>
+                  <modelVersion>4.0.0</modelVersion>
+                  <groupId>com.example</groupId>
+                  <artifactId>legacy-web-app</artifactId>
+                  <version>1.0.0</version>
+                  <packaging>war</packaging>
+              </project>
+              """
+          ),
+          xml(
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <weblogic-web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-web-app http://xmlns.oracle.com/weblogic/weblogic-web-app/1.4/weblogic-web-app.xsd"
+                                xmlns="http://xmlns.oracle.com/weblogic/weblogic-web-app">
+                  <container-descriptor>
+                      <show-archived-real-path-enabled>true</show-archived-real-path-enabled>
+                      <prefer-application-packages>
+                          <package-name>javax.persistence.*</package-name>
+                          <package-name>org.springframework.*</package-name>
+                      </prefer-application-packages>
+                      <prefer-application-resources>
+                          <resource-name>org/slf4j/impl/StaticLoggerBinder.class</resource-name>
+                      </prefer-application-resources>
+                  </container-descriptor>
+              </weblogic-web-app>
+              """,
+            """
+              <?xml version="1.0" encoding="UTF-8"?>
+              <weblogic-web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                                xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-web-app http://xmlns.oracle.com/weblogic/weblogic-web-app/2.0/weblogic-web-app.xsd"
+                                xmlns="http://xmlns.oracle.com/weblogic/weblogic-web-app">
+                  <container-descriptor>
+                      <show-archived-real-path-enabled>true</show-archived-real-path-enabled>
+                      <prefer-application-packages>
+                          <package-name>jakarta.persistence.*</package-name>
+                          <package-name>org.springframework.*</package-name>
+                          <package-name>com.fasterxml.jackson.*</package-name>
+                          <package-name>jakarta.xml.bind.*</package-name>
+                          <package-name>org.glassfish.jaxb.*</package-name>
+                      </prefer-application-packages>
+                      <prefer-application-resources>
+                          <resource-name>org/slf4j/impl/StaticLoggerBinder.class</resource-name>
+                          <resource-name>META-INF/services/com.fasterxml.jackson.databind.Module</resource-name>
+                      </prefer-application-resources>
+                  </container-descriptor>
+              </weblogic-web-app>
+              """,
+            source -> source.path("src/main/webapp/WEB-INF/weblogic.xml")
           )
         );
     }

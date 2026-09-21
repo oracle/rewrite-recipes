@@ -58,6 +58,9 @@ recipeList:
   # MigrateToHibernate70 is these two steps plus an open-ended 7.0.x upgrade.
   # Keep the source migration while selecting the WebLogic-tested version below.
   - org.openrewrite.hibernate.MigrateToHibernate66
+  - org.openrewrite.java.ChangeTypeInStringLiteral:
+      oldFullyQualifiedTypeName: org.hibernate.dialect.Oracle12cDialect
+      newFullyQualifiedTypeName: org.hibernate.dialect.OracleDialect
   - org.openrewrite.java.dependencies.ChangeDependency:
       oldGroupId: org.hibernate.orm
       oldArtifactId: hibernate-jpamodelgen

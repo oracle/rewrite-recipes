@@ -13,6 +13,7 @@ import org.openrewrite.ExecutionContext;
 import org.openrewrite.InMemoryExecutionContext;
 import org.openrewrite.Recipe;
 import org.openrewrite.config.Environment;
+import org.openrewrite.java.ChangeTypeInStringLiteral;
 import org.openrewrite.java.dependencies.ChangeDependency;
 import org.openrewrite.java.dependencies.UpgradeDependencyVersion;
 import org.openrewrite.maven.MavenExecutionContextView;
@@ -28,6 +29,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.openrewrite.maven.Assertions.pomXml;
+import static org.openrewrite.java.Assertions.java;
 
 class UpgradeJPATo32HibernateTo70Test implements RewriteTest {
 
@@ -76,13 +78,14 @@ class UpgradeJPATo32HibernateTo70Test implements RewriteTest {
                         "org.openrewrite.java.dependencies.UpgradeDependencyVersion",
                         "com.oracle.weblogic.rewrite.hibernate.AddHibernateOrmCore70IfUsingEntityManager",
                         "org.openrewrite.hibernate.MigrateToHibernate66",
+                        "org.openrewrite.java.ChangeTypeInStringLiteral",
                         "org.openrewrite.java.dependencies.ChangeDependency",
                         "org.openrewrite.java.dependencies.ChangeDependency",
                         "com.oracle.weblogic.rewrite.hibernate.NormalizeHibernateOrm70Versions"),
                 hibernate.getRecipeList().stream().map(Recipe::getName).collect(Collectors.toList()));
 
         ChangeDependency ehcache = assertInstanceOf(
-                ChangeDependency.class, hibernate.getRecipeList().get(5));
+                ChangeDependency.class, hibernate.getRecipeList().get(6));
         assertEquals("org.hibernate", ehcache.getOldGroupId());
         assertEquals("hibernate-ehcache", ehcache.getOldArtifactId());
         assertEquals("org.hibernate.orm", ehcache.getNewGroupId());
@@ -95,7 +98,44 @@ class UpgradeJPATo32HibernateTo70Test implements RewriteTest {
         assertEquals("hibernate-validator", validatorVersion.getArtifactId());
         assertEquals("9.1.0.Final", validatorVersion.getNewVersion());
 
-        assertInstanceOf(NormalizeHibernateOrm70Versions.class, hibernate.getRecipeList().get(6));
+        assertInstanceOf(ChangeTypeInStringLiteral.class, hibernate.getRecipeList().get(4));
+        assertInstanceOf(NormalizeHibernateOrm70Versions.class, hibernate.getRecipeList().get(7));
+    }
+
+    @Test
+    void migratesRemovedOracleDialectNameIdempotently() {
+        rewriteRun(spec -> spec
+                .cycles(2)
+                .expectedCyclesThatMakeChanges(1),
+          java(
+            """
+              package com.example;
+
+              class JpaConfiguration {
+                  void configure(JpaVendorAdapter adapter) {
+                      adapter.setDatabasePlatform("org.hibernate.dialect.Oracle12cDialect");
+                  }
+              }
+
+              interface JpaVendorAdapter {
+                  void setDatabasePlatform(String databasePlatform);
+              }
+              """,
+            """
+              package com.example;
+
+              class JpaConfiguration {
+                  void configure(JpaVendorAdapter adapter) {
+                      adapter.setDatabasePlatform("org.hibernate.dialect.OracleDialect");
+                  }
+              }
+
+              interface JpaVendorAdapter {
+                  void setDatabasePlatform(String databasePlatform);
+              }
+              """
+          )
+        );
     }
 
     @Test

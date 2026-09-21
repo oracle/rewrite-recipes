@@ -61,8 +61,6 @@ class ConfigureJacksonClassloadingForSpring7Test implements RewriteTest {
                   <container-descriptor>
                       <prefer-application-packages>
                           <package-name>com.fasterxml.jackson.*</package-name>
-                          <package-name>jakarta.xml.bind.*</package-name>
-                          <package-name>org.glassfish.jaxb.*</package-name>
                       </prefer-application-packages>
                       <prefer-application-resources>
                           <resource-name>META-INF/services/com.fasterxml.jackson.databind.Module</resource-name>
@@ -103,6 +101,7 @@ class ConfigureJacksonClassloadingForSpring7Test implements RewriteTest {
                       <prefer-application-packages>
                           <package-name>com.example.*</package-name>
                           <package-name>com.fasterxml.jackson.*</package-name>
+                          <package-name>jakarta.xml.bind.*</package-name>
                       </prefer-application-packages>
                       <prefer-application-resources>
                           <resource-name>META-INF/services/com.example.Service</resource-name>
@@ -121,7 +120,6 @@ class ConfigureJacksonClassloadingForSpring7Test implements RewriteTest {
                           <package-name>com.example.*</package-name>
                           <package-name>com.fasterxml.jackson.*</package-name>
                           <package-name>jakarta.xml.bind.*</package-name>
-                          <package-name>org.glassfish.jaxb.*</package-name>
                       </prefer-application-packages>
                       <prefer-application-resources>
                           <resource-name>META-INF/services/com.example.Service</resource-name>
@@ -197,8 +195,6 @@ class ConfigureJacksonClassloadingForSpring7Test implements RewriteTest {
                           <package-name>jakarta.persistence.*</package-name>
                           <package-name>org.springframework.*</package-name>
                           <package-name>com.fasterxml.jackson.*</package-name>
-                          <package-name>jakarta.xml.bind.*</package-name>
-                          <package-name>org.glassfish.jaxb.*</package-name>
                       </prefer-application-packages>
                       <prefer-application-resources>
                           <resource-name>org/slf4j/impl/StaticLoggerBinder.class</resource-name>

@@ -37,10 +37,7 @@ public class ConfigureJacksonClassloadingForSpring7
 
     private static final Path WEBLOGIC_XML = Paths.get("src/main/webapp/WEB-INF/weblogic.xml");
 
-    private static final List<String> PREFERRED_PACKAGES = List.of(
-            "com.fasterxml.jackson.*",
-            "jakarta.xml.bind.*",
-            "org.glassfish.jaxb.*");
+    private static final List<String> PREFERRED_PACKAGES = List.of("com.fasterxml.jackson.*");
 
     private static final String JACKSON_MODULE_RESOURCE =
             "META-INF/services/com.fasterxml.jackson.databind.Module";
@@ -53,8 +50,6 @@ public class ConfigureJacksonClassloadingForSpring7
                 <container-descriptor>
                     <prefer-application-packages>
                         <package-name>com.fasterxml.jackson.*</package-name>
-                        <package-name>jakarta.xml.bind.*</package-name>
-                        <package-name>org.glassfish.jaxb.*</package-name>
                     </prefer-application-packages>
                     <prefer-application-resources>
                         <resource-name>META-INF/services/com.fasterxml.jackson.databind.Module</resource-name>
@@ -66,8 +61,6 @@ public class ConfigureJacksonClassloadingForSpring7
     private static final String PREFERRED_PACKAGES_TAG = """
             <prefer-application-packages>
                 <package-name>com.fasterxml.jackson.*</package-name>
-                <package-name>jakarta.xml.bind.*</package-name>
-                <package-name>org.glassfish.jaxb.*</package-name>
             </prefer-application-packages>
             """;
 
@@ -81,8 +74,6 @@ public class ConfigureJacksonClassloadingForSpring7
             <container-descriptor>
                 <prefer-application-packages>
                     <package-name>com.fasterxml.jackson.*</package-name>
-                    <package-name>jakarta.xml.bind.*</package-name>
-                    <package-name>org.glassfish.jaxb.*</package-name>
                 </prefer-application-packages>
                 <prefer-application-resources>
                     <resource-name>META-INF/services/com.fasterxml.jackson.databind.Module</resource-name>
@@ -97,8 +88,8 @@ public class ConfigureJacksonClassloadingForSpring7
 
     @Override
     public String getDescription() {
-        return "Prefer application Jackson and Jakarta JAXB packages and Jackson module service providers so " +
-                "WebLogic does not load an incompatible legacy JAXB module.";
+        return "Prefer application Jackson packages and Jackson module service providers so WebLogic does not " +
+                "load an incompatible legacy JAXB module without overriding the server-managed JAXB runtime.";
     }
 
     @Override

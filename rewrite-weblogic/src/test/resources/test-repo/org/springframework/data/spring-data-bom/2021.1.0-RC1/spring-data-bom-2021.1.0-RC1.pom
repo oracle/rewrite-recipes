@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.springframework.data</groupId>
+  <artifactId>spring-data-bom</artifactId>
+  <version>2021.1.0-RC1</version>
+  <packaging>pom</packaging>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-jpa</artifactId>
+        <version>2.6.0-RC1</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+</project>

@@ -4,7 +4,7 @@ This project implements [OpenRewrite](https://docs.openrewrite.org) recipes for 
 
 Each folder of this project contains a group recipe that can contain multiple composite recipes. Each composite recipe is a set of recipes that you can use to migrate to a specific version of a product.
 
-Example: `rewrite-weblogic` is a group recipe that contains composite recipes, like ones to migrate your WebLogic applications to WebLogic 14.1.2 and Java 21, or to WebLogic 14.1.2 and Java 17. With each new version of WebLogic, a new composite recipe will be added, for example, to migrate to WebLogic 15.1.1.
+Example: `rewrite-weblogic` is a group recipe that contains composite recipes to migrate your WebLogic applications to releases such as WebLogic 26.1.0 with Java 21 or Java 25 and Jakarta EE 11, WebLogic 15.1.1 with Java 17 or Java 21 and Jakarta EE 9.1, or WebLogic 14.1.2 with Java 17 or Java 21.
 
 ## Getting Started
 

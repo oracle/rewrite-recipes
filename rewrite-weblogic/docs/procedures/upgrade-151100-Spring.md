@@ -1,5 +1,8 @@
 # Upgrade to WebLogic Server 15.1.1, Spring Framework 6.2.x, and Hibernate
 
+> [!IMPORTANT]
+> These examples use the development artifact `0.7.0-SNAPSHOT`. First [build and install the recipes and check the aligned versions](../../README.md#install-the-development-recipes). Apply the plugin configuration to your application, not to the recipe repository.
+
 The following procedure will apply the changes required for migrating applications to WebLogic Server 15.1.1.0.0, Jakarta EE 9.1, Spring Framework 6.2.x, and Hibernate.
 
 ## Prerequisites
@@ -7,7 +10,7 @@ The following procedure will apply the changes required for migrating applicatio
 The following is required to build and run this project:
 
 - JDK - For migration, version 17 or later; post-migration, you need the target JDK installed.
-- Maven (minimum version 3.6, with recommended version, 3.9.9) or Gradle (version 4.0+)
+- Maven 3.9.16, or a Gradle version compatible with the JDK running Gradle and the OpenRewrite plugin
 - Your code
 
 ## Get your code
@@ -41,8 +44,8 @@ For OpenRewrite to run, Maven dependencies must be resolved. If needed, run `mvn
 2. Run the following Maven command to run OpenRewrite:
 
    ```shell
-   mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-     -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:RELEASE,com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST,org.openrewrite.recipe:rewrite-spring:RELEASE,org.openrewrite.recipe:rewrite-hibernate:RELEASE \
+   mvn -U org.openrewrite.maven:rewrite-maven-plugin:6.27.0:run \
+     -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:3.25.0,com.oracle.weblogic.rewrite:rewrite-weblogic:0.7.0-SNAPSHOT,org.openrewrite.recipe:rewrite-spring:6.22.0,org.openrewrite.recipe:rewrite-hibernate:2.17.0 \
      -Drewrite.activeRecipes=org.openrewrite.java.migrate.UpgradeToJava21,com.oracle.weblogic.rewrite.JakartaEE9_1,com.oracle.weblogic.rewrite.UpgradeTo1511,com.oracle.weblogic.rewrite.spring.framework.UpgradeToSpringFramework_6_2,com.oracle.weblogic.rewrite.hibernate.MigrateHibernateToJakartaEE9 \
     -Drewrite.exportDatatables=true
    ```
@@ -59,7 +62,7 @@ For OpenRewrite to run, Maven dependencies must be resolved. If needed, run `mvn
 <plugin>
     <groupId>org.openrewrite.maven</groupId>
     <artifactId>rewrite-maven-plugin</artifactId>
-    <version>6.31</version>
+    <version>6.27.0</version>
     <configuration>
         <exportDatatables>true</exportDatatables>
         <activeRecipes>
@@ -74,22 +77,22 @@ For OpenRewrite to run, Maven dependencies must be resolved. If needed, run `mvn
         <dependency>
             <groupId>org.openrewrite.recipe</groupId>
             <artifactId>rewrite-migrate-java</artifactId>
-            <version>3.4.0</version>
+            <version>3.25.0</version>
         </dependency>
         <dependency>
             <groupId>com.oracle.weblogic.rewrite</groupId>
             <artifactId>rewrite-weblogic</artifactId>
-            <version>[0.6.0,)</version>
+            <version>0.7.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.openrewrite.recipe</groupId>
             <artifactId>rewrite-spring</artifactId>
-            <version>6.3.0</version>
+            <version>6.22.0</version>
         </dependency>
         <dependency>
             <groupId>org.openrewrite.recipe</groupId>
             <artifactId>rewrite-hibernate</artifactId>
-            <version>2.4.0</version>
+            <version>2.17.0</version>
         </dependency>
     </dependencies>
 </plugin>
@@ -98,7 +101,7 @@ For OpenRewrite to run, Maven dependencies must be resolved. If needed, run `mvn
 2. To run the recipe: `mvn rewrite:run`
 
 > [!TIP]  
-> If you just want to dry run the recipe without changing the code, use `mvn rewrite:DryRun`. For more details when using Maven, see [here](https://docs.openrewrite.org/reference/rewrite-maven-plugin).
+> If you just want to dry run the recipe without changing the code, use `mvn rewrite:dryRun`. For more details when using Maven, see [here](https://docs.openrewrite.org/reference/rewrite-maven-plugin).
 
 ### Run using Gradle
 
@@ -106,10 +109,11 @@ For OpenRewrite to run, Maven dependencies must be resolved. If needed, run `mvn
 
 ```
 plugins {
-    id("org.openrewrite.rewrite") version("7.2.0")
+    id("org.openrewrite.rewrite") version("7.19.0")
 }
 
 rewrite {
+    setRewriteVersion("8.71.0")
     activeRecipe("org.openrewrite.java.migrate.UpgradeToJava21")
     activeRecipe("com.oracle.weblogic.rewrite.JakartaEE9_1")
     activeRecipe("com.oracle.weblogic.rewrite.UpgradeTo1511")
@@ -119,14 +123,15 @@ rewrite {
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
 dependencies {
-    rewrite("org.openrewrite.recipe:rewrite-migrate-java:3.4.0")
-    rewrite("com.oracle.weblogic.rewrite:rewrite-weblogic:+")
-    rewrite("org.openrewrite.recipe:rewrite-spring:6.3.0")
-    rewrite("org.openrewrite.recipe:rewrite-hibernate:2.4.0")
+    rewrite("org.openrewrite.recipe:rewrite-migrate-java:3.25.0")
+    rewrite("com.oracle.weblogic.rewrite:rewrite-weblogic:0.7.0-SNAPSHOT")
+    rewrite("org.openrewrite.recipe:rewrite-spring:6.22.0")
+    rewrite("org.openrewrite.recipe:rewrite-hibernate:2.17.0")
 }
 ```
 2. Run `gradle rewriteRun` to run the recipe.

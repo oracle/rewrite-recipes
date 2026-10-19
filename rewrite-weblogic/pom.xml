@@ -5,7 +5,7 @@
 
   <groupId>com.oracle.weblogic.rewrite</groupId>
   <artifactId>rewrite-weblogic</artifactId>
-  <version>0.6.3</version>
+  <version>0.7.0-SNAPSHOT</version>
 
   <name>rewrite-weblogic</name>
   <description>Migrate your WebLogic applications to the latest version of WebLogic
@@ -37,6 +37,9 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <maven.compiler.release>17</maven.compiler.release>
+    <rewrite-recipe-bom.version>3.22.0</rewrite-recipe-bom.version>
+    <!-- Keep the plugin aligned with the OpenRewrite core in the recipe BOM. -->
+    <rewrite-maven-plugin.version>6.27.0</rewrite-maven-plugin.version>
   </properties>
 
   <dependencyManagement>
@@ -44,7 +47,7 @@
         <dependency>
             <groupId>org.openrewrite.recipe</groupId>
             <artifactId>rewrite-recipe-bom</artifactId>
-            <version>3.22.0</version>
+            <version>${rewrite-recipe-bom.version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -183,7 +186,7 @@
           <plugin>
               <groupId>org.openrewrite.maven</groupId>
               <artifactId>rewrite-maven-plugin</artifactId>
-              <version>6.15.0</version>
+              <version>${rewrite-maven-plugin.version}</version>
               <configuration>
                   <activeRecipes>com.oracle.weblogic.rewrite.RecipeBestPractices</activeRecipes>
                   <failOnDryRunResults>true</failOnDryRunResults>

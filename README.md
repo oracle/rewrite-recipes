@@ -8,6 +8,8 @@ Example: `rewrite-weblogic` is a group recipe that contains composite recipes to
 
 ## Getting Started
 
+For the WebLogic 26.1 development recipes, first follow the [build and install instructions](rewrite-weblogic/README.md#install-the-development-recipes). This checkout builds `rewrite-weblogic:0.7.0-SNAPSHOT`; the published `0.6.3` artifact does not contain the 26.1 recipes.
+
 Before getting started, select the recipe you want to use. Each recipe has its own README file that explains how to use it.
 
 | Recipe | Description |

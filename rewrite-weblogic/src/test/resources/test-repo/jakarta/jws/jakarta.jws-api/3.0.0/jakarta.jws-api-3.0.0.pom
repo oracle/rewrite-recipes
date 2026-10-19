@@ -6,6 +6,7 @@
     <groupId>jakarta.jws</groupId>
     <artifactId>jakarta.jws-api</artifactId>
     <version>3.0.0</version>
-    <packaging>jar</packaging>
+    <!-- Metadata-only fixture: resolve without a companion JAR. -->
+    <packaging>pom</packaging>
     <name>Stub POM for tests</name>
 </project>

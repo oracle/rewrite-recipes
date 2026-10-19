@@ -64,6 +64,8 @@ class UpgradeTo2610Test implements RewriteTest {
             throw new RuntimeException("Rewrite error", t);
         });
         MavenExecutionContextView mavenExecutionContext = MavenExecutionContextView.view(executionContext);
+        // Resolve fixture dependencies without relying on the developer's Maven cache.
+        mavenExecutionContext.setAddLocalRepository(false);
         MavenRepository localRepository = MavenRepository.builder()
                 .id("central")
                 .uri(new File("src/test/resources/test-repo").getAbsoluteFile().toURI().toString())

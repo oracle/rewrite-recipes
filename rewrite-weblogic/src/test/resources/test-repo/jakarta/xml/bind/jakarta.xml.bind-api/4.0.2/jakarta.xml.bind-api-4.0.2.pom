@@ -6,6 +6,7 @@
     <groupId>jakarta.xml.bind</groupId>
     <artifactId>jakarta.xml.bind-api</artifactId>
     <version>4.0.2</version>
-    <packaging>jar</packaging>
+    <!-- Metadata-only fixture: resolve without a companion JAR. -->
+    <packaging>pom</packaging>
     <name>Stub POM for tests</name>
 </project>

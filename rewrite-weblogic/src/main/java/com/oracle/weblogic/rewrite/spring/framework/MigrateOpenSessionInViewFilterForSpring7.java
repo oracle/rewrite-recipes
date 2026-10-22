@@ -89,17 +89,54 @@ public class MigrateOpenSessionInViewFilterForSpring7 extends Recipe {
             }
 
             private boolean hasExecutableUse(J.CompilationUnit cu) {
+                boolean importsLegacyFilter = cu.getImports().stream().anyMatch(anImport ->
+                        !anImport.isStatic() &&
+                                (HIBERNATE_FILTER.equals(anImport.getTypeName()) ||
+                                        "org.springframework.orm.hibernate5.support.*".equals(anImport.getTypeName())));
                 AtomicBoolean executableUse = new AtomicBoolean();
                 new JavaIsoVisitor<AtomicBoolean>() {
                     @Override
+                    public J.FieldAccess visitFieldAccess(J.FieldAccess fieldAccess, AtomicBoolean found) {
+                        if (!found.get() && isExecutableReference() &&
+                                fieldAccess.isFullyQualifiedClassReference(HIBERNATE_FILTER)) {
+                            found.set(true);
+                        }
+                        return super.visitFieldAccess(fieldAccess, found);
+                    }
+
+                    @Override
                     public J.Identifier visitIdentifier(J.Identifier identifier, AtomicBoolean found) {
-                        if (!found.get() &&
-                                getCursor().firstEnclosing(J.Import.class) == null &&
-                                getCursor().firstEnclosing(Javadoc.class) == null &&
-                                TypeUtils.isOfClassType(identifier.getType(), HIBERNATE_FILTER)) {
+                        if (!found.get() && isExecutableReference() &&
+                                (TypeUtils.isOfClassType(identifier.getType(), HIBERNATE_FILTER) ||
+                                        isUnresolvedLegacyReference(identifier))) {
                             found.set(true);
                         }
                         return identifier;
+                    }
+
+                    private boolean isExecutableReference() {
+                        return getCursor().firstEnclosing(J.Import.class) == null &&
+                                getCursor().firstEnclosing(Javadoc.class) == null;
+                    }
+
+                    private boolean isUnresolvedLegacyReference(J.Identifier identifier) {
+                        // A fresh parse after upgrading to Spring 7 cannot resolve the removed class.
+                        // Missing type attribution is not evidence that its import is unused.
+                        if (!importsLegacyFilter ||
+                                !"OpenSessionInViewFilter".equals(identifier.getSimpleName()) ||
+                                identifier.getFieldType() != null ||
+                                (identifier.getType() != null && !(identifier.getType() instanceof JavaType.Unknown))) {
+                            return false;
+                        }
+                        Object parent = getCursor().getParentTreeCursor().getValue();
+                        // Qualified names are checked as a whole by visitFieldAccess. Method names
+                        // with the same spelling are not references to the imported class.
+                        return !(parent instanceof J.FieldAccess &&
+                                ((J.FieldAccess) parent).getName() == identifier) &&
+                                !(parent instanceof J.MethodDeclaration &&
+                                        ((J.MethodDeclaration) parent).getName() == identifier) &&
+                                !(parent instanceof J.MethodInvocation &&
+                                        ((J.MethodInvocation) parent).getName() == identifier);
                     }
                 }.visit(cu, executableUse);
                 return executableUse.get();

@@ -1,5 +1,8 @@
 # What is WebLogic Server application upgrade tooling?
 
+> [!IMPORTANT]
+> These examples use the development artifact `0.7.0-SNAPSHOT`. First [build and install the recipes and check the aligned versions](../../README.md#install-the-development-recipes). Apply the plugin configuration to your application, not to the recipe repository.
+
 WebLogic Server application upgrade tooling employs [Rewrite WebLogic](https://github.com/oracle/rewrite-recipes/blob/main/rewrite-weblogic/README.md#recipes) recipes that perform the functions you need to successfully upgrade your applications. Rewrite WebLogic recipes automate application upgrades, such as the changes needed for WebLogic version upgrades, JDK upgrades, Jakarta EE upgrades, and Spring Framework upgrades. Application upgrades can be complex. By using automated code updates, you reduce the risk of human error.
 
 Rewrite WebLogic is part of a larger, [OpenRewrite](https://github.com/openrewrite/rewrite) project, a popular open source code refactoring automation framework. There you'll find lots of community recipes, recipes that are customizable and extensible for your own use. Recipes from Oracle are supported by Oracle.
@@ -16,15 +19,16 @@ OpenRewrite [recipes](https://docs.openrewrite.org/concepts-and-explanations/rec
 
 The rewrite process driven by Maven or Gradle. You call [Rewrite WebLogic recipes](../../docs/recipes/README.md) on your code folder using the Maven or Gradle CLI, or by including them as a build plug-in in your `pom.xml` file. Recipes are activated, marked as `activeRecipes`, on the command line or in the `pom.xml` or `build.gradle` file, then you trigger running the activated recipe with the appropriate Maven or Gradle `run` command.
 
-For example:
-```
-mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \ <- Command to launch OpenRewrite tool
+For example, after installing the development recipes, run this command from the application directory:
 
-  -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:RELEASE,com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \ <- Recipe dependencies
-
-  -Drewrite.activeRecipes=,org.openrewrite.java.migrate.UpgradeToJava21,com.oracle.weblogic.rewrite.JakartaEE9_1,com.oracle.weblogic.rewrite.UpgradeTo1511 \ <- Recipe list
-  -Drewrite.exportDatatables=true \ <- Optional entry to generate csv of what is changed
+```shell
+mvn -U org.openrewrite.maven:rewrite-maven-plugin:6.27.0:dryRun \
+  -Drewrite.recipeArtifactCoordinates=org.openrewrite.recipe:rewrite-migrate-java:3.25.0,com.oracle.weblogic.rewrite:rewrite-weblogic:0.7.0-SNAPSHOT \
+  -Drewrite.activeRecipes=org.openrewrite.java.migrate.UpgradeToJava21,com.oracle.weblogic.rewrite.JakartaEE9_1,com.oracle.weblogic.rewrite.UpgradeTo1511 \
+  -Drewrite.exportDatatables=true
 ```
+
+The goal selects the tool version, `recipeArtifactCoordinates` selects the recipe artifacts, `activeRecipes` selects the recipes to run, and `exportDatatables` enables CSV results. Replace `:dryRun` with `:run` to apply the proposed changes after review.
 For more information, see [How to run recipes](../../docs/procedures/README.md).
 
 ## Troubleshooting

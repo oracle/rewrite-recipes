@@ -1,6 +1,9 @@
 # Migrate to WebLogic 15.1.1
 **com.oracle.weblogic.rewrite.UpgradeTo1511**
 
+> [!IMPORTANT]
+> These examples use the development artifact `0.7.0-SNAPSHOT`. First [build and install the recipes and check the aligned versions](../../README.md#install-the-development-recipes). Apply the plugin configuration to your application, not to the recipe repository.
+
 This recipe applies the changes required for migrating applications to WebLogic Server 15.1.1.0.0.
 
 ### Tags:
@@ -32,7 +35,7 @@ This recipe will update the WebLogic version to 15.1.1 for the Maven build and f
 <plugin>
     <groupId>org.openrewrite.maven</groupId>
     <artifactId>rewrite-maven-plugin</artifactId>
-    <version>6.3.1</version>
+    <version>6.27.0</version>
     <configuration>
         <exportDatatables>true</exportDatatables>
         <activeRecipes>
@@ -43,12 +46,12 @@ This recipe will update the WebLogic version to 15.1.1 for the Maven build and f
         <dependency>
             <groupId>org.openrewrite.recipe</groupId>
             <artifactId>rewrite-migrate-java</artifactId>
-            <version>3.4.0</version>
+            <version>3.25.0</version>
         </dependency>
         <dependency>
             <groupId>com.oracle.weblogic.rewrite</groupId>
             <artifactId>rewrite-weblogic</artifactId>
-            <version>[0.4.5,)</version>
+            <version>0.7.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </plugin>
@@ -57,7 +60,7 @@ This recipe will update the WebLogic version to 15.1.1 for the Maven build and f
 2. Run `mvn rewrite:run` to run the recipe.
 
 > [!TIP]  
-> If you just want to dry run the recipe without changing the code, use `mvn rewrite:DryRun`. For more details when using Maven, see [here](https://docs.openrewrite.org/reference/rewrite-maven-plugin).
+> If you just want to dry run the recipe without changing the code, use `mvn rewrite:dryRun`. For more details when using Maven, see [here](https://docs.openrewrite.org/reference/rewrite-maven-plugin).
 
 #### Gradle
 
@@ -65,21 +68,23 @@ This recipe will update the WebLogic version to 15.1.1 for the Maven build and f
 
 ```
 plugins {
-    id("org.openrewrite.rewrite") version("7.2.0")
+    id("org.openrewrite.rewrite") version("7.19.0")
 }
 
 rewrite {
+    setRewriteVersion("8.71.0")
     activeRecipe("com.oracle.weblogic.rewrite.UpgradeTo1511")
     setExportDatatables(true)
 }
 
 repositories {
+    mavenLocal()
     mavenCentral()
 }
 
 dependencies {
-    rewrite("org.openrewrite.recipe:rewrite-migrate-java:3.4.0")
-    rewrite("com.oracle.weblogic.rewrite:rewrite-weblogic:+")
+    rewrite("org.openrewrite.recipe:rewrite-migrate-java:3.25.0")
+    rewrite("com.oracle.weblogic.rewrite:rewrite-weblogic:0.7.0-SNAPSHOT")
 }
 ```
 2. Run `gradle rewriteRun` to run the recipe.
@@ -93,8 +98,8 @@ dependencies {
 > You will need to have [Maven](https://maven.apache.org/download.cgi) installed on your machine before you can run the following command.
 
 ```
-mvn -U org.openrewrite.maven:rewrite-maven-plugin:run \
-  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:LATEST \
+mvn -U org.openrewrite.maven:rewrite-maven-plugin:6.27.0:run \
+  -Drewrite.recipeArtifactCoordinates=com.oracle.weblogic.rewrite:rewrite-weblogic:0.7.0-SNAPSHOT \
   -Drewrite.activeRecipes=com.oracle.weblogic.rewrite.UpgradeTo1511 \
   -Drewrite.exportDatatables=true
   ```
